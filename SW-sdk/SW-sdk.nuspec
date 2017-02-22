@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <title>$title$</title>
+        <authors>$author$</authors>
+        <owners>$author$</owners>
+        <projectUrl>https://sw.com.mx/</projectUrl>
+        <iconUrl>http://sufacturacion.mx/cdn/sw_logo.jpg</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>$description$</description>
+        <releaseNotes>CFDI SDK</releaseNotes>
+        <tags>cfdi factura electronica sat sdk</tags>
+        <dependencies>
+            <dependency id="RestSharp" version="105.2.3" />
+        </dependencies>
+    </metadata>
+</package>
