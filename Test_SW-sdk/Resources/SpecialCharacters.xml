@@ -5,7 +5,7 @@
 	</cfdi:Emisor>
 	<cfdi:Receptor nombre="JOSE ' ANTONIO GABALDON LOPEZ" rfc="GALA630720712"/>
 	<cfdi:Conceptos>
-		<cfdi:Concepto cantidad="1" descripcion="Pago de nómina" importe="3500.00" unidad="ACT" valorUnitario="3500.00"/>
+		<cfdi:Concepto cantidad="1" descripcion="Pago de nómina&" importe="3500.00" unidad="ACT" valorUnitario="3500.00"/>
 	</cfdi:Conceptos>
 	<cfdi:Impuestos/>
 	<cfdi:Complemento>

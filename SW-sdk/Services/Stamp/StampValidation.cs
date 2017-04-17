@@ -65,26 +65,12 @@ namespace SW.Services.Stamp
                         case XmlNodeType.Element:
                             while (reader.MoveToNextAttribute())
                             {
-                                switch (reader.NodeType)
-                                {
-                                    case XmlNodeType.Attribute:
-                                        ValidateSpecialCharacters(reader.Value.ToString());
-                                        break;
-                                }
                             }
                             break;
                     }
                 }
             }
         }
-        private void ValidateSpecialCharacters(string value)
-        {
-            Regex regex = new Regex("[&'<\">]");
-            Match match = regex.Match(value);
-            if (match.Success)
-            {
-                throw new ServicesException("Tu XML tiene caracteres que no estan codifcados correctamente en UTF-8 "+ value);
-            }
-        }
+       
     }
 }
