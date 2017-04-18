@@ -121,7 +121,7 @@ namespace Test_SW.Services.Stamp_Test
         [TestMethod]
         public void ValidateSpecialCharactersFromXML()
         {
-            resultExpect = "Tu XML tiene caracteres que no estan codifcados correctamente en UTF-8";
+            resultExpect = "Tu XML no tiene codificacion UTF-8";
             Build = new BuildSettings();
             Stamp stamp = new Stamp(Build.Url, Build.Token);
             xml = File.ReadAllText("Resources/SpecialCharacters.xml");

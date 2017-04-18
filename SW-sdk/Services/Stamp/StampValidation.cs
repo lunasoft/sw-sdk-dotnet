@@ -31,7 +31,6 @@ namespace SW.Services.Stamp
                 if (!string.IsNullOrEmpty(_xmlString))
                 {
                     ValidateEncoding();
-                    ValidateStructure();
                 }else
                 {
                     throw new ServicesException("Tu XML esta vacio");
@@ -39,7 +38,7 @@ namespace SW.Services.Stamp
             }
             catch (XmlException ex)
             {
-                throw new ServicesException("No es un XML Valido");
+                throw new ServicesException("No es un XML Valido "+ ex.Message);
             }
         }
         private void ValidateEncoding()
@@ -53,38 +52,6 @@ namespace SW.Services.Stamp
             {
                 throw new ServicesException("Tu XML no tiene codificacion UTF-8");
             }
-        }
-        private void ValidateStructure()
-        {
-            using (XmlReader reader = XmlReader.Create(new StringReader(_xmlString)))
-            {
-                while (reader.Read())
-                {
-                    switch (reader.NodeType)
-                    {
-                        case XmlNodeType.Element:
-                            while (reader.MoveToNextAttribute())
-                            {
-                                switch (reader.NodeType)
-                                {
-                                    case XmlNodeType.Attribute:
-                                        ValidateSpecialCharacters(reader.Value.ToString());
-                                        break;
-                                }
-                            }
-                            break;
-                    }
-                }
-            }
-        }
-        private void ValidateSpecialCharacters(string value)
-        {
-            Regex regex = new Regex("[&'<\">]");
-            Match match = regex.Match(value);
-            if (match.Success)
-            {
-                throw new ServicesException("Tu XML tiene caracteres que no estan codifcados correctamente en UTF-8 "+ value);
-            }
-        }
+        }       
     }
 }
