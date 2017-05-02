@@ -69,6 +69,8 @@ namespace SW.Helpers
                     throw new ServicesException("Url Invalida");
                 case HttpStatusCode.Forbidden:
                     throw new ServicesException("Token Expirado");
+                case HttpStatusCode.BadRequest:
+                    break;
                 default:
                     throw new ServicesException("Hubo un Error al procesar tu solicitud - " + statusCode.ToString());
             }
