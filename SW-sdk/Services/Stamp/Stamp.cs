@@ -25,7 +25,7 @@ namespace SW.Services.Stamp
         {
             service = SetupRequest();
             RestRequest request = new RestRequest("cfdi33/stamp/{version}", Method.POST);
-            request.AddHeader("Authorization", Token);
+            request.AddHeader("Authorization", "Bearer "+Token);
             request.AddUrlSegment("version", version);
             request.AddFileBytes("xml", xml,"xml");
             return request;

@@ -35,7 +35,6 @@ namespace Test_SW.Services.Stamp_Test
             }
         }
         [TestMethod]
-        [Ignore]
         public void StampXMLV1()
         {
             Build = new BuildSettings();
@@ -46,7 +45,6 @@ namespace Test_SW.Services.Stamp_Test
             Assert.IsTrue(!string.IsNullOrEmpty(response.Data.tfd));
         }
         [TestMethod]
-        [Ignore]
         public void StampXMLV1byToken()
         {
             Build = new BuildSettings();
@@ -57,25 +55,67 @@ namespace Test_SW.Services.Stamp_Test
             Assert.IsTrue(!string.IsNullOrEmpty(response.Data.tfd));
         }
         [TestMethod]
-        [Ignore]
+        public void StampXMLV1Base64()
+        {
+            Build = new BuildSettings();
+            GetEnviromentVariables();
+            Stamp stamp = new Stamp(Build.Url, Build.User, Build.Password);
+            var xmlBase = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml")));
+            xml = Convert.ToBase64String(xmlBase);
+            var response = stamp.TimbrarBase64(xml, StampTypes.v1);
+            Assert.IsTrue(!string.IsNullOrEmpty(response.Data.tfd));
+        }
+        [TestMethod]
+        public void StampXMLV1Base64byToken()
+        {
+            Build = new BuildSettings();
+            GetEnviromentVariables();
+            Stamp stamp = new Stamp(Build.Url, Build.Token);
+            var xmlBase = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml")));
+            xml = Convert.ToBase64String(xmlBase);
+            var response = stamp.TimbrarBase64(xml, StampTypes.v1);
+            Assert.IsTrue(!string.IsNullOrEmpty(response.Data.tfd));
+        }
+        [TestMethod]
         public void StampXMLV2()
         {
             Build = new BuildSettings();
             GetEnviromentVariables();
             Stamp stamp = new Stamp(Build.Url, Build.User, Build.Password);
-            xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/fileBase64.xml"));
-            var response = stamp.TimbrarBase64(xml, StampTypes.v1);
+            xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
+            var response = stamp.Timbrar(xml, StampTypes.v2);
             Assert.IsTrue(!string.IsNullOrEmpty(response.Data.cfdi));
         }
         [TestMethod]
-        [Ignore]
         public void StampXMLV2byToken()
         {
             Build = new BuildSettings();
             GetEnviromentVariables();
             Stamp stamp = new Stamp(Build.Url, Build.Token);
-            xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/fileBase64.xml"));
-            var response = stamp.TimbrarBase64(xml, StampTypes.v1);
+            xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
+            var response = stamp.Timbrar(xml, StampTypes.v2);
+            Assert.IsTrue(!string.IsNullOrEmpty(response.Data.cfdi));
+        }
+        [TestMethod]
+        public void StampXMLV2Base64()
+        {
+            Build = new BuildSettings();
+            GetEnviromentVariables();
+            Stamp stamp = new Stamp(Build.Url, Build.User, Build.Password);
+            var xmlBase = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml")));
+            xml = Convert.ToBase64String(xmlBase);
+            var response = stamp.TimbrarBase64(xml, StampTypes.v2);
+            Assert.IsTrue(!string.IsNullOrEmpty(response.Data.cfdi));
+        }
+        [TestMethod]
+        public void StampXMLV2Base64byToken()
+        {
+            Build = new BuildSettings();
+            GetEnviromentVariables();
+            Stamp stamp = new Stamp(Build.Url, Build.Token);
+            var xmlBase = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml")));
+            xml = Convert.ToBase64String(xmlBase);
+            var response = stamp.TimbrarBase64(xml, StampTypes.v2);
             Assert.IsTrue(!string.IsNullOrEmpty(response.Data.cfdi));
         }
         [TestMethod]
@@ -139,7 +179,6 @@ namespace Test_SW.Services.Stamp_Test
             Assert.AreEqual(response.Message, (string)resultExpect, (string)resultExpect);
         }
         [TestMethod]
-        [Ignore]
         public void MultipleStampXMLV1byToken()
         {
             Build = new BuildSettings();

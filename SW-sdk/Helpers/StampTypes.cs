@@ -2,6 +2,7 @@
 {
     public enum StampTypes
     {
-        v1 = 0
+        v1 = 0,
+        v2 = 1
     }
 }

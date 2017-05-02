@@ -11,7 +11,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
         <releaseNotes>CFDI SDK</releaseNotes>
-        <tags>cfdi factura electronica sat sdk</tags>
+        <tags>cfdi factura electronica sat sdk version 33 3.3 libreria sharp SW sw-sdk smarter web smart</tags>
         <dependencies>
             <dependency id="RestSharp" version="105.2.3" />
         </dependencies>
