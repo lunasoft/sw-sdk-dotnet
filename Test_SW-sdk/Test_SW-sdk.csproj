@@ -71,6 +71,18 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_1.xml" />
+    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_big.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_ComercioExterior.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_nomina.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_pago10.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\fileANSI.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
