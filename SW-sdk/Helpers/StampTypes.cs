@@ -1,8 +1,10 @@
 ﻿namespace SW.Helpers
 {
-    public enum StampTypes
+    internal enum StampTypes
     {
-        v1 = 0,
-        v2 = 1
+        v1,
+        v2,
+        v3,
+        v4
     }
 }

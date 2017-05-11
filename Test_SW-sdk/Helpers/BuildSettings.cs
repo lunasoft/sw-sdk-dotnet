@@ -7,7 +7,7 @@ namespace Test_SW.Helpers
 {
     class BuildSettings
     {
-        public string Url = "http://services.test.sw.com.mx";
+        public string Url = "http://services.test.sw.com.mx";        
         public string User = "demo";
         public string Password = "123456789";
         public string CerPassword = "123456789";

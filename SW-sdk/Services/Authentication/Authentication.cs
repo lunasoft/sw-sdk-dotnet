@@ -6,53 +6,25 @@ namespace SW.Services.Authentication
 {
     public class Authentication : AuthenticationService
     {
-        private AuthResponse authResponse;
-        private RestClient client;
+        AuthenticationResponseHandler _handler;
         public Authentication(string url, string user, string password) : base(url, user, password)
         {
-            authResponse = new AuthResponse();
+            _handler = new AuthenticationResponseHandler();
         }
-
-        private void BuildSettings()
-        {
-            client = new RestClient(Url);
-        }
-
         public override AuthResponse GetToken()
         {
             try
             {
                 new AuthenticationValidation(Url, User, Password, Token);
-                BuildSettings();
                 var request = new RestRequest("security/authenticate", Method.POST);
                 request.AddHeader("user", User);
                 request.AddHeader("password", Password);
-                IRestResponse<AuthResponse> response = client.Execute<AuthResponse>(request);
-                if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                {
-                    new Validation().ValidateResponseStatus(response.StatusCode);
-                }
-                authResponse = response.Data;
-            }
-            catch (ServicesException e)
-            {
-                authResponse.Status = ResponseType.Fail;
-                authResponse.Message = e.Message;
-            }
-            catch (TestEnviromentException)
-            {
-                authResponse.Status = ResponseType.Success;
-                authResponse.Data = new Data()
-                {
-                    token = new DataDemoResponse().Authentication()
-                };
+                return (AuthResponse)_handler.GetResponse(this.Client, request);
             }
             catch (Exception e)
             {
-                authResponse.Status = ResponseType.Error;
-                authResponse.Message = e.Message;
+                return (AuthResponse)_handler.HandleException(e);
             }
-            return authResponse;
         }
     }
 }

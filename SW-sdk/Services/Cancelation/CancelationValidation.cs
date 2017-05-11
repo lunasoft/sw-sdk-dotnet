@@ -10,28 +10,31 @@ namespace SW.Services.Cancelation
         }
         public void ValidateRequest(string Certificado, string Key, string Contraseña, string[] uuids)
         {
-            if(uuids.Length == 0)
+            if (uuids.Length == 0)
             {
                 throw new ServicesException("Faltan especificar los UUIDs a Cancelar");
             }
-            if(string.IsNullOrEmpty(Certificado))
+            if (string.IsNullOrEmpty(Certificado))
             {
                 throw new ServicesException("Falta Capturar el Certificado");
-            }else
+            }
+            else
             {
-                ValidateIsBase64("Certificado",Certificado);
+                ValidateIsBase64("Certificado", Certificado);
             }
             if (string.IsNullOrEmpty(Key))
             {
                 throw new ServicesException("Falta Capturar Key del Certificado");
-            }else
+            }
+            else
             {
                 ValidateIsBase64("Key", Key);
             }
             if (string.IsNullOrEmpty(Contraseña))
             {
                 throw new ServicesException("Falta Capturar Contraseña del Certificado");
-            }else
+            }
+            else
             {
                 ValidateIsBase64("Contraseña", Contraseña);
             }
@@ -42,9 +45,9 @@ namespace SW.Services.Cancelation
             {
                 Convert.FromBase64String(value);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new ServicesException("Tu " + key + " no es Base64");
+                throw new ServicesException("El valor " + key + " no es Base64");
             }
         }
     }
