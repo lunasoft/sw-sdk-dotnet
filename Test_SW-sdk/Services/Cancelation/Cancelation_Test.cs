@@ -62,7 +62,7 @@ namespace Test_SW.Services.Cancelation_Test
             Build.UUIDs = new string[0];
             Cancelation cancelation = new Cancelation(Build.Url, Build.User, Build.Password);
             var response = cancelation.Cancelar(CancelationTypes.v1, Build.Cer, Build.Key, Build.CerPassword, Build.UUIDs);
-            Assert.AreEqual(response.Message, (string)resultExpect, (string)resultExpect);
+            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
         }
         [TestMethod]
         public void ValidateExistCer()
@@ -71,7 +71,7 @@ namespace Test_SW.Services.Cancelation_Test
             Build = new BuildSettings();
             Cancelation cancelation = new Cancelation(Build.Url, Build.User, Build.Password);
             var response = cancelation.Cancelar(CancelationTypes.v1, "", Build.Key, Build.CerPassword, Build.UUIDs);
-            Assert.AreEqual(response.Message, (string)resultExpect, (string)resultExpect);
+            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
         }
         [TestMethod]
         public void ValidateExistKey()
@@ -80,7 +80,7 @@ namespace Test_SW.Services.Cancelation_Test
             Build = new BuildSettings();
             Cancelation cancelation = new Cancelation(Build.Url, Build.User, Build.Password);
             var response = cancelation.Cancelar(CancelationTypes.v1, Build.Cer, "" , Build.CerPassword, Build.UUIDs);
-            Assert.AreEqual(response.Message, (string)resultExpect, (string)resultExpect);
+            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
         }
         [TestMethod]
         public void ValidateExistPassword()
@@ -89,25 +89,25 @@ namespace Test_SW.Services.Cancelation_Test
             Build = new BuildSettings();
             Cancelation cancelation = new Cancelation(Build.Url, Build.User, Build.Password);
             var response = cancelation.Cancelar(CancelationTypes.v1, Build.Cer, Build.Key, "", Build.UUIDs);
-            Assert.AreEqual(response.Message, (string)resultExpect, (string)resultExpect);
+            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
         }
         [TestMethod]
         public void ValidateIsBase64Cer()
         {
-            resultExpect = "Tu Certificado no es Base64";
+            resultExpect = "El valor Certificado no es Base64";
             Build = new BuildSettings();
             Cancelation cancelation = new Cancelation(Build.Url, Build.User, Build.Password);
             var response = cancelation.Cancelar(CancelationTypes.v1, "541", Build.Key, Build.CerPassword, Build.UUIDs);
-            Assert.AreEqual(response.Message, (string)resultExpect, (string)resultExpect);
+            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
         }
         [TestMethod]
         public void ValidateIsBase64Key()
         {
-            resultExpect = "Tu Key no es Base64";
+            resultExpect = "El valor Key no es Base64";
             Build = new BuildSettings();
             Cancelation cancelation = new Cancelation(Build.Url, Build.User, Build.Password);
             var response = cancelation.Cancelar(CancelationTypes.v1, Build.Cer, "123", Build.CerPassword, Build.UUIDs);
-            Assert.AreEqual(response.Message, (string)resultExpect, (string)resultExpect);
+            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
         }
     }
 }

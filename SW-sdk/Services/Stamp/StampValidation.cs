@@ -33,7 +33,7 @@ namespace SW.Services.Stamp
                     ValidateEncoding();
                 }else
                 {
-                    throw new ServicesException("Tu XML esta vacio");
+                    throw new ServicesException("XML esta vacio");
                 }
             }
             catch (XmlException ex)
@@ -48,9 +48,9 @@ namespace SW.Services.Stamp
                 XmlDocument xDoc = new XmlDocument();
                 xDoc.Load(new MemoryStream(Encoding.UTF8.GetBytes(_xmlString)));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new ServicesException("Tu XML no tiene codificacion UTF-8");
+                throw new ServicesException("XML no tiene codificacion UTF-8");
             }
         }       
     }

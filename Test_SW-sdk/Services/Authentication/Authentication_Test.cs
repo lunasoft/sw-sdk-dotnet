@@ -45,7 +45,7 @@ namespace Test_SW.Services.Authentication_Test
             resultExpect = "Falta Capturar Usuario";
             Authentication auth = new Authentication(Build.Url, "", Build.Password);
             var response = auth.GetToken();
-            Assert.AreEqual(response.Message, (string)resultExpect, (string)resultExpect);
+            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
         }
         [TestMethod]
         public void ValidateExistPassword()
@@ -54,7 +54,7 @@ namespace Test_SW.Services.Authentication_Test
             resultExpect = "Falta Capturar Contraseña";
             Authentication auth = new Authentication(Build.Url, Build.User, "");
             var response = auth.GetToken();
-            Assert.AreEqual(response.Message, (string)resultExpect, (string)resultExpect);
+            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
         }
         [TestMethod]
         public void ValidateExistUrl()
@@ -63,7 +63,7 @@ namespace Test_SW.Services.Authentication_Test
             resultExpect = "Falta Capturar URL";
             Authentication auth = new Authentication("", Build.User, Build.Password);
             var response = auth.GetToken();
-            Assert.AreEqual(response.Message, (string)resultExpect, (string)resultExpect);
+            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
         }
     }
 }

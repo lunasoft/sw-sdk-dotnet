@@ -2,8 +2,7 @@
 {
     public enum ResponseType
     {
-        Success = 0,
-        Fail = 1,
-        Error = 3
+        success = 0,        
+        error = 3
     }
 }
