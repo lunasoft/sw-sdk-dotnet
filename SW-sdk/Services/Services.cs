@@ -53,7 +53,7 @@ namespace SW.Services
             {
                 Authentication.Authentication auth = new Authentication.Authentication(Url,User,Password);
                 var response = auth.GetToken();
-                if (response.Status == ResponseType.Success)
+                if (response.status == ResponseType.success.ToString())
                 {
                     _token = response.Data.token;
                     _expirationDate = DateTime.Now.AddHours(_timeSession);

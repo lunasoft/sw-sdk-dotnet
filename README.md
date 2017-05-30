@@ -1,6 +1,6 @@
 ![NET](http://resources.workable.com/wp-content/uploads/2015/08/Microsoft-dotNET-logo.jpg)
-
-A continuación encontrara la documentación necesaria para consumir nuestro SDK de servicios proveido por **SmarterWeb** para Timbrado de **CFDI 3.3**
+![NET](https://smarterwebci.visualstudio.com/_apis/public/build/definitions/402b9165-314f-4f5f-8073-9ae3a2e962ef/23/badge)
+##### Servicios de Timbrado para documentos CFDI a traves del Proveedor de Certificación de CFDI  **SW SmarterWeb**
 
 Compatibilidad
 -------------
@@ -11,20 +11,20 @@ Dependencias
 ------------
 * [RestSharp](http://restsharp.org/)
 
+Documentación
+------------
+* [Inicio Rápido](http://developers.sw.com.mx/knowledge-base/cfdi-33/)
+* [Libreria dot-net](http://developers.sw.com.mx/article-categories/csharp/)
+* [Documentacion Oficial Servicios](http://developers.sw.com.mx)
+ 
 ----------------
 Instalaci&oacute;n
 ---------
-Para poder hacer uso de nuestro SDK de servicios primero tenemos que añadir la referencia de los respositorios de nuget proveidos por **SmarterWeb**.
-
-#### Instalar la libreria (SDK) #####
-
-* Paso 1:
-Abrir la consola de **Pacakge Manager Console** dentro de visual studio
-* Paso 2:
-Escribir en la consola **Install-Package SW-sdk**
-* Paso 4:
-Usted debera ver un mensaje de confirmacion diciendo **Successfully installed 'SW-sdk 0.0.0.1'**
-
+Instalar la libreria a traves Package Manager Console [nuget.org](https://www.nuget.org/packages/SW-sdk)
+```cs
+Install-Package SW-sdk
+```
+En caso de no utilizar Package Manager Console puedes descargar la libreria directamente a traves del siguiente [link](https://github.com/lunasoft/sw-sdk-dotnet/releases) y agregarla como Referencia local a tu proyecto. Asegurate de utilizar la ultima version publicada.
 
 Implementaci&oacute;n
 ---------
@@ -85,17 +85,18 @@ namespace ExampleSDK
                 //Automaticamente despues de obtenerlo se procedera a timbrar el xml
                 Stamp stamp = new Stamp("http://services.test.sw.com.mx", "demo", "123456789");
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
-                StampResponse response = stamp.Timbrar(xml, StampTypes.v1);
+                StampResponseV1 response = stamp.TimbrarV1(xml);
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
             }
         }
     }
 }
 ```
 
-**Timbrar XML en formato string utilizando token**
+**Timbrar XML en formato string utilizando token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
 ```cs
 using System;
 using System.IO;
@@ -114,9 +115,9 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Stamp 
                 //A esta le pasamos la Url y su Token infinito 
                 //Este lo puede obtener ingresando al administrador de timbres con su usuario y contraseña
-                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R....");
+                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
-                StampResponse response = stamp.Timbrar(xml, StampTypes.v1);
+                StampResponseV1 response = stamp.TimbrarV1(xml);
             }
             catch (Exception e)
             {
@@ -145,9 +146,10 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Stamp 
                 //A esta le pasamos la Url y su Token infinito 
                 //Este lo puede obtener ingresando al administrador de timbres con su usuario y contraseña
-                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R....");
-                string xmlBase64 = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4....";
-                StampResponse response = stamp.TimbrarBase64(xmlBase64, StampTypes.v1);
+                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
+                xml = Convert.ToBase64String(xmlBase);
+                StampResponseV1 response = stamp.TimbrarV1(xml, true);
             }
             catch (Exception e)
             {
@@ -156,3 +158,7 @@ namespace ExampleSDK
     }
 }
 ```
+
+Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
+
+Si deseas contribuir a la libreria o tienes dudas envianos un correo a **soporte@sw.com.mx**.

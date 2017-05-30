@@ -22,18 +22,11 @@ namespace SW.Helpers
         public void ValidateHeaderParameters()
         {
             if (string.IsNullOrEmpty(_url))
-            {
                 throw new ServicesException("Falta Capturar URL");
-            }else
-            {
-                if (_url == "demoApi")
-                {
-                    throw new TestEnviromentException();
-                }
-            } 
+
             if (string.IsNullOrEmpty(_token))
             {
-                if(string.IsNullOrEmpty(_user) && string.IsNullOrEmpty(_password))
+                if (string.IsNullOrEmpty(_user) && string.IsNullOrEmpty(_password))
                 {
                     throw new ServicesException("Falta Capturar Token");
                 }
@@ -57,22 +50,6 @@ namespace SW.Helpers
             if (validToken.Length != 3)
             {
                 throw new ServicesException("Token Mal Formado");
-            }
-        }
-        public void ValidateResponseStatus(HttpStatusCode statusCode)
-        {
-            switch (statusCode)
-            {
-                case HttpStatusCode.InternalServerError:
-                    break;
-                case HttpStatusCode.NotFound:
-                    throw new ServicesException("Url Invalida");
-                case HttpStatusCode.Forbidden:
-                    throw new ServicesException("Token Expirado");
-                case HttpStatusCode.BadRequest:
-                    break;
-                default:
-                    throw new ServicesException("Hubo un Error al procesar tu solicitud - " + statusCode.ToString());
             }
         }
     }
