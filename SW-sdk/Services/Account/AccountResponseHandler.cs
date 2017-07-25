@@ -1,18 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using RestSharp;
 using SW.Helpers;
 
-namespace SW.Services.Cancelation
+namespace SW.Services.Account
 {
-    public class CanelationResponseHandler : IResponseHandler
+    public class BalanceAccountResponseHandler : IResponseHandler
     {
         public Response GetResponse(RestClient client, RestRequest request)
         {
-            IRestResponse<CancelationResponse> response = client.Execute<CancelationResponse>(request);
+            IRestResponse<AccountResponse> response = client.Execute<AccountResponse>(request);
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 if (string.IsNullOrEmpty(response.Content) || response.Data == null)
-                    return new CancelationResponse()
+                    return new AccountResponse()
                     {
                         message = ((int)response.StatusCode).ToString(),
                         status = "error",

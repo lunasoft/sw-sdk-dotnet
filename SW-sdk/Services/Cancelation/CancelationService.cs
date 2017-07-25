@@ -11,8 +11,35 @@ namespace SW.Services.Cancelation
         protected CancelationService(string url, string token) : base(url, token)
         {
         }
-        public abstract CancelationResponse Cancelar(CancelationTypes cancelationTypes, string cer, string key,
-                                                                                      string password, string[] uuids);
+        internal abstract Response Cancelar(string cer, string key, string rfc, string password, string uuid);
+        internal abstract Response Cancelar(byte[] acuse);
+
+        internal virtual RestRequest RequestCancelar(string cer, string key, string rfc, string password, string uuid)
+        {
+            this.SetupRequest();
+            RestRequest request = new RestRequest("/cfdi33/cancel/csd", Method.POST);
+            request.AddHeader("Content-type", "application/json");
+            request.AddHeader("Authorization", "Bearer " + Token);
+            request.AddJsonBody(
+                new
+                {
+                    uuid = uuid,
+                    password = password,
+                    rfc = rfc,
+                    b64Cer = cer,
+                    b64Key = key
+                });
+            
+            return request;
+        }
+        internal virtual RestRequest RequestCancelar(byte[] acuse)
+        {
+            this.SetupRequest();
+            RestRequest request = new RestRequest("/cfdi33/cancel/xml", Method.POST);
+            request.AddHeader("Authorization", "Bearer " + Token);
+            request.AddFileBytes("xml", acuse, "xml");
+            return request;
+        }
         private readonly object mutex = new object();
         private RestClient _client;
         public RestClient Client
