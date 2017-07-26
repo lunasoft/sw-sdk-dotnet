@@ -27,25 +27,46 @@ namespace SW.Services.Cancelation
         {
             _handler = new CanelationResponseHandler();
         }
-        private RestRequest RequestCancelation(string version, string cer, string key,
-                                                                                      string password, string[] uuids)
+
+        internal override Response Cancelar(string cer, string key, string rfc, string password, string uuid)
         {
-            RestRequest request = new RestRequest("", Method.POST);
-            return request;
-        }
-        public override CancelationResponse Cancelar(CancelationTypes cancelationTypes, string cer, string key,
-                                                                                      string password, string[] uuids)
-        {
+            CanelationResponseHandler handler = new CanelationResponseHandler();
             try
             {
-                new CancelationValidation(Url, User, Password, Token).ValidateRequest(cer, key, password, uuids);
-                //TODO: Implement cancelation service. Not yet defined
-                throw new NotImplementedException();
+                new Validation(Url, User, Password, Token).ValidateHeaderParameters();
+                RestRequest request = this.RequestCancelar(cer, key, rfc, password, uuid);
+
+                return handler.GetResponse(this.Client, request);
+            }
+            catch (Exception e)
+            { 
+                return handler.HandleException(e);
+            }
+        }
+
+        internal override Response Cancelar(byte[] xmlCancelation)
+        {
+            CanelationResponseHandler handler = new CanelationResponseHandler();
+            try
+            {
+                new Validation(Url, User, Password, Token).ValidateHeaderParameters();
+                RestRequest request = this.RequestCancelar(xmlCancelation);
+
+                return handler.GetResponse(this.Client, request);
             }
             catch (Exception e)
             {
-                return (CancelationResponse)_handler.HandleException(e);
+                return handler.HandleException(e);
             }
+        }
+
+        public CancelationResponse CancelarByCSD(string cer, string key, string rfc, string password, string uuid)
+        {
+            return (CancelationResponse)Cancelar(cer, key, rfc, password, uuid);
+        }
+        public CancelationResponse CancelarByXML(byte[] xmlCancelation)
+        {
+            return (CancelationResponse)Cancelar(xmlCancelation);
         }
     }
 }

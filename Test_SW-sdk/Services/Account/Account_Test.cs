@@ -1,14 +1,14 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
-using SW.Services.Cancelation;
+using SW.Services.Account;
 using SW.Helpers;
 using Test_SW.Helpers;
 
-namespace Test_SW.Services.Cancelation_Test
+namespace Test_SW.Services.Account_Test
 {
     [TestClass]
-    public class Cancelation_Test
+    public class Account_Test
     {
         private BuildSettings Build = new BuildSettings();
         private object resultExpect;
@@ -44,31 +44,22 @@ namespace Test_SW.Services.Cancelation_Test
             }
         }
         [TestMethod]
-        public void CancelationByCSD()
+        public void ConsultaDeSaldoByUser()
         {
             Build = new BuildSettings();
             GetEnviromentVariables();
-            Cancelation cancelation = new Cancelation(Build.Url, Build.User, Build.Password);
-            var response = cancelation.CancelarByCSD(Build.Cer, Build.Key, Build.Rfc, Build.CerPassword, "01724196-ac5a-4735-b621-e3b42bcbb459");
-            Assert.IsTrue(response.Data.Acuse != null && response.status == "success");
+            BalanceAccount account = new BalanceAccount(Build.Url, Build.User, Build.Password);
+            var response = account.ConsultarSaldo();
+            Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [TestMethod]
-        public void CancelationByXML()
+        public void ConsultaDeSaldoByToken()
         {
             Build = new BuildSettings();
             GetEnviromentVariables();
-            Cancelation cancelation = new Cancelation(Build.Url, Build.User, Build.Password);
-            var response = cancelation.CancelarByXML(Build.Acuse);
-            Assert.IsTrue(response.Data.Acuse != null && response.status == "success");
-        }
-        [TestMethod]
-        public void ValidateParameters()
-        {
-            resultExpect = "Son necesarios el .Cer y el .Key en formato B64";
-            Build = new BuildSettings();
-            Cancelation cancelation = new Cancelation(Build.Url, Build.User, Build.Password);
-            var response = cancelation.CancelarByCSD(Build.Cer, Build.Key, Build.Rfc, Build.CerPassword, "");
-            Assert.IsTrue(response.messageDetail.Contains((string)resultExpect));
+            BalanceAccount account = new BalanceAccount(Build.Url, Build.Token);
+            var response = account.ConsultarSaldo();
+            Assert.IsTrue(response.status == "success", response.messageDetail);
         }
     }
 }

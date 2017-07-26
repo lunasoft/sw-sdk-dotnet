@@ -42,7 +42,7 @@ namespace Test_SW.Services.Stamp_Test
             Stamp stamp = new Stamp(Build.Url, Build.User, Build.Password);
             xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
             var response = (StampResponseV1)stamp.TimbrarV1(xml);
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.tfd), "El resultado data.tfd viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.tfd) || response.message.Contains("72 horas"), "El resultado data.tfd viene vacio.");
         }
         [TestMethod]
         public void StampXMLV1byToken()
@@ -52,7 +52,7 @@ namespace Test_SW.Services.Stamp_Test
             Stamp stamp = new Stamp(Build.Url, Build.Token);
             xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
             var response = (StampResponseV1)stamp.TimbrarV1(xml);
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.tfd), "El resultado data.tfd viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.tfd) || response.message.Contains("72 horas"), "El resultado data.tfd viene vacio.");
         }
         [TestMethod]
         public void StampXMLV1Base64()
@@ -63,7 +63,7 @@ namespace Test_SW.Services.Stamp_Test
             var xmlBase = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml")));
             xml = Convert.ToBase64String(xmlBase);
             var response = (StampResponseV1)stamp.TimbrarV1(xml, true);
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.tfd), "El resultado data.tfd viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.tfd) || response.message.Contains("72 horas"), "El resultado data.tfd viene vacio.");
         }
         [TestMethod]
         public void StampXMLV1Base64byToken()
@@ -74,7 +74,7 @@ namespace Test_SW.Services.Stamp_Test
             var xmlBase = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml")));
             xml = Convert.ToBase64String(xmlBase);
             var response = (StampResponseV1)stamp.TimbrarV1(xml, true);
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.tfd), "El resultado data.tfd viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.tfd) || response.message.Contains("72 horas"), "El resultado data.tfd viene vacio.");
         }
         [TestMethod]
         public void StampXMLV2()
@@ -84,7 +84,7 @@ namespace Test_SW.Services.Stamp_Test
             Stamp stamp = new Stamp(Build.Url, Build.User, Build.Password);
             xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
             var response = (StampResponseV2)stamp.TimbrarV2(xml);
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.tfd viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.tfd) || response.message.Contains("72 horas"), "El resultado data.tfd viene vacio.");
         }
         [TestMethod]
         public void StampXMLV2byToken()
@@ -94,7 +94,7 @@ namespace Test_SW.Services.Stamp_Test
             Stamp stamp = new Stamp(Build.Url, Build.Token);
             xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
             var response = (StampResponseV2)stamp.TimbrarV2(xml);
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.tfd viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.tfd) || response.message.Contains("72 horas"), "El resultado data.tfd viene vacio.");
         }
         [TestMethod]
         public void StampXMLV2Base64()
@@ -105,7 +105,7 @@ namespace Test_SW.Services.Stamp_Test
             var xmlBase = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml")));
             xml = Convert.ToBase64String(xmlBase);
             var response = (StampResponseV2)stamp.TimbrarV2(xml, true);
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.tfd viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi) || response.message.Contains("72 horas"), "El resultado data.cfdi viene vacio.");
         }
         [TestMethod]
         public void StampXMLV2Base64byToken()
@@ -116,7 +116,7 @@ namespace Test_SW.Services.Stamp_Test
             var xmlBase = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml")));
             xml = Convert.ToBase64String(xmlBase);
             var response = (StampResponseV2)stamp.TimbrarV2(xml, true);
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.tfd viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.tfd) || response.message.Contains("72 horas"), "El resultado data.tfd viene vacio.");
         }
         [TestMethod]
         public void StampXMLV3byToken()
@@ -126,7 +126,7 @@ namespace Test_SW.Services.Stamp_Test
             Stamp stamp = new Stamp(Build.Url, Build.Token);
             xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
             var response = (StampResponseV3)stamp.TimbrarV3(xml);
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.tfd viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi) || response.message.Contains("72 horas"), "El resultado data.cfdi viene vacio.");
         }
         [TestMethod]
         public void StampXMLV3Base64byToken()
@@ -137,7 +137,7 @@ namespace Test_SW.Services.Stamp_Test
             var xmlBase = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml")));
             xml = Convert.ToBase64String(xmlBase);
             var response = (StampResponseV3)stamp.TimbrarV3(xml, true);
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi) || response.message.Contains("72 horas"), "El resultado data.cfdi viene vacio.");
         }
         [TestMethod]
         public void StampXMLV4byToken()
@@ -147,15 +147,15 @@ namespace Test_SW.Services.Stamp_Test
             Stamp stamp = new Stamp(Build.Url, Build.Token);
             xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
             var response = (StampResponseV4)stamp.TimbrarV4(xml);
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.noCertificadoSAT), "El resultado data.noCertificadoSAT viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.noCertificadoCFDI), "El resultado data.noCertificadoCFDI viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.uuid), "El resultado data.uuid viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.selloSAT), "El resultado data.selloSAT viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi) || response.message.Contains("72 horas"), "El resultado data.cfdi viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT) || response.message.Contains("72 horas"), "El resultado data.cadenaOriginalSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoSAT) || response.message.Contains("72 horas"), "El resultado data.noCertificadoSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoCFDI) || response.message.Contains("72 horas"), "El resultado data.noCertificadoCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.uuid) || response.message.Contains("72 horas"), "El resultado data.uuid viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloSAT) || response.message.Contains("72 horas"), "El resultado data.selloSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloCFDI) || response.message.Contains("72 horas"), "El resultado data.selloCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado) || response.message.Contains("72 horas"), "El resultado data.fechaTimbrado viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode) || response.message.Contains("72 horas"), "El resultado data.qrCode viene vacio.");
         }
         [TestMethod]
         public void StampXMLV4Base64byToken()
@@ -166,15 +166,15 @@ namespace Test_SW.Services.Stamp_Test
             var xmlBase = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml")));
             xml = Convert.ToBase64String(xmlBase);
             var response = (StampResponseV4)stamp.TimbrarV4(xml, true);
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.noCertificadoSAT), "El resultado data.noCertificadoSAT viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.noCertificadoCFDI), "El resultado data.noCertificadoCFDI viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.uuid), "El resultado data.uuid viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.selloSAT), "El resultado data.selloSAT viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
-            Assert.IsTrue(response.message.Contains("72 horas") || !string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi) || response.message.Contains("72 horas"), "El resultado data.cfdi viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT) || response.message.Contains("72 horas"), "El resultado data.cadenaOriginalSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoSAT) || response.message.Contains("72 horas"), "El resultado data.noCertificadoSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoCFDI) || response.message.Contains("72 horas"), "El resultado data.noCertificadoCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.uuid) || response.message.Contains("72 horas"), "El resultado data.uuid viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloSAT) || response.message.Contains("72 horas"), "El resultado data.selloSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloCFDI) || response.message.Contains("72 horas"), "El resultado data.selloCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado) || response.message.Contains("72 horas"), "El resultado data.fechaTimbrado viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode) || response.message.Contains("72 horas"), "El resultado data.qrCode viene vacio.");
         }
         [TestMethod]
         public void ValidateServerError()
@@ -207,9 +207,9 @@ namespace Test_SW.Services.Stamp_Test
             Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
         }
         [TestMethod]
-        public void ValidateNotIsEmptyXML()
+        public void ValidateEmptyXML()
         {
-            resultExpect = "T301. La estructura del comprobante es incorrecta.";
+            resultExpect = "Xml CFDI33 no proporcionado o viene vacio.";
             Build = new BuildSettings();
             Stamp stamp = new Stamp(Build.Url, Build.Token);
             xml = File.ReadAllText("Resources/EmptyXML.xml");
@@ -219,7 +219,7 @@ namespace Test_SW.Services.Stamp_Test
         [TestMethod]
         public void ValidateSpecialCharactersFromXML()
         {
-            resultExpect = "T301. La estructura del comprobante es incorrecta.";
+            resultExpect = "301. La estructura del comprobante es incorrecta.";
             Build = new BuildSettings();
             Stamp stamp = new Stamp(Build.Url, Build.Token);
             xml = File.ReadAllText("Resources/SpecialCharacters.xml");
@@ -229,7 +229,7 @@ namespace Test_SW.Services.Stamp_Test
         [TestMethod]
         public void ValidateIsUTF8FromXML()
         {
-            resultExpect = "T301. La estructura del comprobante es incorrecta.";
+            resultExpect = "301. La estructura del comprobante es incorrecta.";
             Build = new BuildSettings();
             Stamp stamp = new Stamp(Build.Url, Build.Token);
             xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/fileANSI.xml"));
