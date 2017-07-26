@@ -317,7 +317,7 @@ namespace ExampleSDK
             {
                 //Creamos una instancia de tipo BalanceAccount 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-                //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
+                //Automaticamente despues de obtenerlo se procedera a consultar el saldo
                 BalanceAccount account = new BalanceAccount("http://services.test.sw.com.mx", "demo", "123456789");
                 AccountResponse response = account.ConsultarSaldo();
               
