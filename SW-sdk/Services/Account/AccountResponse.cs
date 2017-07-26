@@ -15,6 +15,6 @@ namespace SW.Services.Account
         public int timbresUtilizados { get; set; }
         public string fechaExpiracion { get; set; }
         public bool unlimited { get; set; }
-        public int unlimitimbresAsignadosted { get; set; }
+        public int timbresAsignados { get; set; }
     }
 }
