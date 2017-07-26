@@ -12,7 +12,7 @@ namespace SW.Services.Cancelation
         {
         }
         internal abstract Response Cancelar(string cer, string key, string rfc, string password, string uuid);
-        internal abstract Response Cancelar(byte[] acuse);
+        internal abstract Response Cancelar(byte[] xmlCancelation);
 
         internal virtual RestRequest RequestCancelar(string cer, string key, string rfc, string password, string uuid)
         {
@@ -32,12 +32,12 @@ namespace SW.Services.Cancelation
             
             return request;
         }
-        internal virtual RestRequest RequestCancelar(byte[] acuse)
+        internal virtual RestRequest RequestCancelar(byte[] xmlCancelation)
         {
             this.SetupRequest();
             RestRequest request = new RestRequest("/cfdi33/cancel/xml", Method.POST);
             request.AddHeader("Authorization", "Bearer " + Token);
-            request.AddFileBytes("xml", acuse, "xml");
+            request.AddFileBytes("xml", xmlCancelation, "xml");
             return request;
         }
         private readonly object mutex = new object();

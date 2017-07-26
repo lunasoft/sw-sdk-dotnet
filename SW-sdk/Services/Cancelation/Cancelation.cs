@@ -44,13 +44,13 @@ namespace SW.Services.Cancelation
             }
         }
 
-        internal override Response Cancelar(byte[] acuse)
+        internal override Response Cancelar(byte[] xmlCancelation)
         {
             CanelationResponseHandler handler = new CanelationResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
-                RestRequest request = this.RequestCancelar(acuse);
+                RestRequest request = this.RequestCancelar(xmlCancelation);
 
                 return handler.GetResponse(this.Client, request);
             }
@@ -64,9 +64,9 @@ namespace SW.Services.Cancelation
         {
             return (CancelationResponse)Cancelar(cer, key, rfc, password, uuid);
         }
-        public CancelationResponse CancelarByXML(byte[] acuse)
+        public CancelationResponse CancelarByXML(byte[] xmlCancelation)
         {
-            return (CancelationResponse)Cancelar(acuse);
+            return (CancelationResponse)Cancelar(xmlCancelation);
         }
     }
 }
