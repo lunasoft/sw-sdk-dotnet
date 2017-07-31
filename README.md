@@ -273,7 +273,7 @@ namespace ExampleSDK
                 Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
                
                 //Obtenemos el XML de cancelacion
-                string xml = Convert.ToBase64String(File.ReadAllBytes("Resources/xml.xml"));
+                byte[] xml = File.ReadAllBytes("Resources/xml.xml");
                 
                 CancelationResponse response = cancelation.CancelarByXML(xml);
               
