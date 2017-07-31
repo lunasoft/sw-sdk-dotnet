@@ -1,4 +1,4 @@
-![NET](http://resources.workable.com/wp-content/uploads/2015/08/Microsoft-dotNET-logo.jpg)
+﻿![NET](http://resources.workable.com/wp-content/uploads/2015/08/Microsoft-dotNET-logo.jpg)
 ![NET](https://smarterwebci.visualstudio.com/_apis/public/build/definitions/402b9165-314f-4f5f-8073-9ae3a2e962ef/23/badge)
 ##### Servicios de Timbrado para documentos CFDI a traves del Proveedor de Certificación de CFDI  **SW SmarterWeb**
 
@@ -273,7 +273,7 @@ namespace ExampleSDK
                 Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
                
                 //Obtenemos el XML de cancelacion
-                string xml = File.ReadAllBytes("Resources/xml.xml");
+                string xml = Convert.ToBase64String(File.ReadAllBytes("Resources/xml.xml"));
                 
                 CancelationResponse response = cancelation.CancelarByXML(xml);
               
