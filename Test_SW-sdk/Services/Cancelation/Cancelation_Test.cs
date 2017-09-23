@@ -53,6 +53,15 @@ namespace Test_SW.Services.Cancelation_Test
             Assert.IsTrue(response.Data.Acuse != null && response.status == "success");
         }
         [TestMethod]
+        public void CancelationByPFX()
+        {
+            Build = new BuildSettings();
+            GetEnviromentVariables();
+            Cancelation cancelation = new Cancelation(Build.Url, Build.User, Build.Password);
+            var response = cancelation.CancelarByPFX(Build.Pfx, Build.Rfc, Build.CerPassword, "01724196-ac5a-4735-b621-e3b42bcbb459");
+            Assert.IsTrue(response.Data.Acuse != null && response.status == "success");
+        }
+        [TestMethod]
         public void CancelationByXML()
         {
             Build = new BuildSettings();

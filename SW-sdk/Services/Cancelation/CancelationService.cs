@@ -13,6 +13,7 @@ namespace SW.Services.Cancelation
         }
         internal abstract Response Cancelar(string cer, string key, string rfc, string password, string uuid);
         internal abstract Response Cancelar(byte[] xmlCancelation);
+        internal abstract Response Cancelar(string pfx, string rfc, string password, string uuid);
 
         internal virtual RestRequest RequestCancelar(string cer, string key, string rfc, string password, string uuid)
         {
@@ -30,6 +31,23 @@ namespace SW.Services.Cancelation
                     b64Key = key
                 });
             
+            return request;
+        }
+        internal virtual RestRequest RequestCancelar(string pfx, string rfc, string password, string uuid)
+        {
+            this.SetupRequest();
+            RestRequest request = new RestRequest("/cfdi33/cancel/pfx", Method.POST);
+            request.AddHeader("Content-type", "application/json");
+            request.AddHeader("Authorization", "Bearer " + Token);
+            request.AddJsonBody(
+                new
+                {
+                    uuid = uuid,
+                    password = password,
+                    rfc = rfc,
+                    b64Pfx = pfx                    
+                });
+
             return request;
         }
         internal virtual RestRequest RequestCancelar(byte[] xmlCancelation)

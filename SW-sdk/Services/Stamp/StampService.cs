@@ -7,9 +7,11 @@ namespace SW.Services.Stamp
     {
         protected StampService(string url, string user, string password) : base(url, user, password)
         {
+            _client = new RestClient(this.Url);
         }
         protected StampService(string url, string token) : base(url, token)
         {
+            _client = new RestClient(this.Url);
         }
         internal abstract Response Timbrar(string xml, string version = "v1", bool isb64 = false);        
         internal virtual RestRequest RequestStamping(byte[] xml, string version, string format)
@@ -23,22 +25,11 @@ namespace SW.Services.Stamp
             request.AddFileBytes("xml", xml, "xml");
             return request;
         }
-        private readonly object mutex = new object();
-        private RestClient _client;
-        public RestClient Client
+        private readonly RestClient _client;
+        protected RestClient Client
         {
             get
             {
-                if (_client == null)
-                {
-                    lock (mutex)
-                    {
-                        if (_client == null)
-                        {
-                            _client = new RestClient(this.Url);
-                        }
-                    }
-                }
                 return _client;
             }
         }
