@@ -19,25 +19,6 @@ namespace Test_SW
             // TODO: Add constructor logic here
             //
         }
-        private static void GetEnviromentVariables()
-        {
-            if (Environment.GetEnvironmentVariable("sw-sdk-url") != null)
-            {
-                Build.Url = Environment.GetEnvironmentVariable("sw-sdk-url");
-            }
-            if (Environment.GetEnvironmentVariable("sw-sdk-user") != null)
-            {
-                Build.User = Environment.GetEnvironmentVariable("sw-sdk-user");
-            }
-            if (Environment.GetEnvironmentVariable("sw-sdk-password") != null)
-            {
-                Build.Password = Environment.GetEnvironmentVariable("sw-sdk-password");
-            }
-            if (Environment.GetEnvironmentVariable("sw-sdk-token") != null)
-            {
-                Build.Token = Environment.GetEnvironmentVariable("sw-sdk-token");
-            }
-        }
         private static BuildSettings Build;
         private TestContext testContextInstance;
 
@@ -62,7 +43,6 @@ namespace Test_SW
         public static void UT_Service_Validation_Initialize(TestContext testContext)
         {
             Build = new BuildSettings();
-            GetEnviromentVariables();
         }
         #endregion
         [TestMethod]
@@ -138,6 +118,7 @@ namespace Test_SW
         {
             Stamp stamp = new Stamp(Build.Url, Build.User, Build.Password);
             string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/CFDI33_Validacion_Servicio/cfdi33_nomina.xml"));
+            xml = Helpers.SignTools.SigXml(xml, Convert.FromBase64String(Build.Pfx), Build.CerPassword);
             var response = (StampResponseV4)stamp.TimbrarV4(xml);
             if (response.status == "error")
                 Assert.IsTrue(response.message.Contains("72 horas"), "Error en el servicio: " + response.message + " " + response.messageDetail);

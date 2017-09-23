@@ -16,6 +16,7 @@ namespace Test_SW.Helpers
 
         public string Cer = Convert.ToBase64String(File.ReadAllBytes("Resources/CertificadosDePrueba/CSD_Prueba_CFDI_LAN8507268IA.cer"));
         public string Key = Convert.ToBase64String(File.ReadAllBytes("Resources/CertificadosDePrueba/CSD_Prueba_CFDI_LAN8507268IA.key"));
+        public string Pfx = Convert.ToBase64String(File.ReadAllBytes("Resources/CertificadosDePrueba/CSD_Prueba_CFDI_LAN8507268IA.pfx"));
         public string Rfc = "LAN8507268IA";
         public byte[] Acuse = File.ReadAllBytes("Resources/acuse.xml");
     }
