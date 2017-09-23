@@ -19,25 +19,6 @@ namespace Test_SW
             // TODO: Add constructor logic here
             //
         }
-        private static void GetEnviromentVariables()
-        {
-            if (Environment.GetEnvironmentVariable("sw-sdk-url") != null)
-            {
-                Build.Url = Environment.GetEnvironmentVariable("sw-sdk-url");
-            }
-            if (Environment.GetEnvironmentVariable("sw-sdk-user") != null)
-            {
-                Build.User = Environment.GetEnvironmentVariable("sw-sdk-user");
-            }
-            if (Environment.GetEnvironmentVariable("sw-sdk-password") != null)
-            {
-                Build.Password = Environment.GetEnvironmentVariable("sw-sdk-password");
-            }
-            if (Environment.GetEnvironmentVariable("sw-sdk-token") != null)
-            {
-                Build.Token = Environment.GetEnvironmentVariable("sw-sdk-token");
-            }
-        }
         private static BuildSettings Build;
         private TestContext testContextInstance;
 
@@ -62,7 +43,6 @@ namespace Test_SW
         public static void UT_Service_Validation_Initialize(TestContext testContext)
         {
             Build = new BuildSettings();
-            GetEnviromentVariables();
         }
         #endregion
         [TestMethod]
