@@ -49,8 +49,8 @@
       <HintPath>..\packages\RestSharp.105.2.3\lib\net35\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SW-sdk, Version=0.0.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SW-sdk.0.0.2.2\lib\net35-Client\SW-sdk.dll</HintPath>
+    <Reference Include="SW-sdk, Version=0.0.2.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SW-sdk.0.0.2.3\lib\net35-Client\SW-sdk.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SW.Tools, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
