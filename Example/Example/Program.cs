@@ -5,6 +5,8 @@ using System.Text;
 using SW.Services.Authentication;
 using SW.Services.Stamp;
 using System.IO;
+using SW.Services.Cancelation;
+
 namespace Example
 {
     class Programa
@@ -12,16 +14,16 @@ namespace Example
         private static string _url = "http://services.test.sw.com.mx";
         private static string _user = "demo";
         private static string _password = "123456789";
-        private static string _pathXmlFile= Directory.GetCurrentDirectory()+ "\\..\\..\\..\\Files\\" + "XmlExample.xml";
+        private static string _pathXmlFile = Path.Combine("Resources", "XmlExample.xml");
         static void Main(string[] args)
         {
             Console.WriteLine("Ejemplo de timbrado y autenticación de los servicios REST de CFDI 3.3 en C#");
-            Console.WriteLine("La ruta del archivo para timbrar es: "+_pathXmlFile);
+            Console.WriteLine("La ruta del archivo para timbrar es: " + _pathXmlFile);
             string xmlInfo = GetXmlFile(_pathXmlFile);
-            string option=string.Empty;
+            string option = string.Empty;
             while (option != "s")
             {
-                Console.WriteLine("Selecciona una opcipon.\n1- Timbrar con versión V1\n2- Timbrar con versión V2\n3- Timbrar con versión V3\n4- Timbrar con versión V4\n5- Autenticación\n6- Cambiar de Formato de timbrado (XML/B64)\ns- Salir");
+                Console.WriteLine("Selecciona una opcipon.\n1- Timbrar con versión V1\n2- Timbrar con versión V2\n3- Timbrar con versión V3\n4- Timbrar con versión V4\n5- Autenticación\n6- Cambiar de Formato de timbrado (XML/B64)\n7- Cancelar PFX\ns- Salir");
                 option = Console.ReadLine();
                 switch (option)
                 {
@@ -41,7 +43,10 @@ namespace Example
                         Autenticacion();
                         break;
                     case "6":
-                        xmlInfo=GetXmlFile(_pathXmlFile);
+                        xmlInfo = GetXmlFile(_pathXmlFile);
+                        break;
+                    case "7":
+                        xmlInfo = GetXmlFile(_pathXmlFile);
                         break;
                     case "s":
                         Console.WriteLine("Aplicación finalizada.....");
@@ -69,10 +74,10 @@ namespace Example
             else
             {
                 Console.WriteLine("Error en la autenticación");
-                Console.WriteLine(authResponse.message+" : "+authResponse.messageDetail + "\n");
+                Console.WriteLine(authResponse.message + " : " + authResponse.messageDetail + "\n");
             }
 
-            
+
         }
         private static void TimbrarV1(string xmlInfo)
         {
@@ -82,13 +87,13 @@ namespace Example
             try
             {
                 Convert.FromBase64String(xmlInfo);
-                stampResult = stamp.TimbrarV1(xmlInfo,true);
+                stampResult = stamp.TimbrarV1(xmlInfo, true);
             }
             catch
             {
                 stampResult = stamp.TimbrarV1(xmlInfo);
             }
-            if(stampResult.status== "success")
+            if (stampResult.status == "success")
             {
                 Console.WriteLine("Respuesta del Timbrado\n\n");
                 Console.WriteLine("CFDI+TFD:" + stampResult.data.tfd + "\n");
@@ -96,7 +101,7 @@ namespace Example
             else
             {
                 Console.WriteLine("Error al timbrar\n\n");
-                Console.WriteLine(stampResult.message+" : "+stampResult.messageDetail + "\n");
+                Console.WriteLine(stampResult.message + " : " + stampResult.messageDetail + "\n");
             }
         }
         private static void TimbrarV2(string xmlInfo)
@@ -116,7 +121,7 @@ namespace Example
             if (stampResult.status == "success")
             {
                 Console.WriteLine("Respuesta del Timbrado\n\n");
-                Console.WriteLine("TFD:"+stampResult.data.tfd + "\n");
+                Console.WriteLine("TFD:" + stampResult.data.tfd + "\n");
                 Console.WriteLine("CFDI:" + stampResult.data.cfdi + "\n");
             }
             else
@@ -167,7 +172,7 @@ namespace Example
             if (stampResult.status == "success")
             {
                 Console.WriteLine("Respuesta del Timbrado\n\n");
-                Console.WriteLine("CFDI:" + stampResult.data.cfdi+"\n");
+                Console.WriteLine("CFDI:" + stampResult.data.cfdi + "\n");
                 Console.WriteLine("Cadena Original SAT:" + stampResult.data.cadenaOriginalSAT + "\n");
                 Console.WriteLine("Fecha de Timbrado:" + stampResult.data.fechaTimbrado + "\n");
                 Console.WriteLine("Número de Certificado CFDI:" + stampResult.data.noCertificadoCFDI + "\n");
@@ -181,6 +186,27 @@ namespace Example
             {
                 Console.WriteLine("Error al timbrar\n\n");
                 Console.WriteLine(stampResult.message + " : " + stampResult.messageDetail + "\n");
+            }
+        }
+        private static void CancelarPFX()
+        {
+            byte[] pfx = File.ReadAllBytes(Path.Combine(@"Resources\CertificadosDePrueba", "CSD_Prueba_CFDI_LAN8507268IA.pfx"));
+            string pfxB64 = Convert.ToBase64String(pfx);
+            string uuid = "01724196-ac5a-4735-b621-e3b42bcbb459";
+            string rfc = "LAN8507268IA";
+            string passwordKey = "12345678a";
+            Cancelation cancelation = new Cancelation(_url, _user, _password);
+            CancelationResponse response = (CancelationResponse)cancelation.CancelarByPFX(pfxB64, rfc, passwordKey, uuid);
+            if (response.status == "success" && response.Data != null)
+            {
+                //Acuse de cancelación
+                Console.WriteLine(response.Data.Acuse);
+            }
+            else
+            {
+                Console.WriteLine("Error al Cancelar\n\n");
+                Console.WriteLine(response.message);
+                Console.WriteLine(response.messageDetail);
             }
         }
         private static string GetXmlFile(string path)
@@ -209,10 +235,10 @@ namespace Example
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al obtener la información del xml: "+ex.Message);
+                Console.WriteLine("Error al obtener la información del xml: " + ex.Message);
                 throw;
             }
-            
+
         }
     }
 }
