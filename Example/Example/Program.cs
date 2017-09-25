@@ -19,34 +19,43 @@ namespace Example
         {
             Console.WriteLine("Ejemplo de timbrado y autenticación de los servicios REST de CFDI 3.3 en C#");
             Console.WriteLine("La ruta del archivo para timbrar es: " + _pathXmlFile);
-            string xmlInfo = GetXmlFile(_pathXmlFile);
+
             string option = string.Empty;
+            string xmlInfo = string.Empty;
             while (option != "s")
             {
-                Console.WriteLine("Selecciona una opcipon.\n1- Timbrar con versión V1\n2- Timbrar con versión V2\n3- Timbrar con versión V3\n4- Timbrar con versión V4\n5- Autenticación\n6- Cambiar de Formato de timbrado (XML/B64)\n7- Cancelar PFX\ns- Salir");
+                Console.WriteLine("Selecciona una opcipon.\n1- Timbrar con versión V1\n2- Timbrar con versión V2\n3- Timbrar con versión V3\n4- Timbrar con versión V4\n5- Autenticación\n6- Cambiar de Formato de timbrado (XML/B64)\n7- Cancelar PFX\n8- Cancelar CSD\ns- Salir");
                 option = Console.ReadLine();
                 switch (option)
                 {
                     case "1":
+                        xmlInfo = GetXmlFile(_pathXmlFile);
                         TimbrarV1(xmlInfo);
                         break;
                     case "2":
+                        xmlInfo = GetXmlFile(_pathXmlFile);
                         TimbrarV2(xmlInfo);
                         break;
                     case "3":
+                        xmlInfo = GetXmlFile(_pathXmlFile);
                         TimbrarV3(xmlInfo);
                         break;
                     case "4":
+                        xmlInfo = GetXmlFile(_pathXmlFile);
                         TimbrarV4(xmlInfo);
                         break;
                     case "5":
+                        xmlInfo = GetXmlFile(_pathXmlFile);
                         Autenticacion();
                         break;
                     case "6":
                         xmlInfo = GetXmlFile(_pathXmlFile);
                         break;
                     case "7":
-                        xmlInfo = GetXmlFile(_pathXmlFile);
+                        CancelarPFX();
+                        break;
+                    case "8":
+                        CancelarCSD();
                         break;
                     case "s":
                         Console.WriteLine("Aplicación finalizada.....");
@@ -201,6 +210,39 @@ namespace Example
             {
                 //Acuse de cancelación
                 Console.WriteLine(response.Data.Acuse);
+                //Estatus por UUID
+                foreach (var folio in response.Data.uuid)
+                {
+                    Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Error al Cancelar\n\n");
+                Console.WriteLine(response.message);
+                Console.WriteLine(response.messageDetail);
+            }
+        }
+        private static void CancelarCSD()
+        {
+            byte[] csd_key = File.ReadAllBytes(Path.Combine(@"Resources\CertificadosDePrueba", "CSD_Prueba_CFDI_LAN8507268IA.key"));
+            byte[] csd_cer = File.ReadAllBytes(Path.Combine(@"Resources\CertificadosDePrueba", "CSD_Prueba_CFDI_LAN8507268IA.cer"));
+            string csd_key_B64 = Convert.ToBase64String(csd_key);
+            string csd_cer_B64 = Convert.ToBase64String(csd_cer);
+            string uuid = "01724196-ac5a-4735-b621-e3b42bcbb459";
+            string rfc = "LAN8507268IA";
+            string passwordKey = "12345678a";
+            Cancelation cancelation = new Cancelation(_url, _user, _password);
+            CancelationResponse response = (CancelationResponse)cancelation.CancelarByCSD(csd_cer_B64, csd_key_B64, rfc, passwordKey, uuid);
+            if (response.status == "success" && response.Data != null)
+            {
+                //Acuse de cancelación
+                Console.WriteLine(response.Data.Acuse);
+                //Estatus por UUID
+                foreach (var folio in response.Data.uuid)
+                {
+                    Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
+                }
             }
             else
             {
