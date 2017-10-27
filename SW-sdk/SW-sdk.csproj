@@ -65,6 +65,8 @@
     <Compile Include="Services\Cancelation\CancelationValidation.cs" />
     <Compile Include="Helpers\Response.cs" />
     <Compile Include="Services\Cancelation\CanelationResponseHandler.cs" />
+    <Compile Include="Services\Issue\Issue.cs" />
+    <Compile Include="Services\Issue\IssueService.cs" />
     <Compile Include="Services\Services.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Stamp\Stamp.cs" />
