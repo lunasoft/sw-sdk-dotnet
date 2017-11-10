@@ -173,17 +173,17 @@ namespace Test_SW.Services.Stamp_Test
             Stamp stamp = new Stamp(build.Url, build.Token + ".");
             var xml = File.ReadAllText("Resources/file.xml");
             var response = stamp.TimbrarV1(xml);
-            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
+            Assert.IsTrue(response.message.Contains("401"), (string)resultExpect);
         }
         [TestMethod]
         public void ValidateExistToken()
         {
-            var resultExpect = "Falta Capturar Token";
+            var resultExpect = "401 Unauthorized";
             var build = new BuildSettings();
             Stamp stamp = new Stamp(build.Url, "");
             var xml = File.ReadAllText("Resources/file.xml");
             var response = stamp.TimbrarV1(xml);
-            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
+            Assert.IsTrue(response.message.Contains("401"), (string)resultExpect);
         }
         [TestMethod]
         public void ValidateEmptyXML()
@@ -198,12 +198,13 @@ namespace Test_SW.Services.Stamp_Test
         [TestMethod]
         public void ValidateSpecialCharactersFromXML()
         {
-            var resultExpect = "301";
             var build = new BuildSettings();
             Stamp stamp = new Stamp(build.Url, build.Token);
             var xml = File.ReadAllText("Resources/SpecialCharacters.xml");
+            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword);
             var response = stamp.TimbrarV1(xml);
-            Assert.IsTrue(response.message.StartsWith(resultExpect), "Result not expected. Error: " + response.message);
+            Assert.IsTrue(response.status == "success", "Result not expected. Error: " + response.message);
+            Assert.IsFalse(string.IsNullOrEmpty(response.data.tfd), "Result not expected. Error: " + response.message);
         }
         [TestMethod]
         public void ValidateIsUTF8FromXML()
@@ -211,9 +212,9 @@ namespace Test_SW.Services.Stamp_Test
             var resultExpect = "301";
             var build = new BuildSettings();
             Stamp stamp = new Stamp(build.Url, build.Token);
-            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/fileANSI.xml"));
+            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/fileANSI.xml"));            
             var response = stamp.TimbrarV1(xml);
-            Assert.IsTrue(response.message.StartsWith(resultExpect), "Result not expected. Error: " + response.message);
+            Assert.IsTrue(response.message.Contains(resultExpect), "Result not expected. Error: " + response.message);
         }
         [TestMethod]
         public void MultipleStampXMLV1byToken()
@@ -226,6 +227,7 @@ namespace Test_SW.Services.Stamp_Test
             for (int i = 0; i < iterations; i++)
             {
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
+                xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword);
                 var response = (StampResponseV1)stamp.TimbrarV1(xml);
                 listXmlResult.Add(response);
             }

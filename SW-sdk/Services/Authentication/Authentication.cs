@@ -1,6 +1,6 @@
-﻿using RestSharp;
-using System;
-using SW.Helpers;
+﻿using System;
+using System.IO;
+using System.Net;
 
 namespace SW.Services.Authentication
 {
@@ -16,14 +16,18 @@ namespace SW.Services.Authentication
             try
             {
                 new AuthenticationValidation(Url, User, Password, Token);
-                var request = new RestRequest("security/authenticate", Method.POST);
-                request.AddHeader("user", User);
-                request.AddHeader("password", Password);
-                return (AuthResponse)_handler.GetResponse(this.Client, request);
+                var request = (HttpWebRequest)WebRequest.Create(this.Url + "security/authenticate");
+                request.ContentType = "application/json";
+                request.ContentLength = 0;
+                request.Method = WebRequestMethods.Http.Post;
+                request.Headers.Add("user", this.User);
+                request.Headers.Add("password", Password);
+
+                return _handler.GetResponse(request);
             }
             catch (Exception e)
             {
-                return (AuthResponse)_handler.HandleException(e);
+                return _handler.HandleException(e);
             }
         }
     }

@@ -1,24 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<cfdi:Comprobante LugarExpedicion="35079" Moneda="MXN" TipoCambio="1" certificado="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" descuento="587.87" fecha="2017-02-08T15:27:25" folio="37" formaDePago="Pago en una sola exhibición" metodoDePago="NA" noCertificado="00001000000403804288" sello="w2/H1pTZ3aoP9TkVatdbB3pw56Gyokoz/nu4uJbcFnw9U4/qvcXfVn/GkGFc69gzbpeHeqd2ZqzTjmuwt4eDnWumwDSQjuExUqAoz9fUt/YljCWZKXoYgcb3r921qqLZAI8Estct7W213HsKd5Kq3+PK5zp685+hrTdcd3uILbrULwx0rTaH2GjDDYdYoziGojAjU+Xt4dTixr73rJsx07iKZHsMUjD790oZOO9GLSTbRaFKLSzItvxRU90lKLlT88/p14ryJs7saBD/GyziwMnZnVl/NGIzU4u8/JoAoi7wgiLoFUgieguxTR6e2z6jURbtOknH+S1RGrJwrwZHVA==" serie="G" subTotal="3500.00" tipoDeComprobante="egreso" total="2912.13" version="3.2" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
-	<cfdi:Emisor nombre="GOMEZ PALACIO INDUSTRIAL S.A. DE C.V. " rfc="GPI1106108S8">
-		<cfdi:RegimenFiscal Regimen="601"/>
-	</cfdi:Emisor>
-	<cfdi:Receptor nombre="JOSE ' ANTONIO GABALDON LOPEZ" rfc="GALA630720712"/>
-	<cfdi:Conceptos>
-		<cfdi:Concepto cantidad="1" descripcion="Pago de nómina&" importe="3500.00" unidad="ACT" valorUnitario="3500.00"/>
-	</cfdi:Conceptos>
-	<cfdi:Impuestos/>
-	<cfdi:Complemento>
-		<nomina12:Nomina FechaFinalPago="2016-12-04" FechaInicialPago="2016-11-28" FechaPago="2016-12-02" NumDiasPagados="7" TipoNomina="O" TotalDeducciones="587.87" TotalOtrosPagos="0.00" TotalPercepciones="3500.00" Version="1.2" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
-			<nomina12:Emisor RegistroPatronal="B2832472107"/>
-			<nomina12:Receptor Antigüedad="P0W" ClaveEntFed="DUR" Curp="GALA630720HCLBPN02" FechaInicioRelLaboral="2016-12-01" NumEmpleado="170131122036552" NumSeguridadSocial="89846315730" PeriodicidadPago="02" RiesgoPuesto="1" SalarioBaseCotApor="522.6" SalarioDiarioIntegrado="500" TipoContrato="01" TipoRegimen="02"/>
-			<nomina12:Percepciones TotalExento="0.00" TotalGravado="3500.00" TotalSueldos="3500.00">
-				<nomina12:Percepcion Clave="001" Concepto="Sueldos, Salarios Rayas y Jornales" ImporteExento="0.00" ImporteGravado="3500.00" TipoPercepcion="001"/>
-			</nomina12:Percepciones>
-			<nomina12:Deducciones TotalImpuestosRetenidos="492.24" TotalOtrasDeducciones="95.63">
-				<nomina12:Deduccion Clave="002" Concepto="ISR" Importe="492.24" TipoDeduccion="002"/>
-				<nomina12:Deduccion Clave="001" Concepto="Seguridad social" Importe="95.63" TipoDeduccion="001"/>
-			</nomina12:Deducciones>
-		</nomina12:Nomina>
-	</cfdi:Complemento>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cfdi:Comprobante xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd" Version="3.3" Serie="G" Folio="225" Fecha="2017-11-10T11:45:55" Sello="HG0Cw8GeBAalrvS3YPNoinJ3u4bn6rWuTHyjbH7au4zx3VkkVuhjOwxHELKYRKV/kgKUepa7rlObIa+1a/W5XuexwV4DnAVToYJ5QM6ZS/8HdlOlnmVQBLzAWulauWQvAFw8vcNL16TpDmSIsL/in1gwIxU5ny1cuozFizR/JdwxocUXb0q/kf9URJ/dS+PvS3XgkJnLHjVmOTQYjwDjvjTpiRKxWysT6ZwtnJfl6zMZoWFHsX+ophPsV+henhZ+1gUxJdTVT6fUx3w7BTVgOjDkQ1vq/aYk7G/unvHNlISr5osf1NIiClJKW0xNvKZaVfcFBtsQLLFMHAQ556Sk6g==" FormaPago="01" NoCertificado="20001000000300022815" Certificado="MIIFxTCCA62gAwIBAgIUMjAwMDEwMDAwMDAzMDAwMjI4MTUwDQYJKoZIhvcNAQELBQAwggFmMSAwHgYDVQQDDBdBLkMuIDIgZGUgcHJ1ZWJhcyg0MDk2KTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSkwJwYJKoZIhvcNAQkBFhphc2lzbmV0QHBydWViYXMuc2F0LmdvYi5teDEmMCQGA1UECQwdQXYuIEhpZGFsZ28gNzcsIENvbC4gR3VlcnJlcm8xDjAMBgNVBBEMBTA2MzAwMQswCQYDVQQGEwJNWDEZMBcGA1UECAwQRGlzdHJpdG8gRmVkZXJhbDESMBAGA1UEBwwJQ295b2Fjw6FuMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxITAfBgkqhkiG9w0BCQIMElJlc3BvbnNhYmxlOiBBQ0RNQTAeFw0xNjEwMjUyMTUyMTFaFw0yMDEwMjUyMTUyMTFaMIGxMRowGAYDVQQDExFDSU5ERU1FWCBTQSBERSBDVjEaMBgGA1UEKRMRQ0lOREVNRVggU0EgREUgQ1YxGjAYBgNVBAoTEUNJTkRFTUVYIFNBIERFIENWMSUwIwYDVQQtExxMQU43MDA4MTczUjUgLyBGVUFCNzcwMTE3QlhBMR4wHAYDVQQFExUgLyBGVUFCNzcwMTE3TURGUk5OMDkxFDASBgNVBAsUC1BydWViYV9DRkRJMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgvvCiCFDFVaYX7xdVRhp/38ULWto/LKDSZy1yrXKpaqFXqERJWF78YHKf3N5GBoXgzwFPuDX+5kvY5wtYNxx/Owu2shNZqFFh6EKsysQMeP5rz6kE1gFYenaPEUP9zj+h0bL3xR5aqoTsqGF24mKBLoiaK44pXBzGzgsxZishVJVM6XbzNJVonEUNbI25DhgWAd86f2aU3BmOH2K1RZx41dtTT56UsszJls4tPFODr/caWuZEuUvLp1M3nj7Dyu88mhD2f+1fA/g7kzcU/1tcpFXF/rIy93APvkU72jwvkrnprzs+SnG81+/F16ahuGsb2EZ88dKHwqxEkwzhMyTbQIDAQABox0wGzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAgEAJ/xkL8I+fpilZP+9aO8n93+20XxVomLJjeSL+Ng2ErL2GgatpLuN5JknFBkZAhxVIgMaTS23zzk1RLtRaYvH83lBH5E+M+kEjFGp14Fne1iV2Pm3vL4jeLmzHgY1Kf5HmeVrrp4PU7WQg16VpyHaJ/eonPNiEBUjcyQ1iFfkzJmnSJvDGtfQK2TiEolDJApYv0OWdm4is9Bsfi9j6lI9/T6MNZ+/LM2L/t72Vau4r7m94JDEzaO3A0wHAtQ97fjBfBiO5M8AEISAV7eZidIl3iaJJHkQbBYiiW2gikreUZKPUX0HmlnIqqQcBJhWKRu6Nqk6aZBTETLLpGrvF9OArV1JSsbdw/ZH+P88RAt5em5/gjwwtFlNHyiKG5w+UFpaZOK3gZP0su0sa6dlPeQ9EL4JlFkGqQCgSQ+NOsXqaOavgoP5VLykLwuGnwIUnuhBTVeDbzpgrg9LuF5dYp/zs+Y9ScJqe5VMAagLSYTShNtN8luV7LvxF9pgWwZdcM7lUwqJmUddCiZqdngg3vzTactMToG16gZA4CWnMgbU4E+r541+FNMpgAZNvs2CiW/eApfaaQojsZEAHDsDv4L5n3M1CC7fYjE/d61aSng1LaO6T1mh+dEfPvLzp7zyzz+UgWMhi5Cs4pcXx1eic5r7uxPoBwcCTt3YI1jKVVnV7/w=" SubTotal="100.00" Moneda="MXN" Total="120.33" TipoDeComprobante="I" MetodoPago="PUE" LugarExpedicion="45110" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <cfdi:Emisor Rfc="LAN8507268IA" RegimenFiscal="601" />
+  <cfdi:Receptor Rfc="JILH841117AS9" Nombre="PUBLICO GENERAL" UsoCFDI="G01" />
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="14111804" NoIdentificacion="02" Cantidad="1" ClaveUnidad="E48" Unidad="No Aplica" Descripcion="FACTURA ELECTRONICA &amp; Ñ acénto" ValorUnitario="100.000000" Importe="100.000000">
+      <cfdi:Impuestos>
+        <cfdi:Traslados>
+          <cfdi:Traslado Base="100.000000" Impuesto="003" TipoFactor="Tasa" TasaOCuota="0.090000" Importe="9.000000" />
+          <cfdi:Traslado Base="100.000000" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.160000" Importe="16.000000" />
+          <cfdi:Traslado Base="100.000000" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.160000" Importe="16.000000" />
+        </cfdi:Traslados>
+        <cfdi:Retenciones>
+          <cfdi:Retencion Base="100.000000" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.106667" Importe="10.666700" />
+          <cfdi:Retencion Base="100.000000" Impuesto="001" TipoFactor="Tasa" TasaOCuota="0.100000" Importe="10.000000" />
+        </cfdi:Retenciones>
+      </cfdi:Impuestos>
+    </cfdi:Concepto>
+  </cfdi:Conceptos>
+  <cfdi:Impuestos TotalImpuestosRetenidos="20.67" TotalImpuestosTrasladados="41.00">
+    <cfdi:Retenciones>
+      <cfdi:Retencion Impuesto="002" Importe="10.666700" />
+      <cfdi:Retencion Impuesto="001" Importe="10.000000" />
+    </cfdi:Retenciones>
+    <cfdi:Traslados>
+      <cfdi:Traslado Impuesto="003" TipoFactor="Tasa" TasaOCuota="0.090000" Importe="9.000000" />
+      <cfdi:Traslado Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.160000" Importe="32.00" />
+    </cfdi:Traslados>
+  </cfdi:Impuestos>
+  <cfdi:Complemento>    
+  </cfdi:Complemento>
 </cfdi:Comprobante>

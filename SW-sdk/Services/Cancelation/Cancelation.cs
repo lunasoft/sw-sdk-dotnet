@@ -1,6 +1,6 @@
-﻿using RestSharp;
-using System;
+﻿using System;
 using SW.Helpers;
+using System.Net;
 
 namespace SW.Services.Cancelation
 {
@@ -28,15 +28,15 @@ namespace SW.Services.Cancelation
             _handler = new CanelationResponseHandler();
         }
 
-        internal override Response Cancelar(string cer, string key, string rfc, string password, string uuid)
+        internal override CancelationResponse Cancelar(string cer, string key, string rfc, string password, string uuid)
         {
             CanelationResponseHandler handler = new CanelationResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
-                RestRequest request = this.RequestCancelar(cer, key, rfc, password, uuid);
+                HttpWebRequest request = this.RequestCancelar(cer, key, rfc, password, uuid);
 
-                return handler.GetResponse(this.Client, request);
+                return handler.GetResponse(request);
             }
             catch (Exception e)
             {
@@ -44,30 +44,30 @@ namespace SW.Services.Cancelation
             }
         }
 
-        internal override Response Cancelar(byte[] xmlCancelation)
+        internal override CancelationResponse Cancelar(byte[] xmlCancelation)
         {
             CanelationResponseHandler handler = new CanelationResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
-                RestRequest request = this.RequestCancelar(xmlCancelation);
+                HttpWebRequest request = this.RequestCancelar(xmlCancelation);
 
-                return handler.GetResponse(this.Client, request);
+                return handler.GetResponse(request);
             }
             catch (Exception e)
             {
                 return handler.HandleException(e);
             }
         }
-        internal override Response Cancelar(string pfx, string rfc, string password, string uuid)
+        internal override CancelationResponse Cancelar(string pfx, string rfc, string password, string uuid)
         {
             CanelationResponseHandler handler = new CanelationResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
-                RestRequest request = this.RequestCancelar(pfx, rfc, password, uuid);
+                HttpWebRequest request = this.RequestCancelar(pfx, rfc, password, uuid);
 
-                return handler.GetResponse(this.Client, request);
+                return handler.GetResponse(request);
             }
             catch (Exception e)
             {
@@ -76,15 +76,15 @@ namespace SW.Services.Cancelation
         }
         public CancelationResponse CancelarByCSD(string cer, string key, string rfc, string password, string uuid)
         {
-            return (CancelationResponse)Cancelar(cer, key, rfc, password, uuid);
+            return Cancelar(cer, key, rfc, password, uuid);
         }
         public CancelationResponse CancelarByXML(byte[] xmlCancelation)
         {
-            return (CancelationResponse)Cancelar(xmlCancelation);
+            return Cancelar(xmlCancelation);
         }
         public CancelationResponse CancelarByPFX(string pfx, string rfc, string password, string uuid)
         {
-            return (CancelationResponse)Cancelar(pfx, rfc, password, uuid);
+            return Cancelar(pfx, rfc, password, uuid);
         }
 
 
