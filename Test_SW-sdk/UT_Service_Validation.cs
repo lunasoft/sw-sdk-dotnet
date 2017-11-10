@@ -51,7 +51,7 @@ namespace Test_SW
             Stamp stamp = new Stamp("http://fake123999459493494949.com", Build.User, Build.Password);
             string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
             var response = (StampResponseV1)stamp.TimbrarV1(xml);
-            Assert.IsTrue(response.message.Contains("502"));
+            Assert.IsTrue(response.status == "error");
         }
         [TestMethod]
         public void UT_Service_Validation_401()
