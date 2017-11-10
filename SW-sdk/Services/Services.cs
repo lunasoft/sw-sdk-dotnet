@@ -37,13 +37,13 @@ namespace SW.Services
         }
         public Services(string url, string token)
         {
-            _url = url;
+            _url = Helpers.RequestHelper.NormalizeBaseUrl(url); ;
             _token = token;
             _expirationDate = DateTime.Now.AddYears(_timeSession);
         }
         public Services(string url, string user, string password)
         {
-            _url = url;
+            _url = Helpers.RequestHelper.NormalizeBaseUrl(url); ;
             _user = user;
             _password = password;
         }
@@ -55,7 +55,7 @@ namespace SW.Services
                 var response = auth.GetToken();
                 if (response.status == ResponseType.success.ToString())
                 {
-                    _token = response.Data.token;
+                    _token = response.data.token;
                     _expirationDate = DateTime.Now.AddHours(_timeSession);
                 }
             }

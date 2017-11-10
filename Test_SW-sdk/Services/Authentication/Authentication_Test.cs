@@ -14,7 +14,7 @@ namespace Test_SW.Services.Authentication_Test
             var build = new BuildSettings();
             Authentication auth = new Authentication(build.Url, build.User, build.Password);
             var response = auth.GetToken();
-            Assert.IsTrue(!string.IsNullOrEmpty(response.Data.token));
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.token));
         }
         [TestMethod]
         public void ValidateExistUser()

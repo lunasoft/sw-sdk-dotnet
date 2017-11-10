@@ -1,6 +1,7 @@
-﻿using RestSharp;
-using System;
+﻿using System;
 using SW.Helpers;
+using SW.Entities;
+using System.Net;
 
 namespace SW.Services.Account
 {
@@ -30,17 +31,20 @@ namespace SW.Services.Account
 
         internal override Response GetBalance()
         {
-            BalanceAccountResponseHandler handler = new BalanceAccountResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
-                RestRequest request = this.RequestAccount();
-
-                return handler.GetResponse(this.Client, request);
+                this.SetupRequest();
+                var request = (HttpWebRequest)WebRequest.Create(this.Url + "account/balance");
+                request.ContentType = "application/json";
+                request.Method = WebRequestMethods.Http.Get;
+                request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+                request.ContentLength = 0;
+                return _handler.GetResponse(request);
             }
             catch (Exception e)
-            { 
-                return handler.HandleException(e);
+            {
+                return _handler.HandleException(e);
             }
         }
 
