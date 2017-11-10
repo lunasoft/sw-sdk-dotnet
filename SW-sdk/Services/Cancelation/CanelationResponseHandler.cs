@@ -1,31 +1,11 @@
 ﻿using System;
-using RestSharp;
 using SW.Helpers;
 
 namespace SW.Services.Cancelation
 {
-    public class CanelationResponseHandler : IResponseHandler
+    internal class CanelationResponseHandler : ResponseHandler<CancelationResponse>
     {
-        public Response GetResponse(RestClient client, RestRequest request)
-        {
-            IRestResponse<CancelationResponse> response = client.Execute<CancelationResponse>(request);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                if (string.IsNullOrEmpty(response.Content) || response.Data == null)
-                    return new CancelationResponse()
-                    {
-                        message = ((int)response.StatusCode).ToString(),
-                        status = "error",
-                        messageDetail = response.StatusDescription
-                    };
-                else
-                    return response.Data;
-            }
-            else
-                return response.Data;
-        }
-
-        public Response HandleException(Exception ex)
+        public override CancelationResponse HandleException(Exception ex)
         {
             return ex.ToCancelationResponse();
         }

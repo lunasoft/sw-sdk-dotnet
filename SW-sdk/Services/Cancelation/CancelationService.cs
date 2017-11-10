@@ -1,5 +1,6 @@
-﻿using RestSharp;
-using SW.Helpers;
+﻿using SW.Helpers;
+using System.IO;
+using System.Net;
 
 namespace SW.Services.Cancelation
 {
@@ -11,72 +12,66 @@ namespace SW.Services.Cancelation
         protected CancelationService(string url, string token) : base(url, token)
         {
         }
-        internal abstract Response Cancelar(string cer, string key, string rfc, string password, string uuid);
-        internal abstract Response Cancelar(byte[] xmlCancelation);
-        internal abstract Response Cancelar(string pfx, string rfc, string password, string uuid);
-
-        internal virtual RestRequest RequestCancelar(string cer, string key, string rfc, string password, string uuid)
+        internal abstract CancelationResponse Cancelar(string cer, string key, string rfc, string password, string uuid);
+        internal abstract CancelationResponse Cancelar(byte[] xmlCancelation);
+        internal abstract CancelationResponse Cancelar(string pfx, string rfc, string password, string uuid);
+        internal virtual HttpWebRequest RequestCancelar(string cer, string key, string rfc, string password, string uuid)
         {
             this.SetupRequest();
-            RestRequest request = new RestRequest("/cfdi33/cancel/csd", Method.POST);
-            request.AddHeader("Content-type", "application/json");
-            request.AddHeader("Authorization", "Bearer " + Token);
-            request.AddJsonBody(
-                new
-                {
-                    uuid = uuid,
-                    password = password,
-                    rfc = rfc,
-                    b64Cer = cer,
-                    b64Key = key
-                });
-            
-            return request;
-        }
-        internal virtual RestRequest RequestCancelar(string pfx, string rfc, string password, string uuid)
-        {
-            this.SetupRequest();
-            RestRequest request = new RestRequest("/cfdi33/cancel/pfx", Method.POST);
-            request.AddHeader("Content-type", "application/json");
-            request.AddHeader("Authorization", "Bearer " + Token);
-            request.AddJsonBody(
-                new
-                {
-                    uuid = uuid,
-                    password = password,
-                    rfc = rfc,
-                    b64Pfx = pfx                    
-                });
-
-            return request;
-        }
-        internal virtual RestRequest RequestCancelar(byte[] xmlCancelation)
-        {
-            this.SetupRequest();
-            RestRequest request = new RestRequest("/cfdi33/cancel/xml", Method.POST);
-            request.AddHeader("Authorization", "Bearer " + Token);
-            request.AddFileBytes("xml", xmlCancelation, "xml");
-            return request;
-        }
-        private readonly object mutex = new object();
-        private RestClient _client;
-        public RestClient Client
-        {
-            get
+            var request = (HttpWebRequest)WebRequest.Create(this.Url + "cfdi33/cancel/csd");
+            request.ContentType = "application/json";
+            request.Method = WebRequestMethods.Http.Post;
+            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new CancelationRequestCSD()
             {
-                if (_client == null)
-                {
-                    lock (mutex)
-                    {
-                        if (_client == null)
-                        {
-                            _client = new RestClient(this.Url);
-                        }
-                    }
-                }
-                return _client;
+                b64Cer = cer,
+                b64Key = key,
+                password = password,
+                rfc = rfc,
+                uuid = uuid
+            });
+            request.ContentLength = body.Length;
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(body);
+                streamWriter.Flush();
+                streamWriter.Close();
             }
+            return request;
         }
-
+        internal virtual HttpWebRequest RequestCancelar(string pfx, string rfc, string password, string uuid)
+        {
+            this.SetupRequest();
+            var request = (HttpWebRequest)WebRequest.Create(this.Url + "cfdi33/cancel/pfx");
+            request.ContentType = "application/json";
+            request.Method = WebRequestMethods.Http.Post;
+            request.Headers.Add(HttpRequestHeader.Authorization, "bearer " + this.Token);
+            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new CancelationRequestPFX()
+            {
+                b64Pfx = pfx,
+                password = password,
+                rfc = rfc,
+                uuid = uuid
+            });
+            request.ContentLength = body.Length;
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(body);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+            return request;
+        }
+        internal virtual HttpWebRequest RequestCancelar(byte[] xmlCancelation)
+        {
+            this.SetupRequest();
+            var request = (HttpWebRequest)WebRequest.Create(this.Url + "cfdi33/cancel/xml");
+            request.ContentType = "application/json";
+            request.Method = WebRequestMethods.Http.Post;
+            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+            request.ContentLength = 0;
+            Helpers.RequestHelper.AddFileToRequest(xmlCancelation, ref request);
+            return request;
+        }
     }
 }

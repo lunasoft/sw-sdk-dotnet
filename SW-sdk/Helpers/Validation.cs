@@ -21,7 +21,7 @@ namespace SW.Helpers
         }
         public void ValidateHeaderParameters()
         {
-            if (string.IsNullOrEmpty(_url))
+            if (string.IsNullOrEmpty(_url) || _url == "/")
                 throw new ServicesException("Falta Capturar URL");
 
             if (string.IsNullOrEmpty(_token))
