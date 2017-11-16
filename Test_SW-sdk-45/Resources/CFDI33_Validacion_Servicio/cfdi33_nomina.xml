@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cfdi:Comprobante xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd" xmlns:nomina12="http://www.sat.gob.mx/nomina12" Version="3.3" Serie="-" Folio="636373658139038002248" Fecha="2017-08-03T14:03:33" Sello="Un4rVuhOr1Gg1M2edrBBqi9Y52ExY/3UW6di3bqv82iYoXWGSfR3chzZIGY3eGss40sy38aZO2KWrzilbzhdcKcXeTnFj1qyFBpcft4729vJDB9w0VXUHrBZFVbqXKMH7RCh3qE0zxXtZ7m58EmJUjYSxQI8Ghb7szClKpYjkbnuebZGGHSvPy2z2udug4b08X27/FR23oOsSbjMKWl754lusoTEBrzpUGp6KGLD+i/q/16v20dglbUmtl3PkUaG0abf+4Y77IoSV/rAaxdy7hSjRP3S8gRmPrR4rugUaQgD13QOYKwm90MXE2NQSVNEAqCg16Jk14vr6nqJK8I5CQ==" FormaPago="99" NoCertificado="30001000000300023708" Certificado="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" SubTotal="17.00" Descuento="10.00" Moneda="MXN" TipoCambio="1" Total="7.00" TipoDeComprobante="N" MetodoPago="PUE" LugarExpedicion="66000" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <cfdi:Emisor Rfc="LAN8507268IA" Nombre="SHINKO AUTOMOTRIZ SA DE CV" RegimenFiscal="601" />
+  <cfdi:Receptor Rfc="AAAA010101AAA" Nombre="Empresa Pruebas 2 S.A. de C.V." UsoCFDI="P01" />
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="84111505" Cantidad="1" ClaveUnidad="ACT" Descripcion="Pago de nómina" ValorUnitario="17.00" Importe="17.00" Descuento="10.00" />
+  </cfdi:Conceptos>
+  <cfdi:Complemento>
+    <nomina12:Nomina FechaFinalPago="2016-11-15" FechaPago="2016-11-15" NumDiasPagados="15" FechaInicialPago="2016-11-14" TotalPercepciones="15.00" TotalOtrosPagos="2.00" TipoNomina="O" Version="1.2" TotalDeducciones="10.00" xsi:schemaLocation="http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/informacion_fiscal/factura_electronica/Documents/Complementoscfdi/nomina12.xsd" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <nomina12:Emisor RegistroPatronal="01" RfcPatronOrigen="AUAC4601138F9" >
+        <nomina12:EntidadSNCF OrigenRecurso="IP" />
+      </nomina12:Emisor>
+      <nomina12:Receptor Departamento="Flota" Sindicalizado="Sí" RiesgoPuesto="5" TipoJornada="08" SalarioDiarioIntegrado="0" NumSeguridadSocial="0" NumEmpleado="1478130" TipoContrato="01" PeriodicidadPago="04" SalarioBaseCotApor="0" ClaveEntFed="NLE" Antigüedad="P1M13D" Puesto="Transportista" TipoRegimen="02" Curp="AAAA001030HSPBBB00" CuentaBancaria="8154789562" Banco="072" FechaInicioRelLaboral="2016-10-03">
+        <nomina12:SubContratacion PorcentajeTiempo="100.000" RfcLabora="BAJS721028S88" />
+      </nomina12:Receptor>
+      <nomina12:Percepciones TotalExento="5.00" TotalSueldos="15.00" TotalGravado="10.00">
+        <nomina12:Percepcion Concepto="Ü" ImporteGravado="10.00" TipoPercepcion="024" ImporteExento="5.00" Clave="ÜÜÜ" />
+      </nomina12:Percepciones>
+      <nomina12:Deducciones TotalOtrasDeducciones="10.00">
+        <nomina12:Deduccion Importe="10.00" Concepto="Ü" TipoDeduccion="011" Clave="ÜÜÜ" />
+      </nomina12:Deducciones>
+      <nomina12:OtrosPagos>
+        <nomina12:OtroPago Importe="2.00" Concepto="Ü" Clave="ÜÜÜ" TipoOtroPago="001" />
+      </nomina12:OtrosPagos>
+    </nomina12:Nomina>
+  </cfdi:Complemento>
+</cfdi:Comprobante>
