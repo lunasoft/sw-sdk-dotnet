@@ -17,6 +17,7 @@ namespace SW.Services.Cancelation
         }
         internal abstract CancelationResponse Cancelar(string cer, string key, string rfc, string password, string uuid);
         internal abstract CancelationResponse Cancelar(byte[] xmlCancelation);
+        internal abstract CancelationResponse Cancelar(string rfc, string uuid);
         internal abstract CancelationResponse Cancelar(string pfx, string rfc, string password, string uuid);
         internal virtual Dictionary<string, string> GetHeaders()
         {
@@ -25,6 +26,17 @@ namespace SW.Services.Cancelation
                     { "Authorization", "bearer " + this.Token }
                 };
             return headers;
+        }
+        internal virtual HttpWebRequest RequestCancelar(string rfc, string uuid)
+        {
+            this.SetupRequest();
+            string path = string.Format("cfdi33/cancel/{0}/{1}", rfc, uuid);
+            var request = (HttpWebRequest)WebRequest.Create(this.Url + path);
+            request.ContentType = "application/json";
+            request.ContentLength = 0;
+            request.Method = WebRequestMethods.Http.Post;
+            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+            return request;
         }
         internal virtual StringContent RequestCancelar(string cer, string key, string rfc, string password, string uuid)
         {

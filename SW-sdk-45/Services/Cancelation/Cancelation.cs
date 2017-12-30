@@ -44,7 +44,24 @@ namespace SW.Services.Cancelation
                 return handler.HandleException(e);
             }
         }
-
+        internal override CancelationResponse Cancelar(string rfc, string uuid)
+        {
+            CanelationResponseHandler handler = new CanelationResponseHandler();
+            try
+            {
+                new Validation(Url, User, Password, Token).ValidateHeaderParameters();
+                HttpWebRequest request = this.RequestCancelar(rfc, uuid);
+                request.ContentType = "application/json";
+                request.ContentLength = 0;
+                request.Method = WebRequestMethods.Http.Post;
+                var headers = GetHeaders();
+                return handler.GetPostResponse(this.Url, headers, $"cfdi33/cancel/{rfc}/{uuid}");
+            }
+            catch (Exception e)
+            {
+                return handler.HandleException(e);
+            }
+        }
         internal override CancelationResponse Cancelar(byte[] xmlCancelation)
         {
             CanelationResponseHandler handler = new CanelationResponseHandler();
@@ -89,7 +106,10 @@ namespace SW.Services.Cancelation
         {
             return Cancelar(pfx, rfc, password, uuid);
         }
-
+        public CancelationResponse CancelarByRfcUuid(string rfc, string uuid)
+        {
+            return Cancelar(rfc, uuid);
+        }
 
     }
 }
