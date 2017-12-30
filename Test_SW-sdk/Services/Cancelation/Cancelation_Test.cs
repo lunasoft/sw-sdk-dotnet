@@ -37,6 +37,14 @@ namespace Test_SW.Services.Cancelation_Test
 
         }
         [TestMethod]
+        public void CancelationByUuid()
+        {
+            var build = new BuildSettings();
+            Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
+            var response = cancelation.CancelarByRfcUuid(build.Rfc, "01724196-ac5a-4735-b621-e3b42bcbb459");
+            Assert.IsTrue(response.data.acuse != null && response.status == "success");
+        }
+        [TestMethod]
         public void ValidateParameters()
         {
             var resultExpect = "Son necesarios el .Cer y el .Key en formato B64";
