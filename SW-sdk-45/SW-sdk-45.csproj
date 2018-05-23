@@ -86,6 +86,12 @@
     <Compile Include="Services\Stamp\StampService.cs" />
     <Compile Include="Helpers\StampTypes.cs" />
     <Compile Include="Services\Stamp\StampValidation.cs" />
+    <Compile Include="Services\Validate\BaseValidate.cs" />
+    <Compile Include="Services\Validate\Validate.cs" />
+    <Compile Include="Services\Validate\ValidateResponse.cs" />
+    <Compile Include="Services\Validate\ValidateResponseHandler.cs" />
+    <Compile Include="Services\Validate\ValidateService.cs" />
+    <Compile Include="Services\Validate\ValidateValidation.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

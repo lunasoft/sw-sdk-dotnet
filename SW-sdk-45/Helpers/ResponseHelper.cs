@@ -2,6 +2,7 @@
 using SW.Services.Authentication;
 using SW.Services.Cancelation;
 using SW.Services.Stamp;
+using SW.Services.Validate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,7 +74,16 @@ namespace SW.Helpers
                 status = "error",
                 messageDetail = ex.GetErrorDetail()
             };
-        }        
+        }
+        internal static ValidateResponse ToValidateResponse(this Exception ex)
+        {
+            return new ValidateResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
         internal static string GetErrorDetail(this Exception ex)
         {
             if (ex.InnerException != null)
