@@ -18,7 +18,6 @@ namespace SW.Services.Validate
         {
             this.SetupRequest();
             var request = (HttpWebRequest)WebRequest.Create(this.Url + "/validate/cfdi33");
-            request.ContentType = "application/json";
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
             request.ContentLength = xml != null ? xml.Length : 0;

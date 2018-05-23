@@ -16,19 +16,6 @@ namespace SW.Services.Validate
         protected ValidateService(string url, string token) : base(url, token)
         {
         }
-        /*
-        internal virtual HttpWebRequest RequestValidating(byte[] xml)
-        {
-            this.SetupRequest();
-            var request = (HttpWebRequest)WebRequest.Create(this.Url + "/validate/cfdi33");
-            request.ContentType = "application/json";
-            request.Method = WebRequestMethods.Http.Post;
-            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
-            request.ContentLength = xml != null ? xml.Length : 0;
-            Helpers.RequestHelper.AddFileToRequest(xml, ref request);
-            return request;
-        }
-        */
         internal virtual MultipartFormDataContent GetMultipartContent(byte[] xml)
         {
             MultipartFormDataContent content = new MultipartFormDataContent();
