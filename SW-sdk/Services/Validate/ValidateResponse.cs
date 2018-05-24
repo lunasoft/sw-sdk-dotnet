@@ -28,11 +28,11 @@ namespace SW.Services.Validate
     public class Detail
     {
         [DataMember]
-        public List<Detail2> detail { get; set; }
+        public List<DetailNode> detail { get; set; }
         [DataMember]
         public string section { get; set; }
     }
-    public class Detail2
+    public class DetailNode
     {
         [DataMember]
         public string message { get; set; }
