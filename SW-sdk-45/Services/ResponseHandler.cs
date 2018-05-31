@@ -62,6 +62,7 @@ namespace SW.Services
                 };
             }
         }
+
         public virtual T GetResponse(string url, Dictionary<string, string> headers, string path)
         {
             try

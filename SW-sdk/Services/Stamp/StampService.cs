@@ -10,7 +10,6 @@ namespace SW.Services.Stamp
     {
         protected StampService(string url, string user, string password) : base(url, user, password)
         {
-
         }
         protected StampService(string url, string token) : base(url, token)
         {

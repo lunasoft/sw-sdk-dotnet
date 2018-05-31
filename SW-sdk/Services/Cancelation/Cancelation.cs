@@ -74,6 +74,20 @@ namespace SW.Services.Cancelation
                 return handler.HandleException(e);
             }
         }
+        internal override CancelationResponse Cancelar(string rfc, string uuid)
+        {
+            CanelationResponseHandler handler = new CanelationResponseHandler();
+            try
+            {
+                new Validation(Url, User, Password, Token).ValidateHeaderParameters();
+                HttpWebRequest request = this.RequestCancelar(rfc, uuid);
+                return handler.GetResponse(request);
+            }
+            catch (Exception e)
+            {
+                return handler.HandleException(e);
+            }
+        }
         public CancelationResponse CancelarByCSD(string cer, string key, string rfc, string password, string uuid)
         {
             return Cancelar(cer, key, rfc, password, uuid);
@@ -85,6 +99,10 @@ namespace SW.Services.Cancelation
         public CancelationResponse CancelarByPFX(string pfx, string rfc, string password, string uuid)
         {
             return Cancelar(pfx, rfc, password, uuid);
+        }
+        public CancelationResponse CancelarByRfcUuid(string rfc, string uuid)
+        {
+            return Cancelar(rfc, uuid);
         }
 
 

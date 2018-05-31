@@ -81,6 +81,7 @@
     <Compile Include="Services\Cancelation\Cancelation_Test.cs" />
     <Compile Include="Services\Issue\Issue_Test.cs" />
     <Compile Include="Services\Stamp\Stamp_Test.cs" />
+    <Compile Include="Services\Validate\Validate_UT.cs" />
     <Compile Include="UT_Service_Validation.cs" />
   </ItemGroup>
   <ItemGroup>
