@@ -48,11 +48,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\IResponseHandler.cs" />
+    <Compile Include="Helpers\EnumAcceptReject.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
     <Compile Include="Helpers\ResponseHelper.cs" />
     <Compile Include="Helpers\ResponseType.cs" />
     <Compile Include="Helpers\StreamUtil.cs" />
     <Compile Include="Helpers\Validation.cs" />
+    <Compile Include="Services\AcceptReject\AcceptReject.cs" />
+    <Compile Include="Services\AcceptReject\AcceptRejectRequestCSD.cs" />
+    <Compile Include="Services\AcceptReject\AcceptRejectRequestPFX.cs" />
+    <Compile Include="Services\AcceptReject\AcceptRejectResponse.cs" />
+    <Compile Include="Services\AcceptReject\AcceptRejectResponseHandler.cs" />
+    <Compile Include="Services\AcceptReject\AcceptRejectService.cs" />
     <Compile Include="Services\Account\Account.cs" />
     <Compile Include="Services\Account\AccountResponse.cs" />
     <Compile Include="Services\Account\AccountResponseHandler.cs" />
