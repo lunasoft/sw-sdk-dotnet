@@ -5,6 +5,7 @@ using System.Text;
 
 namespace SW.Helpers
 {
+
     public enum EnumAcceptReject
     {
         Aceptacion,
