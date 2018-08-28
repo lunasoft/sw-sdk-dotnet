@@ -1,4 +1,5 @@
-﻿using SW.Services.Account;
+﻿using SW.Services.AcceptReject;
+using SW.Services.Account;
 using SW.Services.Authentication;
 using SW.Services.Cancelation;
 using SW.Services.Stamp;
@@ -90,6 +91,15 @@ namespace SW.Helpers
                 return ex.InnerException.Message;
             else
                 return "";
+        }
+        internal static AcceptRejectResponse ToAcceptRejectResponse(this Exception ex)
+        {
+            return new AcceptRejectResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
         }
     }
 }
