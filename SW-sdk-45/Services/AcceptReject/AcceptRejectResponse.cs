@@ -10,20 +10,17 @@ namespace SW.Services.AcceptReject
     {
         [DataMember(Name = "data")]
         public Data data { get; set; }
+        [DataMember(Name = "codStatus")]
+        public string codStatus { get; set; }
+
     }
     public partial class Data
     {
         [DataMember(Name = "acuse")]
         public string acuse { get; set; }
-        [DataMember]
-        public Dictionary<string, string> uuid { get; set; }
-    }
-    public class AcceptRejectAuthorizeResponse : AcceptRejectResponse
-    {
-        public string codStatus { get; set; }
+        [DataMember(Name = "folios")]
         public List<invoicesStatus> folios { get; set; }
     }
-
     public class invoicesStatus
     {
         public Guid uuid { get; set; }

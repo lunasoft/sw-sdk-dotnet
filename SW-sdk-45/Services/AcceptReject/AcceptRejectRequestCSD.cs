@@ -1,4 +1,6 @@
-﻿using SW.Helpers;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using SW.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,13 +30,14 @@ namespace SW.Services.AcceptReject
     {
         [DataMember]
         public string uuid { get; set; }
-        [DataMember]
         private EnumAcceptReject _action;
 
+        [DataMember]
+        [JsonConverter(typeof(StringEnumConverter))]
         public EnumAcceptReject action
         {
             get { return _action; }
-            set { action = value; }
+            set { _action = value; }
         }
 
     }
