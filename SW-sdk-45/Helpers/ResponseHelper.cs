@@ -2,6 +2,8 @@
 using SW.Services.Account;
 using SW.Services.Authentication;
 using SW.Services.Cancelation;
+using SW.Services.Pendings;
+using SW.Services.Relations;
 using SW.Services.Stamp;
 using SW.Services.Validate;
 using System;
@@ -95,6 +97,24 @@ namespace SW.Helpers
         internal static AcceptRejectResponse ToAcceptRejectResponse(this Exception ex)
         {
             return new AcceptRejectResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static RelationsResponse ToRelationsResponse(this Exception ex)
+        {
+            return new RelationsResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static PendingsResponse ToPendingsResponse(this Exception ex)
+        {
+            return new PendingsResponse()
             {
                 message = ex.Message,
                 status = "error",

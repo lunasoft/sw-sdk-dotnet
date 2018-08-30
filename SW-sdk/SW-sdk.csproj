@@ -81,6 +81,16 @@
     <Compile Include="Entities\Response.cs" />
     <Compile Include="Services\Cancelation\CanelationResponseHandler.cs" />
     <Compile Include="Services\Issue\Issue.cs" />
+    <Compile Include="Services\Pendings\Pendings.cs" />
+    <Compile Include="Services\Pendings\PendingsResponse.cs" />
+    <Compile Include="Services\Pendings\PendingsResponseHandler.cs" />
+    <Compile Include="Services\Pendings\PendingsService.cs" />
+    <Compile Include="Services\Relations\Relations.cs" />
+    <Compile Include="Services\Relations\RelationsRequestCSD.cs" />
+    <Compile Include="Services\Relations\RelationsRequestPFX.cs" />
+    <Compile Include="Services\Relations\RelationsResponse.cs" />
+    <Compile Include="Services\Relations\RelationsResponseHandler.cs" />
+    <Compile Include="Services\Relations\RelationsService.cs" />
     <Compile Include="Services\ResponseHandler.cs" />
     <Compile Include="Services\Services.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
