@@ -3,6 +3,7 @@ using SW.Services.Authentication;
 using SW.Services.Cancelation;
 using SW.Services.Stamp;
 using SW.Services.Validate;
+using SW.Services.Pdf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,15 +76,43 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }   
-        internal static ValidateResponse ToValidateResponse(this Exception ex)
+        internal static ValidateXMLResponse ToValidateXMLResponse(this Exception ex)
         {
-            return new ValidateResponse()
+            return new ValidateXMLResponse()
             {
                 message = ex.Message,
                 status = "error",
                 messageDetail = ex.GetErrorDetail()
             };
         }
+        internal static ValidateLcoResponse ToValidateLcoResponse(this Exception ex)
+        {
+            return new ValidateLcoResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static ValidateLrfcResponse ToValidateLrfcResponse(this Exception ex)
+        {
+            return new ValidateLrfcResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static PdfResponse ToPdfResponse(this Exception ex)
+        {
+            return new PdfResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+
         internal static string GetErrorDetail(this Exception ex)
         {
             if (ex.InnerException != null)

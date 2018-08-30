@@ -75,9 +75,27 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }
-        internal static ValidateResponse ToValidateResponse(this Exception ex)
+        internal static ValidateXmlResponse ToValidateXmlResponse(this Exception ex)
         {
-            return new ValidateResponse()
+            return new ValidateXmlResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static ValidateLcoResponse ToValidateLcoResponse(this Exception ex)
+        {
+            return new ValidateLcoResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static ValidateLrfcResponse ToValidateLrfcResponse(this Exception ex)
+        {
+            return new ValidateLrfcResponse()
             {
                 message = ex.Message,
                 status = "error",

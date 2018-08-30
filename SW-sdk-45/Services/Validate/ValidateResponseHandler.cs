@@ -6,11 +6,25 @@ using SW.Helpers;
 
 namespace SW.Services.Validate
 {
-    internal class ValidateResponseHandler : ResponseHandler<ValidateResponse>
+    internal class ValidateXmlResponseHandler : ResponseHandler<ValidateXmlResponse>
     {
-        public override ValidateResponse HandleException(Exception ex)
+        public override ValidateXmlResponse HandleException(Exception ex)
         {
-            return ex.ToValidateResponse();
+            return ex.ToValidateXmlResponse();
+        }
+    }
+    internal class ValidateLrfcResponseHandler : ResponseHandler<ValidateLrfcResponse>
+    {
+        public override ValidateLrfcResponse HandleException(Exception ex)
+        {
+            return ex.ToValidateLrfcResponse();
+        }
+    }
+    internal class ValidateLcoResponseHandler : ResponseHandler<ValidateLcoResponse>
+    {
+        public override ValidateLcoResponse HandleException(Exception ex)
+        {
+            return ex.ToValidateLcoResponse();
         }
     }
 }
