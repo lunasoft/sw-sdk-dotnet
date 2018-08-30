@@ -13,7 +13,7 @@ namespace Test_SW.Services.Relations_Test
         [TestMethod]
         public void ValidateParameters()
         {
-            var resultExpect = "Son necesarios el .Cer y el .Key en formato B64";
+            var resultExpect = "El UUID proporcionado inválido. Favor de verificar.";
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
             var response = relations.RelationsByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "");
