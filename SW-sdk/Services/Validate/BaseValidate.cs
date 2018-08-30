@@ -18,39 +18,13 @@ namespace SW.Services.Validate
         {
             _operation = operation;
         }
-        public virtual ValidateXMLResponse ValidateXML(string XML)
+        public virtual ValidateResponse Validate(string XML)
         {
-            ValidateXMLResponseHandler handler = new ValidateXMLResponseHandler();
+            ValidateResponseHandler handler = new ValidateResponseHandler();
             try
             {
                 var xmlBytes = Encoding.UTF8.GetBytes(XML);
-                var request = this.RequestValidateXml(xmlBytes);
-                return handler.GetResponse(request);
-            }
-            catch (Exception ex)
-            {
-                return handler.HandleException(ex);
-            }
-        }
-       public virtual ValidateLrfcResponse ValidateLrfc(string Lrfc)
-        {
-            ValidateLrfcResponseHandler handler = new ValidateLrfcResponseHandler();
-            try
-            {
-                var request = this.RequestValidateLrfc(Lrfc);
-                return handler.GetResponse(request);
-            }catch (Exception ex)
-            {
-                return handler.HandleException(ex);
-            }
-        }
-
-        public virtual ValidateLcoResponse ValidateLco(string Lco)
-        {
-            ValidateLcoResponseHandler handler = new ValidateLcoResponseHandler();
-            try
-            {
-                var request = this.RequestValidateLco(Lco);
+                var request = this.RequestValidating(xmlBytes);
                 return handler.GetResponse(request);
             }
             catch (Exception ex)

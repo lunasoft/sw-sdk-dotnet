@@ -18,9 +18,9 @@ namespace SW.Services.Validate
         {
             _operation = operation;
         }
-        public virtual ValidateXmlResponse ValidateXml(string XML)
+        public virtual ValidateResponse Validate(string XML)
         {
-            ValidateXmlResponseHandler handler = new ValidateXmlResponseHandler();
+            ValidateResponseHandler handler = new ValidateResponseHandler();
             try
             {
                 var xmlBytes = Encoding.UTF8.GetBytes(XML);
@@ -29,24 +29,6 @@ namespace SW.Services.Validate
                 return handler.GetPostResponse(this.Url,
                                 string.Format("validate/cfdi33/",
                                 _operation), headers, content);
-            }
-            catch (Exception ex)
-            {
-                return handler.HandleException(ex);
-            }
-        }
-        public virtual ValidateLcoResponse GetValidateLco(string Lco)
-        {
-            ValidateLcoResponseHandler handler = new ValidateLcoResponseHandler();
-            try
-            {
-                var headers = GetHeaders();
-                var content = GetValidateLco(Lco);
-                // string url, Dictionary<string, string> headers, string path
-                return handler.GetPostResponse(this.Url,
-                                headers,
-                                string.Format(string.Format("validate/{0}", Lco))
-                                );
             }
             catch (Exception ex)
             {

@@ -18,7 +18,7 @@ namespace Test_SW_sdk_45.Services.Validate_Test
             var build = new BuildSettings();
             Validate validate = new Validate(build.Url, build.User, build.Password);
             var xml = GetXml(build);
-            var response = (ValidateXmlResponse)validate.ValidateXml(xml.ToString());
+            var response = (ValidateResponse)validate.Validate(xml.ToString());
             Assert.IsTrue(response.status == "success"
                 && !string.IsNullOrEmpty(response.statusCodeSat), "N - 601: La expresión impresa proporcionada no es válida.");
         }
@@ -28,7 +28,7 @@ namespace Test_SW_sdk_45.Services.Validate_Test
             var build = new BuildSettings();
             Validate validate = new Validate(build.Url, build.User, build.Password);
             var xml = "";
-            var response = (ValidateXmlResponse)validate.ValidateXml(xml);
+            var response = (ValidateResponse)validate.Validate(xml);
             Assert.IsTrue(response.status == "error"
                 && !string.IsNullOrEmpty(response.status), "Error al leer el documento XML. La estructura del documento no es un Xml valido y/o la codificación del documento no es UTF8. Root element is missing.");
         }
