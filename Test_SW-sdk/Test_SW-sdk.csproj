@@ -85,10 +85,15 @@
     <Compile Include="Services\Pendings\Pendings_Test.cs" />
     <Compile Include="Services\Relations\Relations_Test.cs" />
     <Compile Include="Services\Stamp\Stamp_Test.cs" />
+    <Compile Include="Services\Status\Status_Test.cs" />
     <Compile Include="Services\Validate\Validate_UT.cs" />
     <Compile Include="UT_Service_Validation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SAT.Services\SAT.Services.csproj">
+      <Project>{58728355-476D-4F26-84DB-E8CC0E2C51A1}</Project>
+      <Name>SAT.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SW-sdk\SW-sdk.csproj">
       <Project>{af098077-a47a-4d9b-affc-2abc12706465}</Project>
       <Name>SW-sdk</Name>

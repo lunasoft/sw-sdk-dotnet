@@ -103,6 +103,8 @@
     <Compile Include="Services\Stamp\StampService.cs" />
     <Compile Include="Helpers\StampTypes.cs" />
     <Compile Include="Services\Stamp\StampValidation.cs" />
+    <Compile Include="Services\Status\Status.cs" />
+    <Compile Include="Services\Status\StatusService.cs" />
     <Compile Include="Services\Validate\BaseValidate.cs" />
     <Compile Include="Services\Validate\Validate.cs" />
     <Compile Include="Services\Validate\ValidateResponse.cs" />
@@ -119,7 +121,12 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SAT.Services\SAT.Services.csproj">
+      <Project>{58728355-476d-4f26-84db-e8cc0e2c51a1}</Project>
+      <Name>SAT.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
