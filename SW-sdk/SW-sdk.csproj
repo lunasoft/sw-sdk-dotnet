@@ -55,8 +55,6 @@
     <Compile Include="Helpers\StreamUtil.cs" />
     <Compile Include="Helpers\Validation.cs" />
     <Compile Include="Services\AcceptReject\AcceptReject.cs" />
-    <Compile Include="Services\AcceptReject\AcceptRejectRequestCSD.cs" />
-    <Compile Include="Services\AcceptReject\AcceptRejectRequestPFX.cs" />
     <Compile Include="Services\AcceptReject\AcceptRejectResponse.cs" />
     <Compile Include="Services\AcceptReject\AcceptRejectResponseHandler.cs" />
     <Compile Include="Services\AcceptReject\AcceptRejectService.cs" />
@@ -84,8 +82,6 @@
     <Compile Include="Services\Pendings\PendingsResponseHandler.cs" />
     <Compile Include="Services\Pendings\PendingsService.cs" />
     <Compile Include="Services\Relations\Relations.cs" />
-    <Compile Include="Services\Relations\RelationsRequestCSD.cs" />
-    <Compile Include="Services\Relations\RelationsRequestPFX.cs" />
     <Compile Include="Services\Relations\RelationsResponse.cs" />
     <Compile Include="Services\Relations\RelationsResponseHandler.cs" />
     <Compile Include="Services\Relations\RelationsService.cs" />

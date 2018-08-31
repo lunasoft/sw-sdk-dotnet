@@ -24,7 +24,7 @@ namespace SW.Services.AcceptReject
             request.ContentType = "application/json";
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
-            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new AcceptRejectRequestCSD()
+            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new RequestsCSD()
             {
                 b64Cer = cer,
                 b64Key = key,
@@ -59,7 +59,7 @@ namespace SW.Services.AcceptReject
             request.ContentType = "application/json";
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization, "bearer " + this.Token);
-            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new AcceptRejectRequestPFX()
+            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new RequestsPFX()
             {
                 b64Pfx = pfx,
                 password = password,

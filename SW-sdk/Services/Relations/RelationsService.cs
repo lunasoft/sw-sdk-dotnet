@@ -34,7 +34,7 @@ namespace SW.Services.Relations
             request.ContentType = "application/json";
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
-            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new RelationsRequestCSD()
+            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new RequestCSD()
             {
                 b64Cer = cer,
                 b64Key = key,

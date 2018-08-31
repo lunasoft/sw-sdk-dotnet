@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Text;
+using static SW.Services.Services;
 
 namespace SW.Helpers
 {
@@ -62,5 +64,33 @@ namespace SW.Helpers
                 requestStream.Write(tempBuffer, 0, tempBuffer.Length);
             }
         }
+    }
+
+    public class RequestCSD : RequestJson
+    {
+        [DataMember]
+        public string b64Cer { get; set; }
+        [DataMember]
+        public string b64Key { get; set; }
+    }
+
+    public class RequestPFX : RequestJson
+    {
+        [DataMember]
+        public string b64Pfx { get; set; }
+    }
+
+    public class RequestsCSD : RequestsJson
+    {
+        [DataMember]
+        public string b64Cer { get; set; }
+        [DataMember]
+        public string b64Key { get; set; }
+    }
+
+    public class RequestsPFX : RequestsJson
+    {
+        [DataMember]
+        public string b64Pfx { get; set; }
     }
 }

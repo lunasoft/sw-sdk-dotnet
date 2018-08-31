@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Diagnostics;
-using SW.Helpers;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test_SW.Helpers;
 using SW.Services.Relations;
 
