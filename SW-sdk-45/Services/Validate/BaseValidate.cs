@@ -18,9 +18,9 @@ namespace SW.Services.Validate
         {
             _operation = operation;
         }
-        public virtual ValidateXmlResponse ValidateXml(string XML)
+        public virtual ValidateResponse Validate(string XML)
         {
-            ValidateXmlResponseHandler handler = new ValidateXmlResponseHandler();
+            ValidateResponseHandler handler = new ValidateResponseHandler();
             try
             {
                 var xmlBytes = Encoding.UTF8.GetBytes(XML);

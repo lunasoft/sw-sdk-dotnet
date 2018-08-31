@@ -74,13 +74,16 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Helpers\BuildSettings.cs" />
+    <Compile Include="Helpers\ResponseHelper.cs" />
     <Compile Include="Helpers\SignTools.cs" />
+    <Compile Include="Services\AcceptReject\AcceptReject_Test.cs" />
     <Compile Include="Services\Authentication\Authentication_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Account\Account_Test.cs" />
     <Compile Include="Services\Cancelation\Cancelation_Test.cs" />
     <Compile Include="Services\Issue\Issue_Test.cs" />
-    <Compile Include="Services\Pdf\Pdf_Test.cs" />
+    <Compile Include="Services\Pendings\Pendings_Test.cs" />
+    <Compile Include="Services\Relations\Relations_Test.cs" />
     <Compile Include="Services\Stamp\Stamp_Test.cs" />
     <Compile Include="Services\Validate\Validate_UT.cs" />
     <Compile Include="UT_Service_Validation.cs" />
@@ -95,7 +98,9 @@
     <Content Include="Resources\acuse.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_1.xml" />
+    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_big.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -113,6 +118,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\fileANSI.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\RelationsXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\SpecialCharacters.xml">

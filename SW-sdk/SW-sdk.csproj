@@ -48,11 +48,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\IResponseHandler.cs" />
+    <Compile Include="Helpers\EnumAcceptReject.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
     <Compile Include="Helpers\ResponseHelper.cs" />
     <Compile Include="Helpers\ResponseType.cs" />
     <Compile Include="Helpers\StreamUtil.cs" />
     <Compile Include="Helpers\Validation.cs" />
+    <Compile Include="Services\AcceptReject\AcceptReject.cs" />
+    <Compile Include="Services\AcceptReject\AcceptRejectResponse.cs" />
+    <Compile Include="Services\AcceptReject\AcceptRejectResponseHandler.cs" />
+    <Compile Include="Services\AcceptReject\AcceptRejectService.cs" />
     <Compile Include="Services\Account\Account.cs" />
     <Compile Include="Services\Account\AccountResponse.cs" />
     <Compile Include="Services\Account\AccountResponseHandler.cs" />
@@ -72,11 +77,14 @@
     <Compile Include="Entities\Response.cs" />
     <Compile Include="Services\Cancelation\CanelationResponseHandler.cs" />
     <Compile Include="Services\Issue\Issue.cs" />
-    <Compile Include="Services\Pdf\BasePdf.cs" />
-    <Compile Include="Services\Pdf\Pdf.cs" />
-    <Compile Include="Services\Pdf\PdfResponse.cs" />
-    <Compile Include="Services\Pdf\PdfResponseHandler.cs" />
-    <Compile Include="Services\Pdf\PdfService.cs" />
+    <Compile Include="Services\Pendings\Pendings.cs" />
+    <Compile Include="Services\Pendings\PendingsResponse.cs" />
+    <Compile Include="Services\Pendings\PendingsResponseHandler.cs" />
+    <Compile Include="Services\Pendings\PendingsService.cs" />
+    <Compile Include="Services\Relations\Relations.cs" />
+    <Compile Include="Services\Relations\RelationsResponse.cs" />
+    <Compile Include="Services\Relations\RelationsResponseHandler.cs" />
+    <Compile Include="Services\Relations\RelationsService.cs" />
     <Compile Include="Services\ResponseHandler.cs" />
     <Compile Include="Services\Services.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
