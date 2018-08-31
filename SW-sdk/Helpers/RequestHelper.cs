@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -83,6 +85,8 @@ namespace SW.Helpers
     public class RequestsCSD : RequestsJson
     {
         [DataMember]
+        public AceptacionRechazoItem[] uuids { get; set; }
+        [DataMember]
         public string b64Cer { get; set; }
         [DataMember]
         public string b64Key { get; set; }
@@ -91,6 +95,26 @@ namespace SW.Helpers
     public class RequestsPFX : RequestsJson
     {
         [DataMember]
+        public AceptacionRechazoItem[] uuids { get; set; }
+        [DataMember]
         public string b64Pfx { get; set; }
+    }
+
+
+    [DataContract]
+    public class AceptacionRechazoItem
+    {
+        [DataMember]
+        public string uuid { get; set; }
+        private EnumAcceptReject _action;
+
+        [DataMember]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public EnumAcceptReject action
+        {
+            get { return _action; }
+            set { _action = value; }
+        }
+
     }
 }
