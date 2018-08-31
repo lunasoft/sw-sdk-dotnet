@@ -1,25 +1,35 @@
 ﻿using SW.Helpers;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text;
 
-namespace SW.Services.AcceptReject
+namespace SW.Services.Relations
 {
-    public abstract class AcceptRejectService : Services
+    public abstract class RelationsService : Services
     {
-        protected AcceptRejectService(string url, string user, string password) : base(url, user, password)
+        protected RelationsService(string url, string user, string password) : base(url, user, password)
         {
         }
-        protected AcceptRejectService(string url, string token) : base(url, token)
+        protected RelationsService(string url, string token) : base(url, token)
         {
         }
-        internal abstract AcceptRejectResponse AcceptRejectRequest(string cer, string key, string rfc, string password, AceptacionRechazoItem[] uuid);
-        internal abstract AcceptRejectResponse AcceptRejectRequest(byte[] xmlCancelation, EnumAcceptReject enumCancelation);
-        internal abstract AcceptRejectResponse AcceptRejectRequest(string pfx, string rfc, string password, AceptacionRechazoItem[] uuid);
-        internal abstract AcceptRejectResponse AcceptRejectRequest(string rfc, string uuid, EnumAcceptReject enumCancelation);
-        internal virtual HttpWebRequest RequestAcceptReject(string cer, string key, string rfc, string password, AceptacionRechazoItem[] uuids)
+        internal abstract RelationsResponse RelationsRequest(string cer, string key, string rfc, string password, string uuid);
+        internal abstract RelationsResponse RelationsRequest(byte[] xmlCancelation);
+        internal abstract RelationsResponse RelationsRequest(string pfx, string rfc, string password, string uuid);
+        internal abstract RelationsResponse RelationsRequest(string rfc, string uuid);
+        internal virtual Dictionary<string, string> GetHeaders()
         {
             this.SetupRequest();
-            string path = string.Format("acceptreject/csd");
+            Dictionary<string, string> headers = new Dictionary<string, string>() {
+                    { "Authorization", "bearer " + this.Token }
+                };
+            return headers;
+        }
+        internal virtual HttpWebRequest RequestRelations(string cer, string key, string rfc, string password, string uuid)
+        {
+            this.SetupRequest();
+            string path = string.Format("relations/csd");
             var request = (HttpWebRequest)WebRequest.Create(this.Url + path);
             request.ContentType = "application/json";
             request.Method = WebRequestMethods.Http.Post;
@@ -30,7 +40,7 @@ namespace SW.Services.AcceptReject
                 b64Key = key,
                 password = password,
                 rfc = rfc,
-                uuids = uuids
+                uuid = uuid
             });
             request.ContentLength = body.Length;
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
@@ -41,10 +51,10 @@ namespace SW.Services.AcceptReject
             }
             return request;
         }
-        internal virtual HttpWebRequest RequestAcceptReject(byte[] xmlCancelation, EnumAcceptReject enumCancelation)
+        internal virtual HttpWebRequest RequestRelations(byte[] xmlCancelation)
         {
             this.SetupRequest();
-            var request = (HttpWebRequest)WebRequest.Create(this.Url + "acceptreject/xml");
+            var request = (HttpWebRequest)WebRequest.Create(this.Url + "relations/xml");
             request.ContentType = "application/json";
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
@@ -52,10 +62,10 @@ namespace SW.Services.AcceptReject
             Helpers.RequestHelper.AddFileToRequest(xmlCancelation, ref request);
             return request;
         }
-        internal virtual HttpWebRequest RequestAcceptReject(string pfx, string rfc, string password, AceptacionRechazoItem[] uuid)
+        internal virtual HttpWebRequest RequestRelations(string pfx, string rfc, string password, string uuid)
         {
             this.SetupRequest();
-            var request = (HttpWebRequest)WebRequest.Create(this.Url + "acceptreject/pfx");
+            var request = (HttpWebRequest)WebRequest.Create(this.Url + "relations/pfx");
             request.ContentType = "application/json";
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization, "bearer " + this.Token);
@@ -64,7 +74,7 @@ namespace SW.Services.AcceptReject
                 b64Pfx = pfx,
                 password = password,
                 rfc = rfc,
-                uuids = uuid
+                uuid = uuid
             });
             request.ContentLength = body.Length;
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
@@ -75,10 +85,10 @@ namespace SW.Services.AcceptReject
             }
             return request;
         }
-        internal virtual HttpWebRequest RequestAcceptReject(string rfc, string uuid, EnumAcceptReject enumAcceptReject)
+        internal virtual HttpWebRequest RequestRelations(string rfc, string uuid)
         {
             this.SetupRequest();
-            string path = string.Format("acceptreject/{0}/{1}/{2}", rfc, uuid, enumAcceptReject.ToString());
+            string path = $"relations/{rfc}/{uuid}";
             var request = (HttpWebRequest)WebRequest.Create(this.Url + path);
             request.ContentType = "application/json";
             request.ContentLength = 0;

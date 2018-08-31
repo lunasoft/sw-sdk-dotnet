@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using SW.Helpers;
+using SW.Services.AcceptReject;
 
 namespace SW.Services
 {
@@ -33,7 +35,6 @@ namespace SW.Services
         }
         public Services()
         {
-
         }
         public Services(string url, string token)
         {
@@ -61,5 +62,27 @@ namespace SW.Services
             }
             return this;
         }
+        [DataContract]
+        public class RequestJson
+        {
+            [DataMember]
+            public string uuid { get; set; }
+            [DataMember]
+            public string password { get; set; }
+            [DataMember]
+            public string rfc { get; set; }
+        }
+        [DataContract]
+        public class RequestsJson
+        {
+            [DataMember]
+            public AceptacionRechazoItem[] uuids { get; set; }
+            [DataMember]
+            public string uuid { get; set; }
+            [DataMember]
+            public string password { get; set; }
+            [DataMember]
+            public string rfc { get; set; }
+        }
     }
-}
+} 
