@@ -35,5 +35,22 @@ namespace SW.Services.Validate
                 return handler.HandleException(ex);
             }
         }
+        public virtual ValidateLcoResponse GetValidateLco(string Lco)
+        {
+            ValidateLcoResponseHandler handler = new ValidateLcoResponseHandler();
+            try
+            {
+                var headers = GetHeaders();
+                var content = GetValidateLco(Lco);
+                return handler.GetPostResponse(this.Url,
+                                headers,
+                                string.Format(string.Format("validate/{0}", Lco))
+                                );
+            }
+            catch (Exception ex)
+            {
+                return handler.HandleException(ex);
+            }
+        }
     }
 }
