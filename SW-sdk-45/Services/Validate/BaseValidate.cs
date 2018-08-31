@@ -42,7 +42,6 @@ namespace SW.Services.Validate
             {
                 var headers = GetHeaders();
                 var content = GetValidateLco(Lco);
-                // string url, Dictionary<string, string> headers, string path
                 return handler.GetPostResponse(this.Url,
                                 headers,
                                 string.Format(string.Format("validate/{0}", Lco))
