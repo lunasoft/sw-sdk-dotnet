@@ -54,11 +54,14 @@
     <Compile Include="Helpers\ResponseType.cs" />
     <Compile Include="Helpers\StreamUtil.cs" />
     <Compile Include="Helpers\Validation.cs" />
+    <Compile Include="Services\Pdf\BasePdf.cs" />
+    <Compile Include="Services\Pdf\Pdf.cs" />
+    <Compile Include="Services\Pdf\PdfResponse.cs" />
+    <Compile Include="Services\Pdf\PdfResponseHandler.cs" />
+    <Compile Include="Services\Pdf\PdfService.cs" />
     <Compile Include="Services\Status\Status.cs" />
     <Compile Include="Services\Status\StatusService.cs" />
     <Compile Include="Services\AcceptReject\AcceptReject.cs" />
-    <Compile Include="Services\AcceptReject\AcceptRejectRequestCSD.cs" />
-    <Compile Include="Services\AcceptReject\AcceptRejectRequestPFX.cs" />
     <Compile Include="Services\AcceptReject\AcceptRejectResponse.cs" />
     <Compile Include="Services\AcceptReject\AcceptRejectResponseHandler.cs" />
     <Compile Include="Services\AcceptReject\AcceptRejectService.cs" />
@@ -86,8 +89,6 @@
     <Compile Include="Services\Pendings\PendingsResponseHandler.cs" />
     <Compile Include="Services\Pendings\PendingsService.cs" />
     <Compile Include="Services\Relations\Relations.cs" />
-    <Compile Include="Services\Relations\RelationsRequestCSD.cs" />
-    <Compile Include="Services\Relations\RelationsRequestPFX.cs" />
     <Compile Include="Services\Relations\RelationsResponse.cs" />
     <Compile Include="Services\Relations\RelationsResponseHandler.cs" />
     <Compile Include="Services\Relations\RelationsService.cs" />
