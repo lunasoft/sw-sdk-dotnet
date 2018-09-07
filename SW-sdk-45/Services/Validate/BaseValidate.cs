@@ -35,17 +35,34 @@ namespace SW.Services.Validate
                 return handler.HandleException(ex);
             }
         }
-        public virtual ValidateLcoResponse GetValidateLco(string Lco)
+        public virtual ValidateLcoResponse ValidateLco(string Lco)
         {
             ValidateLcoResponseHandler handler = new ValidateLcoResponseHandler();
             try
             {
                 var headers = GetHeaders();
-                var content = GetValidateLco(Lco);
-                // string url, Dictionary<string, string> headers, string path
-                return handler.GetPostResponse(this.Url,
+                var content = RequestValidarLco(Lco);
+                return handler.GetResponse(this.Url,
                                 headers,
-                                string.Format(string.Format("validate/{0}", Lco))
+                                string.Format("lco/{0}", Lco)
+                                );
+            }
+            catch (Exception ex)
+            {
+                return handler.HandleException(ex);
+            }
+        }
+
+        public virtual ValidateLrfcResponse ValidateLrfc(string Lrfc)
+        {
+            ValidateLrfcResponseHandler handler = new ValidateLrfcResponseHandler();
+            try
+            {
+                var headers = GetHeaders();
+                var content = RequestValidarLrfc(Lrfc);
+                return handler.GetResponse(this.Url,
+                                headers,
+                                string.Format("lrfc/{0}", Lrfc)
                                 );
             }
             catch (Exception ex)

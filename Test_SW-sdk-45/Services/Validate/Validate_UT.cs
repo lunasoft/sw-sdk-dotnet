@@ -18,7 +18,7 @@ namespace Test_SW_sdk_45.Services.Validate_Test
             var build = new BuildSettings();
             Validate validate = new Validate(build.Url, build.User, build.Password);
             var xml = GetXml(build);
-            var response = (ValidateXmlResponse)validate.ValidateXml(xml.ToString());
+            var response = validate.ValidateXml(xml.ToString());
             Assert.IsTrue(response.status == "success"
                 && !string.IsNullOrEmpty(response.statusCodeSat), "N - 601: La expresión impresa proporcionada no es válida.");
         }
@@ -28,30 +28,27 @@ namespace Test_SW_sdk_45.Services.Validate_Test
             var build = new BuildSettings();
             Validate validate = new Validate(build.Url, build.User, build.Password);
             var xml = "";
-            var response = (ValidateXmlResponse)validate.ValidateXml(xml);
+            var response = validate.ValidateXml(xml);
             Assert.IsTrue(response.status == "error"
                 && !string.IsNullOrEmpty(response.status), "Error al leer el documento XML. La estructura del documento no es un Xml valido y/o la codificación del documento no es UTF8. Root element is missing.");
         }
-        /*
         [TestMethod]
         public void Validate_Test_Lrfc()
         {
             var build = new BuildSettings();
             var rfc = build.Rfc;
             Validate validate = new Validate(build.Url, build.User, build.Password);
-            var response = (ValidateLrfcResponse)validate.(rfc);
+            ValidateLrfcResponse response = validate.ValidateLrfc(rfc);
             Assert.IsTrue(response.status == "success"
                 && response.data.contribuyenteRFC == build.Rfc);
         }
-        */
-
         [TestMethod]
         public void Validate_Test_Lco()
         {
             var build = new BuildSettings();
             var noCertificado = build.noCertificado;
             Validate validate = new Validate(build.Url, build.User, build.Password);
-            var response = (ValidateLcoResponse)validate.GetValidateLco(noCertificado);
+            ValidateLcoResponse response = validate.ValidateLco(noCertificado);
             Assert.IsTrue(response.status == "success"
                 && response.data.noCertificado == build.noCertificado);
         }
