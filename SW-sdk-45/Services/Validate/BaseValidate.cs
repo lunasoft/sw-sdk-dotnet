@@ -14,13 +14,13 @@ namespace SW.Services.Validate
         {
             _operation = operation;
         }
-        public BaseValidate(string url,  string token, string operation) : base(url, token)
+        public BaseValidate(string url, string token, string operation) : base(url, token)
         {
             _operation = operation;
         }
-        public virtual ValidateResponse Validate(string XML)
+        public virtual ValidateXmlResponse ValidateXml(string XML)
         {
-            ValidateResponseHandler handler = new ValidateResponseHandler();
+            ValidateXmlResponseHandler handler = new ValidateXmlResponseHandler();
             try
             {
                 var xmlBytes = Encoding.UTF8.GetBytes(XML);
@@ -42,6 +42,7 @@ namespace SW.Services.Validate
             {
                 var headers = GetHeaders();
                 var content = GetValidateLco(Lco);
+                // string url, Dictionary<string, string> headers, string path
                 return handler.GetPostResponse(this.Url,
                                 headers,
                                 string.Format(string.Format("validate/{0}", Lco))

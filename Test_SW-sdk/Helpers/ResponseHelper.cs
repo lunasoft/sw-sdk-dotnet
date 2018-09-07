@@ -77,15 +77,6 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }   
-        internal static ValidateResponse ToValidateResponse(this Exception ex)
-        {
-            return new ValidateResponse()
-            {
-                message = ex.Message,
-                status = "error",
-                messageDetail = ex.GetErrorDetail()
-            };
-        }
         internal static string GetErrorDetail(this Exception ex)
         {
             if (ex.InnerException != null)
