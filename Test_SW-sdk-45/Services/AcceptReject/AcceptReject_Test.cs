@@ -50,7 +50,7 @@ namespace Test_SW.Services.AcceptReject_Test_45
             var resultExpect = "El uuid proporcionado es inválido. Favor de verificar";
             var build = new BuildSettings();
             AcceptReject acceptReject = new AcceptReject(build.Url, build.User, build.Password);
-            var response = acceptReject.AcceptByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, new AceptacionRechazoItem[] { new AceptacionRechazoItem() { uuid = "" } });
+            AcceptRejectResponse response = acceptReject.AcceptByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, new AceptacionRechazoItem[] { new AceptacionRechazoItem() { uuid = "" } });
             Assert.IsTrue(response.messageDetail.Contains((string)resultExpect));
         }
         [TestMethod]

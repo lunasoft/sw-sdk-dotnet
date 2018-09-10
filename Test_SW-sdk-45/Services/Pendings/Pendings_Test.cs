@@ -24,8 +24,8 @@ namespace Test_SW.Services.Pendings
         {
             var build = new BuildSettings();
             Pending pendientes = new Pending(build.Url, build.User, build.Password);
-            var response = pendientes.PendingsByRfc(build.Rfc);
-            Assert.IsTrue(response.message != null);
+            PendingsResponse response = pendientes.PendingsByRfc(build.Rfc);
+            Assert.IsTrue(response.status == "success");
         }
     }
 }

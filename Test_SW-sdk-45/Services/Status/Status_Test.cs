@@ -12,9 +12,6 @@ namespace Test_SW.Services.Status_Test
     [TestClass]
     public class Status_Test_45
     {
-        //TEST
-        //private string urlSAT = "https://srvconsultacfdiuat.cloudapp.net/ConsultaCFDIService.svc";
-        //Prod
         private string urlSAT = "https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc";
 
         [TestMethod]

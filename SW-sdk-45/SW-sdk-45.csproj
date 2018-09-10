@@ -83,6 +83,11 @@
     <Compile Include="Entities\Response.cs" />
     <Compile Include="Services\Cancelation\CanelationResponseHandler.cs" />
     <Compile Include="Services\Issue\Issue.cs" />
+    <Compile Include="Services\Pdf\BasePdf.cs" />
+    <Compile Include="Services\Pdf\Pdf.cs" />
+    <Compile Include="Services\Pdf\PdfResponse.cs" />
+    <Compile Include="Services\Pdf\PdfResponseHandler.cs" />
+    <Compile Include="Services\Pdf\PdfService.cs" />
     <Compile Include="Services\Pendings\Pendings.cs" />
     <Compile Include="Services\Pendings\PendingsResponse.cs" />
     <Compile Include="Services\Pendings\PendingsResponseHandler.cs" />
@@ -127,9 +132,7 @@
       <Name>SAT.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\Pdf\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

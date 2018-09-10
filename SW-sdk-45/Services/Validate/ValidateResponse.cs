@@ -11,8 +11,6 @@ namespace SW.Services.Validate
     public class ValidateXmlResponse : Response
     {
         [DataMember]
-        public string Status { get; set; }
-        [DataMember]
         public List<Detail> detail { get; set; }
         [DataMember]
         public string cadenaOriginalSAT { get; set; }
