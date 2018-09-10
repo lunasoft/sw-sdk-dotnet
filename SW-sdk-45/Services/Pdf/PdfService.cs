@@ -13,7 +13,6 @@ namespace SW.Services.Pdf
 {
     public abstract class PdfService : Services
     {
-        public string boundary = "----------------------------" + DateTime.Now.Ticks.ToString("x");
         protected PdfService(string url, string user, string password) : base(url, user, password)
         {
         }
