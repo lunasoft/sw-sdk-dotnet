@@ -2,6 +2,7 @@
 using SW.Services.Account;
 using SW.Services.Authentication;
 using SW.Services.Cancelation;
+using SW.Services.Pdf;
 using SW.Services.Pendings;
 using SW.Services.Relations;
 using SW.Services.Stamp;
@@ -78,9 +79,27 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }
-        internal static ValidateResponse ToValidateResponse(this Exception ex)
+        internal static ValidateXmlResponse ToValidateXmlResponse(this Exception ex)
         {
-            return new ValidateResponse()
+            return new ValidateXmlResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static ValidateLcoResponse ToValidateLcoResponse(this Exception ex)
+        {
+            return new ValidateLcoResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static ValidateLrfcResponse ToValidateLrfcResponse(this Exception ex)
+        {
+            return new ValidateLrfcResponse()
             {
                 message = ex.Message,
                 status = "error",
@@ -115,6 +134,15 @@ namespace SW.Helpers
         internal static PendingsResponse ToPendingsResponse(this Exception ex)
         {
             return new PendingsResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static PdfResponse ToPdfResponse(this Exception ex)
+        {
+            return new PdfResponse()
             {
                 message = ex.Message,
                 status = "error",

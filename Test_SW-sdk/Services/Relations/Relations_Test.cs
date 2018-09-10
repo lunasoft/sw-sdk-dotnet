@@ -13,7 +13,7 @@ namespace Test_SW.Services.Relations_Test
             var resultExpect = "El UUID proporcionado inválido. Favor de verificar.";
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
-            var response = relations.RelationsByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "");
+            RelationsResponse response = relations.RelationsByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "");
             Assert.IsTrue(response.messageDetail.Contains((string)resultExpect));
         }
         [TestMethod]
@@ -21,32 +21,32 @@ namespace Test_SW.Services.Relations_Test
         {
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
-            var response = relations.RelationsByRfcUuid(build.Rfc, "01724196-ac5a-4735-b621-e3b42bcbb459");
-            Assert.IsTrue(response.message != null);
+            RelationsResponse response = relations.RelationsByRfcUuid(build.Rfc, "01724196-ac5a-4735-b621-e3b42bcbb459");
+            Assert.IsTrue(response.status == "success");
         }
         [TestMethod]
         public void RelationsByCSD()
         {
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
-            var response = relations.RelationsByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "01724196-ac5a-4735-b621-e3b42bcbb459");
-            Assert.IsTrue(response.message != null, response.message);
+            RelationsResponse response = relations.RelationsByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "01724196-ac5a-4735-b621-e3b42bcbb459");
+            Assert.IsTrue(response.status == "success");
         }
         [TestMethod]
         public void RelationsRejectByPfx()
         {
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
-            var response = relations.RelationsByPFX(build.Pfx, build.Rfc, build.CerPassword, "01724196-ac5a-4735-b621-e3b42bcbb459");
-            Assert.IsTrue(response.message != null, response.message);
+            RelationsResponse response = relations.RelationsByPFX(build.Pfx, build.Rfc, build.CerPassword, "01724196-ac5a-4735-b621-e3b42bcbb459");
+            Assert.IsTrue(response.status == "success");
         }
         [TestMethod]
         public void RelationsByXml()
         {
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
-            var response = relations.RelationsByXML(build.RelationsXML);
-            Assert.IsTrue(response.message != null, response.message);
+            RelationsResponse response = relations.RelationsByXML(build.RelationsXML);
+            Assert.IsTrue(response.status == "success");
         }
     }
 }
