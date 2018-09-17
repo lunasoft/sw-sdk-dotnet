@@ -20,7 +20,7 @@ namespace Test_SW.Helpers
         public string Pfx = Convert.ToBase64String(File.ReadAllBytes("Resources/CertificadosDePrueba/CSD_Prueba_CFDI_LAN8507268IA.pfx"));
         public string Rfc = "LAN8507268IA";
         public string noCertificado = "20001000000300022815";
-        public byte[] Acuse = File.ReadAllBytes("Resources/acuse.xml");
+        public byte[] Acuse = File.ReadAllBytes("Resources/acuse2.xml");
         public byte[] RelationsXML = File.ReadAllBytes("Resources/RelationsXML.xml");
 
         public Dictionary<string, string> observaciones = new Dictionary<string, string>() { { "Observaciones", "Entregar de 9am a 6pm" } };
