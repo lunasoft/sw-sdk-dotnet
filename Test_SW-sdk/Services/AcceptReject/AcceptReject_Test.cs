@@ -50,6 +50,9 @@ namespace Test_SW.Services.AcceptReject_Test
             var response = acceptReject.AcceptByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, new AceptacionRechazoItem[] { new AceptacionRechazoItem() { uuid = ""} });
             Assert.IsTrue(response.messageDetail.Contains((string)resultExpect));
         }
+
+        //Las siguientes pruebas se ignoran debido a que ya no aplica el mismo flujo para la nueva cancelación.
+        [Ignore]
         [TestMethod]
         public void AcceptRejectByRfcUuid()
         {
@@ -58,6 +61,7 @@ namespace Test_SW.Services.AcceptReject_Test
             var response = acceptReject.AcceptByRfcUuid(build.Rfc, "01724196-ac5a-4735-b621-e3b42bcbb459", EnumAcceptReject.Aceptacion);
             Assert.IsTrue(response.status == "success");
         }
+        [Ignore]
         [TestMethod]
         public void AcceptRejectByCSD()
         {
@@ -66,6 +70,7 @@ namespace Test_SW.Services.AcceptReject_Test
             var response = acceptReject.AcceptByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, new AceptacionRechazoItem[] { new AceptacionRechazoItem() { uuid = "01724196-ac5a-4735-b621-e3b42bcbb459", action = EnumAcceptReject.Aceptacion } });
             Assert.IsTrue(response.status == "success");
         }
+        [Ignore]
         [TestMethod]
         public void AcceptRejectByPfx()
         {
@@ -74,6 +79,7 @@ namespace Test_SW.Services.AcceptReject_Test
             var response = acceptReject.AcceptByPFX(build.Pfx, build.Rfc, build.CerPassword, new AceptacionRechazoItem[] { new AceptacionRechazoItem() { uuid = "01724196-ac5a-4735-b621-e3b42bcbb459", action = EnumAcceptReject.Aceptacion } });
             Assert.IsTrue(response.status == "success");
         }
+        [Ignore]
         [TestMethod]
         public void AcceptRejectByXml()
         {
