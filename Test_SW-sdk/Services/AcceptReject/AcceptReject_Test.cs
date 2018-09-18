@@ -50,6 +50,8 @@ namespace Test_SW.Services.AcceptReject_Test
             var response = acceptReject.AcceptByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, new AceptacionRechazoItem[] { new AceptacionRechazoItem() { uuid = ""} });
             Assert.IsTrue(response.messageDetail.Contains((string)resultExpect));
         }
+
+        //Las siguientes pruebas se ignoran debido a que ya no aplica el mismo flujo para la nueva cancelación.
         [Ignore]
         [TestMethod]
         public void AcceptRejectByRfcUuid()
