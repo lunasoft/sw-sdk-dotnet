@@ -15,7 +15,7 @@ namespace Test_SW.Services.Cancelation_Test_45
         {
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
-            var response = cancelation.CancelarByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "80C2D013-674F-48E1-B596-F664B6F23913");
+            var response = cancelation.CancelarByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "b67e986b-058c-490a-9e18-2a1547791769");
             Assert.IsTrue(response.data.acuse != null && response.status == "success");
         }
         [TestMethod]
@@ -23,7 +23,7 @@ namespace Test_SW.Services.Cancelation_Test_45
         {
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
-            var response = cancelation.CancelarByRfcUuid(build.Rfc, "80C2D013-674F-48E1-B596-F664B6F23913");
+            var response = cancelation.CancelarByRfcUuid(build.Rfc, "b67e986b-058c-490a-9e18-2a1547791769");
             Assert.IsTrue(response.data.acuse != null && response.status == "success");
         }
 
@@ -32,7 +32,7 @@ namespace Test_SW.Services.Cancelation_Test_45
         {
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
-            CancelationResponse response = cancelation.CancelarByPFX(build.Pfx, build.Rfc, build.CerPassword, "80C2D013-674F-48E1-B596-F664B6F23913");
+            CancelationResponse response = cancelation.CancelarByPFX(build.Pfx, build.Rfc, build.CerPassword, "b67e986b-058c-490a-9e18-2a1547791769");
             Assert.IsTrue(response != null && response.status == "success");
         }
         [TestMethod]
