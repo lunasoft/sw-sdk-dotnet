@@ -5,10 +5,10 @@ namespace SW.Services.Pendings
 {
     public abstract class PendingsService : Services
     {
-        protected PendingsService(string url, string user, string password) : base(url, user, password)
+        protected PendingsService(string url, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
         }
-        protected PendingsService(string url, string token) : base(url, token)
+        protected PendingsService(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
         }
         internal abstract PendingsResponse PendingsRequest(string rfc);
@@ -29,6 +29,7 @@ namespace SW.Services.Pendings
             request.ContentLength = 0;
             request.Method = WebRequestMethods.Http.Get;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
             return request;
         }
     }

@@ -9,10 +9,10 @@ namespace SW.Services.Pdf
     public abstract class BasePdf : PdfService
     {
        
-        public BasePdf(string url, string token) : base(url, token)
+        public BasePdf(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
         }
-        public BasePdf(string url, string user, string password) : base(url, user, password)
+        public BasePdf(string url, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
         }
         public virtual PdfResponse GenerarPdf(string xml, string templateId, Dictionary<string, string> ObservacionesAdicionales = null, bool isB64 = false)

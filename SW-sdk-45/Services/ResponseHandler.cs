@@ -12,11 +12,11 @@ namespace SW.Services
     internal abstract class ResponseHandler<T>
         where T : Response, new()
     {
-        public virtual T GetPostResponse(string url, string path, Dictionary<string, string> headers, HttpContent content)
+        public virtual T GetPostResponse(string url, string path, Dictionary<string, string> headers, HttpContent content, HttpClientHandler proxy)
         {
             try
             {
-                using (HttpClient client = new HttpClient())
+                using (HttpClient client = new HttpClient(proxy))
                 {
                     client.BaseAddress = new Uri(url);
                     foreach (var header in headers)
@@ -37,11 +37,11 @@ namespace SW.Services
                 };
             }
         }
-        public virtual T GetPostResponse(string url, Dictionary<string, string> headers, string path)
+        public virtual T GetPostResponse(string url, Dictionary<string, string> headers, string path, HttpClientHandler proxy)
         {
             try
             {
-                using (HttpClient client = new HttpClient())
+                using (HttpClient client = new HttpClient(proxy))
                 {
                     foreach (var header in headers)
                     {
@@ -63,11 +63,11 @@ namespace SW.Services
             }
         }
 
-        public virtual T GetResponse(string url, Dictionary<string, string> headers, string path)
+        public virtual T GetResponse(string url, Dictionary<string, string> headers, string path, HttpClientHandler proxy)
         {
             try
             {
-                using (HttpClient client = new HttpClient())
+                using (HttpClient client = new HttpClient(proxy))
                 {
                     foreach (var header in headers)
                     {

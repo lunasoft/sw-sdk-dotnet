@@ -17,6 +17,15 @@ namespace SW.Helpers
         {
             return !url.EndsWith("/") ? url + "/" : url;
         }
+        internal static void SetupProxy(string proxy, int port, ref HttpWebRequest request)
+        {
+            if (!string.IsNullOrEmpty(proxy))
+            {
+                WebProxy myproxy = new WebProxy(proxy, port);
+                request.Proxy = myproxy;
+            }
+        }
+
         internal static void AddFileToRequest(byte[] file, ref HttpWebRequest request)
         {
             string boundary = "----------------------------" + DateTime.Now.Ticks.ToString("x");

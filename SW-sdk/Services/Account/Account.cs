@@ -15,7 +15,7 @@ namespace SW.Services.Account
         /// <param name="url"></param>
         /// <param name="user"></param>
         /// <param name="password"></param>
-        public BalanceAccount(string url, string user, string password) : base(url, user, password)
+        public BalanceAccount(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
         {
             _handler = new BalanceAccountResponseHandler();
         }
@@ -24,7 +24,7 @@ namespace SW.Services.Account
         /// </summary>
         /// <param name="url"></param>
         /// <param name="token"></param>
-        public BalanceAccount(string url, string token) : base(url, token)
+        public BalanceAccount(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
             _handler = new BalanceAccountResponseHandler();
         }
@@ -39,6 +39,7 @@ namespace SW.Services.Account
                 request.ContentType = "application/json";
                 request.Method = WebRequestMethods.Http.Get;
                 request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+                Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
                 request.ContentLength = 0;
                 return _handler.GetResponse(request);
             }

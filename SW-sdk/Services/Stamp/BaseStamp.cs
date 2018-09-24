@@ -7,11 +7,11 @@ namespace SW.Services.Stamp
     public abstract class BaseStamp : StampService
     {
         private string _operation;
-        public BaseStamp(string url, string user, string password, string operation) : base(url, user, password)
+        public BaseStamp(string url, string user, string password, string operation, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
         {
             _operation = operation;
         }
-        public BaseStamp(string url, string token, string operation) : base(url, token)
+        public BaseStamp(string url, string token, string operation, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
             _operation = operation;
         }

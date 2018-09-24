@@ -11,11 +11,11 @@ namespace SW.Services.Relations
     public class Relations : RelationsService
     {
         RelationsResponseHandler _handler;
-        public Relations(string url, string user, string password) : base(url, user, password)
+        public Relations(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
         {
             _handler = new RelationsResponseHandler();
         }
-        public Relations(string url, string token) : base(url, token)
+        public Relations(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
             _handler = new RelationsResponseHandler();
         }
@@ -27,8 +27,9 @@ namespace SW.Services.Relations
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
                 var headers = GetHeaders();
                 var content = this.RequestRelations(cer, key, rfc, password, uuid);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
-                                "relations/csd", headers, content);
+                                "relations/csd", headers, content, proxy);
             }
             catch (Exception e)
             {
@@ -43,8 +44,9 @@ namespace SW.Services.Relations
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
                 var headers = GetHeaders();
                 var content = this.RequestRelations(xmlCancelation);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
-                                "relations/xml", headers, content);
+                                "relations/xml", headers, content, proxy);
             }
             catch (Exception e)
             {
@@ -59,8 +61,9 @@ namespace SW.Services.Relations
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
                 var headers = GetHeaders();
                 var content = this.RequestRelations(pfx, rfc, password, uuid);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
-                                "relations/pfx", headers, content);
+                                "relations/pfx", headers, content, proxy);
             }
             catch (Exception e)
             {
@@ -78,7 +81,8 @@ namespace SW.Services.Relations
                 request.ContentLength = 0;
                 request.Method = WebRequestMethods.Http.Post;
                 var headers = GetHeaders();
-                return handler.GetPostResponse(this.Url, headers, $"relations/{rfc}/{uuid}");
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
+                return handler.GetPostResponse(this.Url, headers, $"relations/{rfc}/{uuid}", proxy);
             }
             catch (Exception e)
             {

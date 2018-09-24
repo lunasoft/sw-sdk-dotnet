@@ -9,6 +9,8 @@ namespace SW.Services
         private string _url;
         private string _user;
         private string _password;
+        private string _proxy;
+        private int _proxyPort;
         private DateTime _expirationDate;
         private int _timeSession = 2;
         public string Token
@@ -27,6 +29,14 @@ namespace SW.Services
         {
             get { return _password; }
         }
+        public string Proxy
+        {
+            get { return _proxy; }
+        }
+        public int ProxyPort
+        {
+            get { return _proxyPort; }
+        }
         public DateTime ExpirationDate
         {
             get { return _expirationDate;  }
@@ -35,17 +45,21 @@ namespace SW.Services
         {
 
         }
-        public Services(string url, string token)
+        public Services(string url, string token, string proxy, int proxyPort)
         {
             _url = Helpers.RequestHelper.NormalizeBaseUrl(url); ;
             _token = token;
             _expirationDate = DateTime.Now.AddYears(_timeSession);
+            _proxy = proxy;
+            _proxyPort = proxyPort;
         }
-        public Services(string url, string user, string password)
+        public Services(string url, string user, string password, string proxy, int proxyPort)
         {
             _url = Helpers.RequestHelper.NormalizeBaseUrl(url); ;
             _user = user;
             _password = password;
+            _proxy = proxy;
+            _proxyPort = proxyPort;
         }
         public Services SetupRequest()
         {

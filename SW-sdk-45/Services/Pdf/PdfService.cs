@@ -13,10 +13,10 @@ namespace SW.Services.Pdf
 {
     public abstract class PdfService : Services
     {
-        protected PdfService(string url, string user, string password) : base(url, user, password)
+        protected PdfService(string url, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
         }
-        protected PdfService(string url, string token) : base(url, token)
+        protected PdfService(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
         }
 
