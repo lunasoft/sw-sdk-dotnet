@@ -7,12 +7,12 @@ using SW.Services.Stamp;
 
 namespace SW.Services.Issue
 {
-    public class Issue : BaseStamp
+    public class IssueV2 : BaseStampV2
     {
-        public Issue(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, "issue", proxy, proxyPort)
+        public IssueV2(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, "issue", proxy, proxyPort)
         {
         }
-        public Issue(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, "issue", proxy, proxyPort)
+        public IssueV2(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, "issue", proxy, proxyPort)
         {
         }
     }
