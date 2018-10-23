@@ -10,11 +10,11 @@ namespace SW.Services.Validate
     public abstract class BaseValidate : ValidateService
     {
         private string _operation;
-        public BaseValidate(string url, string user, string password, string operation) : base(url, user, password)
+        public BaseValidate(string url, string user, string password, string operation, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
             _operation = operation;
         }
-        public BaseValidate(string url, string token, string operation) : base(url, token)
+        public BaseValidate(string url, string token, string operation, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
             _operation = operation;
         }

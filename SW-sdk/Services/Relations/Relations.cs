@@ -7,11 +7,11 @@ namespace SW.Services.Relations
     public class Relations : RelationsService
     {
         RelationsResponseHandler _handler;
-        public Relations(string url, string user, string password) : base(url, user, password)
+        public Relations(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
         {
             _handler = new RelationsResponseHandler();
         }
-        public Relations(string url, string token) : base(url, token)
+        public Relations(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
             _handler = new RelationsResponseHandler();
         }

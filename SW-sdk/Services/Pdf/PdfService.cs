@@ -13,10 +13,10 @@ namespace SW.Services.Pdf
     public abstract class PdfService : Services
     {
         public string boundary = "----------------------------" + DateTime.Now.Ticks.ToString("x");
-        protected PdfService(string url, string user, string password) : base(url, user, password)
+        protected PdfService(string url, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
         }
-        protected PdfService(string url, string token) : base(url, token)
+        protected PdfService(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
         }
         internal virtual HttpWebRequest RequestPdf(byte[] xml, string TemplateId, Dictionary<string, string> ObservacionesAdicionales = null)
@@ -29,7 +29,7 @@ namespace SW.Services.Pdf
             request.Method = WebRequestMethods.Http.Post;
             request.KeepAlive = true;
             Stream memStream = new System.IO.MemoryStream();
-            
+            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
             string body = MultipartXmlContent(xml);
             string pObservacionesGenerales = BodyObservacionesAdicionales(ObservacionesAdicionales);
             body = string.Format("{0}{1}--\r\n", body, pObservacionesGenerales);

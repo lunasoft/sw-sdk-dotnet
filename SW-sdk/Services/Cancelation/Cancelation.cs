@@ -14,7 +14,7 @@ namespace SW.Services.Cancelation
         /// <param name="url"></param>
         /// <param name="user"></param>
         /// <param name="password"></param>
-        public Cancelation(string url, string user, string password) : base(url, user, password)
+        public Cancelation(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
         {
             _handler = new CanelationResponseHandler();
         }
@@ -23,7 +23,7 @@ namespace SW.Services.Cancelation
         /// </summary>
         /// <param name="url"></param>
         /// <param name="token"></param>
-        public Cancelation(string url, string token) : base(url, token)
+        public Cancelation(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
             _handler = new CanelationResponseHandler();
         }

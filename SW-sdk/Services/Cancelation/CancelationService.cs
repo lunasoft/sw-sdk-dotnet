@@ -6,10 +6,10 @@ namespace SW.Services.Cancelation
 {
     public abstract class CancelationService : Services
     {
-        protected CancelationService(string url, string user, string password) : base(url, user, password)
+        protected CancelationService(string url, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
         }
-        protected CancelationService(string url, string token) : base(url, token)
+        protected CancelationService(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
         }
         internal abstract CancelationResponse Cancelar(string cer, string key, string rfc, string password, string uuid);
@@ -23,6 +23,7 @@ namespace SW.Services.Cancelation
             request.ContentType = "application/json";
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
             var body = Newtonsoft.Json.JsonConvert.SerializeObject(new CancelationRequestCSD()
             {
                 b64Cer = cer,
@@ -49,6 +50,7 @@ namespace SW.Services.Cancelation
             request.ContentLength = 0;
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
             return request;
         }
         internal virtual HttpWebRequest RequestCancelar(string pfx, string rfc, string password, string uuid)
@@ -58,6 +60,7 @@ namespace SW.Services.Cancelation
             request.ContentType = "application/json";
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization, "bearer " + this.Token);
+            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
             var body = Newtonsoft.Json.JsonConvert.SerializeObject(new CancelationRequestPFX()
             {
                 b64Pfx = pfx,
@@ -83,6 +86,7 @@ namespace SW.Services.Cancelation
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
             request.ContentLength = 0;
             Helpers.RequestHelper.AddFileToRequest(xmlCancelation, ref request);
+            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
             return request;
         }
     }

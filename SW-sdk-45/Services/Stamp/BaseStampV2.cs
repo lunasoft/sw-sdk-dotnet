@@ -6,14 +6,14 @@ using System.Text;
 
 namespace SW.Services.Stamp
 {
-    public abstract class BaseStamp : StampService
+    public abstract class BaseStampV2 : StampService
     {
         private string _operation;
-        public BaseStamp(string url, string user, string password, string operation, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
+        public BaseStampV2(string url, string user, string password, string operation, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
             _operation = operation;
         }
-        public BaseStamp(string url, string token, string operation, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
+        public BaseStampV2(string url, string token, string operation, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
             _operation = operation;
         }
@@ -28,7 +28,7 @@ namespace SW.Services.Stamp
                 var content = GetMultipartContent(xmlBytes);
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
-                                string.Format("cfdi33/{0}/{1}/{2}",
+                                string.Format("cfdi33/v2/{0}/{1}/{2}",
                                 _operation,
                                 StampTypes.v1.ToString(),
                                 format), headers, content, proxy);
@@ -50,7 +50,7 @@ namespace SW.Services.Stamp
                 var content = GetMultipartContent(xmlBytes);
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
-                                string.Format("cfdi33/{0}/{1}/{2}",
+                                string.Format("cfdi33/v2/{0}/{1}/{2}",
                                 _operation,
                                 StampTypes.v2.ToString(),
                                 format), headers, content, proxy);
@@ -71,7 +71,7 @@ namespace SW.Services.Stamp
                 var content = GetMultipartContent(xmlBytes);
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
-                                string.Format("cfdi33/{0}/{1}/{2}",
+                                string.Format("cfdi33/v2/{0}/{1}/{2}",
                                 _operation,
                                 StampTypes.v3.ToString(),
                                 format), headers, content, proxy);
@@ -92,7 +92,7 @@ namespace SW.Services.Stamp
                 var content = GetMultipartContent(xmlBytes);
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
-                                string.Format("cfdi33/{0}/{1}/{2}",
+                                string.Format("cfdi33/v2/{0}/{1}/{2}",
                                 _operation,
                                 StampTypes.v4.ToString(),
                                 format), headers, content,proxy);

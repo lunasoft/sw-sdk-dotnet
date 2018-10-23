@@ -4,14 +4,14 @@ using System.Text;
 
 namespace SW.Services.Stamp
 {
-    public abstract class BaseStamp : StampService
+    public abstract class BaseStampV2 : StampServiceV2
     {
         private string _operation;
-        public BaseStamp(string url, string user, string password, string operation, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
+        public BaseStampV2(string url, string user, string password, string operation, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
         {
             _operation = operation;
         }
-        public BaseStamp(string url, string token, string operation, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
+        public BaseStampV2(string url, string token, string operation, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
             _operation = operation;
         }

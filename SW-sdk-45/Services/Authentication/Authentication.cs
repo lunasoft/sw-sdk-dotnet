@@ -9,7 +9,7 @@ namespace SW.Services.Authentication
     public class Authentication : AuthenticationService
     {
         AuthenticationResponseHandler _handler;
-        public Authentication(string url, string user, string password) : base(url, user, password)
+        public Authentication(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
         {
             _handler = new AuthenticationResponseHandler();
         }
@@ -23,8 +23,8 @@ namespace SW.Services.Authentication
                     { "user", this.User },
                     { "password", this.Password }
                 };
-
-                return _handler.GetPostResponse(this.Url, headers, "security/authenticate");
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
+                return _handler.GetPostResponse(this.Url, headers, "security/authenticate", proxy);
 
             }
             catch (Exception e)

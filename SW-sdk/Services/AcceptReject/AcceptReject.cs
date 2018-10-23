@@ -8,11 +8,11 @@ namespace SW.Services.AcceptReject
     {
 
         AcceptRejectResponseHandler _handler;
-        public AcceptReject(string url, string user, string password) : base(url, user, password)
+        public AcceptReject(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
         {
             _handler = new AcceptRejectResponseHandler();
         }
-        public AcceptReject(string url, string token) : base(url, token)
+        public AcceptReject(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
             _handler = new AcceptRejectResponseHandler();
         }
