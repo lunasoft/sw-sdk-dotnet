@@ -10,12 +10,13 @@ namespace Test_SW.Services.Cancelation_Test
     [TestClass]
     public class Cancelation_Test
     {
+        private const string uuid = "c2c57c10-45a2-4f1c-8f7b-c660a107ffa2";
         [TestMethod]
         public void CancelationByCSD()
         {
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
-            var response = cancelation.CancelarByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "b67e986b-058c-490a-9e18-2a1547791769");
+            var response = cancelation.CancelarByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, uuid);
             Assert.IsTrue(response.data.acuse != null && response.status == "success");
         }
         [TestMethod]
@@ -23,17 +24,18 @@ namespace Test_SW.Services.Cancelation_Test
         {
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
-            CancelationResponse response = cancelation.CancelarByPFX(build.Pfx, build.Rfc, build.CerPassword, "b67e986b-058c-490a-9e18-2a1547791769");
+            CancelationResponse response = cancelation.CancelarByPFX(build.Pfx, build.Rfc, build.CerPassword, uuid);
             Assert.IsTrue(response.data.acuse != null && response.status == "success");
         }
+        
         [TestMethod]
+        [Ignore]
         public void CancelationByXML()
         {
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
             var response = cancelation.CancelarByXML(build.Acuse);
             Assert.IsTrue(response.data.acuse != null && response.status == "success");
-            //Assert.IsTrue(response.data.uuids != null && response.data.uuids.Count > 0);
 
         }
         [TestMethod]
@@ -41,7 +43,7 @@ namespace Test_SW.Services.Cancelation_Test
         {
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
-            var response = cancelation.CancelarByRfcUuid(build.Rfc, "b67e986b-058c-490a-9e18-2a1547791769");
+            var response = cancelation.CancelarByRfcUuid(build.Rfc, uuid);
             Assert.IsTrue(response.data.acuse != null && response.status == "success");
         }
         [TestMethod]
