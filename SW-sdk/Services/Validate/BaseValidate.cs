@@ -10,21 +10,48 @@ namespace SW.Services.Validate
     public abstract class BaseValidate : ValidateService
     {
         private string _operation;
-        public BaseValidate(string url, string user, string password, string operation) : base(url, user, password)
+        public BaseValidate(string url, string user, string password, string operation, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
             _operation = operation;
         }
-        public BaseValidate(string url,  string token, string operation) : base(url, token)
+        public BaseValidate(string url, string token, string operation, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
             _operation = operation;
         }
-        public virtual ValidateResponse Validate(string XML)
+        public virtual ValidateXMLResponse ValidateXML(string XML)
         {
-            ValidateResponseHandler handler = new ValidateResponseHandler();
+            ValidateXMLResponseHandler handler = new ValidateXMLResponseHandler();
             try
             {
                 var xmlBytes = Encoding.UTF8.GetBytes(XML);
-                var request = this.RequestValidating(xmlBytes);
+                var request = this.RequestValidateXml(xmlBytes);
+                return handler.GetResponse(request);
+            }
+            catch (Exception ex)
+            {
+                return handler.HandleException(ex);
+            }
+        }
+        public virtual ValidateLrfcResponse ValidateLrfc(string Lrfc)
+        {
+            ValidateLrfcResponseHandler handler = new ValidateLrfcResponseHandler();
+            try
+            {
+                var request = this.RequestValidateLrfc(Lrfc);
+                return handler.GetResponse(request);
+            }
+            catch (Exception ex)
+            {
+                return handler.HandleException(ex);
+            }
+        }
+
+        public virtual ValidateLcoResponse ValidateLco(string Lco)
+        {
+            ValidateLcoResponseHandler handler = new ValidateLcoResponseHandler();
+            try
+            {
+                var request = this.RequestValidateLco(Lco);
                 return handler.GetResponse(request);
             }
             catch (Exception ex)

@@ -18,7 +18,7 @@ namespace Test_SW_sdk_45.Services.Validate_Test
             var build = new BuildSettings();
             Validate validate = new Validate(build.Url, build.User, build.Password);
             var xml = GetXml(build);
-            var response = (ValidateResponse)validate.Validate(xml.ToString());
+            ValidateXmlResponse response = validate.ValidateXml(xml.ToString());
             Assert.IsTrue(response.status == "success"
                 && !string.IsNullOrEmpty(response.statusCodeSat), "N - 601: La expresión impresa proporcionada no es válida.");
         }
@@ -28,11 +28,31 @@ namespace Test_SW_sdk_45.Services.Validate_Test
             var build = new BuildSettings();
             Validate validate = new Validate(build.Url, build.User, build.Password);
             var xml = "";
-            var response = (ValidateResponse)validate.Validate(xml);
+            ValidateXmlResponse response = validate.ValidateXml(xml);
             Assert.IsTrue(response.status == "error"
                 && !string.IsNullOrEmpty(response.status), "Error al leer el documento XML. La estructura del documento no es un Xml valido y/o la codificación del documento no es UTF8. Root element is missing.");
         }
-        
+        [TestMethod]
+        public void Validate_Test_Lrfc()
+        {
+            var build = new BuildSettings();
+            var rfc = build.Rfc;
+            Validate validate = new Validate(build.Url, build.User, build.Password);
+            ValidateLrfcResponse response = validate.ValidateLrfc(rfc);
+            Assert.IsTrue(response.status == "success"
+                && response.data.contribuyenteRFC == build.Rfc);
+        }
+        [TestMethod]
+        public void Validate_Test_Lco()
+        {
+            var build = new BuildSettings();
+            var noCertificado = build.noCertificado;
+            Validate validate = new Validate(build.Url, build.User, build.Password);
+            ValidateLcoResponse response = validate.ValidateLco(noCertificado);
+            Assert.IsTrue(response.status == "success"
+                && response.data.noCertificado == build.noCertificado);
+        }
+
         private object GetXml(BuildSettings build)
         {
             var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));

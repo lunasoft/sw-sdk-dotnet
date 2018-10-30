@@ -7,7 +7,7 @@ namespace SW.Services.Authentication
     public class Authentication : AuthenticationService
     {
         AuthenticationResponseHandler _handler;
-        public Authentication(string url, string user, string password) : base(url, user, password)
+        public Authentication(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
         {
             _handler = new AuthenticationResponseHandler();
         }
@@ -22,7 +22,7 @@ namespace SW.Services.Authentication
                 request.Method = WebRequestMethods.Http.Post;
                 request.Headers.Add("user", this.User);
                 request.Headers.Add("password", Password);
-
+                Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
                 return _handler.GetResponse(request);
             }
             catch (Exception e)

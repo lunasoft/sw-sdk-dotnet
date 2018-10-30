@@ -9,6 +9,7 @@ namespace Test_SW.Helpers
     class BuildSettings
     {
         public string Url = "http://services.test.sw.com.mx";
+        public string UrlPdf = "http://api.test.sw.com.mx";
         public string User = "demo";
         public string Password = "123456789";
         public string CerPassword = "12345678a";
@@ -18,6 +19,11 @@ namespace Test_SW.Helpers
         public string Key = Convert.ToBase64String(File.ReadAllBytes("Resources/CertificadosDePrueba/CSD_Prueba_CFDI_LAN8507268IA.key"));
         public string Pfx = Convert.ToBase64String(File.ReadAllBytes("Resources/CertificadosDePrueba/CSD_Prueba_CFDI_LAN8507268IA.pfx"));
         public string Rfc = "LAN8507268IA";
+        public string noCertificado = "20001000000300022815";
         public byte[] Acuse = File.ReadAllBytes("Resources/acuse.xml");
+        public byte[] RelationsXML = File.ReadAllBytes("Resources/RelationsXML.xml");
+
+        public Dictionary<string, string> observaciones = new Dictionary<string, string>() { { "Observaciones", "Entregar de 9am a 6pm" } };
+        public string templateId = "3a12dabd-66fa-4f18-af09-d1efd77ae9ce";
     }
 }

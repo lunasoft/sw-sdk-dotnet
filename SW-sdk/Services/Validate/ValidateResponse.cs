@@ -8,10 +8,8 @@ using SW.Helpers;
 
 namespace SW.Services.Validate
 {
-    public class ValidateResponse : Response
+    public class ValidateXMLResponse : Response
     {
-        [DataMember]
-        public string Status { get; set; }
         [DataMember]
         public List<Detail> detail { get; set; }
         [DataMember]
@@ -40,5 +38,43 @@ namespace SW.Services.Validate
         public string messageDetail { get; set; }
         [DataMember]
         public int type { get; set; }
+    }
+
+    public class ValidateLcoResponse : Response
+    {
+        [DataMember]
+        public Data_Lco data { get; set; }
+    }
+
+    public class Data_Lco
+    {
+        [DataMember]
+        public string noCertificado { get; set; }
+        [DataMember]
+        public string rfc { get; set; }
+        [DataMember]
+        public string validezObligaciones { get; set; }
+        [DataMember]
+        public string estatusCertificado { get; set; }
+        [DataMember]
+        public DateTime fechaInicio { get; set; }
+        [DataMember]
+        public DateTime fechaFinal { get; set; }
+    }
+
+    public class ValidateLrfcResponse : Response
+    {
+        [DataMember]
+        public Data_LRFC data { get; set; }
+    }
+
+    public class Data_LRFC
+    {
+        [DataMember]
+        public string contribuyenteRFC { get; set; }
+        [DataMember]
+        public bool sncf { get; set; }
+        [DataMember]
+        public bool subcontratacion { get; set; }
     }
 }

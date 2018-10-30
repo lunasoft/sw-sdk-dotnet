@@ -11,11 +11,11 @@ namespace SW.Services.Stamp
 {
     public abstract class StampService : Services
     {
-        protected StampService(string url, string user, string password) : base(url, user, password)
+        protected StampService(string url, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
 
         }
-        protected StampService(string url, string token) : base(url, token)
+        protected StampService(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
         }
         internal virtual MultipartFormDataContent GetMultipartContent(byte[] xml)

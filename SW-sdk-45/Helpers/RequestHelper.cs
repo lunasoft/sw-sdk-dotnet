@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 
 namespace SW.Helpers
@@ -12,6 +13,30 @@ namespace SW.Helpers
         internal static string NormalizeBaseUrl(string url)
         {
             return !url.EndsWith("/") ? url + "/" : url;
+        }
+        internal static void SetupProxy(string proxy, int port, ref HttpWebRequest request)
+        {
+            if (!string.IsNullOrEmpty(proxy))
+            {
+                WebProxy myproxy = new WebProxy(proxy, port);
+                request.Proxy = myproxy;
+            }
+        }
+        internal static HttpClientHandler ProxySettings(string proxy, int proxyPort)
+        {
+            if (!string.IsNullOrEmpty(proxy))
+            {
+                var httpClientHandler = new HttpClientHandler
+                {
+                    Proxy = new WebProxy(string.Format("{0}:{1}", proxy,proxyPort), false),
+                    UseProxy = true
+                };
+                return httpClientHandler;
+            }
+            else
+            {
+                return new HttpClientHandler();
+            }
         }
         internal static void AddFileToRequest(byte[] file, ref HttpWebRequest request)
         {

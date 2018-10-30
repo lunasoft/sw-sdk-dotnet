@@ -14,7 +14,7 @@ namespace SW.Services.Cancelation
         /// <param name="url"></param>
         /// <param name="user"></param>
         /// <param name="password"></param>
-        public Cancelation(string url, string user, string password) : base(url, user, password)
+        public Cancelation(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
         {
             _handler = new CanelationResponseHandler();
         }
@@ -23,7 +23,7 @@ namespace SW.Services.Cancelation
         /// </summary>
         /// <param name="url"></param>
         /// <param name="token"></param>
-        public Cancelation(string url, string token) : base(url, token)
+        public Cancelation(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
             _handler = new CanelationResponseHandler();
         }
@@ -36,8 +36,9 @@ namespace SW.Services.Cancelation
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
                 var headers = GetHeaders();
                 var content = this.RequestCancelar(cer, key, rfc, password, uuid);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
-                                "cfdi33/cancel/csd", headers, content);
+                                "cfdi33/cancel/csd", headers, content, proxy);
             }
             catch (Exception e)
             {
@@ -54,8 +55,9 @@ namespace SW.Services.Cancelation
                 request.ContentType = "application/json";
                 request.ContentLength = 0;
                 request.Method = WebRequestMethods.Http.Post;
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 var headers = GetHeaders();
-                return handler.GetPostResponse(this.Url, headers, $"cfdi33/cancel/{rfc}/{uuid}");
+                return handler.GetPostResponse(this.Url, headers, $"cfdi33/cancel/{rfc}/{uuid}", proxy);
             }
             catch (Exception e)
             {
@@ -70,8 +72,9 @@ namespace SW.Services.Cancelation
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
                 var headers = GetHeaders();
                 var content = this.RequestCancelarFile(xmlCancelation);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
-                                "cfdi33/cancel/xml", headers, content);
+                                "cfdi33/cancel/xml", headers, content, proxy);
             }
             catch (Exception e)
             {
@@ -86,8 +89,9 @@ namespace SW.Services.Cancelation
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
                 var headers = GetHeaders();
                 var content = this.RequestCancelar(pfx, rfc, password, uuid);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
-                                "cfdi33/cancel/pfx", headers, content);
+                                "cfdi33/cancel/pfx", headers, content, proxy);
             }
             catch (Exception e)
             {

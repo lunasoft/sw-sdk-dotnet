@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Text;
+using static SW.Services.Services;
 
 namespace SW.Helpers
 {
@@ -13,6 +17,15 @@ namespace SW.Helpers
         {
             return !url.EndsWith("/") ? url + "/" : url;
         }
+        internal static void SetupProxy(string proxy, int port, ref HttpWebRequest request)
+        {
+            if (!string.IsNullOrEmpty(proxy))
+            {
+                WebProxy myproxy = new WebProxy(proxy, port);
+                request.Proxy = myproxy;
+            }
+        }
+
         internal static void AddFileToRequest(byte[] file, ref HttpWebRequest request)
         {
             string boundary = "----------------------------" + DateTime.Now.Ticks.ToString("x");
@@ -62,5 +75,55 @@ namespace SW.Helpers
                 requestStream.Write(tempBuffer, 0, tempBuffer.Length);
             }
         }
+    }
+
+    public class RequestCSD : RequestJson
+    {
+        [DataMember]
+        public string b64Cer { get; set; }
+        [DataMember]
+        public string b64Key { get; set; }
+    }
+
+    public class RequestPFX : RequestJson
+    {
+        [DataMember]
+        public string b64Pfx { get; set; }
+    }
+
+    public class RequestsCSD : RequestsJson
+    {
+        [DataMember]
+        public AceptacionRechazoItem[] uuids { get; set; }
+        [DataMember]
+        public string b64Cer { get; set; }
+        [DataMember]
+        public string b64Key { get; set; }
+    }
+
+    public class RequestsPFX : RequestsJson
+    {
+        [DataMember]
+        public AceptacionRechazoItem[] uuids { get; set; }
+        [DataMember]
+        public string b64Pfx { get; set; }
+    }
+
+
+    [DataContract]
+    public class AceptacionRechazoItem
+    {
+        [DataMember]
+        public string uuid { get; set; }
+        private EnumAcceptReject _action;
+
+        [DataMember]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public EnumAcceptReject action
+        {
+            get { return _action; }
+            set { _action = value; }
+        }
+
     }
 }

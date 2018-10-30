@@ -6,14 +6,11 @@ namespace SW.Services.Validate
 {
     public class Validate : BaseValidate
     {
-        ValidateResponseHandler _handler;
-        public Validate(string url, string user, string password) : base(url, user, password, "validate")
+        public Validate(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, "validate", proxy, proxyPort)
         {
-            _handler = new ValidateResponseHandler();
         }
-        public Validate(string url, string token) : base(url, token, "validate")
+        public Validate(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, "validate", proxy, proxyPort)
         {
-            _handler = new ValidateResponseHandler();
         }
     }
 }

@@ -9,11 +9,11 @@ namespace SW.Services.Stamp
     public abstract class BaseStamp : StampService
     {
         private string _operation;
-        public BaseStamp(string url, string user, string password, string operation) : base(url, user, password)
+        public BaseStamp(string url, string user, string password, string operation, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
             _operation = operation;
         }
-        public BaseStamp(string url, string token, string operation) : base(url, token)
+        public BaseStamp(string url, string token, string operation, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
             _operation = operation;
         }
@@ -26,11 +26,12 @@ namespace SW.Services.Stamp
                 var xmlBytes = Encoding.UTF8.GetBytes(xml);
                 var headers = GetHeaders();
                 var content = GetMultipartContent(xmlBytes);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
                                 string.Format("cfdi33/{0}/{1}/{2}",
                                 _operation,
                                 StampTypes.v1.ToString(),
-                                format), headers, content);
+                                format), headers, content, proxy);
 
             }
             catch (Exception ex)
@@ -47,11 +48,12 @@ namespace SW.Services.Stamp
                 var xmlBytes = Encoding.UTF8.GetBytes(xml);
                 var headers = GetHeaders();
                 var content = GetMultipartContent(xmlBytes);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
                                 string.Format("cfdi33/{0}/{1}/{2}",
                                 _operation,
                                 StampTypes.v2.ToString(),
-                                format), headers, content);
+                                format), headers, content, proxy);
             }
             catch (Exception ex)
             {
@@ -67,11 +69,12 @@ namespace SW.Services.Stamp
                 var xmlBytes = Encoding.UTF8.GetBytes(xml);
                 var headers = GetHeaders();
                 var content = GetMultipartContent(xmlBytes);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
                                 string.Format("cfdi33/{0}/{1}/{2}",
                                 _operation,
                                 StampTypes.v3.ToString(),
-                                format), headers, content);
+                                format), headers, content, proxy);
             }
             catch (Exception ex)
             {
@@ -87,11 +90,12 @@ namespace SW.Services.Stamp
                 var xmlBytes = Encoding.UTF8.GetBytes(xml);
                 var headers = GetHeaders();
                 var content = GetMultipartContent(xmlBytes);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
                                 string.Format("cfdi33/{0}/{1}/{2}",
                                 _operation,
                                 StampTypes.v4.ToString(),
-                                format), headers, content);
+                                format), headers, content,proxy);
             }
             catch (Exception ex)
             {

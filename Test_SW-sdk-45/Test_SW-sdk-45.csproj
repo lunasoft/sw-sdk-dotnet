@@ -53,6 +53,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -69,12 +70,18 @@
   <ItemGroup>
     <Compile Include="Helpers\BuildSettings.cs" />
     <Compile Include="Helpers\SignTools.cs" />
+    <Compile Include="Services\AcceptReject\AcceptReject_Test.cs" />
     <Compile Include="Services\Account\Account_Test.cs" />
     <Compile Include="Services\Authentication\Authentication_Test.cs" />
     <Compile Include="Services\Cancelation\Cancelation_Test.cs" />
+    <Compile Include="Services\Issue\IssueV2_Test.cs" />
     <Compile Include="Services\Issue\Issue_Test.cs" />
+    <Compile Include="Services\Pendings\Pendings_Test.cs" />
+    <Compile Include="Services\Relations\Relations_Test.cs" />
+    <Compile Include="Services\Stamp\StampV2_Test.cs" />
     <Compile Include="Services\Stamp\Stamp_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Status\Status_Test.cs" />
     <Compile Include="Services\Validate\Validate_UT.cs" />
     <Compile Include="UT_Service_Validation.cs" />
   </ItemGroup>
@@ -82,7 +89,9 @@
     <Content Include="Resources\acuse.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_1.xml" />
+    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_big.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -96,6 +105,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_pago10.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\RelationsXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\EmptyXML.xml">
@@ -129,6 +141,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SAT.Services\SAT.Services.csproj">
+      <Project>{58728355-476d-4f26-84db-e8cc0e2c51a1}</Project>
+      <Name>SAT.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SW-sdk-45\SW-sdk-45.csproj">
       <Project>{18d79b1d-dde7-4ac1-a6d9-6cb6b405c411}</Project>
       <Name>SW-sdk-45</Name>
