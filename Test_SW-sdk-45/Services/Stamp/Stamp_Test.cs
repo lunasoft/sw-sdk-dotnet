@@ -118,6 +118,7 @@ namespace Test_SW.Services.Stamp_Test
             Assert.IsTrue(response.status == "success"
                && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.tfd viene vacio.");
         }
+       
         [TestMethod]
         public void Stamp_Test_45_StampXMLV4byToken()
         {
