@@ -58,6 +58,7 @@
     <Compile Include="Helpers\ResponseType.cs" />
     <Compile Include="Helpers\StreamUtil.cs" />
     <Compile Include="Helpers\Validation.cs" />
+    <Compile Include="Helpers\XmlUtils.cs" />
     <Compile Include="Services\AcceptReject\AcceptReject.cs" />
     <Compile Include="Services\AcceptReject\AcceptRejectRequestCSD.cs" />
     <Compile Include="Services\AcceptReject\AcceptRejectRequestPFX.cs" />

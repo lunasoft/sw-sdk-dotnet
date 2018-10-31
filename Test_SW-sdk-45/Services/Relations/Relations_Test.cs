@@ -24,7 +24,7 @@ namespace Test_SW.Services.Relations_Test
         {
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
-            RelationsResponse response = relations.RelationsByRfcUuid(build.Rfc, "01724196-ac5a-4735-b621-e3b42bcbb459");
+            RelationsResponse response = relations.RelationsByRfcUuid(build.Rfc, "31c885c8-6dcb-4d82-9cfd-01707c828c50");
             Assert.IsTrue(response.status == "success");
         }
         [TestMethod]
@@ -32,7 +32,7 @@ namespace Test_SW.Services.Relations_Test
         {
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
-            RelationsResponse response = relations.RelationsByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "01724196-ac5a-4735-b621-e3b42bcbb459");
+            RelationsResponse response = relations.RelationsByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "31c885c8-6dcb-4d82-9cfd-01707c828c50");
             Assert.IsTrue(response.status == "success");
         }
         [TestMethod]
@@ -40,7 +40,7 @@ namespace Test_SW.Services.Relations_Test
         {
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
-            RelationsResponse response = relations.RelationsByPFX(build.Pfx, build.Rfc, build.CerPassword, "01724196-ac5a-4735-b621-e3b42bcbb459");
+            RelationsResponse response = relations.RelationsByPFX(build.Pfx, build.Rfc, build.CerPassword, "31c885c8-6dcb-4d82-9cfd-01707c828c50");
             Assert.IsTrue(response.status == "success");
         }
         [TestMethod]

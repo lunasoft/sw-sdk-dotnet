@@ -41,7 +41,7 @@ namespace SW.Services.Stamp
         }
         public virtual StampResponseV2 TimbrarV2(string xml, bool isb64 = false)
         {
-            StampResponseHandlerV2 handler = new StampResponseHandlerV2();
+            StampResponseHandlerV2 handler = new StampResponseHandlerV2(xml);
             try
             {
                 string format = isb64 ? "b64" : "";
@@ -62,7 +62,7 @@ namespace SW.Services.Stamp
         }
         public virtual StampResponseV3 TimbrarV3(string xml, bool isb64 = false)
         {
-            StampResponseHandlerV3 handler = new StampResponseHandlerV3();
+            StampResponseHandlerV3 handler = new StampResponseHandlerV3(xml);
             try
             {
                 string format = isb64 ? "b64" : "";
@@ -83,7 +83,7 @@ namespace SW.Services.Stamp
         }
         public virtual StampResponseV4 TimbrarV4(string xml, bool isb64 = false)
         {
-            StampResponseHandlerV4 handler = new StampResponseHandlerV4();
+            StampResponseHandlerV4 handler = new StampResponseHandlerV4(xml);
             try
             {
                 string format = isb64 ? "b64" : "";
