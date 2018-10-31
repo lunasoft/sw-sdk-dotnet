@@ -18,4 +18,11 @@
       <cfdi:Traslado Importe="371.20" Impuesto="003" TasaOCuota="1.600000" TipoFactor="Tasa"/>
     </cfdi:Traslados>
   </cfdi:Impuestos>
+  <cfdi:Addenda>
+    <smarterweb>
+      <empresa>Luna Soft SA De CV</empresa>
+      <servicios>Timbrado</servicios>
+      <certificaciones>ISO27001</certificaciones>
+    </smarterweb>
+  </cfdi:Addenda>
 </cfdi:Comprobante>

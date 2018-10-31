@@ -1,4 +1,5 @@
 ﻿using SW.Entities;
+using SW.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,12 @@ namespace SW.Services
     internal abstract class ResponseHandler<T>
         where T : Response, new()
     {
+        public ResponseHandler() { }
+        public readonly string _xmlOriginal;
+        public ResponseHandler(string xmlOriginal)
+        {
+            _xmlOriginal = xmlOriginal;
+        }
         public virtual T GetPostResponse(string url, string path, Dictionary<string, string> headers, HttpContent content, HttpClientHandler proxy)
         {
             try
@@ -89,7 +96,7 @@ namespace SW.Services
             }
         }
         public abstract T HandleException(Exception ex);
-        private T TryGetResponse(HttpResponseMessage response)
+        internal virtual T TryGetResponse(HttpResponseMessage response)
         {
             try
             {
@@ -115,6 +122,50 @@ namespace SW.Services
                 };
             }
         }
-
+        internal virtual string GetCfdiData(Response response, string cfdi, bool isb64)
+        {
+            try
+            {
+               
+                return XmlUtils.AddAddenda(_xmlOriginal, cfdi, isb64);
+                
+            }
+            catch (Exception)
+            {
+            }
+            return cfdi;
+        }
+        internal virtual bool Has307AndAddenda(Response response, Stamp.Data_CFDI data)
+        {
+            try
+            {
+                if (response.status == "error" &&
+               (response.message != null && response.message.Trim().ToLower().Replace(".", "").Contains("307 el comprobante contiene un timbre previo"))
+               && (data != null && !string.IsNullOrEmpty(data.cfdi)))
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return false;
+        }
+        internal virtual bool Has307AndAddenda(Response response, Stamp.Data_CFDI_TFD data)
+        {
+            try
+            {
+                if (response.status == "error" &&
+               (response.message != null && response.message.Trim().ToLower().Replace(".", "").Contains("307 el comprobante contiene un timbre previo"))
+               && (data != null && !string.IsNullOrEmpty(data.cfdi)))
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return false;
+        }
     }
 }
