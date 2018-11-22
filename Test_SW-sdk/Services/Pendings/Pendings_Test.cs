@@ -13,7 +13,7 @@ namespace Test_SW.Services.Pendings
         [TestMethod]
         public void ValidateParameters()
         {
-            var resultExpect = "La fecha de emisión no esta dentro de la vigencia del CSD del Emisor";
+            var resultExpect = "CA1101 - No existen peticiones para el RFC Receptor.";
             var build = new BuildSettings();
             Pending pendientes = new Pending(build.Url, build.User, build.Password);
             var response = pendientes.PendingsByRfc("Test");
