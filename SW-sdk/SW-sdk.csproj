@@ -54,10 +54,7 @@
     <Compile Include="Helpers\ResponseType.cs" />
     <Compile Include="Helpers\StreamUtil.cs" />
     <Compile Include="Helpers\Validation.cs" />
-    <Compile Include="Services\Issue\BaseJson.cs" />
-    <Compile Include="Services\Issue\IssueJson.cs" />
     <Compile Include="Services\Issue\IssueV2.cs" />
-    <Compile Include="Services\Issue\IssueService.cs" />
     <Compile Include="Services\Pdf\BasePdf.cs" />
     <Compile Include="Services\Pdf\Pdf.cs" />
     <Compile Include="Services\Pdf\PdfResponse.cs" />
