@@ -15,14 +15,6 @@ namespace SW.Services.Csd
         {
         }
         internal abstract UploadCsdResponse UploadCsd(string cer, string key, string password, string certificateType, bool isActive);
-        internal virtual Dictionary<string, string> GetHeaders()
-        {
-            this.SetupRequest();
-            Dictionary<string, string> headers = new Dictionary<string, string>() {
-                    { "Authorization", "bearer " + this.Token }
-                };
-            return headers;
-        }
         internal virtual HttpWebRequest RequestUploadCsd(string cer, string key, string password, string certificateType, bool isActive)
         {
             this.SetupRequest();

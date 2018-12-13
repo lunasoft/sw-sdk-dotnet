@@ -18,14 +18,6 @@ namespace SW.Services.Relations
         internal abstract RelationsResponse RelationsRequest(byte[] xmlCancelation);
         internal abstract RelationsResponse RelationsRequest(string pfx, string rfc, string password, string uuid);
         internal abstract RelationsResponse RelationsRequest(string rfc, string uuid);
-        internal virtual Dictionary<string, string> GetHeaders()
-        {
-            this.SetupRequest();
-            Dictionary<string, string> headers = new Dictionary<string, string>() {
-                    { "Authorization", "bearer " + this.Token }
-                };
-            return headers;
-        }
         internal virtual HttpWebRequest RequestRelations(string cer, string key, string rfc, string password, string uuid)
         {
             this.SetupRequest();

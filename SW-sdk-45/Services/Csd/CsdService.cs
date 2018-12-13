@@ -26,6 +26,7 @@ namespace SW.Services.Csd
         }
         internal virtual StringContent RequestCsd(string cer, string key, string password, string certificateType, bool isActive)
         {
+            this.SetupRequest();
             var body = Newtonsoft.Json.JsonConvert.SerializeObject(new UploadCsdRequest()
             {
                 b64Cer = cer,
