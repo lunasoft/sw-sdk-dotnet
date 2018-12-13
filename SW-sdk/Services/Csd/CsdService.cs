@@ -14,7 +14,7 @@ namespace SW.Services.Csd
         protected CsdService(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
         }
-        internal abstract CargaCsdResponse CargaCsd(string cer, string key, string password, string certificateType, bool isActive);
+        internal abstract UploadCsdResponse UploadCsd(string cer, string key, string password, string certificateType, bool isActive);
         internal virtual Dictionary<string, string> GetHeaders()
         {
             this.SetupRequest();
@@ -23,7 +23,7 @@ namespace SW.Services.Csd
                 };
             return headers;
         }
-        internal virtual HttpWebRequest RequestCargaCsd(string cer, string key, string password, string certificateType, bool isActive)
+        internal virtual HttpWebRequest RequestUploadCsd(string cer, string key, string password, string certificateType, bool isActive)
         {
             this.SetupRequest();
             var request = (HttpWebRequest)WebRequest.Create(this.Url + "csd/save");
@@ -31,7 +31,7 @@ namespace SW.Services.Csd
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
             Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
-            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new CargaCsdRequest()
+            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new UploadCsdRequest()
             {
                 b64Cer = cer,
                 b64Key = key,

@@ -6,9 +6,9 @@ using SW.Helpers;
 
 namespace SW.Services.Csd
 {
-    internal class CsdResponseHandler : ResponseHandler<CargaCsdResponse>
+    internal class CsdResponseHandler : ResponseHandler<UploadCsdResponse>
     {
-        public override CargaCsdResponse HandleException(Exception ex)
+        public override UploadCsdResponse HandleException(Exception ex)
         {
             return ex.ToCargaCsdResponse();
         }

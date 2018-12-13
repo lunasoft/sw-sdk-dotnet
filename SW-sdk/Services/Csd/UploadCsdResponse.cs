@@ -6,7 +6,7 @@ using System;
 
 namespace SW.Services.Csd
 {
-    public class CargaCsdResponse : Response
+    public class UploadCsdResponse : Response
     {
         [DataMember(Name = "data")]
         public string data { get; set; }

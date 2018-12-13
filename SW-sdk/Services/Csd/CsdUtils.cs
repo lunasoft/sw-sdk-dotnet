@@ -19,13 +19,13 @@ namespace SW.Services.Csd
             _handler = new CsdResponseHandler();
         }
 
-        internal override CargaCsdResponse CargaCsd(string cer, string key, string password, string certificateType, bool isActive)
+        internal override UploadCsdResponse UploadCsd(string cer, string key, string password, string certificateType, bool isActive)
         {
             CsdResponseHandler handler = new CsdResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
-                HttpWebRequest request = this.RequestCargaCsd(cer, key, password, certificateType, isActive);
+                HttpWebRequest request = this.RequestUploadCsd(cer, key, password, certificateType, isActive);
                 return handler.GetResponse(request);
             }
             catch (Exception e)
@@ -34,9 +34,9 @@ namespace SW.Services.Csd
             }
         }
 
-        public CargaCsdResponse CargarCsd(string cer, string key, string password, string certificateType, bool isActive)
+        public UploadCsdResponse UploadMyCsd(string cer, string key, string password, string certificateType, bool isActive)
         {
-            return CargaCsd(cer, key, password, certificateType, isActive);
+            return UploadCsd(cer, key, password, certificateType, isActive);
         }
     }
 }

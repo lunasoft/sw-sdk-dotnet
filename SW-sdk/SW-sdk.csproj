@@ -55,7 +55,7 @@
     <Compile Include="Helpers\StreamUtil.cs" />
     <Compile Include="Helpers\Validation.cs" />
     <Compile Include="Services\Csd\CargaCsdRequest.cs" />
-    <Compile Include="Services\Csd\CargaCsdResponse.cs" />
+    <Compile Include="Services\Csd\UploadCsdResponse.cs" />
     <Compile Include="Services\Csd\CsdResponseHandler.cs" />
     <Compile Include="Services\Csd\CsdService.cs" />
     <Compile Include="Services\Csd\CsdUtils.cs" />

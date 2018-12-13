@@ -83,8 +83,8 @@
     <Compile Include="Services\Cancelation\CancelationValidation.cs" />
     <Compile Include="Entities\Response.cs" />
     <Compile Include="Services\Cancelation\CanelationResponseHandler.cs" />
-    <Compile Include="Services\Csd\CargaCsdRequest.cs" />
-    <Compile Include="Services\Csd\CargaCsdResponse.cs" />
+    <Compile Include="Services\Csd\UploadCsdRequest.cs" />
+    <Compile Include="Services\Csd\UploadCsdResponse.cs" />
     <Compile Include="Services\Csd\CsdUtils.cs" />
     <Compile Include="Services\Csd\CsdResponseHandler.cs" />
     <Compile Include="Services\Csd\CsdService.cs" />

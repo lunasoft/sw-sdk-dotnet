@@ -7,7 +7,7 @@ using System.Text;
 namespace SW.Services.Csd
 {
     [DataContract]
-    public class CargaCsdRequest
+    public class UploadCsdRequest
     {
         [DataMember]
         public string b64Cer { get; set; }

@@ -150,9 +150,9 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }
-        internal static CargaCsdResponse ToCargaCsdResponse(this Exception ex)
+        internal static UploadCsdResponse ToCargaCsdResponse(this Exception ex)
         {
-            return new CargaCsdResponse()
+            return new UploadCsdResponse()
             {
                 message = ex.Message,
                 status = "error",
