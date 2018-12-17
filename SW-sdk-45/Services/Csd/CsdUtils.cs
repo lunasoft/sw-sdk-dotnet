@@ -26,6 +26,10 @@ namespace SW.Services.Csd
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
+                if (String.IsNullOrEmpty(cer) || String.IsNullOrEmpty(key))
+                {
+                    throw new ServicesException("El certificado o llave privada vienen vacios");
+                }
                 var headers = GetHeaders();
                 var content = this.RequestCsd(cer, key, password, certificateType, isActive);
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);

@@ -25,6 +25,10 @@ namespace SW.Services.Csd
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
+                if(String.IsNullOrEmpty(cer) || String.IsNullOrEmpty(key))
+                {
+                    throw new ServicesException("El certificado o llave privada vienen vacios");
+                }
                 HttpWebRequest request = this.RequestUploadCsd(cer, key, password, certificateType, isActive);
                 return handler.GetResponse(request);
             }

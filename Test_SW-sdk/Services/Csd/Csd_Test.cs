@@ -26,7 +26,7 @@ namespace Test_SW_sdk.Services.Csd
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
             var response = csd.UploadMyCsd("", build.Key, build.CerPassword, "stamp", true);
-            Assert.IsTrue(response.messageDetail == "El certificado no pertenece a la llave privada." && response.status == "error");
+            Assert.IsTrue(response.message == "El certificado o llave privada vienen vacios" && response.status == "error");
         }
     }
 }
