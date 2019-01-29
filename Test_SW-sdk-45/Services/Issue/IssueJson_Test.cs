@@ -69,9 +69,11 @@ namespace Test_SW.Services.Issue
 
         private string GetJson(BuildSettings build)
         {
+            Random randomNumber = new Random(1);
             var file = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/cfdi.json"));
             var json = JObject.Parse(file);
             json["Fecha"] = DateTime.Now.AddHours(-12).ToString("s");
+            json["Folio"] = randomNumber.Next(1000).ToString();
             return json.ToString();
         }
 

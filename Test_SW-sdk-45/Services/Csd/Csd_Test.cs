@@ -13,7 +13,8 @@ namespace Test_SW_sdk_45.Services.Csd
     public class Csd_Test_45
     {
         [TestMethod]
-        public void Csd_Test_45_CargarCsd()
+        [Ignore]
+        public void Csd_Test_45_UploadCsd()
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
@@ -21,7 +22,7 @@ namespace Test_SW_sdk_45.Services.Csd
             Assert.IsTrue(response.data != null && response.status == "success");
         }
         [TestMethod]
-        public void Csd_Test_45_CargarCsd_EmptyCsd()
+        public void Csd_Test_45_UploadCsd_EmptyCsd()
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
