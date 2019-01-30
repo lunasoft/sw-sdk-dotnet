@@ -47,6 +47,9 @@
       <HintPath>..\packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SW.Tools, Version=0.0.0.12, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SW.Tools.0.0.0.12\lib\net40\SW.Tools.dll</HintPath>
       <Private>True</Private>
@@ -74,6 +77,8 @@
     <Compile Include="Services\Account\Account_Test.cs" />
     <Compile Include="Services\Authentication\Authentication_Test.cs" />
     <Compile Include="Services\Cancelation\Cancelation_Test.cs" />
+    <Compile Include="Services\Csd\Csd_Test.cs" />
+    <Compile Include="Services\Issue\IssueJson_Test.cs" />
     <Compile Include="Services\Issue\IssueV2_Test.cs" />
     <Compile Include="Services\Issue\Issue_Test.cs" />
     <Compile Include="Services\Pendings\Pendings_Test.cs" />
@@ -137,6 +142,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\cfdi.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

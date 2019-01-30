@@ -12,14 +12,6 @@ namespace SW.Services.Pendings
         {
         }
         internal abstract PendingsResponse PendingsRequest(string rfc);
-        internal virtual Dictionary<string, string> GetHeaders()
-        {
-            this.SetupRequest();
-            Dictionary<string, string> headers = new Dictionary<string, string>() {
-                    { "Authorization", "bearer " + this.Token }
-                };
-            return headers;
-        }
         internal virtual HttpWebRequest RequestPendings(string rfc)
         {
             this.SetupRequest();
