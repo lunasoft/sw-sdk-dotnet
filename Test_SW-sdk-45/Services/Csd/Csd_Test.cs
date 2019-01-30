@@ -13,7 +13,6 @@ namespace Test_SW_sdk_45.Services.Csd
     public class Csd_Test_45
     {
         [TestMethod]
-        [Ignore]
         public void Csd_Test_45_UploadCsd()
         {
             var build = new BuildSettings();

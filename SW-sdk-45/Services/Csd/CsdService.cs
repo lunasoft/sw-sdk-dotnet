@@ -32,7 +32,7 @@ namespace SW.Services.Csd
                 b64Cer = cer,
                 b64Key = key,
                 password = password,
-                certificate_type = certificateType,
+                type = certificateType,
                 is_active = isActive
             });
             StringContent content = new StringContent(body, Encoding.UTF8, "application/json");

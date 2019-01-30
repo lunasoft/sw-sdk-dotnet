@@ -16,7 +16,7 @@ namespace SW.Services.Csd
         [DataMember]
         public string password { get; set; }
         [DataMember]
-        public string certificate_type { get; set; }
+        public string type { get; set; }
         [DataMember]
         public bool is_active { get; set; }
     }

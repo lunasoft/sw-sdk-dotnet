@@ -28,7 +28,7 @@ namespace SW.Services.Csd
                 b64Cer = cer,
                 b64Key = key,
                 password = password,
-                certificate_type = certificateType,
+                type = certificateType,
                 is_active = isActive
             });
             request.ContentLength = body.Length;

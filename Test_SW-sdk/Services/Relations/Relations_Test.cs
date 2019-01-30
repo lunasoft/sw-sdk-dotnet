@@ -17,7 +17,6 @@ namespace Test_SW.Services.Relations_Test
             Assert.IsTrue(response.messageDetail.Contains((string)resultExpect));
         }
         [TestMethod]
-        [Ignore]
         public void RelationsByRfcUuid()
         {
             var build = new BuildSettings();
