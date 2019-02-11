@@ -34,7 +34,7 @@ namespace SW.Services.Csd
                 var content = this.RequestCsd(cer, key, password, certificateType, isActive);
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return handler.GetPostResponse(this.Url,
-                                "csd/save", headers, content, proxy);
+                                "certificates/save", headers, content, proxy);
             }
             catch (Exception e)
             {
