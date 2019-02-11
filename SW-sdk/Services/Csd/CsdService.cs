@@ -18,7 +18,7 @@ namespace SW.Services.Csd
         internal virtual HttpWebRequest RequestUploadCsd(string cer, string key, string password, string certificateType, bool isActive)
         {
             this.SetupRequest();
-            var request = (HttpWebRequest)WebRequest.Create(this.Url + "csd/save");
+            var request = (HttpWebRequest)WebRequest.Create(this.Url +"certificates/save");
             request.ContentType = "application/json";
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
