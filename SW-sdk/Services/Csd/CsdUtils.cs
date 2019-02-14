@@ -132,7 +132,6 @@ namespace SW.Services.Csd
         {
             return UploadCsd(cer, key, password, certificateType, isActive);
         }
-
         public CsdResponse DisableMyCsd(string certificateNumber)
         {
             return DisableCsd(certificateNumber);
@@ -141,7 +140,6 @@ namespace SW.Services.Csd
         {
             return InfoCsd(certificateNumber);
         }
-
         public InfoCsdResponse SearchActiveCsd(string rfc, string type)
         {
             return ActiveCsd(rfc, type);
@@ -150,12 +148,10 @@ namespace SW.Services.Csd
         {
             return ListCsd();
         }
-
         public ListInfoCsdResponse GetListCsdByType(string type)
         {
             return ListCsdByType(type);
         }
-
         public ListInfoCsdResponse GetListCsdByRfc(string rfc)
         {
             return ListCsdByRfc(rfc);

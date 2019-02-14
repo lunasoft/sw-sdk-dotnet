@@ -151,7 +151,7 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }
-        internal static CsdResponse ToUploadCsdResponse(this Exception ex)
+        internal static CsdResponse ToCsdResponse(this Exception ex)
         {
             return new CsdResponse()
             {
@@ -160,7 +160,6 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }
-
         internal static InfoCsdResponse ToInfoCsdResponse(this Exception ex)
         {
             return new InfoCsdResponse()
@@ -170,7 +169,6 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }
-
         internal static ListInfoCsdResponse ToListInfoCsdResponse(this Exception ex)
         {
             return new ListInfoCsdResponse()

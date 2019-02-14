@@ -70,6 +70,32 @@ namespace SW.Services
             }
         }
 
+        public virtual T GetDeleteResponse(string url, Dictionary<string, string> headers, string path, HttpClientHandler proxy)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient(proxy))
+                {
+                    foreach (var header in headers)
+                    {
+                        client.DefaultRequestHeaders.Add(header.Key, header.Value);
+                    }
+                    client.BaseAddress = new Uri(url);
+                    var result = client.DeleteAsync(path).Result;
+                    return TryGetResponse(result);
+                }
+            }
+            catch (HttpRequestException wex)
+            {
+                return new T()
+                {
+                    message = wex.Message,
+                    status = "error",
+                    messageDetail = wex.StackTrace
+                };
+            }
+        }
+
         public virtual T GetResponse(string url, Dictionary<string, string> headers, string path, HttpClientHandler proxy)
         {
             try

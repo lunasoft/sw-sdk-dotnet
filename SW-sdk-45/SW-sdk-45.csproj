@@ -84,7 +84,7 @@
     <Compile Include="Entities\Response.cs" />
     <Compile Include="Services\Cancelation\CanelationResponseHandler.cs" />
     <Compile Include="Services\Csd\UploadCsdRequest.cs" />
-    <Compile Include="Services\Csd\UploadCsdResponse.cs" />
+    <Compile Include="Services\Csd\CsdResponse.cs" />
     <Compile Include="Services\Csd\CsdUtils.cs" />
     <Compile Include="Services\Csd\CsdResponseHandler.cs" />
     <Compile Include="Services\Csd\CsdService.cs" />

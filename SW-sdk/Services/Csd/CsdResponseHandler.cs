@@ -10,7 +10,7 @@ namespace SW.Services.Csd
     {
         public override CsdResponse HandleException(Exception ex)
         {
-            return ex.ToUploadCsdResponse();
+            return ex.ToCsdResponse();
         }
     }
 
