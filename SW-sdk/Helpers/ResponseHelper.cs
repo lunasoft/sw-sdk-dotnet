@@ -151,9 +151,29 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }
-        internal static UploadCsdResponse ToCargaCsdResponse(this Exception ex)
+        internal static CsdResponse ToUploadCsdResponse(this Exception ex)
         {
-            return new UploadCsdResponse()
+            return new CsdResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+
+        internal static InfoCsdResponse ToInfoCsdResponse(this Exception ex)
+        {
+            return new InfoCsdResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+
+        internal static ListInfoCsdResponse ToListInfoCsdResponse(this Exception ex)
+        {
+            return new ListInfoCsdResponse()
             {
                 message = ex.Message,
                 status = "error",
