@@ -15,7 +15,13 @@ namespace SW.Services.Csd
         protected CsdService(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
         }
-        internal abstract UploadCsdResponse UploadCsd(string cer, string key, string password, string certificateType, bool isActive);
+        internal abstract CsdResponse UploadCsd(string cer, string key, string password, string certificateType, bool isActive);
+        internal abstract CsdResponse DisableCsd(string certificateNumber);
+        internal abstract InfoCsdResponse InfoCsd(string certificateNumber);
+        internal abstract InfoCsdResponse ActiveCsd(string rfc, string type);
+        internal abstract ListInfoCsdResponse ListCsd();
+        internal abstract ListInfoCsdResponse ListCsdByType(string type);
+        internal abstract ListInfoCsdResponse ListCsdByRfc(string rfc);
         internal virtual Dictionary<string, string> GetHeaders()
         {
             this.SetupRequest();

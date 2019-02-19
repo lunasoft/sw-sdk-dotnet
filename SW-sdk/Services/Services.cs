@@ -65,7 +65,7 @@ namespace SW.Services
         {
             if (string.IsNullOrEmpty(Token) || DateTime.Now > ExpirationDate)
             {
-                Authentication.Authentication auth = new Authentication.Authentication(Url,User,Password);
+                Authentication.Authentication auth = new Authentication.Authentication(Url,User,Password, ProxyPort, Proxy);
                 var response = auth.GetToken();
                 if (response.status == ResponseType.success.ToString())
                 {
