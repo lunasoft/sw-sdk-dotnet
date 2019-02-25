@@ -2,6 +2,7 @@
 using SW.Services.Account;
 using SW.Services.Authentication;
 using SW.Services.Cancelation;
+using SW.Services.Csd;
 using SW.Services.Pdf;
 using SW.Services.Pendings;
 using SW.Services.Relations;
@@ -143,6 +144,33 @@ namespace SW.Helpers
         internal static PdfResponse ToPdfResponse(this Exception ex)
         {
             return new PdfResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static CsdResponse ToCsdResponse(this Exception ex)
+        {
+            return new CsdResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static InfoCsdResponse ToInfoCsdResponse(this Exception ex)
+        {
+            return new InfoCsdResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static ListInfoCsdResponse ToListInfoCsdResponse(this Exception ex)
+        {
+            return new ListInfoCsdResponse()
             {
                 message = ex.Message,
                 status = "error",

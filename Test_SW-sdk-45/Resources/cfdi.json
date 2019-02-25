@@ -1,0 +1,108 @@
+{
+    "RFCINC": null,
+    "Rates": null,
+    "ConfirmationStatus": 0,
+    "HasNomina12": false,
+    "HasPagos10": false,
+    "HasComercioExterior11": false,
+    "HasINE11": false,
+    "HasECC11": false,
+    "HasImpLocales": false,
+    "HasComplemento": false,
+    "CfdiRelacionados": null,
+    "Emisor": {
+        "Rfc": "LAN8507268IA",
+        "Nombre": "MB IDEAS DIGITALES SC",
+        "RegimenFiscal": "601"
+    },
+    "Receptor": {
+        "Rfc": "AAA010101AAA",
+        "Nombre": "SW SMARTERWEB",
+        "ResidenciaFiscalSpecified": false,
+        "NumRegIdTrib": null,
+        "UsoCFDI": "G03"
+    },
+    "Conceptos": [
+        {
+            "Impuestos": {
+                "Traslados": [
+                    {
+                        "Base": "200.00",
+                        "Impuesto": "002",
+                        "TipoFactor": "Tasa",
+                        "TasaOCuota": "0.160000",
+                        "TasaOCuotaSpecified": true,
+                        "Importe": "32.00",
+                        "ImporteSpecified": true
+                    },
+                    {
+                        "Base": "232.00",
+                        "Impuesto": "003",
+                        "TipoFactor": "Tasa",
+                        "TasaOCuota": "1.600000",
+                        "TasaOCuotaSpecified": true,
+                        "Importe": "371.20",
+                        "ImporteSpecified": true
+                    }
+                ],
+                "Retenciones": null
+            },
+            "InformacionAduanera": null,
+            "CuentaPredial": null,
+            "ComplementoConcepto": null,
+            "Parte": null,
+            "ClaveProdServ": "50211503",
+            "NoIdentificacion": "UT421511",
+            "Cantidad": 1,
+            "ClaveUnidad": "H87",
+            "Unidad": "Pieza",
+            "Descripcion": "Cigarros",
+            "ValorUnitario": "200.00",
+            "Importe": "200.00",
+            "DescuentoSpecified": false
+        }
+    ],
+    "Impuestos": {
+        "Retenciones": null,
+        "Traslados": [
+            {
+                "Impuesto": "002",
+                "TipoFactor": "Tasa",
+                "TasaOCuota": "0.160000",
+                "Importe": "32.00"
+            },
+            {
+                "Impuesto": "003",
+                "TipoFactor": "Tasa",
+                "TasaOCuota": "1.600000",
+                "Importe": "371.20"
+            }
+        ],
+        "TotalImpuestosRetenidosSpecified": false,
+        "TotalImpuestosTrasladados": "403.20",
+        "TotalImpuestosTrasladadosSpecified": true
+    },
+    "Complemento": null,
+    "Addenda": null,
+    "Version": "3.3",
+    "Serie": "RogueOne",
+    "Folio": "HNFK231",
+    "Fecha": "2018-10-02T10:44:54",
+    "Sello": "",
+    "FormaPago": "01",
+    "FormaPagoSpecified": true,
+    "NoCertificado": "20001000000300022816",
+    "Certificado": "",
+    "CondicionesDePago": null,
+    "SubTotal": "200.00",
+    "DescuentoSpecified": false,
+    "Moneda": "MXN",
+    "TipoCambio": "1",
+    "TipoCambioSpecified": true,
+    "Total": "603.20",
+    "TipoDeComprobante": "I",
+    "MetodoPago": "PUE",
+    "MetodoPagoSpecified": true,
+    "LugarExpedicion": "06300",
+    "Confirmacion": null
+}

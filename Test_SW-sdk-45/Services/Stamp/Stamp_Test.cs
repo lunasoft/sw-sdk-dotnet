@@ -63,7 +63,7 @@ namespace Test_SW.Services.Stamp_Test
             var xml = GetXml(build);
             var response = (StampResponseV2)stamp.TimbrarV2(xml);
             Assert.IsTrue(response.status == "success"
-               && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.tfd viene vacio.");
+               && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
         }
         [TestMethod]
         public void Stamp_Test_45_StampXMLV2byToken()
@@ -73,7 +73,7 @@ namespace Test_SW.Services.Stamp_Test
             var xml = GetXml(build);
             var response = (StampResponseV2)stamp.TimbrarV2(xml);
             Assert.IsTrue(response.status == "success"
-               && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.tfd viene vacio.");
+               && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
         }
         [TestMethod]
         public void Stamp_Test_45_StampXMLV2Base64()
@@ -84,7 +84,7 @@ namespace Test_SW.Services.Stamp_Test
             xml = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
             var response = (StampResponseV2)stamp.TimbrarV2(xml, true);
             Assert.IsTrue(response.status == "success"
-               && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.tfd viene vacio.");
+               && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
         }
         [TestMethod]
         public void Stamp_Test_45_StampXMLV2Base64byToken()
@@ -105,7 +105,7 @@ namespace Test_SW.Services.Stamp_Test
             var xml = GetXml(build);
             var response = (StampResponseV3)stamp.TimbrarV3(xml);
             Assert.IsTrue(response.status == "success"
-               && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.tfd viene vacio.");
+               && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
         }
         [TestMethod]
         public void Stamp_Test_45_StampXMLV3Base64byToken()
@@ -116,7 +116,7 @@ namespace Test_SW.Services.Stamp_Test
             xml = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
             var response = (StampResponseV3)stamp.TimbrarV3(xml, true);
             Assert.IsTrue(response.status == "success"
-               && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.tfd viene vacio.");
+               && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
         }
        
         [TestMethod]
@@ -155,6 +155,31 @@ namespace Test_SW.Services.Stamp_Test
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
+        }
+        [TestMethod]
+        public void Stamp_Test_45_MassStampXMLV4()
+        {
+            var build = new BuildSettings();
+            Stamp stamp = new Stamp(build.Url, build.User, build.Password);
+            List<string> xmls = new List<string>();
+            for (int i = 0; i < 50; i++)
+            {
+                xmls.Add(GetXml(build));
+            }
+            var mass_response = stamp.TimbrarV4(xmls.ToArray());
+            foreach (var dic in mass_response)
+            {
+                Assert.IsTrue(dic.Key != null, "El resultado data viene vacio." + dic.Value.message);
+                Assert.IsTrue(!string.IsNullOrEmpty(dic.Value.data.cfdi), "El resultado data.cfdi viene vacio.");
+                Assert.IsTrue(!string.IsNullOrEmpty(dic.Value.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
+                Assert.IsTrue(!string.IsNullOrEmpty(dic.Value.data.noCertificadoSAT), "El resultado data.noCertificadoSAT viene vacio.");
+                Assert.IsTrue(!string.IsNullOrEmpty(dic.Value.data.noCertificadoCFDI), "El resultado data.noCertificadoCFDI viene vacio.");
+                Assert.IsTrue(!string.IsNullOrEmpty(dic.Value.data.uuid), "El resultado data.uuid viene vacio.");
+                Assert.IsTrue(!string.IsNullOrEmpty(dic.Value.data.selloSAT), "El resultado data.selloSAT viene vacio.");
+                Assert.IsTrue(!string.IsNullOrEmpty(dic.Value.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
+                Assert.IsTrue(!string.IsNullOrEmpty(dic.Value.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
+                Assert.IsTrue(!string.IsNullOrEmpty(dic.Value.data.qrCode), "El resultado data.qrCode viene vacio.");
+            }
         }
         [TestMethod]
         public void Stamp_Test_45_ValidateServerError()
