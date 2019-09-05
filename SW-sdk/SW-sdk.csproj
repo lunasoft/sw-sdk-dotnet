@@ -114,6 +114,10 @@
     <Compile Include="Services\Stamp\StampService.cs" />
     <Compile Include="Helpers\StampTypes.cs" />
     <Compile Include="Services\Stamp\StampValidation.cs" />
+    <Compile Include="Services\Taxpayer\Taxpayer.cs" />
+    <Compile Include="Services\Taxpayer\TaxpayerResponse.cs" />
+    <Compile Include="Services\Taxpayer\TaxpayerResponseHandler.cs" />
+    <Compile Include="Services\Taxpayer\TaxpayerService.cs" />
     <Compile Include="Services\Validate\BaseValidate.cs" />
     <Compile Include="Services\Validate\Validate.cs" />
     <Compile Include="Services\Validate\ValidateResponse.cs" />

@@ -61,7 +61,6 @@ namespace Test_SW
             var response = (StampResponseV1)stamp.TimbrarV1(xml);
             Assert.IsTrue(response.message.Contains("401"));
         }
-
         [TestMethod]
         public void UT_Service_Validation_45_404()
         {
@@ -69,8 +68,7 @@ namespace Test_SW
             string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
             var response = (StampResponseV1)stamp.TimbrarV1(xml);
             Assert.IsTrue(response.message.Contains("404"));
-        }
-
+        }      
         [TestMethod]
         public void UT_Service_Validation_45_STAMPV4_BIG_XML()
         {

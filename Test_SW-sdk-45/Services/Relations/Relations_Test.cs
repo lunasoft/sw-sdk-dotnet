@@ -24,7 +24,7 @@ namespace Test_SW.Services.Relations_Test
         {
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
-            RelationsResponse response = relations.RelationsByRfcUuid(build.Rfc, "31c885c8-6dcb-4d82-9cfd-01707c828c50");
+            RelationsResponse response = relations.RelationsByRfcUuid(build.Rfc, build.uuid);
             Assert.IsTrue(response.status == "success");
         }
         [TestMethod]
@@ -32,7 +32,7 @@ namespace Test_SW.Services.Relations_Test
         {
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
-            RelationsResponse response = relations.RelationsByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "31c885c8-6dcb-4d82-9cfd-01707c828c50");
+            RelationsResponse response = relations.RelationsByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, build.uuid);
             Assert.IsTrue(response.status == "success");
         }
         [TestMethod]
@@ -40,10 +40,11 @@ namespace Test_SW.Services.Relations_Test
         {
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
-            RelationsResponse response = relations.RelationsByPFX(build.Pfx, build.Rfc, build.CerPassword, "31c885c8-6dcb-4d82-9cfd-01707c828c50");
+            RelationsResponse response = relations.RelationsByPFX(build.Pfx, build.Rfc, build.CerPassword, build.uuid);
             Assert.IsTrue(response.status == "success");
         }
         [TestMethod]
+        [Ignore]
         public void RelationsByXml()
         {
             var build = new BuildSettings();

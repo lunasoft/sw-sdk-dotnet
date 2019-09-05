@@ -124,6 +124,5 @@ namespace SW.Helpers
             get { return _action; }
             set { _action = value; }
         }
-
     }
 }
