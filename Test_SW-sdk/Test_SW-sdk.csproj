@@ -159,6 +159,15 @@
     <None Include="Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\CertificadosDePrueba\CSD_XIA190128J61.cer">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\CertificadosDePrueba\CSD_XIA190128J61.key">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\CertificadosDePrueba\CSD_XIA190128J61.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\cfdi.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
