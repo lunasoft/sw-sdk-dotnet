@@ -1163,7 +1163,52 @@ namespace ExampleSDK
     }
 }
 ```
+## Taxpayer / Consultar RFC en Lista 69-B por RFC ##
+Este método recibe el **RFC** a consultar.
+***NOTA:*** No siempre responde con todos los campos del ejemplo, en caso que no contenga ese dato el registro del RFC regresa una cadena vacía.
+**Ejemplo de consumo de la librería para la utilización**
+```cs
+using SW.Services.Taxpayer;
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
 
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+Taxpayer Taxpayer = new Taxpayer("http://services.test.sw.com.mx", "demo", "123456789");
+                var response = Taxpayer.GetTaxpayer("ZNS1101105T3");
+                Console.WriteLine(response.data.id);
+                Console.WriteLine(response.data.rfc);
+                Console.WriteLine(response.data.nombre_Contribuyente);
+                Console.WriteLine(response.data.numero_fecha_oficio_global_contribuyentes_que_desvirtuaron);
+                Console.WriteLine(response.data.numero_fecha_oficio_global_definitivos);
+                Console.WriteLine(response.data.numero_fecha_oficio_global_sentencia_favorable);
+                Console.WriteLine(response.data.numero_y_fecha_oficio_global_presuncion);
+                Console.WriteLine(response.data.publicacion_DOF_definitivos);
+                Console.WriteLine(response.data.publicacion_DOF_desvirtuados);
+                Console.WriteLine(response.data.publicacion_DOF_presuntos);
+                Console.WriteLine(response.data.publicacion_DOF_sentencia_favorable);
+                Console.WriteLine(response.data.publicacion_pagina_SAT_definitivos);
+                Console.WriteLine(response.data.publicacion_pagina_SAT_desvirtuados);
+                Console.WriteLine(response.data.publicacion_pagina_SAT_presuntos);
+                Console.WriteLine(response.data.publicacion_pagina_SAT_sentencia_favorable);
+                Console.WriteLine(response.data.situacion_del_contribuyente);
+				  }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
 Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
 
 Si deseas contribuir a la libreria o tienes dudas envianos un correo a **soporte@sw.com.mx**.
