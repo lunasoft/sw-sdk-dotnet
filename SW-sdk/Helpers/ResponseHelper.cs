@@ -8,6 +8,7 @@ using SW.Services.Pdf;
 using SW.Services.Pendings;
 using SW.Services.Relations;
 using SW.Services.Stamp;
+using SW.Services.Taxpayer;
 using SW.Services.Validate;
 using System;
 using System.Collections.Generic;
@@ -172,6 +173,15 @@ namespace SW.Helpers
         internal static ListInfoCsdResponse ToListInfoCsdResponse(this Exception ex)
         {
             return new ListInfoCsdResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static TaxpayerResponse ToTaxpayerResponse(this Exception ex)
+        {
+            return new TaxpayerResponse()
             {
                 message = ex.Message,
                 status = "error",

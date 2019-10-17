@@ -94,6 +94,7 @@
     <Compile Include="Services\Stamp\StampV2_Test.cs" />
     <Compile Include="Services\Stamp\Stamp_Test.cs" />
     <Compile Include="Services\Status\Status_Test.cs" />
+    <Compile Include="Services\Taxpayer\Taxpayer_Test.cs" />
     <Compile Include="Services\Validate\Validate_UT.cs" />
     <Compile Include="UT_Service_Validation.cs" />
   </ItemGroup>
@@ -156,6 +157,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\CertificadosDePrueba\CSD_XIA190128J61.cer">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\CertificadosDePrueba\CSD_XIA190128J61.key">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\CertificadosDePrueba\CSD_XIA190128J61.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\cfdi.json">
