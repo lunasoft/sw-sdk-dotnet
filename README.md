@@ -1209,6 +1209,52 @@ Taxpayer Taxpayer = new Taxpayer("http://services.test.sw.com.mx", "demo", "1234
     }
 }
 ```
+## Status SW / Consultar el Status de Timbrado o Autenticación ##
+Este método recibe el **Status** actual del servicio consultado.
+***NOTA:*** Se puede hacer una consulta del los siguientes servicios
+SWEnviroment.SandboxAuthentication
+SWEnviroment.Authentication (Productivo)
+SWEnviroment.SandboxStamp
+SWEnviroment.Stamp (Productivo)
+**Ejemplo de consumo de la librería para la utilización**
+```cs
+using SW.Services.StatusSW;
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Con token
+                //StatusServiceSW Service = new StatusServiceSW("http://services.test.sw.com.mx", "Token");
+
+                //Con usuario y contraseña
+                StatusServiceSW Service = new StatusServiceSW("http://services.test.sw.com.mx", "User, "Password");
+                //Servicio de Autenticación
+                StatusSWResponse statusService = Service.GetStatusSWServices(SWEnviroment.SandboxAuthentication);
+
+                //Servicio de timbrado
+                //StatusSWResponse statusService = Service.GetStatusSWServices(SWEnviroment.SandboxStamp);
+
+                Console.WriteLine(statusService.data.description);
+                Console.WriteLine(statusService.data.name);
+                Console.WriteLine(statusService.data.status);
+		    }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
 Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
 
 Si deseas contribuir a la libreria o tienes dudas envianos un correo a **soporte@sw.com.mx**.
