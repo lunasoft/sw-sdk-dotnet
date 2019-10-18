@@ -102,6 +102,7 @@ namespace SW.Services
             {
                 using (HttpClient client = new HttpClient(proxy))
                 {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                     foreach (var header in headers)
                     {
                         client.DefaultRequestHeaders.Add(header.Key, header.Value);

@@ -56,6 +56,7 @@
     <Compile Include="Helpers\RequestHelper.cs" />
     <Compile Include="Helpers\ResponseHelper.cs" />
     <Compile Include="Helpers\ResponseType.cs" />
+    <Compile Include="Helpers\StatusSWType.cs" />
     <Compile Include="Helpers\StreamUtil.cs" />
     <Compile Include="Helpers\Validation.cs" />
     <Compile Include="Helpers\XmlUtils.cs" />
@@ -120,6 +121,11 @@
     <Compile Include="Services\Stamp\StampService.cs" />
     <Compile Include="Helpers\StampTypes.cs" />
     <Compile Include="Services\Stamp\StampValidation.cs" />
+    <Compile Include="Services\StatusSW\StatusServiceSW .cs" />
+    <Compile Include="Services\StatusSW\StatusSWEviroment.cs" />
+    <Compile Include="Services\StatusSW\StatusSWResponse.cs" />
+    <Compile Include="Services\StatusSW\StatusSWResponseHandler.cs" />
+    <Compile Include="Services\StatusSW\StatusSWService.cs" />
     <Compile Include="Services\Status\Status.cs" />
     <Compile Include="Services\Status\StatusService.cs" />
     <Compile Include="Services\Taxpayer\Taxpayer.cs" />
