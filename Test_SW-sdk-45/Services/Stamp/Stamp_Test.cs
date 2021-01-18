@@ -14,55 +14,6 @@ namespace Test_SW.Services.Stamp_Test
     public class Stamp_Test_45
     {
         [TestMethod]
-        public void Stamp_Test_45_StampV4_V1()
-        {
-            var build = new BuildSettings();
-            StampV4 stamp = new StampV4(build.Url, build.User, build.Password);
-            var xml = GetXml(build);
-            var response = (StampResponseV1)stamp.TimbrarV1(xml, "some@email.com");
-            Assert.IsTrue(response.status == "success"
-                && !string.IsNullOrEmpty(response.data.tfd), "El resultado data.tfd viene vacio.");
-        }
-        [TestMethod]
-        public void Stamp_Test_45_StampV4_V2()
-        {
-            var build = new BuildSettings();
-            StampV4 stamp = new StampV4(build.Url, build.User, build.Password);
-            var xml = GetXml(build);
-            var response = (StampResponseV2)stamp.TimbrarV2(xml, "some@email.com");
-            Assert.IsTrue(response.data != null, "El resultado data viene vacio.");
-            Assert.IsTrue(!string.IsNullOrEmpty(response.data.tfd), "El resultado data.tfd viene vacio");
-            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
-        }
-        [TestMethod]
-        public void Stamp_Test_45_StampV4_V3()
-        {
-            var build = new BuildSettings();
-            StampV4 stamp = new StampV4(build.Url, build.User, build.Password);
-            var xml = GetXml(build);
-            var response = (StampResponseV3)stamp.TimbrarV3(xml, "some@email.com");
-            Assert.IsTrue(response.status == "success"
-                && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
-        }
-        [TestMethod]
-        public void Stamp_Test_45_StampV4_V4()
-        {
-            var build = new BuildSettings();
-            StampV4 stamp = new StampV4(build.Url, build.User, build.Password);
-            var xml = GetXml(build);
-            var response = (StampResponseV4)stamp.TimbrarV4(xml, "some@email.com");
-            Assert.IsTrue(response.data != null, "El resultado data viene vacio.");
-            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
-            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
-            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoSAT), "El resultado data.noCertificadoSAT viene vacio.");
-            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoCFDI), "El resultado data.noCertificadoCFDI viene vacio.");
-            Assert.IsTrue(!string.IsNullOrEmpty(response.data.uuid), "El resultado data.uuid viene vacio.");
-            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloSAT), "El resultado data.selloSAT viene vacio.");
-            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
-            Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
-            Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
-        }
-        [TestMethod]
         public void Stamp_Test_45_StampXMLV1()
         {
             var build = new BuildSettings();

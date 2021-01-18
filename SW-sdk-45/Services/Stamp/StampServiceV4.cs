@@ -23,12 +23,13 @@ namespace SW.Services.Stamp
             content.Add(fileContent, "xml", "xml");
             return content;
         }
-        internal virtual Dictionary<string, string> GetHeaders(string email)
+        internal virtual Dictionary<string, string> GetHeaders(string email = null, string customId = null)
         {
             this.SetupRequest();
             Dictionary<string, string> headers = new Dictionary<string, string>() {
                     { "Authorization", "bearer " + this.Token },
-                    { "email", email }
+                    { "email", email },
+                    { "customid", customId }
                 };
             return headers;
         }

@@ -14,7 +14,7 @@ namespace SW.Services.Stamp
         protected StampServiceV4(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
         }
-        internal virtual HttpWebRequest RequestStamping(byte[] xml, string version, string format, string operation, string email)
+        internal virtual HttpWebRequest RequestStamping(byte[] xml, string version, string format, string operation, string email, string customId)
         {
             this.SetupRequest();
             HttpWebRequest.DefaultMaximumErrorResponseLength = (1000000 + xml.Length) * 2;
@@ -28,7 +28,10 @@ namespace SW.Services.Stamp
             request.ContentType = "application/json";
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
-            request.Headers.Add("email", email);
+            if(email!=null)
+                request.Headers.Add("email", email);
+            if (customId != null)
+                request.Headers.Add("customid", customId);
             request.ContentLength = xml != null ? xml.Length : 0;
             Helpers.RequestHelper.AddFileToRequest(xml, ref request);
             return request;
