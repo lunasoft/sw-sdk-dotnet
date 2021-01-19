@@ -69,8 +69,11 @@
     <Compile Include="Services\Pdf\PdfResponseHandler.cs" />
     <Compile Include="Services\Pdf\PdfService.cs" />
     <Compile Include="Services\Stamp\BaseStampV2.cs" />
+    <Compile Include="Services\Stamp\BaseStampV4.cs" />
+    <Compile Include="Services\Stamp\StampServiceV4.cs" />
     <Compile Include="Services\Stamp\StampV2.cs" />
     <Compile Include="Services\Stamp\StampServiceV2.cs" />
+    <Compile Include="Services\Stamp\StampV4.cs" />
     <Compile Include="Services\Status\Status.cs" />
     <Compile Include="Services\Status\StatusService.cs" />
     <Compile Include="Services\AcceptReject\AcceptReject.cs" />

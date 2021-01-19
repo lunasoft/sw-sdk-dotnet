@@ -28,7 +28,8 @@ namespace SW.Services
                     client.BaseAddress = new Uri(url);
                     foreach (var header in headers)
                     {
-                        client.DefaultRequestHeaders.Add(header.Key, header.Value);
+                        if(header.Value!=null)
+                            client.DefaultRequestHeaders.Add(header.Key, header.Value);
                     }
                     var result = client.PostAsync(path, content).Result;
                     return TryGetResponse(result);
