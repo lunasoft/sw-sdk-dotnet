@@ -17,14 +17,14 @@ namespace SW.Services.Stamp
             _operation = operation;
             _apiUrl = urlApi;
         }
-        
+
         public virtual StampResponseV2 TimbrarV2(string xml, string email = null, string customId = null, bool isb64 = false, string[] extras = null)
         {
             StampResponseHandlerV2XML handler = new StampResponseHandlerV2XML(xml);
 
             string format = isb64 ? "b64" : "";
             var xmlBytes = Encoding.UTF8.GetBytes(xml);
-            var headers =  GetHeaders(email, customId, extras);
+            var headers = GetHeaders(email, customId, extras);
             var content = GetMultipartContent(xmlBytes);
             var proxy = RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
             var response = handler.GetPostResponse(this.Url,
@@ -32,7 +32,7 @@ namespace SW.Services.Stamp
                             _operation,
                             StampTypes.v2.ToString(),
                             format), headers, content, proxy);
-            if(response.status == "error" && response.message == "CFDI3307 - Timbre duplicado. El customId proporcionado está duplicado.")
+            if (response.status == "error" && response.message == "CFDI3307 - Timbre duplicado. El customId proporcionado está duplicado.")
             {
                 StorageResponseHandler storangeHandler = new StorageResponseHandler();
                 string uuid = XmlUtils.GetUUIDFromTFD(response.data.tfd);
@@ -51,10 +51,9 @@ namespace SW.Services.Stamp
                         message = "No es posible obtener el url para decargar el XML",
                         status = "error",
                         messageDetail = "No esta disponible el URL de descarga del XML, intente más tarde"
-                    };
-                
-                var dataResult = DowloadFile.DowloadFileAsync(xmlStorange,
-                                    RequestHelper.ProxySettings(this.Proxy, this.ProxyPort));
+                    }; 
+                }
+                var dataResult = DowloadFile.DowloadFileAsync(xmlStorange, RequestHelper.ProxySettings(this.Proxy, this.ProxyPort));
                 dataResult.data.tfd = response.data.tfd;
                 dataResult.message = response.message;
                 return dataResult;
