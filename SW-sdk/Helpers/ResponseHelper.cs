@@ -8,6 +8,7 @@ using SW.Services.Pdf;
 using SW.Services.Pendings;
 using SW.Services.Relations;
 using SW.Services.Stamp;
+using SW.Services.Storage;
 using SW.Services.Taxpayer;
 using SW.Services.Validate;
 using System;
@@ -182,6 +183,15 @@ namespace SW.Helpers
         internal static TaxpayerResponse ToTaxpayerResponse(this Exception ex)
         {
             return new TaxpayerResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static StorageResponse ToStorageResponse(this Exception ex)
+        {
+            return new StorageResponse()
             {
                 message = ex.Message,
                 status = "error",

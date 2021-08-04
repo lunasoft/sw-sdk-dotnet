@@ -117,6 +117,10 @@
     <Compile Include="Services\Stamp\StampService.cs" />
     <Compile Include="Helpers\StampTypes.cs" />
     <Compile Include="Services\Stamp\StampValidation.cs" />
+    <Compile Include="Services\Storage\Storage.cs" />
+    <Compile Include="Services\Storage\StorageResponse.cs" />
+    <Compile Include="Services\Storage\StorageResponseHandler.cs" />
+    <Compile Include="Services\Storage\StorageService.cs" />
     <Compile Include="Services\Taxpayer\Taxpayer.cs" />
     <Compile Include="Services\Taxpayer\TaxpayerResponse.cs" />
     <Compile Include="Services\Taxpayer\TaxpayerResponseHandler.cs" />
