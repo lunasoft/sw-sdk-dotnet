@@ -33,7 +33,7 @@ namespace Test_SW_sdk_45.Services.Csd
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
-            var response = csd.DisableMyCsd("20001000000300022763");
+            var response = csd.DisableMyCsd("30001000000400002330");
             Assert.IsTrue(response.data != null && response.status == "success");
         }
         [TestMethod]

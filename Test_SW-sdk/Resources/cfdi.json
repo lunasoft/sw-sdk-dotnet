@@ -10,11 +10,11 @@
     "HasImpLocales": false,
     "HasComplemento": false,
     "CfdiRelacionados": null,
-    "Emisor": {
-        "Rfc": "LAN8507268IA",
-        "Nombre": "MB IDEAS DIGITALES SC",
-        "RegimenFiscal": "601"
-    },
+  "Emisor": {
+    "Rfc": "XIA190128J61",
+    "Nombre": "MB IDEAS DIGITALES SC",
+    "RegimenFiscal": "601"
+  },
     "Receptor": {
         "Rfc": "AAA010101AAA",
         "Nombre": "SW SMARTERWEB",

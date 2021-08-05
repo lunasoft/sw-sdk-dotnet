@@ -35,4 +35,11 @@ namespace SW.Services.Stamp
             return ex.ToStampResponseV4();
         }
     }
+    internal class StampResponseHandlerV2XML : ResponseHandler<StampResponseV2>
+    {
+        public override StampResponseV2 HandleException(Exception ex)
+        {
+            return ex.ToStampResponseV2();
+        }
+    }
 }

@@ -6,12 +6,18 @@ using Test_SW.Helpers;
 using SW.Services.AcceptReject;
 using System.Text;
 using SW.Services.Status;
+using System.Net;
+using System.Security.Authentication;
 
 namespace Test_SW.Services.Status_Test
 {
     [TestClass]
     public class Status_Test
     {
+        public Status_Test()
+        {
+            System.Net.ServicePointManager.SecurityProtocol = (SecurityProtocolType)(SslProtocols)0x00000C00;
+        }
         //TEST
         //private string urlSAT = "https://srvconsultacfdiuat.cloudapp.net/ConsultaCFDIService.svc";
         //Prod
