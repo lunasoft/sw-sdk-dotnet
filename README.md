@@ -1182,7 +1182,7 @@ namespace ExampleSDK
         {
             try
             {
-Taxpayer Taxpayer = new Taxpayer("http://services.test.sw.com.mx", "demo", "123456789");
+                Taxpayer Taxpayer = new Taxpayer("http://services.test.sw.com.mx", "demo", "123456789");
                 var response = Taxpayer.GetTaxpayer("ZNS1101105T3");
                 Console.WriteLine(response.data.id);
                 Console.WriteLine(response.data.rfc);
@@ -1203,6 +1203,57 @@ Taxpayer Taxpayer = new Taxpayer("http://services.test.sw.com.mx", "demo", "1234
 				  }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+## StampCustomIdV4 / Método para evitar CFDI duplicados ##
+Método de timbrado customIdV4XML
+***NOTA:*** Este método recibe un customId, si anteriormente fue timbrada una factura con este customId te regresara el TFD y CFDI anteriormente timbrado.
+**Ejemplo de consumo de la librería para la utilización**
+```cs
+using SW.Services.Stamp;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //url para pord http://services.sw.com.mx y http://api.sw.com.mx
+                StampV4XML stamp = new StampV4XML("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "T2lYQ0t4L0RHVkR4dH........");
+                
+                string CustomId = "RamdoncustomId_Max100Char"
+                response = (StampResponseV2) stamp.TimbrarV2(xml, null, CustomId);
+
+                if(response.status == "success" && response.data != null)
+                {
+                    //Puedes obtener CFDI y TFD de manera normal.
+                    Console.WriteLine(response.data.tfd);
+                    Console.WriteLine(response.data.cfdi);
+                }
+                else if(response.status == "error" && response.message == "No es posible obtener el url para decargar el XML")
+                {
+                    //Aquí solo podrás obtener el TFD y deberá intentar más tarde, la condición es utilizar el mismo customID
+                    Console.WriteLine(response.data.tfd);
+                    Console.WriteLine(response.messageDetail);
+                }
+                else if(response.status == "error" && response.message == "CFDI3307 - Timbre duplicado. El customId proporcionado está duplicado.")
+                {
+                    //Puedes obtener CFDI y TFD de manera normal.
+                    Console.WriteLine(response.data.tfd);
+                    Console.WriteLine(response.data.cfdi);
+                }
+            }
+            catch (Exception e)
+            {
+                //Una Exception relacionado a este metod puede ser "No es posible obtener el UUID"
                 Console.WriteLine(e.Message);
             }
         }
