@@ -6,7 +6,6 @@ using System.Text;
 using SW.Helpers;
 using SW.Services.Stamp;
 using Test_SW.Helpers;
-using System.Xml;
 
 namespace Test_SW.Services.Stamp_Test
 {

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SW.Services.Storage;
 
 namespace SW.Helpers
 {
@@ -181,6 +182,15 @@ namespace SW.Helpers
         internal static TaxpayerResponse ToTaxpayerResponse(this Exception ex)
         {
             return new TaxpayerResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static StorageResponse ToStorageResponse(this Exception ex)
+        {
+            return new StorageResponse()
             {
                 message = ex.Message,
                 status = "error",

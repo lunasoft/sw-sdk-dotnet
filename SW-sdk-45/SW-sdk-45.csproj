@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\IResponseHandler.cs" />
+    <Compile Include="Helpers\DowloadFile.cs" />
     <Compile Include="Helpers\EnumAcceptReject.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
     <Compile Include="Helpers\ResponseHelper.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Services\Stamp\BaseStampV2.cs" />
     <Compile Include="Services\Stamp\BaseStamp.cs" />
     <Compile Include="Services\Stamp\BaseStampV4.cs" />
+    <Compile Include="Services\Stamp\BaseStampV4XML.cs" />
     <Compile Include="Services\Stamp\StampServiceV4.cs" />
     <Compile Include="Services\Stamp\StampV2.cs" />
     <Compile Include="Services\Stamp\Stamp.cs" />
@@ -122,9 +124,14 @@
     <Compile Include="Services\Stamp\StampService.cs" />
     <Compile Include="Helpers\StampTypes.cs" />
     <Compile Include="Services\Stamp\StampV4.cs" />
+    <Compile Include="Services\Stamp\StampV4XML.cs" />
     <Compile Include="Services\Stamp\StampValidation.cs" />
     <Compile Include="Services\Status\Status.cs" />
     <Compile Include="Services\Status\StatusService.cs" />
+    <Compile Include="Services\Storage\Storage.cs" />
+    <Compile Include="Services\Storage\StorageResponse.cs" />
+    <Compile Include="Services\Storage\StorageResponseHandler.cs" />
+    <Compile Include="Services\Storage\StorageService.cs" />
     <Compile Include="Services\Taxpayer\Taxpayer.cs" />
     <Compile Include="Services\Taxpayer\TaxpayerResponse.cs" />
     <Compile Include="Services\Taxpayer\TaxpayerResponseHandler.cs" />

@@ -10,7 +10,7 @@ namespace Test_SW.Services.Cancelation_Test
     [TestClass]
     public class Cancelation_Test
     {
-        private const string uuid = "e61b1d91-b4f5-4af7-b39d-8731ba06a23c";
+        private const string uuid = "575f7182-58e2-417d-a20d-fe037f7fa049";
         [TestMethod]
         public void CancelationByCSD()
         {

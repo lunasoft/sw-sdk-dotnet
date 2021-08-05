@@ -4,7 +4,7 @@
                   Moneda="MXN" NoCertificado="" 
                   Sello="" 
                   Serie="RogueOne" SubTotal="200.00" TipoCambio="1" TipoDeComprobante="I" Total="603.20" Version="3.3" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd">
-  <cfdi:Emisor Nombre="MB IDEAS DIGITALES SC" RegimenFiscal="601" Rfc="LAN8507268IA"/>
+  <cfdi:Emisor Nombre="MB IDEAS DIGITALES SC" RegimenFiscal="601" Rfc="XIA190128J61"/>
   <cfdi:Receptor Nombre="SW SMARTERWEB" Rfc="AAA010101AAA" UsoCFDI="G03"/>
   <cfdi:Conceptos>
     <cfdi:Concepto Cantidad="1" ClaveProdServ="50211503" ClaveUnidad="H87" Descripcion="Cigarros" Importe="200.00" NoIdentificacion="UT421511" Unidad="Pieza" ValorUnitario="200.00">
