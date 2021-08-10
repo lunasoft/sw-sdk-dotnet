@@ -1238,7 +1238,7 @@ namespace ExampleSDK
                     Console.WriteLine(response.data.tfd);
                     Console.WriteLine(response.data.cfdi);
                 }
-                else if(response.status == "error" && response.message == "No es posible obtener el url para decargar el XML")
+                else if(response.status == "error" && response.message == "No es posible obtener el url para descargar el XML")
                 {
                     //Aquí solo podrás obtener el TFD y deberá intentar más tarde, la condición es utilizar el mismo customID
                     Console.WriteLine(response.data.tfd);
