@@ -57,7 +57,7 @@ namespace Test_SW.Services.StampV4XML_Test
 
             xml = GetXml(build);
             response = (StampResponseV2)stamp.TimbrarV2(xml, null, CustomId);
-            Assert.IsTrue(response.status == "error" && response.message == "No es posible obtener el url para decargar el XML");
+            Assert.IsTrue(response.status == "error" && response.message == "No es posible obtener el url para descargar el XML");
         }
         
         private string GetXml(BuildSettings build)
