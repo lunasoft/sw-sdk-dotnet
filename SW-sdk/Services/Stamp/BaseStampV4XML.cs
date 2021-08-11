@@ -41,7 +41,7 @@ namespace SW.Services.Stamp
                             {
                                 tfd = response.data.tfd
                             },
-                            message = "No es posible obtener el url para decargar el XML",
+                            message = "No es posible obtener el url para descargar el XML",
                             status = "error",
                             messageDetail = "No esta disponible el URL de descarga del XML, intente más tarde"
                         };
