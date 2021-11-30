@@ -27,6 +27,7 @@ namespace SW.Services.Pdf
             content.Add(fileContent, "xml", "xml");
             content.Add(new StringContent(JsonConvert.SerializeObject(ObservacionesAdcionales, Formatting.Indented)), "extras");
             return content;
+            //salto de linea
         }
         internal virtual Dictionary<string, string> GetHeaders()
         {
