@@ -114,6 +114,7 @@
     <Content Include="Resources\acuse.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\CancelacionXML.xml" />
     <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
