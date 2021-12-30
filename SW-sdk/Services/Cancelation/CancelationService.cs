@@ -12,11 +12,11 @@ namespace SW.Services.Cancelation
         protected CancelationService(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
         }
-        internal abstract CancelationResponse Cancelar(string cer, string key, string rfc, string password, string uuid);
+        internal abstract CancelationResponse Cancelar(string cer, string key, string rfc, string password, string uuid, string motivo, string folioSustitucion);
         internal abstract CancelationResponse Cancelar(byte[] xmlCancelation);
-        internal abstract CancelationResponse Cancelar(string pfx, string rfc, string password, string uuid);
-        internal abstract CancelationResponse Cancelar(string rfc, string uuid);
-        internal virtual HttpWebRequest RequestCancelar(string cer, string key, string rfc, string password, string uuid)
+        internal abstract CancelationResponse Cancelar(string pfx, string rfc, string password, string uuid, string motivo, string folioSustitucion);
+        internal abstract CancelationResponse Cancelar(string rfc, string uuid, string motivo, string folioSustitucion);
+        internal virtual HttpWebRequest RequestCancelar(string cer, string key, string rfc, string password, string uuid, string motivo, string folioSustitucion)
         {
             this.SetupRequest();
             var request = (HttpWebRequest)WebRequest.Create(this.Url + "cfdi33/cancel/csd");
@@ -30,7 +30,9 @@ namespace SW.Services.Cancelation
                 b64Key = key,
                 password = password,
                 rfc = rfc,
-                uuid = uuid
+                uuid = uuid,
+                motivo = motivo,
+                folioSustitucion = folioSustitucion
             });
             request.ContentLength = body.Length;
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
@@ -41,10 +43,10 @@ namespace SW.Services.Cancelation
             }
             return request;
         }
-        internal virtual HttpWebRequest RequestCancelar(string rfc, string uuid)
+        internal virtual HttpWebRequest RequestCancelar(string rfc, string uuid, string motivo, string folioSustitucion)
         {
             this.SetupRequest();
-            string path = string.Format("cfdi33/cancel/{0}/{1}", rfc, uuid);
+            string path = string.Format("cfdi33/cancel/{0}/{1}/{2}/{3}", rfc, uuid, motivo, folioSustitucion);
             var request = (HttpWebRequest)WebRequest.Create(this.Url + path);
             request.ContentType = "application/json";
             request.ContentLength = 0;
@@ -53,7 +55,7 @@ namespace SW.Services.Cancelation
             Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
             return request;
         }
-        internal virtual HttpWebRequest RequestCancelar(string pfx, string rfc, string password, string uuid)
+        internal virtual HttpWebRequest RequestCancelar(string pfx, string rfc, string password, string uuid, string motivo, string folioSustitucion)
         {
             this.SetupRequest();
             var request = (HttpWebRequest)WebRequest.Create(this.Url + "cfdi33/cancel/pfx");
@@ -66,7 +68,9 @@ namespace SW.Services.Cancelation
                 b64Pfx = pfx,
                 password = password,
                 rfc = rfc,
-                uuid = uuid
+                uuid = uuid,
+                motivo = motivo,
+                folioSustitucion = folioSustitucion
             });
             request.ContentLength = body.Length;
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))

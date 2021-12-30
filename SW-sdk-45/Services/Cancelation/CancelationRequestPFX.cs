@@ -16,6 +16,10 @@ namespace SW.Services.Cancelation
         [DataMember]
         public string rfc { get; set; }
         [DataMember]
-        public string b64Pfx { get; set; }        
+        public string b64Pfx { get; set; }
+        [DataMember]
+        public string motivo { get; set; }
+        [DataMember]
+        public string folioSustitucion { get; set; }
     }
 }

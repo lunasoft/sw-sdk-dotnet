@@ -16,7 +16,7 @@ namespace Test_SW.Services.Cancelation_Test
         {
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
-            var response = cancelation.CancelarByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, uuid);
+            var response = cancelation.CancelarByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, uuid, "02");
             Assert.IsTrue(response.data.acuse != null && response.status == "success");
         }
         [TestMethod]
@@ -24,12 +24,11 @@ namespace Test_SW.Services.Cancelation_Test
         {
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
-            CancelationResponse response = cancelation.CancelarByPFX(build.Pfx, build.Rfc, build.CerPassword, uuid);
+            CancelationResponse response = cancelation.CancelarByPFX(build.Pfx, build.Rfc, build.CerPassword, uuid, "02");
             Assert.IsTrue(response.data.acuse != null && response.status == "success");
         }
         
         [TestMethod]
-        [Ignore]
         public void CancelationByXML()
         {
             var build = new BuildSettings();
@@ -43,7 +42,7 @@ namespace Test_SW.Services.Cancelation_Test
         {
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
-            var response = cancelation.CancelarByRfcUuid(build.Rfc, uuid);
+            var response = cancelation.CancelarByRfcUuid(build.Rfc, uuid, "02");
             Assert.IsTrue(response.data.acuse != null && response.status == "success");
         }
         [TestMethod]
@@ -52,7 +51,7 @@ namespace Test_SW.Services.Cancelation_Test
             var resultExpect = "Son necesarios el .Cer y el .Key en formato B64";
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
-            var response = cancelation.CancelarByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "");
+            var response = cancelation.CancelarByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, "", "02", "");
             Assert.IsTrue(response.messageDetail.Contains((string)resultExpect));
         }
     }
