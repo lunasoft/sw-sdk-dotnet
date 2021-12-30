@@ -22,6 +22,7 @@ namespace Test_SW.Helpers
         public string noCertificado = "30001000000400002443";
         public byte[] Acuse = File.ReadAllBytes("Resources/acuse.xml");
         public byte[] RelationsXML = File.ReadAllBytes("Resources/RelationsXML.xml");
+        public byte[] CancelacionXML = File.ReadAllBytes("Resources/CancelacionXML.xml");
 
         public Dictionary<string, string> observaciones = new Dictionary<string, string>() { { "Observaciones", "Entregar de 9am a 6pm" } };
         public string templateId = "3a12dabd-66fa-4f18-af09-d1efd77ae9ce";

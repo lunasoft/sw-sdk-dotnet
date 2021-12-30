@@ -19,5 +19,9 @@ namespace SW.Services.Cancelation
         public string b64Cer { get; set; }
         [DataMember]
         public string b64Key { get; set; }
+        [DataMember]
+        public string motivo { get; set; }
+        [DataMember]
+        public string folioSustitucion { get; set; }
     }
 }

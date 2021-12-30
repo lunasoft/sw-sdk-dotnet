@@ -28,13 +28,13 @@ namespace SW.Services.Cancelation
             _handler = new CanelationResponseHandler();
         }
 
-        internal override CancelationResponse Cancelar(string cer, string key, string rfc, string password, string uuid)
+        internal override CancelationResponse Cancelar(string cer, string key, string rfc, string password, string uuid, string motivo, string folioSustitucion)
         {
             CanelationResponseHandler handler = new CanelationResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
-                HttpWebRequest request = this.RequestCancelar(cer, key, rfc, password, uuid);
+                HttpWebRequest request = this.RequestCancelar(cer, key, rfc, password, uuid, motivo, folioSustitucion);
 
                 return handler.GetResponse(request);
             }
@@ -59,13 +59,13 @@ namespace SW.Services.Cancelation
                 return handler.HandleException(e);
             }
         }
-        internal override CancelationResponse Cancelar(string pfx, string rfc, string password, string uuid)
+        internal override CancelationResponse Cancelar(string pfx, string rfc, string password, string uuid, string motivo, string folioSustitucion)
         {
             CanelationResponseHandler handler = new CanelationResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
-                HttpWebRequest request = this.RequestCancelar(pfx, rfc, password, uuid);
+                HttpWebRequest request = this.RequestCancelar(pfx, rfc, password, uuid, motivo, folioSustitucion);
 
                 return handler.GetResponse(request);
             }
@@ -74,13 +74,13 @@ namespace SW.Services.Cancelation
                 return handler.HandleException(e);
             }
         }
-        internal override CancelationResponse Cancelar(string rfc, string uuid)
+        internal override CancelationResponse Cancelar(string rfc, string uuid, string motivo, string folioSustitucion)
         {
             CanelationResponseHandler handler = new CanelationResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
-                HttpWebRequest request = this.RequestCancelar(rfc, uuid);
+                HttpWebRequest request = this.RequestCancelar(rfc, uuid, motivo, folioSustitucion);
                 return handler.GetResponse(request);
             }
             catch (Exception e)
@@ -88,21 +88,21 @@ namespace SW.Services.Cancelation
                 return handler.HandleException(e);
             }
         }
-        public CancelationResponse CancelarByCSD(string cer, string key, string rfc, string password, string uuid)
+        public CancelationResponse CancelarByCSD(string cer, string key, string rfc, string password, string uuid, string motivo, string folioSustitucion = null)
         {
-            return Cancelar(cer, key, rfc, password, uuid);
+            return Cancelar(cer, key, rfc, password, uuid, motivo, folioSustitucion);
         }
         public CancelationResponse CancelarByXML(byte[] xmlCancelation)
         {
             return Cancelar(xmlCancelation);
         }
-        public CancelationResponse CancelarByPFX(string pfx, string rfc, string password, string uuid)
+        public CancelationResponse CancelarByPFX(string pfx, string rfc, string password, string uuid, string motivo, string folioSustitucion = null)
         {
-            return Cancelar(pfx, rfc, password, uuid);
+            return Cancelar(pfx, rfc, password, uuid, motivo, folioSustitucion);
         }
-        public CancelationResponse CancelarByRfcUuid(string rfc, string uuid)
+        public CancelationResponse CancelarByRfcUuid(string rfc, string uuid, string motivo, string folioSustitucion = null)
         {
-            return Cancelar(rfc, uuid);
+            return Cancelar(rfc, uuid, motivo, folioSustitucion);
         }
 
 
