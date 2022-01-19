@@ -25,23 +25,5 @@ namespace SW.Services.Validate
             Helpers.RequestHelper.AddFileToRequest(xml, ref request);
             return request;
         }
-        internal virtual HttpWebRequest RequestValidateLrfc(string Lrfc)
-        {
-            this.SetupRequest();
-            var request = (HttpWebRequest)WebRequest.Create(this.Url + string.Format("lrfc/{0}", Lrfc));
-            request.Method = WebRequestMethods.Http.Get;
-            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
-            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
-            return request;
-        }
-        internal virtual HttpWebRequest RequestValidateLco(string Lco)
-        {
-            this.SetupRequest();
-            var request = (HttpWebRequest)WebRequest.Create(Url + string.Format("lco/{0}", Lco));
-            request.Method = WebRequestMethods.Http.Get;
-            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
-            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
-            return request;
-        }
     }
 }

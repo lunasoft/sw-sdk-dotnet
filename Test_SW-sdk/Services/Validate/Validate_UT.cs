@@ -34,28 +34,6 @@ namespace Test_SW.Services.Validate_Test
             Assert.IsTrue(response.status == "error"
                 && !string.IsNullOrEmpty(response.status), "Error al leer el documento XML. La estructura del documento no es un Xml valido y/o la codificación del documento no es UTF8. Root element is missing.");
         }
-        [TestMethod]
-        public void Validate_Test_Lrfc()
-        {
-            var build = new BuildSettings();
-            var rfc = build.Rfc;
-            Validate validate = new Validate(build.Url, build.User, build.Password);
-            var response = (ValidateLrfcResponse)validate.ValidateLrfc(rfc);
-            Assert.IsTrue(response.status == "success"
-                && response.data.contribuyenteRFC == build.Rfc);
-        }
-
-
-        [TestMethod]
-        public void Validate_Test_Lco()
-        {
-            var build = new BuildSettings();
-            var noCertificado = build.noCertificado;
-            Validate validate = new Validate(build.Url, build.User, build.Password);
-            var response = (ValidateLcoResponse)validate.ValidateLco(noCertificado);
-            Assert.IsTrue(response.status == "success"
-                && response.data.noCertificado == build.noCertificado);
-        }
 
         private string GetXml(BuildSettings build)
         {
