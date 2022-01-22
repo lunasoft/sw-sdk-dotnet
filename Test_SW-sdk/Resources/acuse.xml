@@ -1,28 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Cancelacion Fecha="2018-09-17T11:57:20" RfcEmisor="LAN8507268IA" xmlns="http://cancelacfd.sat.gob.mx" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Cancelacion xmlns="http://cancelacfd.sat.gob.mx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" Fecha="2021-12-26T18:15:28" RfcEmisor="EKU9003173C9">
   <Folios>
-    <UUID>c219a1f9-c609-4c8e-b452-593533e24ef1</UUID>
+    <Folio UUID="fe4e71b0-8959-4fb9-8091-f5ac4fb0fef8" Motivo="02" FolioSustitucion=""/>
   </Folios>
   <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
     <SignedInfo>
-      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
       <Reference URI="">
         <Transforms>
-          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
         </Transforms>
-        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-        <DigestValue>VsAYhHd7mfe0gw9uF4KkkXeaWG8=</DigestValue>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>XEdUtCptjdlz9DsYAP7nnU6MytU=</DigestValue>
       </Reference>
     </SignedInfo>
-    <SignatureValue>MY1Y3w8/6aekAqX2bgkXT6AIrDNuGsBo7caNQEd1oP06G+TYOi5HGsvmiAtWaMBm3kvOG7tX4CF4KwF5kVD5tXLPIDHNQbuKI6BlE6JXuwcUwwwiLh11sBTqGr2ZaS4SylcIpNKQDTaR9pJ4pXsn6JJBilhEzWI3WVveviSZsV2zRuoTcA1CrLVr6tSzOR2MkfaPFYQhlz2C74CDOR5E0gEFV/2UC4aC5/bLCwzMqvQf37MZ2+L7xyMDiL6dHbdU1G3L1nsWZu4n9MB40MklrbqNz+mXOg9BA5M73ZiXGiQf10VGiSwrBurn2pSMoLqBfkxTVGvzzIirgQ8SAUgS8A==</SignatureValue>
+    <SignatureValue>ZnWh91e5tUc4/t1ZWnb3yOgB8zuCXNPioND+rv6aLOEwIw26/8sYYb+GT4wgyqlc09wOs32XTUwWoGQwtWMG8Euqq+4xJyobWvPCsX6CiURvD/Pd33xgkH92A0AGQxEMYGVT7wK+GFS2gDTYEYAXvZqzCe6+rXnlQvHML0TOOmhVu/wc8YrCbGt4z/F5sRxhjpa0eqwFEq4RmB4nkWjcD3Pnudn3XAI5NHIiOd8KVGVcDR+LvYvKj7h+18WxZgujpggYjbFN79i1jEsAEPDfgryUdTvjDw+KC7Mg+/ge6pssH42buEMIwVE4VX9Y3NtWSGTwdIK/8pxXk+Y5wyR6Gg==</SignatureValue>
     <KeyInfo>
       <X509Data>
         <X509IssuerSerial>
-          <X509IssuerName>OID.1.2.840.113549.1.9.2=Responsable: ACDMA, OID.2.5.4.45=SAT970701NN3, L=Coyoacán, S=Distrito Federal, C=MX, PostalCode=06300, STREET=&quot;Av. Hidalgo 77, Col. Guerrero&quot;, E=asisnet@pruebas.sat.gob.mx, OU=Administración de Seguridad de la Información, O=Servicio de Administración Tributaria, CN=A.C. 2 de pruebas(4096)</X509IssuerName>
-          <X509SerialNumber>3230303031303030303030333030303232383136</X509SerialNumber>
+          <X509IssuerName>OID.1.2.840.113549.1.9.2=responsable: ACDMA-SAT, OID.2.5.4.45=2.5.4.45, L=COYOACAN, S=CIUDAD DE MEXICO, C=MX, PostalCode=06370, STREET=3ra cerrada de cadiz, E=oscar.martinez@sat.gob.mx, OU=SAT-IES Authority, O=SERVICIO DE ADMINISTRACION TRIBUTARIA, CN=AC UAT</X509IssuerName>
+          <X509SerialNumber>292233162870206001759766198444326234574038512436</X509SerialNumber>
         </X509IssuerSerial>
-        <X509Certificate>MIIF0TCCA7mgAwIBAgIUMjAwMDEwMDAwMDAzMDAwMjI4MTYwDQYJKoZIhvcNAQELBQAwggFmMSAwHgYDVQQDDBdBLkMuIDIgZGUgcHJ1ZWJhcyg0MDk2KTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSkwJwYJKoZIhvcNAQkBFhphc2lzbmV0QHBydWViYXMuc2F0LmdvYi5teDEmMCQGA1UECQwdQXYuIEhpZGFsZ28gNzcsIENvbC4gR3VlcnJlcm8xDjAMBgNVBBEMBTA2MzAwMQswCQYDVQQGEwJNWDEZMBcGA1UECAwQRGlzdHJpdG8gRmVkZXJhbDESMBAGA1UEBwwJQ295b2Fjw6FuMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxITAfBgkqhkiG9w0BCQIMElJlc3BvbnNhYmxlOiBBQ0RNQTAeFw0xNjEwMjUyMTU0MTlaFw0yMDEwMjUyMTU0MTlaMIG9MR4wHAYDVQQDExVNQiBJREVBUyBESUdJVEFMRVMgU0MxHjAcBgNVBCkTFU1CIElERUFTIERJR0lUQUxFUyBTQzEeMBwGA1UEChMVTUIgSURFQVMgRElHSVRBTEVTIFNDMSUwIwYDVQQtExxMQU44NTA3MjY4SUEgLyBGVUFCNzcwMTE3QlhBMR4wHAYDVQQFExUgLyBGVUFCNzcwMTE3TURGUk5OMDkxFDASBgNVBAsUC1BydWViYV9DRkRJMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjHr4KeoEx3BdkQP93AuN4fKo0rCZQsd9RJGBzQFvhmPJjGaVP81OUORM+lCRllxZxATZCAIFPOT3jl5wYgtolGYWWrt1HoAiuja1LKDGKrYgph0qWYKYeuew10fTyV+AeSbx1jTKz1PAAak06hx4M0rvmdiGO/Kg00/0wKz5/L3ZIMXEj+Hgr0IGh/yUIy8m5aKf+9jwuNttm/xDoeW3A8pxuidPU1Z1vliaZs75n89hC9LNwshhoaF3AvXIsgLDeuh9WoMGSm0HrilP9umFnm3nGUESiJa15Ep7LbG4CIhZrrknSm4fyrPk9KAigqLYMJhRsRwfp2qncAnAA+FuSQIDAQABox0wGzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAgEAd7t48tgawC9aczrGYt+4GFRcjj1LVKV3NElG+VH2s51KPkKPLj2Sw6OiEOGd+49spxHj1VR5MFvJo/pEJLY3EuLTifC9YZZYC8pHNDiA/eSvKqW5JNzp5/rgs3qAG1GrfdNGuSD3FkqhDdB6tJYqzTc12IC7xEAhKXrWZYCqa+zb9ogtzrUVL3vRRLMpnGEHK2yx8dhvG35qjHEfXyuoBsWILrVmnPpDCFO/CCLQB1OuMti1mlir6voBN0L1EbFK30w2bEuVihAeVLX8vVfMq4ZPI7UTLnblGnN11CCqiZkWhhehYrMdCjb5thMkEA+CMlIaFJYp7pNkLxQd4Y5+r8pTrdxxyvpA51DIWdoxvwaOiz1bzZk6ElVY2rfxwyZaJ17cJ1jmS4Yb5P4h8+5zkmZnPmRqfmaVO3nsApLWP6A38ZBrwwss429PJMSpfeXKGysPsqwF0yP3blsM7Cw53393LSHGKNm2GgG0kcrHnbbku6z6fjBdXMQQ5vjPuMNyw/pe3PzQLVoNOrD5AOoZmSG2TI3DtY4edLdiGmNQjo3MmAMMq4s7lr4AELPWAZRbnOlD1nEWGLdRp1mViteDvXwBL9E98EB4K9xK21DvgJ6rzw/D9rX6epeANfoXazWC0iCYcBNXiPikApcW73a/Jl/WjkEwEdkL/jLj0KCep58=</X509Certificate>
+        <X509Certificate>MIIFuzCCA6OgAwIBAgIUMzAwMDEwMDAwMDA0MDAwMDI0MzQwDQYJKoZIhvcNAQELBQAwggErMQ8wDQYDVQQDDAZBQyBVQVQxLjAsBgNVBAoMJVNFUlZJQ0lPIERFIEFETUlOSVNUUkFDSU9OIFRSSUJVVEFSSUExGjAYBgNVBAsMEVNBVC1JRVMgQXV0aG9yaXR5MSgwJgYJKoZIhvcNAQkBFhlvc2Nhci5tYXJ0aW5lekBzYXQuZ29iLm14MR0wGwYDVQQJDBQzcmEgY2VycmFkYSBkZSBjYWRpejEOMAwGA1UEEQwFMDYzNzAxCzAJBgNVBAYTAk1YMRkwFwYDVQQIDBBDSVVEQUQgREUgTUVYSUNPMREwDwYDVQQHDAhDT1lPQUNBTjERMA8GA1UELRMIMi41LjQuNDUxJTAjBgkqhkiG9w0BCQITFnJlc3BvbnNhYmxlOiBBQ0RNQS1TQVQwHhcNMTkwNjE3MTk0NDE0WhcNMjMwNjE3MTk0NDE0WjCB4jEnMCUGA1UEAxMeRVNDVUVMQSBLRU1QRVIgVVJHQVRFIFNBIERFIENWMScwJQYDVQQpEx5FU0NVRUxBIEtFTVBFUiBVUkdBVEUgU0EgREUgQ1YxJzAlBgNVBAoTHkVTQ1VFTEEgS0VNUEVSIFVSR0FURSBTQSBERSBDVjElMCMGA1UELRMcRUtVOTAwMzE3M0M5IC8gWElRQjg5MTExNlFFNDEeMBwGA1UEBRMVIC8gWElRQjg5MTExNk1HUk1aUjA1MR4wHAYDVQQLExVFc2N1ZWxhIEtlbXBlciBVcmdhdGUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCN0peKpgfOL75iYRv1fqq+oVYsLPVUR/GibYmGKc9InHFy5lYF6OTYjnIIvmkOdRobbGlCUxORX/tLsl8Ya9gm6Yo7hHnODRBIDup3GISFzB/96R9K/MzYQOcscMIoBDARaycnLvy7FlMvO7/rlVnsSARxZRO8Kz8Zkksj2zpeYpjZIya/369+oGqQk1cTRkHo59JvJ4Tfbk/3iIyf4H/Ini9nBe9cYWo0MnKob7DDt/vsdi5tA8mMtA953LapNyCZIDCRQQlUGNgDqY9/8F5mUvVgkcczsIgGdvf9vMQPSf3jjCiKj7j6ucxl1+FwJWmbvgNmiaUR/0q4m2rm78lFAgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMA0GCSqGSIb3DQEBCwUAA4ICAQBcpj1TjT4jiinIujIdAlFzE6kRwYJCnDG08zSp4kSnShjxADGEXH2chehKMV0FY7c4njA5eDGdA/G2OCTPvF5rpeCZP5Dw504RZkYDl2suRz+wa1sNBVpbnBJEK0fQcN3IftBwsgNFdFhUtCyw3lus1SSJbPxjLHS6FcZZ51YSeIfcNXOAuTqdimusaXq15GrSrCOkM6n2jfj2sMJYM2HXaXJ6rGTEgYmhYdwxWtil6RfZB+fGQ/H9I9WLnl4KTZUS6C9+NLHh4FPDhSk19fpS2S/56aqgFoGAkXAYt9Fy5ECaPcULIfJ1DEbsXKyRdCv3JY89+0MNkOdaDnsemS2o5Gl08zI4iYtt3L40gAZ60NPh31kVLnYNsmvfNxYyKp+AeJtDHyW9w7ftM0Hoi+BuRmcAQSKFV3pk8j51la+jrRBrAUv8blbRcQ5BiZUwJzHFEKIwTsRGoRyEx96sNnB03n6GTwjIGz92SmLdNl95r9rkvp+2m4S6q1lPuXaFg7DGBrXWC8iyqeWE2iobdwIIuXPTMVqQb12m1dAkJVRO5NdHnP/MpqOvOgLqoZBNHGyBg4Gqm4sCJHCxA1c8Elfa2RQTCk0tAzllL4vOnI1GHkGJn65xokGsaU4B4D36xh7eWrfj4/pgWHmtoDAYa8wzSwo2GVCZOs+mtEgOQB91/g==</X509Certificate>
       </X509Data>
     </KeyInfo>
   </Signature>

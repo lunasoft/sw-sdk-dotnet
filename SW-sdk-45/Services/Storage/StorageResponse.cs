@@ -118,7 +118,7 @@ namespace SW.Services.Storage
         [DataMember]
         public string urlAddenda { get; set; }
         [DataMember]
-        public DateTime fechaGeneracionPdf { get; set; }
+        public DateTime? fechaGeneracionPdf { get; set; }
         [DataMember]
         public string emisorRfc { get; set; }
         [DataMember]

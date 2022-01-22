@@ -36,43 +36,5 @@ namespace SW.Services.Validate
                 return handler.HandleException(ex);
             }
         }
-        public virtual ValidateLcoResponse ValidateLco(string Lco)
-        {
-            ValidateLcoResponseHandler handler = new ValidateLcoResponseHandler();
-            try
-            {
-                var headers = GetHeaders();
-                var content = RequestValidarLco(Lco);
-                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                return handler.GetResponse(this.Url,
-                                headers,
-                                string.Format("lco/{0}", Lco),
-                                proxy);
-            }
-            catch (Exception ex)
-            {
-                return handler.HandleException(ex);
-            }
-        }
-
-        public virtual ValidateLrfcResponse ValidateLrfc(string Lrfc)
-        {
-            ValidateLrfcResponseHandler handler = new ValidateLrfcResponseHandler();
-            try
-            {
-                var headers = GetHeaders();
-                var content = RequestValidarLrfc(Lrfc);
-                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                return handler.GetResponse(this.Url,
-                                headers,
-                                string.Format("lrfc/{0}", Lrfc),
-                                proxy
-                                );
-            }
-            catch (Exception ex)
-            {
-                return handler.HandleException(ex);
-            }
-        }
     }
 }

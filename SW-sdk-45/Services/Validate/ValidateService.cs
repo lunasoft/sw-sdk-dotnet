@@ -31,29 +31,5 @@ namespace SW.Services.Validate
                 };
             return headers;
         }
-        internal virtual HttpWebRequest RequestValidarLrfc(string lrfc)
-        {
-            this.SetupRequest();
-            string path = string.Format("lrfc/{0}", lrfc);
-            var request = (HttpWebRequest)WebRequest.Create(this.Url + path);
-            request.ContentType = "application/json";
-            request.ContentLength = 0;
-            request.Method = WebRequestMethods.Http.Get;
-            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
-            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
-            return request;
-        }
-        internal virtual HttpWebRequest RequestValidarLco(string lco)
-        {
-            this.SetupRequest();
-            string path = string.Format("lco/{0}", lco);
-            var request = (HttpWebRequest)WebRequest.Create(this.Url + path);
-            request.ContentType = "application/json";
-            request.ContentLength = 0;
-            request.Method = WebRequestMethods.Http.Get;
-            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
-            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
-            return request;
-        }
     }
 }
