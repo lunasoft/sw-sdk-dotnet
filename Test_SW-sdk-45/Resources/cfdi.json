@@ -1,108 +1,83 @@
 {
-    "RFCINC": null,
-    "Rates": null,
-    "ConfirmationStatus": 0,
-    "HasNomina12": false,
-    "HasPagos10": false,
-    "HasComercioExterior11": false,
-    "HasINE11": false,
-    "HasECC11": false,
-    "HasImpLocales": false,
-    "HasComplemento": false,
-    "CfdiRelacionados": null,
+  "Version": "4.0",
+  "Serie": "SW",
+  "Folio": "123456",
+  "Fecha": "2022-01-12T00:00:00",
+  "Sello": "",
+  "NoCertificado": "",
+  "Certificado": "",
+  "CondicionesDePago": "CondicionesDePago",
+  "SubTotal": "10.00",
+  "Descuento": "0.00",
+  "Moneda": "AMD",
+  "TipoCambio": "1",
+  "Total": "10.00",
+  "TipoDeComprobante": "I",
+  "Exportacion": "01",
+  "LugarExpedicion": "45610",
   "Emisor": {
-    "Rfc": "XIA190128J61",
-    "Nombre": "MB IDEAS DIGITALES SC",
-    "RegimenFiscal": "601"
+    "Rfc": "EKU9003173C9",
+    "Nombre": "ESCUELA KEMPER URGATE SA DE CV",
+    "RegimenFiscal": "603"
   },
-    "Receptor": {
-        "Rfc": "AAA010101AAA",
-        "Nombre": "SW SMARTERWEB",
-        "ResidenciaFiscalSpecified": false,
-        "NumRegIdTrib": null,
-        "UsoCFDI": "G03"
-    },
-    "Conceptos": [
-        {
-            "Impuestos": {
-                "Traslados": [
-                    {
-                        "Base": "200.00",
-                        "Impuesto": "002",
-                        "TipoFactor": "Tasa",
-                        "TasaOCuota": "0.160000",
-                        "TasaOCuotaSpecified": true,
-                        "Importe": "32.00",
-                        "ImporteSpecified": true
-                    },
-                    {
-                        "Base": "232.00",
-                        "Impuesto": "003",
-                        "TipoFactor": "Tasa",
-                        "TasaOCuota": "1.600000",
-                        "TasaOCuotaSpecified": true,
-                        "Importe": "371.20",
-                        "ImporteSpecified": true
-                    }
-                ],
-                "Retenciones": null
-            },
-            "InformacionAduanera": null,
-            "CuentaPredial": null,
-            "ComplementoConcepto": null,
-            "Parte": null,
-            "ClaveProdServ": "50211503",
-            "NoIdentificacion": "UT421511",
-            "Cantidad": 1,
-            "ClaveUnidad": "H87",
-            "Unidad": "Pieza",
-            "Descripcion": "Cigarros",
-            "ValorUnitario": "200.00",
-            "Importe": "200.00",
-            "DescuentoSpecified": false
-        }
-    ],
-    "Impuestos": {
-        "Retenciones": null,
+  "Receptor": {
+    "Rfc": "EKU9003173C9",
+    "Nombre": "ESCUELA KEMPER URGATE SA DE CV",
+    "DomicilioFiscalReceptor": "26015",
+    "RegimenFiscalReceptor": "601",
+    "UsoCFDI": "P01"
+  },
+  "Conceptos": [
+    {
+      "ClaveProdServ": "50211503",
+      "NoIdentificacion": "None",
+      "Cantidad": "1.0",
+      "ClaveUnidad": "H87",
+      "Unidad": "Pieza",
+      "Descripcion": "Cigarros",
+      "ValorUnitario": "10.00",
+      "Importe": "10.00",
+      "Descuento": "0.00",
+      "ObjetoImp": "02",
+      "Impuestos": {
         "Traslados": [
-            {
-                "Impuesto": "002",
-                "TipoFactor": "Tasa",
-                "TasaOCuota": "0.160000",
-                "Importe": "32.00"
-            },
-            {
-                "Impuesto": "003",
-                "TipoFactor": "Tasa",
-                "TasaOCuota": "1.600000",
-                "Importe": "371.20"
-            }
+          {
+            "Base": "1",
+            "Importe": "1",
+            "Impuesto": "002",
+            "TasaOCuota": "0.160000",
+            "TipoFactor": "Tasa"
+          }
         ],
-        "TotalImpuestosRetenidosSpecified": false,
-        "TotalImpuestosTrasladados": "403.20",
-        "TotalImpuestosTrasladadosSpecified": true
-    },
-    "Complemento": null,
-    "Addenda": null,
-    "Version": "3.3",
-    "Serie": "RogueOne",
-    "Folio": "HNFK231",
-    "Fecha": "2018-10-02T10:44:54",
-    "Sello": "",
-    "FormaPago": "01",
-    "FormaPagoSpecified": true,
-    "NoCertificado": "20001000000300022816",
-    "Certificado": "",
-    "CondicionesDePago": null,
-    "SubTotal": "200.00",
-    "DescuentoSpecified": false,
-    "Moneda": "MXN",
-    "TipoCambio": "1",
-    "TipoCambioSpecified": true,
-    "Total": "603.20",
-    "TipoDeComprobante": "I",
-    "MetodoPago": "PUE",
-    "MetodoPagoSpecified": true,
-    "LugarExpedicion": "06300",
-    "Confirmacion": null
+        "Retenciones": [
+          {
+            "Base": "1",
+            "Importe": "1",
+            "Impuesto": "002",
+            "TasaOCuota": "0.040000",
+            "TipoFactor": "Tasa"
+          }
+        ]
+      }
+    }
+  ],
+  "Impuestos": {
+    "TotalImpuestosTrasladados": "1.00",
+    "TotalImpuestosRetenidos": "1.00",
+    "Retenciones": [
+      {
+        "Importe": "1.00",
+        "Impuesto": "002"
+      }
+    ],
+    "Traslados": [
+      {
+        "Base": "1.00",
+        "Importe": "1.00",
+        "Impuesto": "002",
+        "TasaOCuota": "0.160000",
+        "TipoFactor": "Tasa"
+      }
+    ]
+  }
 }
