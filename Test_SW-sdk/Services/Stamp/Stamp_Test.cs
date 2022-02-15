@@ -200,7 +200,7 @@ namespace Test_SW.Services.Stamp_Test
             var build = new BuildSettings();
             Stamp stamp = new Stamp(build.Url, build.Token);
             var xml = File.ReadAllText("Resources/SpecialCharacters.xml");
-            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword);
+            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword, "3.3");
             var response = stamp.TimbrarV1(xml);
             Assert.IsTrue(response.status == "success", "Result not expected. Error: " + response.message);
             Assert.IsFalse(string.IsNullOrEmpty(response.data.tfd), "Result not expected. Error: " + response.message);

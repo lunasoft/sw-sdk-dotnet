@@ -272,8 +272,8 @@ namespace Test_SW.Services.StampV4_Test
         }
         private string GetXml(BuildSettings build)
         {
-            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
-            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword);
+            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file33.xml"));
+            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword, "3.3");
             return xml;
         }
     }

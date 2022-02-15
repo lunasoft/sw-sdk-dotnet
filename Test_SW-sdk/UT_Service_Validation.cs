@@ -76,7 +76,7 @@ namespace Test_SW
         {
             Stamp stamp = new Stamp(Build.Url, Build.User, Build.Password);
             string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/CFDI33_Validacion_Servicio/cfdi33_big.xml"));
-            xml = Helpers.SignTools.SigXml(xml, Convert.FromBase64String(Build.Pfx), Build.CerPassword);
+            xml = Helpers.SignTools.SigXml(xml, Convert.FromBase64String(Build.Pfx), Build.CerPassword, "3.3");
             var response = (StampResponseV4)stamp.TimbrarV4(xml);
             if (response.status == "error")
                 Assert.IsTrue(response.message.Contains("72 horas"), "Error en el servicio: " + response.message + " " + response.messageDetail);
@@ -98,7 +98,7 @@ namespace Test_SW
         {
             Stamp stamp = new Stamp(Build.Url, Build.User, Build.Password);
             string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/CFDI33_Validacion_Servicio/cfdi33_ComercioExterior.xml"));
-            xml = Helpers.SignTools.SigXml(xml, Convert.FromBase64String(Build.Pfx), Build.CerPassword);
+            xml = Helpers.SignTools.SigXml(xml, Convert.FromBase64String(Build.Pfx), Build.CerPassword, "3.3");
             var response = (StampResponseV4)stamp.TimbrarV4(xml);
             if (response.status == "error")
                 Assert.IsTrue(response.message.Contains("72 horas"), "Error en el servicio: " + response.message + " " + response.messageDetail);
@@ -120,7 +120,7 @@ namespace Test_SW
         {
             Stamp stamp = new Stamp(Build.Url, Build.User, Build.Password);
             string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/CFDI33_Validacion_Servicio/cfdi33_nomina.xml"));
-            xml = Helpers.SignTools.SigXml(xml, Convert.FromBase64String(Build.Pfx), Build.CerPassword);
+            xml = Helpers.SignTools.SigXml(xml, Convert.FromBase64String(Build.Pfx), Build.CerPassword, "3.3");
             var response = (StampResponseV4)stamp.TimbrarV4(xml);
             if (response.status == "error")
                 Assert.IsTrue(response.message.Contains("72 horas"), "Error en el servicio: " + response.message + " " + response.messageDetail);
@@ -142,7 +142,7 @@ namespace Test_SW
         {
             Stamp stamp = new Stamp(Build.Url, Build.User, Build.Password);
             string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/CFDI33_Validacion_Servicio/cfdi33_pago10.xml"));
-            xml = Helpers.SignTools.SigXml(xml, Convert.FromBase64String(Build.Pfx), Build.CerPassword);
+            xml = Helpers.SignTools.SigXml(xml, Convert.FromBase64String(Build.Pfx), Build.CerPassword, "3.3");
             var response = (StampResponseV4)stamp.TimbrarV4(xml);
             if (response.status == "error")
                 Assert.IsTrue(response.message.Contains("72 horas"), "Error en el servicio: " + response.message + " " + response.messageDetail);
