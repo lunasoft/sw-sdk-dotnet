@@ -120,6 +120,9 @@
     <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_pago10.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\cfdi40.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\RelationsXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
