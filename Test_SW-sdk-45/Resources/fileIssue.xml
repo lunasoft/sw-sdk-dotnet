@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cfdi:Comprobante xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd" Version="4.0" Serie="Serie" Folio="Folio" Fecha="2021-12-14T00:18:10" Sello="e" CondicionesDePago="CondicionesDePago" SubTotal="0" Descuento="0" Moneda="AMD" TipoCambio="1" Total="0" TipoDeComprobante="T" Exportacion="01" LugarExpedicion="20000"  xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<cfdi:Emisor Rfc="EKU9003173C9" Nombre="ESCUELA KEMPER URGATE SA DE CV" RegimenFiscal="601" />
-	<cfdi:Receptor Rfc="URE180429TM6" Nombre="UNIVERSIDAD ROBOTICA ESPAÑOLA SA DE CV" DomicilioFiscalReceptor="65000" RegimenFiscalReceptor="601" UsoCFDI="G01" />
+	<cfdi:Emisor Rfc="EKU9003173C9" Nombre="ESCUELA KEMPER URGATE" RegimenFiscal="601" />
+	<cfdi:Receptor Rfc="URE180429TM6" Nombre="UNIVERSIDAD ROBOTICA ESPAÑOLA" DomicilioFiscalReceptor="65000" RegimenFiscalReceptor="601" UsoCFDI="G01" />
 	<cfdi:Conceptos>
 		<cfdi:Concepto ClaveProdServ="50211503" NoIdentificacion="UT421511" Cantidad="1" ClaveUnidad="H87" Unidad="Pieza" Descripcion="Cigarros" ValorUnitario="0.00" Importe="0.00"  ObjetoImp="01">
 			<cfdi:InformacionAduanera NumeroPedimento="21  47  3807  8003832" />

@@ -17,12 +17,12 @@
   "LugarExpedicion": "45610",
   "Emisor": {
     "Rfc": "EKU9003173C9",
-    "Nombre": "ESCUELA KEMPER URGATE SA DE CV",
+    "Nombre": "ESCUELA KEMPER URGATE",
     "RegimenFiscal": "603"
   },
   "Receptor": {
     "Rfc": "EKU9003173C9",
-    "Nombre": "ESCUELA KEMPER URGATE SA DE CV",
+    "Nombre": "ESCUELA KEMPER URGATE",
     "DomicilioFiscalReceptor": "26015",
     "RegimenFiscalReceptor": "601",
     "UsoCFDI": "P01"
