@@ -8,6 +8,7 @@ using SW.Services.Issue;
 using SW.Services.Stamp;
 using System.IO;
 using System.Xml;
+using SW.Tools.Services.Fiscal;
 
 namespace Test_SW.Services.Issue
 {
@@ -78,7 +79,7 @@ namespace Test_SW.Services.Issue
         private string GetXml(BuildSettings build)
         {
             var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/fileIssue.xml"));
-            xml = SW.Tools.Fiscal.RemoverCaracteresInvalidosXml(xml);
+            xml = Fiscal.RemoverCaracteresInvalidosXml(xml);
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xml);
             doc.DocumentElement.SetAttribute("Fecha", DateTime.Now.AddHours(-12).ToString("s"));
