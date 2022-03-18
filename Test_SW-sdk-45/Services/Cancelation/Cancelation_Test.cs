@@ -57,7 +57,7 @@ namespace Test_SW.Services.Cancelation_Test_45
             var resultExpect = "Son necesarios el .Cer y el .Key en formato B64";
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
-            var response = cancelation.CancelarByCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, Guid.NewGuid().ToString(), "02");
+            var response = cancelation.CancelarByCSD("", build.Key, build.Rfc, build.CerPassword, Guid.NewGuid().ToString(), "02");
             Assert.IsTrue(response.messageDetail.Contains((string)resultExpect));
         }
     }
