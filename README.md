@@ -280,35 +280,41 @@ Este metodo recibe únicamente el XML sellado con los UUID a cancelar.
 
 **Ejemplo de XML para Cancelar**
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<Cancelacion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" RfcEmisor="LAN7008173R5" Fecha="2017-07-06T17:00:31" xmlns="http://cancelacfd.sat.gob.mx">
-  <Folios>
-    <UUID>3eaeabc9-ea41-4627-9609-c6856b78e2b1</UUID>
-  </Folios>
-  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-    <SignedInfo>
-      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
-      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
-      <Reference URI="">
-        <Transforms>
-          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
-        </Transforms>
-        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <DigestValue>rs2ZcFnS9hbfmyJLmR3Mtnklt7g=</DigestValue>
-      </Reference>
-    </SignedInfo>
-    <SignatureValue>O/I7ILsU2y1fqeb2NBZSQKlQC3DpN/bgcDB5LWCMIYp4mFCLmLxEq/6ADz0xVQWUw49BqWDZ1GAI4ODIZLDQtafHSIE7BXKy8huvKD1dtpRLQ/39IfpxXsz1g6Q14mH3LxDOQugk/GhKMWILXZnIipyQosv3IbgLMZ/V/4btK7xrFX/KiOt0PcefChyaerj9A815dA3J4JgpBUNzbOz9VlhvdZMJskrHxzZ5riU1TAuSw/oi68dJfA7S+6XrTmeFDQzYxACHyOzj24RjLi/31+Fc/wiqQXNu9O6oWl8p5+GVoz2xtU4aRqLxVh73L6WAAef/WDeKDMfIge1BtMrxYw==</SignatureValue>
-    <KeyInfo>
-      <X509Data>
-        <X509IssuerSerial>
-          <X509IssuerName>OID.1.2.840.113549.1.9.2=Responsable: ACDMA, OID.2.5.4.45=SAT970701NN3, L=Coyoac?n, S=Distrito Federal, C=MX, PostalCode=06300, STREET="Av. Hidalgo 77, Col. Guerrero", E=asisnet@pruebas.sat.gob.mx, OU=Administraci?n de Seguridad de la Informaci?n, O=Servicio de Administraci?n Tributaria, CN=A.C. 2 de pruebas(4096)</X509IssuerName>
-          <X509SerialNumber>3230303031303030303030333030303232383135</X509SerialNumber>
-        </X509IssuerSerial>
-        <X509Certificate>MIIFxTCCA62gAwIBAgIUMjAwMDEwMDAwMDAzMDAwMjI4MTUwDQYJKoZIhvcNAQELBQAwggFmMSAwHgYDVQQDDBdBLkMuIDIgZGUgcHJ1ZWJhcyg0MDk2KTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSkwJwYJKoZIhvcNAQkBFhphc2lzbmV0QHBydWViYXMuc2F0LmdvYi5teDEmMCQGA1UECQwdQXYuIEhpZGFsZ28gNzcsIENvbC4gR3VlcnJlcm8xDjAMBgNVBBEMBTA2MzAwMQswCQYDVQQGEwJNWDEZMBcGA1UECAwQRGlzdHJpdG8gRmVkZXJhbDESMBAGA1UEBwwJQ295b2Fjw6FuMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxITAfBgkqhkiG9w0BCQIMElJlc3BvbnNhYmxlOiBBQ0RNQTAeFw0xNjEwMjUyMTUyMTFaFw0yMDEwMjUyMTUyMTFaMIGxMRowGAYDVQQDExFDSU5ERU1FWCBTQSBERSBDVjEaMBgGA1UEKRMRQ0lOREVNRVggU0EgREUgQ1YxGjAYBgNVBAoTEUNJTkRFTUVYIFNBIERFIENWMSUwIwYDVQQtExxMQU43MDA4MTczUjUgLyBGVUFCNzcwMTE3QlhBMR4wHAYDVQQFExUgLyBGVUFCNzcwMTE3TURGUk5OMDkxFDASBgNVBAsUC1BydWViYV9DRkRJMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgvvCiCFDFVaYX7xdVRhp/38ULWto/LKDSZy1yrXKpaqFXqERJWF78YHKf3N5GBoXgzwFPuDX+5kvY5wtYNxx/Owu2shNZqFFh6EKsysQMeP5rz6kE1gFYenaPEUP9zj+h0bL3xR5aqoTsqGF24mKBLoiaK44pXBzGzgsxZishVJVM6XbzNJVonEUNbI25DhgWAd86f2aU3BmOH2K1RZx41dtTT56UsszJls4tPFODr/caWuZEuUvLp1M3nj7Dyu88mhD2f+1fA/g7kzcU/1tcpFXF/rIy93APvkU72jwvkrnprzs+SnG81+/F16ahuGsb2EZ88dKHwqxEkwzhMyTbQIDAQABox0wGzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAgEAJ/xkL8I+fpilZP+9aO8n93+20XxVomLJjeSL+Ng2ErL2GgatpLuN5JknFBkZAhxVIgMaTS23zzk1RLtRaYvH83lBH5E+M+kEjFGp14Fne1iV2Pm3vL4jeLmzHgY1Kf5HmeVrrp4PU7WQg16VpyHaJ/eonPNiEBUjcyQ1iFfkzJmnSJvDGtfQK2TiEolDJApYv0OWdm4is9Bsfi9j6lI9/T6MNZ+/LM2L/t72Vau4r7m94JDEzaO3A0wHAtQ97fjBfBiO5M8AEISAV7eZidIl3iaJJHkQbBYiiW2gikreUZKPUX0HmlnIqqQcBJhWKRu6Nqk6aZBTETLLpGrvF9OArV1JSsbdw/ZH+P88RAt5em5/gjwwtFlNHyiKG5w+UFpaZOK3gZP0su0sa6dlPeQ9EL4JlFkGqQCgSQ+NOsXqaOavgoP5VLykLwuGnwIUnuhBTVeDbzpgrg9LuF5dYp/zs+Y9ScJqe5VMAagLSYTShNtN8luV7LvxF9pgWwZdcM7lUwqJmUddCiZqdngg3vzTactMToG16gZA4CWnMgbU4E+r541+FNMpgAZNvs2CiW/eApfaaQojsZEAHDsDv4L5n3M1CC7fYjE/d61aSng1LaO6T1mh+dEfPvLzp7zyzz+UgWMhi5Cs4pcXx1eic5r7uxPoBwcCTt3YI1jKVVnV7/w=</X509Certificate>
-      </X509Data>
-    </KeyInfo>
-  </Signature>
+<?xml version="1.0" encoding="UTF-8"?>
+<Cancelacion xmlns="http://cancelacfd.sat.gob.mx" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Fecha="2022-04-25 20:11:14" RfcEmisor="XIA190128J61">
+   <Folios>
+      <Folio UUID="17080063-28e0-4432-af0d-d88d9eebdb5d" Motivo="02" />
+   </Folios>
+   <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <SignedInfo>
+         <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+         <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+         <Reference URI="">
+            <Transforms>
+               <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+            </Transforms>
+            <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+            <DigestValue>QNOkmK1bSoF17CQE7gpKDuHELygvUvNteqfGv41Je5I=</DigestValue>
+         </Reference>
+      </SignedInfo>
+      <SignatureValue>JYyOHP+NPJdVoOoIF/NgupDw7N/TvGBeJBkeqhLyKRp8Z1Zjfa9I+o8rYxSrQSPgotp4SAs+uu3DrIjguBhok7t+iv4elyEXGbEo+lkMCohrpV/5QhL6Co3aC2xeCkh0qPSTS3ufCuGIcfkuWATB14doEwWhe+2CLgQ8b0S0MeyRwTKpiPS3Lq20Nvo1ELJwRuqH1zm+O7XVT2zgcCMcpeqRD3IZjcbm3vURMgt00yTUa0OqPbodcatekniuemkpn/ZDiPiA5bx0JsvyjlJlG5Ux/sI94l9nVnlcvcY535Cd5BDJzNulhbU2V8KdlyvoWUEjvs6KVYrXzTAw0IevSw==</SignatureValue>
+      <KeyInfo>
+         <X509Data>
+            <X509IssuerSerial>
+               <X509IssuerName>OID.1.2.840.113549.1.9.2=responsable: ADMINISTRACION CENTRAL DE SERVICIOS TRIBUTARIOS AL CONTRIBUYENTE, OID.2.5.4.45=SAT970701NN3, L=CUAUHTEMOC, S=CIUDAD DE MEXICO, C=MX, PostalCode=06300, STREET="AV. HIDALGO 77, COL. GUERRERO", E=contacto.tecnico@sat.gob.mx, OU=SAT-IES Authority, O=SERVICIO DE ADMINISTRACION TRIBUTARIA, CN=AUTORIDAD CERTIFICADORA</X509IssuerName>
+               <X509SerialNumber>275106190557734483187066766829381292139568444470</X509SerialNumber>
+            </X509IssuerSerial>
+            <X509Certificate>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</X509Certificate>
+         </X509Data>
+      </KeyInfo>
+   </Signature>
 </Cancelacion>
+```
+En casos de motivo con folio de sustitución debera colocar dentro del Nodo <Folio></Folio> la propiedad de FolioSustitucion
+
+xml
+```
+<Folio UUID="b374db50-a0a3-4028-9d01-32b93e2b925a" Motivo="01" FolioSustitucion="b3641a4b-7177-4323-aaa0-29bd34bf1ff8" />
 ```
 
 **Ejemplo de consumo de la libreria para cancelar con XML**
@@ -330,19 +336,34 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Cancelation 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
-               
+                //opcion mediante usuario y password
+                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx","usuario","password");
+
+                //opcion mediante token
+                //Cancelation cancelation1 = new Cancelation("http://services.test.sw.com.mx", "token");
+
                 //Obtenemos el XML de cancelacion
-                byte[] xml = File.ReadAllBytes("Resources/xml.xml");
-                
+                byte[] xml = File.ReadAllBytes("Resources/ejemplo.xml");
+
                 CancelationResponse response = cancelation.CancelarByXML(xml);
-              
-                //Para Obtener el Acuse de Cancelación
-                response.Data.Acuse
-                
-                //En caso de error, se pueden visualizar los campos message y/o messageDetail
-                response.message;
-                response.messageDetail;
+
+                if (response.status == "success" && response.data != null)
+                {
+                    //Acuse de cancelación
+                    Console.WriteLine(response.data.acuse);
+                    //Estatus por UUID
+                    foreach (var folio in response.data.uuid)
+                    {
+                        Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
+                    }
+                }
+                else
+                {
+                    //Obtenemos el detalle del Error
+                    Console.WriteLine("Error al Cancelar\n\n");
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
             }
             catch (Exception e)
             {
