@@ -165,7 +165,7 @@ Como su nombre lo indica, este metodo recibe todos los elementos que componen el
 * Password del archivo key
 * RFC emisor
 
-**Ejemplo de consumo de la libreria para cancelar con CSD**
+**Ejemplo de consumo de la libreria para cancelar con CSD con motivo de cancelación 02 sin relación a documento**
 ```cs
 using System;
 using System.IO;
@@ -185,20 +185,75 @@ namespace ExampleSDK
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
                 Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
-               
+
                 //Obtenemos Certificado y lo convertimos a Base 64
                 string CerB64 = Convert.ToBase64String(File.ReadAllBytes("CSD_Prueba_CFDI_LAN8507268IA.cer"));
                 //Obtenemos LLave y lo convertimos a Base 64
                 string KeyB64 = Convert.ToBase64String(File.ReadAllBytes("CSD_Prueba_CFDI_LAN8507268IA.key"));
-               
-                CancelationResponse response = cancelation.CancelarByCSD(CerB64, KeyB64, "LAN8507268IA", "12345678a", "01724196-ac5a-4735-b621-e3b42bcbb459");
-              
-                if (response.status == "success" && response.Data != null)
+
+                CancelationResponse response = cancelation.CancelarByCSD(CerB64, KeyB64, "LAN8507268IA", "12345678a", "01724196-ac5a-4735-b621-e3b42bcbb459","02");
+
+                if (response.status == "success" && response.data != null)
                 {
                     //Acuse de cancelación
-                    Console.WriteLine(response.Data.Acuse);
+                    Console.WriteLine(response.data.acuse);
                     //Estatus por UUID
-                    foreach (var folio in response.Data.uuid)
+                    foreach (var folio in response.data.uuid)
+                    {
+                        Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
+                    }
+                }
+                else
+                {
+                    //Obtenemos el detalle del Error
+                    Console.WriteLine("Error al Cancelar\n\n");
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**Ejemplo de consumo de la libreria para cancelar con CSD con motivo de cancelación 01 con relación a documento**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.Cancelation;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo Cancelation 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
+                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
+
+                //Obtenemos Certificado y lo convertimos a Base 64
+                string CerB64 = Convert.ToBase64String(File.ReadAllBytes("CSD_Prueba_CFDI_LAN8507268IA.cer"));
+                //Obtenemos LLave y lo convertimos a Base 64
+                string KeyB64 = Convert.ToBase64String(File.ReadAllBytes("CSD_Prueba_CFDI_LAN8507268IA.key"));
+
+                CancelationResponse response = cancelation.CancelarByCSD(CerB64, KeyB64, "LAN8507268IA", "12345678a", "01724196-ac5a-4735-b621-e3b42bcbb459","01","01724196-ac5a-4735-b621-e3b42bcbb459");
+
+                if (response.status == "success" && response.data != null)
+                {
+                    //Acuse de cancelación
+                    Console.WriteLine(response.data.acuse);
+                    //Estatus por UUID
+                    foreach (var folio in response.data.uuid)
                     {
                         Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
                     }
@@ -300,7 +355,7 @@ namespace ExampleSDK
 ## Cancelacion por PFX ##
 Este metodo recibe únicamente el PFX , password, rfc y uuid.
 
-**Ejemplo de consumo de la libreria para cancelar con PFX**
+**Ejemplo de consumo de la libreria para cancelar con PFX con motivo 02 sin documento relacionado**
 ```cs
 using System;
 using System.IO;
@@ -312,7 +367,7 @@ namespace ExampleSDK
 {
     class Program
     {
-        static void Main(string[] args)
+       static void Main(string[] args)
         {
             try
             {
@@ -324,20 +379,79 @@ namespace ExampleSDK
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
                 Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
-               
+
                 //Obtenemos el XML de cancelacion
-                 byte[] pfx = File.ReadAllBytes(Path.Combine(@"Resources\CertificadosDePrueba", "CSD_Prueba_CFDI_LAN8507268IA.pfx"));
-                 //Convertimos el PFX a base 64
-                 string pfxB64 = Convert.ToBase64String(pfx);
+                byte[] pfx = File.ReadAllBytes(Path.Combine(@"Resources\CertificadosDePrueba", "CSD_Prueba_CFDI_LAN8507268IA.pfx"));
+                //Convertimos el PFX a base 64
+                string pfxB64 = Convert.ToBase64String(pfx);
 
                 //Realizamos la petición de cancelación al servicio.
-                CancelationResponse response = cancelation.CancelarByPFX(pfxB64, rfc, passwordKey, uuid);
-                if (response.status == "success" && response.Data != null)
+                CancelationResponse response = cancelation.CancelarByPFX(pfxB64, rfc, passwordKey, uuid,"02");
+                if (response.status == "success" && response.data != null)
                 {
                     //Acuse de cancelación
-                    Console.WriteLine(response.Data.Acuse);
+                    Console.WriteLine(response.data.acuse);
                     //Estatus por UUID
-                    foreach (var folio in response.Data.uuid)
+                    foreach (var folio in response.data.uuid)
+                    {
+                        Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
+                    }
+                }
+                else
+                {
+                    //Obtenemos el detalle del Error
+                    Console.WriteLine("Error al Cancelar\n\n");
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**Ejemplo de consumo de la libreria para cancelar con PFX con motivo 01 con documento relacionado**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.Cancelation;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+       static void Main(string[] args)
+        {
+            try
+            {
+                //Datos de Cancelación
+                string uuid = "01724196-ac5a-4735-b621-e3b42bcbb459";
+                string rfc = "LAN8507268IA";
+                string passwordKey = "12345678a";
+                //Creamos una instancia de tipo Cancelation 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
+                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
+
+                //Obtenemos el XML de cancelacion
+                byte[] pfx = File.ReadAllBytes(Path.Combine(@"Resources\CertificadosDePrueba", "CSD_Prueba_CFDI_LAN8507268IA.pfx"));
+                //Convertimos el PFX a base 64
+                string pfxB64 = Convert.ToBase64String(pfx);
+
+                //Realizamos la petición de cancelación al servicio.
+                CancelationResponse response = cancelation.CancelarByPFX(pfxB64, rfc, passwordKey, uuid,"02", "017241788-ac5a-4735-b621-e3b42bcbb584");
+                if (response.status == "success" && response.data != null)
+                {
+                    //Acuse de cancelación
+                    Console.WriteLine(response.data.acuse);
+                    //Estatus por UUID
+                    foreach (var folio in response.data.uuid)
                     {
                         Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
                     }
@@ -362,7 +476,7 @@ namespace ExampleSDK
 ## Cancelacion por UUID ##
 Este metodo recibe únicamente el rfc y uuid.
 
-**Ejemplo de consumo de la libreria para cancelar con UUID**
+**Ejemplo de consumo de la libreria para cancelar con UUID con motivo de cancelación 02 sin documento relacionado**
 ```cs
 using System;
 using System.IO;
@@ -374,7 +488,7 @@ namespace ExampleSDK
 {
     class Program
     {
-        static void Main(string[] args)
+      static void Main(string[] args)
         {
             try
             {
@@ -386,13 +500,13 @@ namespace ExampleSDK
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
                 Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
                 //Realizamos la petición de cancelación al servicio.
-                CancelationResponse response = cancelation.CancelarByRfcUuid(rfc,  uuid);
-                if (response.status == "success" && response.Data != null)
+                CancelationResponse response = cancelation.CancelarByRfcUuid(rfc,uuid,"02");
+                if (response.status == "success" && response.data != null)
                 {
                     //Acuse de cancelación
-                    Console.WriteLine(response.Data.Acuse);
+                    Console.WriteLine(response.data.acuse);
                     //Estatus por UUID
-                    foreach (var folio in response.Data.uuid)
+                    foreach (var folio in response.data.uuid)
                     {
                         Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
                     }
@@ -413,6 +527,59 @@ namespace ExampleSDK
     }
 }
 ```
+
+**Ejemplo de consumo de la libreria para cancelar con UUID con motivo de cancelación 01 con documento relacionado**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.Cancelation;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+      static void Main(string[] args)
+        {
+            try
+            {
+                //Datos de Cancelación
+                string uuid = "01724196-ac5a-4735-b621-e3b42bcbb459";
+                string rfc = "LAN8507268IA";
+                //Creamos una instancia de tipo Cancelation 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
+                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
+                //Realizamos la petición de cancelación al servicio.
+                CancelationResponse response = cancelation.CancelarByRfcUuid(rfc,uuid,"01","017241788-ac5a-4735-b621-e3b42bcbb584");
+                if (response.status == "success" && response.data != null)
+                {
+                    //Acuse de cancelación
+                    Console.WriteLine(response.data.acuse);
+                    //Estatus por UUID
+                    foreach (var folio in response.data.uuid)
+                    {
+                        Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
+                    }
+                }
+                else
+                {
+                    //Obtenemos el detalle del Error
+                    Console.WriteLine("Error al Cancelar\n\n");
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
 # Consulta de Saldos #
 Este servicio recibe el token y genera los elementos que componen la consulta de saldos:
 
