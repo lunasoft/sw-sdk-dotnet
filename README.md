@@ -310,11 +310,13 @@ Este metodo recibe únicamente el XML sellado con los UUID a cancelar.
    </Signature>
 </Cancelacion>
 ```
-En casos de motivo con folio de sustitución debera colocar dentro del Nodo <Folio></Folio> la propiedad de FolioSustitucion
+Para caso de motivo 01 deberá añadir el atributo "FolioSustitucion dentro del Nodo <Folio>
 
-xml
+Ejemplo de nodo Folio: 
 ```
-<Folio UUID="b374db50-a0a3-4028-9d01-32b93e2b925a" Motivo="01" FolioSustitucion="b3641a4b-7177-4323-aaa0-29bd34bf1ff8" />
+<Folios>
+	<Folio UUID="b374db50-a0a3-4028-9d01-32b93e2b925a" Motivo="01" FolioSustitucion="b3641a4b-7177-4323-aaa0-29bd34bf1ff8" />
+</Folios>
 ```
 
 **Ejemplo de consumo de la libreria para cancelar con XML**
