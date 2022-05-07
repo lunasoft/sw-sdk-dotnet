@@ -3,7 +3,7 @@
   <cfdi:Emisor Nombre="MB IDEAS DIGITALES SC" RegimenFiscal="601" Rfc="XIA190128J61"/>
   <cfdi:Receptor Nombre="SW SMARTERWEB" Rfc="AAA010101AAA" UsoCFDI="G03"/>
   <cfdi:Conceptos>
-    <cfdi:Concepto Cantidad="1" ClaveProdServ="50211503" ClaveUnidad="H87" Descripcion="Cigarros" Importe="200.00" NoIdentificacion="UT421511" Unidad="Pieza" ValorUnitario="200.00">
+    <cfdi:Concepto Cantidad="1" ClaveProdServ="50211503" ClaveUnidad="H87" Descripcion="Cigarros" Importe="200.00" NoIdentificacion="UT421511" Unidad="Pieza" ValorUnitario="100.00">
       <cfdi:Impuestos>
         <cfdi:Traslados>
           <cfdi:Traslado Base="200.00" Importe="32.00" Impuesto="002" TasaOCuota="0.160000" TipoFactor="Tasa"/>
