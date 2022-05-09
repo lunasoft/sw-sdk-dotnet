@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\IResponseHandler.cs" />
+    <Compile Include="Helpers\ConvertionHelper.cs" />
     <Compile Include="Helpers\DowloadFile.cs" />
     <Compile Include="Helpers\EnumAcceptReject.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
