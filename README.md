@@ -10,7 +10,7 @@
 
 # Dependencias #
 * [RestSharp](http://restsharp.org/)
-* [RestSharp](https://www.newtonsoft.com/json)
+* [NewtonSoft](https://www.newtonsoft.com/json)
 
 # Documentación #
 * [Inicio Rápido](https://developers.sw.com.mx/knowledge-base/conoce-el-proceso-de-integracion-en-solo-7-pasos/)
