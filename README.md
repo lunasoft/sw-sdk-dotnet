@@ -26,7 +26,7 @@ Install-Package SW-sdk
 En caso de no utilizar Package Manager Console puedes descargar la libreria directamente a traves del siguiente [link](https://github.com/lunasoft/sw-sdk-dotnet/releases) y agregarla como Referencia local a tu proyecto. Asegurate de utilizar la ultima version publicada.
 
 # Implementaci&oacute;n #
-La librería contara con dos servicios principales como lo son Timbrado de CFDI, Cancelación, Consulta estatus CFDI, etc.
+La librería contara con los servicios principales como lo son Timbrado de CFDI, Cancelación, Consulta estatus CFDI, etc.
 
 ## Aunteticaci&oacute;n ##
 El servicio de Autenticación es utilizado principalmente para obtener el **token** el cual sera utilizado para poder timbrar nuestro CFDI (xml) ya emitido (sellado), para poder utilizar este servicio es necesario que cuente con un **usuario** y **contraseña** para posteriormente obtenga el token, usted puede utilizar los que estan en este ejemplo para el ambiente de **Pruebas**.
@@ -596,7 +596,12 @@ namespace ExampleSDK
 ```
 
 # Consulta Estatus SAT #
-Este método recibe RFC emisor, RFC receptor, total y UUID de la factura a la cual consultaremos su Estatus en el SAT.
+Este metodo recibe los siguientes parametros:
+* RFC Emisor 
+* RFC Receptor
+* Total de la factura
+* UUID
+* Últimos 8 caracteres del sello digital
 **Ejemplo de consumo de la librería para la consulta**
 ```cs
 using System;
