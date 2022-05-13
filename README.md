@@ -4,13 +4,16 @@
 
 # Compatibilidad #
 * CFDI 3.3
-* .Net Framework 3.5 or later 
+* CFDI 4.0
+* .Net Framework 3.5 or later
+
 
 # Dependencias #
 * [RestSharp](http://restsharp.org/)
+* [RestSharp](https://www.newtonsoft.com/json)
 
 # Documentación #
-* [Inicio Rápido](http://developers.sw.com.mx/knowledge-base/cfdi-33/)
+* [Inicio Rápido](https://developers.sw.com.mx/knowledge-base/conoce-el-proceso-de-integracion-en-solo-7-pasos/)
 * [Libreria dot-net](http://developers.sw.com.mx/article-categories/csharp/)
 * [Documentacion Oficial Servicios](http://developers.sw.com.mx)
  
@@ -23,7 +26,7 @@ Install-Package SW-sdk
 En caso de no utilizar Package Manager Console puedes descargar la libreria directamente a traves del siguiente [link](https://github.com/lunasoft/sw-sdk-dotnet/releases) y agregarla como Referencia local a tu proyecto. Asegurate de utilizar la ultima version publicada.
 
 # Implementaci&oacute;n #
-La librería contara con dos servicios principales los que son la Autenticacion y el Timbrado de CFDI.
+La librería contara con dos servicios principales como lo son Timbrado de CFDI, Cancelación, Consulta estatus CFDI, etc.
 
 ## Aunteticaci&oacute;n ##
 El servicio de Autenticación es utilizado principalmente para obtener el **token** el cual sera utilizado para poder timbrar nuestro CFDI (xml) ya emitido (sellado), para poder utilizar este servicio es necesario que cuente con un **usuario** y **contraseña** para posteriormente obtenga el token, usted puede utilizar los que estan en este ejemplo para el ambiente de **Pruebas**.
@@ -43,7 +46,7 @@ namespace ExampleSDK
             {
                 //Creamos una instancia de tipo Authentication 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-                Authentication auth = new Authentication("http://services.test.sw.com.mx", "demo", "123456789");
+                Authentication auth = new Authentication("http://services.test.sw.com.mx", "user", "password");
                 AuthResponse response = auth.GetToken();
             }
             catch (Exception e)
@@ -78,7 +81,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Stamp 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a timbrar el xml
-                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "demo", "123456789");
+                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "user", "password");
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
                 StampResponseV1 response = stamp.TimbrarV1(xml);
             }
@@ -164,6 +167,9 @@ Como su nombre lo indica, este metodo recibe todos los elementos que componen el
 * Key (.key) en **Base64**
 * Password del archivo key
 * RFC emisor
+* UUID
+* Motvio
+* Foliosustitucion
 
 **Ejemplo de consumo de la libreria para cancelar con CSD**
 ```cs
@@ -184,14 +190,14 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Cancelation 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
+                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user", "password");
                
                 //Obtenemos Certificado y lo convertimos a Base 64
                 string CerB64 = Convert.ToBase64String(File.ReadAllBytes("CSD_Prueba_CFDI_LAN8507268IA.cer"));
                 //Obtenemos LLave y lo convertimos a Base 64
                 string KeyB64 = Convert.ToBase64String(File.ReadAllBytes("CSD_Prueba_CFDI_LAN8507268IA.key"));
                
-                CancelationResponse response = cancelation.CancelarByCSD(CerB64, KeyB64, "LAN8507268IA", "12345678a", "01724196-ac5a-4735-b621-e3b42bcbb459");
+                CancelationResponse response = cancelation.CancelarByCSD(CerB64, KeyB64, "LAN8507268IA", "12345678a", "01724196-ac5a-4735-b621-e3b42bcbb459","01","09d849d8-1cbf-424e-84bc-8e6724dcb649");
               
                 if (response.status == "success" && response.Data != null)
                 {
@@ -225,34 +231,35 @@ Este metodo recibe únicamente el XML sellado con los UUID a cancelar.
 
 **Ejemplo de XML para Cancelar**
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<Cancelacion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" RfcEmisor="LAN7008173R5" Fecha="2017-07-06T17:00:31" xmlns="http://cancelacfd.sat.gob.mx">
-  <Folios>
-    <UUID>3eaeabc9-ea41-4627-9609-c6856b78e2b1</UUID>
-  </Folios>
-  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-    <SignedInfo>
-      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
-      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
-      <Reference URI="">
-        <Transforms>
-          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
-        </Transforms>
-        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <DigestValue>rs2ZcFnS9hbfmyJLmR3Mtnklt7g=</DigestValue>
-      </Reference>
-    </SignedInfo>
-    <SignatureValue>O/I7ILsU2y1fqeb2NBZSQKlQC3DpN/bgcDB5LWCMIYp4mFCLmLxEq/6ADz0xVQWUw49BqWDZ1GAI4ODIZLDQtafHSIE7BXKy8huvKD1dtpRLQ/39IfpxXsz1g6Q14mH3LxDOQugk/GhKMWILXZnIipyQosv3IbgLMZ/V/4btK7xrFX/KiOt0PcefChyaerj9A815dA3J4JgpBUNzbOz9VlhvdZMJskrHxzZ5riU1TAuSw/oi68dJfA7S+6XrTmeFDQzYxACHyOzj24RjLi/31+Fc/wiqQXNu9O6oWl8p5+GVoz2xtU4aRqLxVh73L6WAAef/WDeKDMfIge1BtMrxYw==</SignatureValue>
-    <KeyInfo>
-      <X509Data>
-        <X509IssuerSerial>
-          <X509IssuerName>OID.1.2.840.113549.1.9.2=Responsable: ACDMA, OID.2.5.4.45=SAT970701NN3, L=Coyoac?n, S=Distrito Federal, C=MX, PostalCode=06300, STREET="Av. Hidalgo 77, Col. Guerrero", E=asisnet@pruebas.sat.gob.mx, OU=Administraci?n de Seguridad de la Informaci?n, O=Servicio de Administraci?n Tributaria, CN=A.C. 2 de pruebas(4096)</X509IssuerName>
-          <X509SerialNumber>3230303031303030303030333030303232383135</X509SerialNumber>
-        </X509IssuerSerial>
-        <X509Certificate>MIIFxTCCA62gAwIBAgIUMjAwMDEwMDAwMDAzMDAwMjI4MTUwDQYJKoZIhvcNAQELBQAwggFmMSAwHgYDVQQDDBdBLkMuIDIgZGUgcHJ1ZWJhcyg0MDk2KTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSkwJwYJKoZIhvcNAQkBFhphc2lzbmV0QHBydWViYXMuc2F0LmdvYi5teDEmMCQGA1UECQwdQXYuIEhpZGFsZ28gNzcsIENvbC4gR3VlcnJlcm8xDjAMBgNVBBEMBTA2MzAwMQswCQYDVQQGEwJNWDEZMBcGA1UECAwQRGlzdHJpdG8gRmVkZXJhbDESMBAGA1UEBwwJQ295b2Fjw6FuMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxITAfBgkqhkiG9w0BCQIMElJlc3BvbnNhYmxlOiBBQ0RNQTAeFw0xNjEwMjUyMTUyMTFaFw0yMDEwMjUyMTUyMTFaMIGxMRowGAYDVQQDExFDSU5ERU1FWCBTQSBERSBDVjEaMBgGA1UEKRMRQ0lOREVNRVggU0EgREUgQ1YxGjAYBgNVBAoTEUNJTkRFTUVYIFNBIERFIENWMSUwIwYDVQQtExxMQU43MDA4MTczUjUgLyBGVUFCNzcwMTE3QlhBMR4wHAYDVQQFExUgLyBGVUFCNzcwMTE3TURGUk5OMDkxFDASBgNVBAsUC1BydWViYV9DRkRJMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgvvCiCFDFVaYX7xdVRhp/38ULWto/LKDSZy1yrXKpaqFXqERJWF78YHKf3N5GBoXgzwFPuDX+5kvY5wtYNxx/Owu2shNZqFFh6EKsysQMeP5rz6kE1gFYenaPEUP9zj+h0bL3xR5aqoTsqGF24mKBLoiaK44pXBzGzgsxZishVJVM6XbzNJVonEUNbI25DhgWAd86f2aU3BmOH2K1RZx41dtTT56UsszJls4tPFODr/caWuZEuUvLp1M3nj7Dyu88mhD2f+1fA/g7kzcU/1tcpFXF/rIy93APvkU72jwvkrnprzs+SnG81+/F16ahuGsb2EZ88dKHwqxEkwzhMyTbQIDAQABox0wGzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAgEAJ/xkL8I+fpilZP+9aO8n93+20XxVomLJjeSL+Ng2ErL2GgatpLuN5JknFBkZAhxVIgMaTS23zzk1RLtRaYvH83lBH5E+M+kEjFGp14Fne1iV2Pm3vL4jeLmzHgY1Kf5HmeVrrp4PU7WQg16VpyHaJ/eonPNiEBUjcyQ1iFfkzJmnSJvDGtfQK2TiEolDJApYv0OWdm4is9Bsfi9j6lI9/T6MNZ+/LM2L/t72Vau4r7m94JDEzaO3A0wHAtQ97fjBfBiO5M8AEISAV7eZidIl3iaJJHkQbBYiiW2gikreUZKPUX0HmlnIqqQcBJhWKRu6Nqk6aZBTETLLpGrvF9OArV1JSsbdw/ZH+P88RAt5em5/gjwwtFlNHyiKG5w+UFpaZOK3gZP0su0sa6dlPeQ9EL4JlFkGqQCgSQ+NOsXqaOavgoP5VLykLwuGnwIUnuhBTVeDbzpgrg9LuF5dYp/zs+Y9ScJqe5VMAagLSYTShNtN8luV7LvxF9pgWwZdcM7lUwqJmUddCiZqdngg3vzTactMToG16gZA4CWnMgbU4E+r541+FNMpgAZNvs2CiW/eApfaaQojsZEAHDsDv4L5n3M1CC7fYjE/d61aSng1LaO6T1mh+dEfPvLzp7zyzz+UgWMhi5Cs4pcXx1eic5r7uxPoBwcCTt3YI1jKVVnV7/w=</X509Certificate>
-      </X509Data>
-    </KeyInfo>
-  </Signature>
+<Cancelacion xmlns="http://cancelacfd.sat.gob.mx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" Fecha="2021-12-26T18:15:28" RfcEmisor="EKU9003173C9">
+    <Folios>
+        <Folio UUID="fe4e71b0-8959-4fb9-8091-f5ac4fb0fef8" Motivo="02" FolioSustitucion=""/>
+    </Folios>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>XEdUtCptjdlz9DsYAP7nnU6MytU=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>ZnWh91e5tUc4/t1ZWnb3yOgB8zuCXNPioND+rv6aLOEwIw26/8sYYb+GT4wgyqlc09wOs32XTUwWoGQwtWMG8Euqq+4xJyobWvPCsX6CiURvD/Pd33xgkH92A0AGQxEMYGVT7wK+GFS2gDTYEYAXvZqzCe6+rXnlQvHML0TOOmhVu/wc8YrCbGt4z/F5sRxhjpa0eqwFEq4RmB4nkWjcD3Pnudn3XAI5NHIiOd8KVGVcDR+LvYvKj7h+18WxZgujpggYjbFN79i1jEsAEPDfgryUdTvjDw+KC7Mg+/ge6pssH42buEMIwVE4VX9Y3NtWSGTwdIK/8pxXk+Y5wyR6Gg==</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509IssuerSerial>
+                    <X509IssuerName>OID.1.2.840.113549.1.9.2=responsable: ACDMA-SAT, OID.2.5.4.45=2.5.4.45, L=COYOACAN, S=CIUDAD DE MEXICO, C=MX, PostalCode=06370, STREET=3ra cerrada de cadiz, E=oscar.martinez@sat.gob.mx, OU=SAT-IES Authority, O=SERVICIO DE ADMINISTRACION TRIBUTARIA, CN=AC UAT</X509IssuerName>
+                    <X509SerialNumber>292233162870206001759766198444326234574038512436</X509SerialNumber>
+                </X509IssuerSerial>
+                <X509Certificate>MIIFuzCCA6OgAwIBAgIUMzAwMDEwMDAwMDA0MDAwMDI0MzQwDQYJKoZIhvcNAQELBQAwggErMQ8wDQYDVQQDDAZBQyBVQVQxLjAsBgNVBAoMJVNFUlZJQ0lPIERFIEFETUlOSVNUUkFDSU9OIFRSSUJVVEFSSUExGjAYBgNVBAsMEVNBVC1JRVMgQXV0aG9yaXR5MSgwJgYJKoZIhvcNAQkBFhlvc2Nhci5tYXJ0aW5lekBzYXQuZ29iLm14MR0wGwYDVQQJDBQzcmEgY2VycmFkYSBkZSBjYWRpejEOMAwGA1UEEQwFMDYzNzAxCzAJBgNVBAYTAk1YMRkwFwYDVQQIDBBDSVVEQUQgREUgTUVYSUNPMREwDwYDVQQHDAhDT1lPQUNBTjERMA8GA1UELRMIMi41LjQuNDUxJTAjBgkqhkiG9w0BCQITFnJlc3BvbnNhYmxlOiBBQ0RNQS1TQVQwHhcNMTkwNjE3MTk0NDE0WhcNMjMwNjE3MTk0NDE0WjCB4jEnMCUGA1UEAxMeRVNDVUVMQSBLRU1QRVIgVVJHQVRFIFNBIERFIENWMScwJQYDVQQpEx5FU0NVRUxBIEtFTVBFUiBVUkdBVEUgU0EgREUgQ1YxJzAlBgNVBAoTHkVTQ1VFTEEgS0VNUEVSIFVSR0FURSBTQSBERSBDVjElMCMGA1UELRMcRUtVOTAwMzE3M0M5IC8gWElRQjg5MTExNlFFNDEeMBwGA1UEBRMVIC8gWElRQjg5MTExNk1HUk1aUjA1MR4wHAYDVQQLExVFc2N1ZWxhIEtlbXBlciBVcmdhdGUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCN0peKpgfOL75iYRv1fqq+oVYsLPVUR/GibYmGKc9InHFy5lYF6OTYjnIIvmkOdRobbGlCUxORX/tLsl8Ya9gm6Yo7hHnODRBIDup3GISFzB/96R9K/MzYQOcscMIoBDARaycnLvy7FlMvO7/rlVnsSARxZRO8Kz8Zkksj2zpeYpjZIya/369+oGqQk1cTRkHo59JvJ4Tfbk/3iIyf4H/Ini9nBe9cYWo0MnKob7DDt/vsdi5tA8mMtA953LapNyCZIDCRQQlUGNgDqY9/8F5mUvVgkcczsIgGdvf9vMQPSf3jjCiKj7j6ucxl1+FwJWmbvgNmiaUR/0q4m2rm78lFAgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMA0GCSqGSIb3DQEBCwUAA4ICAQBcpj1TjT4jiinIujIdAlFzE6kRwYJCnDG08zSp4kSnShjxADGEXH2chehKMV0FY7c4njA5eDGdA/G2OCTPvF5rpeCZP5Dw504RZkYDl2suRz+wa1sNBVpbnBJEK0fQcN3IftBwsgNFdFhUtCyw3lus1SSJbPxjLHS6FcZZ51YSeIfcNXOAuTqdimusaXq15GrSrCOkM6n2jfj2sMJYM2HXaXJ6rGTEgYmhYdwxWtil6RfZB+fGQ/H9I9WLnl4KTZUS6C9+NLHh4FPDhSk19fpS2S/56aqgFoGAkXAYt9Fy5ECaPcULIfJ1DEbsXKyRdCv3JY89+0MNkOdaDnsemS2o5Gl08zI4iYtt3L40gAZ60NPh31kVLnYNsmvfNxYyKp+AeJtDHyW9w7ftM0Hoi+BuRmcAQSKFV3pk8j51la+jrRBrAUv8blbRcQ5BiZUwJzHFEKIwTsRGoRyEx96sNnB03n6GTwjIGz92SmLdNl95r9rkvp+2m4S6q1lPuXaFg7DGBrXWC8iyqeWE2iobdwIIuXPTMVqQb12m1dAkJVRO5NdHnP/MpqOvOgLqoZBNHGyBg4Gqm4sCJHCxA1c8Elfa2RQTCk0tAzllL4vOnI1GHkGJn65xokGsaU4B4D36xh7eWrfj4/pgWHmtoDAYa8wzSwo2GVCZOs+mtEgOQB91/g==</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
 </Cancelacion>
 ```
 
@@ -275,7 +282,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Cancelation 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
+                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user", "password");
                
                 //Obtenemos el XML de cancelacion
                 byte[] xml = File.ReadAllBytes("Resources/xml.xml");
@@ -298,8 +305,13 @@ namespace ExampleSDK
 }
 ```
 ## Cancelacion por PFX ##
-Este metodo recibe únicamente el PFX , password, rfc y uuid.
-
+Este metodo recibe los siguientes parametros:
+* Archivo PFX en **Base64**
+* Password (CSD)
+* RFC emisor
+* UUID
+* Motvio
+* Foliosustitucion
 **Ejemplo de consumo de la libreria para cancelar con PFX**
 ```cs
 using System;
@@ -320,10 +332,12 @@ namespace ExampleSDK
                 string uuid = "01724196-ac5a-4735-b621-e3b42bcbb459";
                 string rfc = "LAN8507268IA";
                 string passwordKey = "12345678a";
+                string motivo = "02";
+                string foliosustitucion = "09d849d8-1cbf-424e-84bc-8e6724dcb649";
                 //Creamos una instancia de tipo Cancelation 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
+                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user", "password");
                
                 //Obtenemos el XML de cancelacion
                  byte[] pfx = File.ReadAllBytes(Path.Combine(@"Resources\CertificadosDePrueba", "CSD_Prueba_CFDI_LAN8507268IA.pfx"));
@@ -331,7 +345,7 @@ namespace ExampleSDK
                  string pfxB64 = Convert.ToBase64String(pfx);
 
                 //Realizamos la petición de cancelación al servicio.
-                CancelationResponse response = cancelation.CancelarByPFX(pfxB64, rfc, passwordKey, uuid);
+                CancelationResponse response = cancelation.CancelarByPFX(pfxB64, rfc, passwordKey, uuid, motivo, foliosustitucion);
                 if (response.status == "success" && response.Data != null)
                 {
                     //Acuse de cancelación
@@ -360,7 +374,11 @@ namespace ExampleSDK
 ```
 
 ## Cancelacion por UUID ##
-Este metodo recibe únicamente el rfc y uuid.
+Este metodo recibe los siguientes parametros:
+* RFC emisor
+* UUID
+* Motvio
+* Foliosustitucion
 
 **Ejemplo de consumo de la libreria para cancelar con UUID**
 ```cs
@@ -381,12 +399,14 @@ namespace ExampleSDK
                 //Datos de Cancelación
                 string uuid = "01724196-ac5a-4735-b621-e3b42bcbb459";
                 string rfc = "LAN8507268IA";
+                string motivo = "02";
+                string foliosustitucion = "09d849d8-1cbf-424e-84bc-8e6724dcb649";
                 //Creamos una instancia de tipo Cancelation 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
+                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user", "password");
                 //Realizamos la petición de cancelación al servicio.
-                CancelationResponse response = cancelation.CancelarByRfcUuid(rfc,  uuid);
+                CancelationResponse response = cancelation.CancelarByRfcUuid(rfc, uuid, motivo, foliosustitucion);
                 if (response.status == "success" && response.Data != null)
                 {
                     //Acuse de cancelación
@@ -437,7 +457,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo BalanceAccount 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a consultar el saldo
-                BalanceAccount account = new BalanceAccount("http://services.test.sw.com.mx", "demo", "123456789");
+                BalanceAccount account = new BalanceAccount("http://services.test.sw.com.mx", "user", "password");
                 AccountResponse response = account.ConsultarSaldo();
               
                 //Para Obtener el idSaldoCliente
@@ -500,7 +520,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Validate
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a validar el XML
-                Validate validate = new Validate ("http://services.test.sw.com.mx", "demo", "123456789");
+                Validate validate = new Validate ("http://services.test.sw.com.mx", "user", "password");
                 var xml = GetXml(build);
                 ValidateXmlResponse response = validate.ValidateXml(xml);
                 //Para iterar la lista sobre la validacion estructura
@@ -541,6 +561,40 @@ namespace ExampleSDK
 }
 ```
 
+# Generar PDF #
+Este método genera y devuelve un pdf en base64 mediante un xml timbrado.
+**Ejemplo de consumo de la librería para la consulta**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.Pdf;
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Pdf pdf = new Pdf("https://api.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken"); 
+                string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
+                Dictionary<string, string> extras = new Dictionary<string, string>();
+                extras.Add("Dato extra", "#568097");
+                var response = pdf.GenerarPdf(xml,"cfdi40",extras);
+                //Devuleve el pdf en formato Base64
+                Console.WriteLine(response.data.contentB64);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
 # Consulta Estatus SAT #
 Este método recibe RFC emisor, RFC receptor, total y UUID de la factura a la cual consultaremos su Estatus en el SAT.
 **Ejemplo de consumo de la librería para la consulta**
@@ -562,7 +616,7 @@ namespace ExampleSDK
                 //A esta le pasamos la Url, del servicio del SAT
                 //Automaticamente despues de obtenerlo se procedera a consultar la factura
                 Status status = new Status("https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc");
-                var response = status.GetStatusCFDI("GOM0809114P5", "LSO1306189R5", "206.85", "021ea2fb-2254-4232-983b-9808c2ed831b");
+                var response = status.GetStatusCFDI("GOM0809114P5", "LSO1306189R5", "206.85", "021ea2fb-2254-4232-983b-9808c2ed831b","u+lCSg==");
                 //Para obtener el codigo status
 				Console.Write(response.CodigoEstatus);
 				//Para obtener si es cancelable
@@ -603,7 +657,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Relations
                 //A esta le pasamos la Url, usuario y password o token de authentication
                 //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
-                Relations relations = new Relations("http://services.test.sw.com.mx", "demo", "123456789");
+                Relations relations = new Relations("http://services.test.sw.com.mx", "user", "password");
                 //Obtenemos Certificado y lo convertimos a Base 64 
                 string CerB64 = Convert.ToBase64String(File.ReadAllBytes("CSD_Pruebas_CFDI_LAN7008173R5.cer")); 
                 //Obtenemos LLave y lo convertimos a Base 64 
@@ -653,7 +707,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Relations
                 //A esta le pasamos la Url, usuario y password o token de authentication
                 //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
-                Relations relations = new Relations("http://services.test.sw.com.mx", "demo", "123456789");
+                Relations relations = new Relations("http://services.test.sw.com.mx", "user", "password");
                 //Convertimos el PFX a base 64
                 string pfxB64 = Convert.ToBase64String(file.pfx);
                 RelationsResponse response = relations.RelationsByPFX(pfxB64, "LAN7008173R5", "12345678a", "021ea2fb-2254-4232-983b-9808c2ed831b");
@@ -735,7 +789,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Relations
                 //A esta le pasamos la Url, usuario y password o token de authentication
                 //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
-                Relations relations = new Relations("http://services.test.sw.com.mx", "demo", "123456789");
+                Relations relations = new Relations("http://services.test.sw.com.mx", "user", "password");
                 RelationsResponse response = relations.RelationsByXML(XML);
                 //Para obtener el status de la consulta
 				Console.Write(response.status);
@@ -783,7 +837,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Relations
                 //A esta le pasamos la Url, usuario y password o token de authentication
                 //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
-                Relations relations = new Relations("http://services.test.sw.com.mx", "demo", "123456789");
+                Relations relations = new Relations("http://services.test.sw.com.mx", "user", "password");
                 RelationsResponse response = relations.RelationsByRfcUuid("LAN7008173R5", "01724196-ac5a-4735-b621-e3b42bcbb459");
                 //Para obtener el status de la consulta
 				Console.Write(response.status);
@@ -832,7 +886,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Pending
                 //A esta le pasamos la Url, usuario y password o token de authentication
                 //Automaticamente despues de obtenerlo se procedera a consultar las facturas relacionadas
-                Pending pendientes = new Pending("http://services.test.sw.com.mx", "demo", "123456789");
+                Pending pendientes = new Pending("http://services.test.sw.com.mx", "user", "password");
                 PendingsResponse response = pendientes.PendingsByRfc("LAN7008173R5");
                 //Para obtener el status de la consulta
 				Console.Write(response.status);
@@ -875,7 +929,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo AcceptReject
                 //A esta le pasamos la Url, usuario y password o token de authentication
                 //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-                AcceptReject acceptReject = new AcceptReject ("http://services.test.sw.com.mx", "demo", "123456789");
+                AcceptReject acceptReject = new AcceptReject ("http://services.test.sw.com.mx", "user", "password");
                 //Obtenemos Certificado y lo convertimos a Base 64 
                 string CerB64 = Convert.ToBase64String(File.ReadAllBytes("CSD_Pruebas_CFDI_LAN7008173R5.cer")); 
                 //Obtenemos LLave y lo convertimos a Base 64 
@@ -921,7 +975,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo AcceptReject
                 //A esta le pasamos la Url, usuario y password o token de authentication
                 //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-                AcceptReject acceptReject = new AcceptReject ("http://services.test.sw.com.mx", "demo", "123456789");
+                AcceptReject acceptReject = new AcceptReject ("http://services.test.sw.com.mx", "user", "password");
                 //Obtenemos Certificado y lo convertimos a Base 64 
                 string pfxB64 = Convert.ToBase64String(File.ReadAllBytes("file.pfx")); 
                 AcceptRejectResponse response = acceptReject.AcceptByPFX(pfxB64,  "LAN7008173R5", "12345678a", new AceptacionRechazoItem[] { new AceptacionRechazoItem() { uuid = "01724196-ac5a-4735-b621-e3b42bcbb459", action = EnumAcceptReject.Aceptacion } });
@@ -1003,7 +1057,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo AcceptReject
                 //A esta le pasamos la Url, usuario y password o token de authentication
                 //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-                AcceptReject acceptReject = new AcceptReject ("http://services.test.sw.com.mx", "demo", "123456789");
+                AcceptReject acceptReject = new AcceptReject ("http://services.test.sw.com.mx", "user", "password");
                 AcceptRejectResponse response = acceptReject.AcceptByXML(Encoding.UTF8.GetBytes(acuse), EnumAcceptReject.Aceptacion);
                 //Para obtener el status de la consulta
 				Console.Write(response.status);
@@ -1047,7 +1101,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo AcceptReject
                 //A esta le pasamos la Url, usuario y password o token de authentication
                 //Automaticamente despues de obtenerlo se procedera a procesar las facturas con su acción
-                AcceptReject acceptReject = new AcceptReject ("http://services.test.sw.com.mx", "demo", "123456789");
+                AcceptReject acceptReject = new AcceptReject ("http://services.test.sw.com.mx", "user", "password");
                 AcceptRejectResponse response = acceptReject.AcceptByRfcUuid("LAN7008173R5", "01724196-ac5a-4735-b621-e3b42bcbb459", EnumAcceptReject.Aceptacion);
                 //Para obtener el status de la consulta
 				Console.Write(response.status);
@@ -1061,52 +1115,6 @@ namespace ExampleSDK
 	            Console.WriteLine(response.message);
 	            Console.WriteLine(response.messageDetail);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-    }
-}
-```
-## Taxpayer / Consultar RFC en Lista 69-B por RFC ##
-Este método recibe el **RFC** a consultar.
-***NOTA:*** No siempre responde con todos los campos del ejemplo, en caso que no contenga ese dato el registro del RFC regresa una cadena vacía.
-**Ejemplo de consumo de la librería para la utilización**
-```cs
-using SW.Services.Taxpayer;
-using System;
-using System.IO;
-using System.Text;
-using SW.Helpers;
-
-namespace ExampleSDK
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            try
-            {
-                Taxpayer Taxpayer = new Taxpayer("http://services.test.sw.com.mx", "demo", "123456789");
-                var response = Taxpayer.GetTaxpayer("ZNS1101105T3");
-                Console.WriteLine(response.data.id);
-                Console.WriteLine(response.data.rfc);
-                Console.WriteLine(response.data.nombre_Contribuyente);
-                Console.WriteLine(response.data.numero_fecha_oficio_global_contribuyentes_que_desvirtuaron);
-                Console.WriteLine(response.data.numero_fecha_oficio_global_definitivos);
-                Console.WriteLine(response.data.numero_fecha_oficio_global_sentencia_favorable);
-                Console.WriteLine(response.data.numero_y_fecha_oficio_global_presuncion);
-                Console.WriteLine(response.data.publicacion_DOF_definitivos);
-                Console.WriteLine(response.data.publicacion_DOF_desvirtuados);
-                Console.WriteLine(response.data.publicacion_DOF_presuntos);
-                Console.WriteLine(response.data.publicacion_DOF_sentencia_favorable);
-                Console.WriteLine(response.data.publicacion_pagina_SAT_definitivos);
-                Console.WriteLine(response.data.publicacion_pagina_SAT_desvirtuados);
-                Console.WriteLine(response.data.publicacion_pagina_SAT_presuntos);
-                Console.WriteLine(response.data.publicacion_pagina_SAT_sentencia_favorable);
-                Console.WriteLine(response.data.situacion_del_contribuyente);
-				  }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
