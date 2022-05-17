@@ -814,8 +814,8 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Status
                 //A esta le pasamos la Url, del servicio del SAT
                 //Automaticamente despues de obtenerlo se procedera a consultar la factura
-                Status status = new Status("https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc");
-                var response = status.GetStatusCFDI("GOM0809114P5", "LSO1306189R5", "206.85", "021ea2fb-2254-4232-983b-9808c2ed831b","u+lCSg==");
+                Status status = new Status("https://pruebacfdiconsultaqr.cloudapp.net/ConsultaCFDIService.svc");
+                var response = status.GetStatusCFDI("IVD920810GU2", "JILH841117AS9", "0.0", "89c81fe8-b9c5-4df3-9924-4e2ea2cdb4d3","bb2k2g==");
                 //Para obtener el codigo status
 				Console.Write(response.CodigoEstatus);
 				//Para obtener si es cancelable
