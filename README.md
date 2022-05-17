@@ -168,8 +168,8 @@ Como su nombre lo indica, este metodo recibe todos los elementos que componen el
 * Password del archivo key
 * RFC emisor
 * UUID
-* Motvio
-* Foliosustitucion
+* Motivo
+* Folio Sustitución
 
 **Ejemplo de consumo de la libreria para cancelar con CSD con motivo de cancelación 02 sin relación a documento**
 ```cs
@@ -387,8 +387,8 @@ Este metodo recibe los siguientes parametros:
 * Password (CSD)
 * RFC emisor
 * UUID
-* Motvio
-* Foliosustitucion
+* Motivo
+* Folio Sustitución
 **Ejemplo de consumo de la libreria para cancelar con PFX**
 ```cs
 using System;
@@ -410,7 +410,7 @@ namespace ExampleSDK
                 string rfc = "LAN8507268IA";
                 string passwordKey = "12345678a";
                 string motivo = "02";
-                string foliosustitucion = "09d849d8-1cbf-424e-84bc-8e6724dcb649";
+                string folioSustitucion = "09d849d8-1cbf-424e-84bc-8e6724dcb649";
                 //Creamos una instancia de tipo Cancelation 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
@@ -424,7 +424,7 @@ namespace ExampleSDK
 
                 //Realizamos la petición de cancelación al servicio.
 
-                CancelationResponse response = cancelation.CancelarByPFX(pfxB64, rfc, passwordKey, uuid, motivo, foliosustitucion);
+                CancelationResponse response = cancelation.CancelarByPFX(pfxB64, rfc, passwordKey, uuid, motivo, folioSustitucion);
                 if (response.status == "success" && response.Data != null)
 
                 {
@@ -516,8 +516,8 @@ namespace ExampleSDK
 Este metodo recibe los siguientes parametros:
 * RFC emisor
 * UUID
-* Motvio
-* Foliosustitucion
+* Motivo
+* Folio Sustitución
 
 **Ejemplo de consumo de la libreria para cancelar con UUID con motivo de cancelación 02 sin documento relacionado**
 ```cs
@@ -591,14 +591,14 @@ namespace ExampleSDK
                 string uuid = "01724196-ac5a-4735-b621-e3b42bcbb459";
                 string rfc = "LAN8507268IA";
                 string motivo = "02";
-                string foliosustitucion = "09d849d8-1cbf-424e-84bc-8e6724dcb649";
+                string folioSustitucion = "09d849d8-1cbf-424e-84bc-8e6724dcb649";
                 //Creamos una instancia de tipo Cancelation 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
                 Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user", "password");
                 //Realizamos la petición de cancelación al servicio.
 
-                CancelationResponse response = cancelation.CancelarByRfcUuid(rfc, uuid, motivo, foliosustitucion);
+                CancelationResponse response = cancelation.CancelarByRfcUuid(rfc, uuid, motivo, folioSustitucion);
                 if (response.status == "success" && response.Data != null)
 
                 {
