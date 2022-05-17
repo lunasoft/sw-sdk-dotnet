@@ -815,7 +815,7 @@ namespace ExampleSDK
                 //A esta le pasamos la Url, del servicio del SAT
                 //Automaticamente despues de obtenerlo se procedera a consultar la factura
                 Status status = new Status("https://pruebacfdiconsultaqr.cloudapp.net/ConsultaCFDIService.svc");
-                var response = status.GetStatusCFDI("IVD920810GU2", "JILH841117AS9", "0.0", "89c81fe8-b9c5-4df3-9924-4e2ea2cdb4d3","bb2k2g==");
+                var response = status.GetStatusCFDI("IVD920810GU2", "AAA010101AAA", "603.20", "249c0fb3-475a-4b72-89f9-06cd3c1f302b","oxOSjA==");
                 //Para obtener el codigo status
 				Console.Write(response.CodigoEstatus);
 				//Para obtener si es cancelable
