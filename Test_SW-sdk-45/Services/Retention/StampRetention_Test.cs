@@ -68,6 +68,7 @@ namespace Test_SW_sdk_45.Services.Retention
         private string GetXml(BuildSettings build, string fileName)
         {
             var xml = Encoding.UTF8.GetString(File.ReadAllBytes(String.Format("Resources/Retenciones/{0}", fileName)));
+            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword, true, true);
             return xml;
         }
     }
