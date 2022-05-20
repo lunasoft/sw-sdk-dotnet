@@ -15,7 +15,7 @@ namespace SW.Services.Retention
         }
         internal string StampRetention(string xml, string token)
         {
-            SW.WSRetention.wcfTimbradoRetencionesEndpoint1 client = new SW.WSRetention.wcfTimbradoRetencionesEndpoint1(_url);
+            SAT.Services.RetencionService.wcfTimbradoRetencionesEndpoint1 client = new SAT.Services.RetencionService.wcfTimbradoRetencionesEndpoint1(_url);
             var response = client.TimbrarRetencionXMLV2(xml, token);
             return response;
         }

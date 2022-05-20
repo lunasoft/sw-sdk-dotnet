@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SW.Properties {
+namespace SAT.Services.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,6 +20,16 @@ namespace SW.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://cfdi.smartweb.com.mx/Timbrado/wcfTimbradoRetenciones.svc")]
+        public string SAT_Services_RetencionService_wcfTimbradoRetenciones {
+            get {
+                return ((string)(this["SAT_Services_RetencionService_wcfTimbradoRetenciones"]));
             }
         }
     }

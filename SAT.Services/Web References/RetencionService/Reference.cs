@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace SW.WSRetention {
+namespace SAT.Services.RetencionService {
     using System;
     using System.Web.Services;
     using System.Diagnostics;
@@ -37,7 +37,7 @@ namespace SW.WSRetention {
         
         /// <remarks/>
         public wcfTimbradoRetencionesEndpoint() {
-            this.Url = global::SW.Properties.Settings.Default.SW_sdk_45_WSRetention_wcfTimbradoRetenciones;
+            this.Url = global::SAT.Services.Properties.Settings.Default.SAT_Services_RetencionService_wcfTimbradoRetenciones;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
@@ -173,10 +173,10 @@ namespace SW.WSRetention {
         private System.Threading.SendOrPostCallback TimbrarRetencionXMLV2OperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
-
+        
         /// <remarks/>
         public wcfTimbradoRetencionesEndpoint1(string url) {
-            this.Url = url+"/Timbrado/wcfTimbradoRetenciones.svc";
+            this.Url = url +"/Timbrado/wcfTimbradoRetenciones.svc";
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
