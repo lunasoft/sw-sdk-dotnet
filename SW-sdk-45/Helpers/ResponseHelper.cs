@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SW.Services.Storage;
+using SW.Services.Retention;
 
 namespace SW.Helpers
 {
@@ -173,6 +174,15 @@ namespace SW.Helpers
         internal static StorageResponse ToStorageResponse(this Exception ex)
         {
             return new StorageResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static StampRetentionResponse ToRetentionStampResponse(this Exception ex)
+        {
+            return new StampRetentionResponse()
             {
                 message = ex.Message,
                 status = "error",
