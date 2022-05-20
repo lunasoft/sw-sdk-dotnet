@@ -10,6 +10,7 @@ namespace Test_SW.Helpers
     {
         public string Url = "http://services.test.sw.com.mx";
         public string UrlApi = "http://api.test.sw.com.mx";
+        public string UrlRetention = "http://pruebascfdi.smartweb.com.mx";
         public string User = "userforut@ut.com";
         public string Password = "swpassut";
         public string CerPassword = "12345678a";
