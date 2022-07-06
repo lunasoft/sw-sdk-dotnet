@@ -235,10 +235,38 @@ namespace Test_SW.Services.Stamp_Test
 
             Assert.IsTrue((bool)resultExpect);
         }
-        private string GetXml(BuildSettings build)
+        [TestMethod]
+        public void StampLargeXMLV4byToken()
         {
-            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
-            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword);
+            var build = new BuildSettings();
+            Stamp stamp = new Stamp(build.Url, build.Token);
+            var xml = GetXml(build, "Resources/largeXml.xml");
+            var response = (StampResponseV4)stamp.TimbrarV4(xml);
+            Assert.IsTrue(response.data != null, "El resultado data viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoSAT), "El resultado data.noCertificadoSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoCFDI), "El resultado data.noCertificadoCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.uuid), "El resultado data.uuid viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloSAT), "El resultado data.selloSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
+        }
+        [TestMethod]
+        public void StampLargeXMLV4byTokenError()
+        {
+            var build = new BuildSettings();
+            Stamp stamp = new Stamp(build.Url, build.Token);
+            var xml = GetXml(build, "Resources/largeXml.xml", false);
+            var response = (StampResponseV4)stamp.TimbrarV4(xml);
+            Assert.IsTrue(response != null, "El resultado viene vacio.");
+            Assert.IsTrue(response.status == "error");
+        }
+        private string GetXml(BuildSettings build, string fileName = null, bool setDate = true)
+        {
+            var xml = Encoding.UTF8.GetString(File.ReadAllBytes(fileName ?? "Resources/file.xml"));
+            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword, setDate);
             return xml;
         }
     }
