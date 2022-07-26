@@ -270,10 +270,72 @@ namespace Test_SW.Services.StampV4_Test
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
         }
-        private string GetXml(BuildSettings build)
+        [TestMethod]
+        public void StampLargeXMLV4CustomIdByToken()
         {
-            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
-            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword);
+            var build = new BuildSettings();
+            Random rnd = new Random();
+            StampV4 stamp = new StampV4(build.Url, build.Token);
+            var xml = GetXml(build, "Resources/largeXml.xml");
+            var response = (StampResponseV4)stamp.TimbrarV4(xml, null, rnd.Next().ToString());
+            Assert.IsTrue(response.data != null, "El resultado data viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoSAT), "El resultado data.noCertificadoSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoCFDI), "El resultado data.noCertificadoCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.uuid), "El resultado data.uuid viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloSAT), "El resultado data.selloSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
+        }
+        [TestMethod]
+        public void StampLargeXMLV4CustomIdByTokenError()
+        {
+            var build = new BuildSettings();
+            Random rnd = new Random();
+            StampV4 stamp = new StampV4(build.Url, build.Token);
+            var xml = GetXml(build, "Resources/largeXml.xml", false);
+            var response = (StampResponseV4)stamp.TimbrarV4(xml, null, rnd.Next().ToString());
+            Assert.IsTrue(response != null, "El resultado viene vacio.");
+            Assert.IsTrue(response.status == "error");
+        }
+        [TestMethod]
+        public void StampLargeXMLV4CustomIdBase64ByToken()
+        {
+            var build = new BuildSettings();
+            Random rnd = new Random();
+            StampV4 stamp = new StampV4(build.Url, build.Token);
+            var xml = GetXml(build, "Resources/largeXml.xml");
+            xml = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
+            var response = (StampResponseV4)stamp.TimbrarV4(xml, null, rnd.Next().ToString(), true);
+            Assert.IsTrue(response.data != null, "El resultado data viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoSAT), "El resultado data.noCertificadoSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoCFDI), "El resultado data.noCertificadoCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.uuid), "El resultado data.uuid viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloSAT), "El resultado data.selloSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
+        }
+        [TestMethod]
+        public void StampLargeXMLV4CustomIdBase64ByTokenError()
+        {
+            var build = new BuildSettings();
+            Random rnd = new Random();
+            StampV4 stamp = new StampV4(build.Url, build.Token);
+            var xml = GetXml(build, "Resources/largeXml.xml", false);
+            xml = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
+            var response = (StampResponseV4)stamp.TimbrarV4(xml, null, rnd.Next().ToString(), true);
+            Assert.IsTrue(response != null, "El resultado viene vacio.");
+            Assert.IsTrue(response.status == "error");
+        }
+        private string GetXml(BuildSettings build, string fileName = null, bool setDate = true)
+        {
+            var xml = Encoding.UTF8.GetString(File.ReadAllBytes(fileName ?? "Resources/file.xml"));
+            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword, setDate);
             return xml;
         }
     }
