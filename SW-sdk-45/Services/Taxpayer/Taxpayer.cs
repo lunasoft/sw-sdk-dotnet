@@ -19,10 +19,14 @@ namespace SW.Services.Taxpayer
         {
             _handler = new TaxpayerResponseHandler();
         }
-
+        /// <summary>
+        /// Servicio que valida si un RFC se encuentra en la lista 69-B.
+        /// </summary>
+        /// <param name="rfc">RFC del contribuyente a validar.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="TaxpayerResponse"/></returns>
         public override TaxpayerResponse GetTaxpayer(string rfc)
         {
-
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();

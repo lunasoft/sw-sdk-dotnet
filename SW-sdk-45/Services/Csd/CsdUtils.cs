@@ -138,31 +138,76 @@ namespace SW.Services.Csd
                 return handler.HandleException(e);
             }
         }
-
+        /// <summary>
+        /// Servicio para cargar un certificado a una cuenta.
+        /// </summary>
+        /// <param name="cer">B64 del certificado CSD.</param>
+        /// <param name="key">B64 del certificado Key.</param>
+        /// <param name="password">Contraseña de los certificados.</param>
+        /// <param name="certificateType">Tipo de certificado a ser cargado, default: stamp</param>
+        /// <param name="isActive">Estatus inicial del certificado, default: true</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="CsdResponse"/></returns>
         public CsdResponse UploadMyCsd(string cer, string key, string password, string certificateType, bool isActive)
         {
             return UploadCsd(cer, key, password, certificateType, isActive);
         }
+        /// <summary>
+        /// Servicio para eliminar un certificado existente en una cuenta.
+        /// </summary>
+        /// <param name="certificateNumber">Numero del certificado a eliminar.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="CsdResponse"/></returns>
         public CsdResponse DisableMyCsd(string certificateNumber)
         {
             return DisableCsd(certificateNumber);
         }
+        /// <summary>
+        /// Servicio que busca por numero de certificado un certificado cargado en una cuenta.
+        /// </summary>
+        /// <param name="certificateNumber">Numero del certificado a buscar.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="InfoCsdResponse"/></returns>
         public InfoCsdResponse SearchMyCsd(string certificateNumber)
         {
             return InfoCsd(certificateNumber);
         }
+        /// <summary>
+        /// SErvicio que busca por RFC y tipo de certificado un certificado cargado en una cuenta 
+        /// </summary>
+        /// <param name="rfc"></param>
+        /// <param name="type"></param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="InfoCsdResponse"/></returns>
         public InfoCsdResponse SearchActiveCsd(string rfc, string type)
         {
             return ActiveCsd(rfc, type);
         }
+        /// <summary>
+        /// Servicio que obtiene todos los certificados cargados en una cuenta.
+        /// </summary>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="ListInfoCsdResponse"/></returns>
         public ListInfoCsdResponse GetListCsd()
         {
             return ListCsd();
         }
+        /// <summary>
+        /// Servicio que obtiene todos los certificados cargados en una cuenta filtrados por tipo de certificado.
+        /// </summary>
+        /// <param name="type">Tipo de certificado, default: stamp.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="ListInfoCsdResponse"/></returns>
         public ListInfoCsdResponse GetListCsdByType(string type)
         {
             return ListCsdByType(type);
         }
+        /// <summary>
+        /// Servicio que obtiene todos los certificados cargados en una cuenta filtrados por RFC.
+        /// </summary>
+        /// <param name="rfc">RFC del certificado.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="ListInfoCsdResponse"/></returns>
         public ListInfoCsdResponse GetListCsdByRfc(string rfc)
         {
             return ListCsdByRfc(rfc);

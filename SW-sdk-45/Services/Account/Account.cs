@@ -48,7 +48,11 @@ namespace SW.Services.Account
                 return _handler.HandleException(e);
             }
         }
-
+        /// <summary>
+        /// Servicio que obtiene el saldo de timbres del usuario.
+        /// </summary>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="AccountResponse"/></returns>
         public AccountResponse ConsultarSaldo()
         {
             return (AccountResponse)GetBalance();

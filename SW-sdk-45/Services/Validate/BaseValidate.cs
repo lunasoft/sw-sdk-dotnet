@@ -18,6 +18,12 @@ namespace SW.Services.Validate
         {
             _operation = operation;
         }
+        /// <summary>
+        /// Servicio que valida un XML timbrado.
+        /// </summary>
+        /// <param name="XML">XML a validar.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="ValidateXmlResponse"/></returns>
         public virtual ValidateXmlResponse ValidateXml(string XML)
         {
             ValidateXmlResponseHandler handler = new ValidateXmlResponseHandler();

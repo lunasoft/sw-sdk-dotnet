@@ -13,6 +13,11 @@ namespace SW.Services.Authentication
         {
             _handler = new AuthenticationResponseHandler();
         }
+        /// <summary>
+        /// Servicio de autenticación que obtiene un token con vigencia de 120 minutos.
+        /// </summary>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="AuthResponse"/></returns>
         public override AuthResponse GetToken()
         {
             try

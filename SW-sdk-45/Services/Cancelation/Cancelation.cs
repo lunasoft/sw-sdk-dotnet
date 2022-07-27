@@ -8,21 +8,11 @@ namespace SW.Services.Cancelation
     {
 
         CanelationResponseHandler _handler;
-        /// <summary>
-        /// This Service is Not Implemented
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="user"></param>
-        /// <param name="password"></param>
         public Cancelation(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
         {
             _handler = new CanelationResponseHandler();
         }
-        /// <summary>
-        /// This Service is Not Implemented
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="token"></param>
+
         public Cancelation(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
             _handler = new CanelationResponseHandler();
@@ -98,18 +88,56 @@ namespace SW.Services.Cancelation
                 return handler.HandleException(e);
             }
         }
+        /// <summary>
+        /// Servicio de cancelación por CSD.
+        /// </summary>
+        /// <param name="cer">B64 del certificado CSD del emisor.</param>
+        /// <param name="key">B64 del certificado Key del emisor.</param>
+        /// <param name="rfc">RFC del emisor.</param>
+        /// <param name="password">Contraseña del CSD del emisor.</param>
+        /// <param name="uuid">UUID del comprobante a cancelar.</param>
+        /// <param name="motivo">Motivo de cancelación.</param>
+        /// <param name="folioSustitucion">UUID del comprobante que sustituye.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="CancelationResponse"/></returns>
         public CancelationResponse CancelarByCSD(string cer, string key, string rfc, string password, string uuid, string motivo, string folioSustitucion = null)
         {
             return Cancelar(cer, key, rfc, password, uuid, motivo, folioSustitucion);
         }
+        /// <summary>
+        /// Servicio de cancelación por XML.
+        /// </summary>
+        /// <param name="xmlCancelation">XML de cancelación.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="CancelationResponse"/></returns>
         public CancelationResponse CancelarByXML(byte[] xmlCancelation)
         {
             return Cancelar(xmlCancelation);
         }
+        /// <summary>
+        /// Servicio de cancelación por PFX.
+        /// </summary>
+        /// <param name="pfx">B64 del PFX de los certificados del emisor.</param>
+        /// <param name="rfc">RFC del emisor.</param>
+        /// <param name="password">Contraseña del PFX de los certificados del emisor.</param>
+        /// <param name="uuid">UUID del comprobante a cancelar.</param>
+        /// <param name="motivo">Motivo de cancelación.</param>
+        /// <param name="folioSustitucion">UUID del comprobante que sustituye.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="CancelationResponse"/></returns>
         public CancelationResponse CancelarByPFX(string pfx, string rfc, string password, string uuid, string motivo, string folioSustitucion = null)
         {
             return Cancelar(pfx, rfc, password, uuid, motivo, folioSustitucion);
         }
+        /// <summary>
+        /// Servicio de cancelación por UUID.
+        /// </summary>
+        /// <param name="rfc">RFC del emisor.</param>
+        /// <param name="uuid">UUID del comprobante a cancelar.</param>
+        /// <param name="motivo">Motivo de cancelación.</param>
+        /// <param name="folioSustitucion">UUID del comprobante que sustituye.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="CancelationResponse"/></returns>
         public CancelationResponse CancelarByRfcUuid(string rfc, string uuid, string motivo, string folioSustitucion = null)
         {
             return Cancelar(rfc, uuid, motivo, folioSustitucion);

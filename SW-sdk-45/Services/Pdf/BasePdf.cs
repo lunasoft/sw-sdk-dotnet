@@ -17,6 +17,15 @@ namespace SW.Services.Pdf
         {
             _operation = operation;
         }
+        /// <summary>
+        /// Servicio para generar el PDF de un comprobante timbrado.
+        /// </summary>
+        /// <param name="xml">XML del comprobante.</param>
+        /// <param name="templateId">Id del template para identificar la versión y tipo de comprobante.</param>
+        /// <param name="ObservacionesAdicionales">Agrega comentarios adicionales a la plantilla.</param>
+        /// <param name="isB64">Especificar si el XML del comprobante se envía en B64.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="PdfResponse"/></returns>
         public virtual PdfResponse GenerarPdf(string xml, string templateId, Dictionary<string, string> ObservacionesAdicionales = null, bool isB64 = false)
         {
             PdfResponseHandler handler = new PdfResponseHandler();
@@ -35,7 +44,6 @@ namespace SW.Services.Pdf
             {
                 return handler.HandleException(ex);
             }
-
         }
     }
 }

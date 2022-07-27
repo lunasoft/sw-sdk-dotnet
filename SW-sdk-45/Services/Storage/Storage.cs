@@ -14,6 +14,12 @@ namespace SW.Services.Storage
         {
             _handler = new StorageResponseHandler();
         }
+        /// <summary>
+        /// Servicio para recuperar un XML timbrado.
+        /// </summary>
+        /// <param name="uuid">UUID del comprobante.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="StorageResponse"/></returns>
         public override StorageResponse GetByUUID(Guid uuid)
         {
             try

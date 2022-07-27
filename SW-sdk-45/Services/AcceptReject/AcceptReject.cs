@@ -89,19 +89,52 @@ namespace SW.Services.AcceptReject
             }
         }
 
-
+        /// <summary>
+        /// Servicio para aceptar o rechazar por CSD una solicitud de cancelación.
+        /// </summary>
+        /// <param name="cer">B64 del certificado CSD del emisor.</param>
+        /// <param name="key">B64 del certificado Key del emisor.</param>
+        /// <param name="rfc">RFC del emisor.</param>
+        /// <param name="password">Contraseña del certificado del emisor.</param>
+        /// <param name="uuids">Array de objetos <typeparamref name="AceptacionRechazoItem"></typeparamref></param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="AcceptRejectResponse"/></returns>
         public AcceptRejectResponse AcceptByCSD(string cer, string key, string rfc, string password, AceptacionRechazoItem[] uuids)
         {
             return AcceptRejectRequest(cer, key, rfc, password, uuids);
         }
+        /// <summary>
+        /// Servicio para aceptar o rechazar por XML una solicitud de cancelación.
+        /// </summary>
+        /// <param name="xmlCancelation"></param>
+        /// <param name="enumCancelation"></param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="AcceptRejectResponse"/></returns>
         public AcceptRejectResponse AcceptByXML(byte[] xmlCancelation, EnumAcceptReject enumCancelation)
         {
             return AcceptRejectRequest(xmlCancelation, enumCancelation);
         }
+        /// <summary>
+        /// Servicio para aceptar o rechazar por PFX una solicitud de cancelación.
+        /// </summary>
+        /// <param name="pfx"></param>
+        /// <param name="rfc"></param>
+        /// <param name="password"></param>
+        /// <param name="uuid"></param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="AcceptRejectResponse"/></returns>
         public AcceptRejectResponse AcceptByPFX(string pfx, string rfc, string password, AceptacionRechazoItem[] uuid)
         {
             return AcceptRejectRequest(pfx, rfc, password, uuid);
         }
+        /// <summary>
+        /// Servicio para aceptar o rechazar por UUID una solicitud de cancelación.
+        /// </summary>
+        /// <param name="rfc"></param>
+        /// <param name="uuid"></param>
+        /// <param name="enumAcceptReject"></param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="AcceptRejectResponse"/></returns>
         public AcceptRejectResponse AcceptByRfcUuid(string rfc, string uuid, EnumAcceptReject enumAcceptReject)
         {
             return AcceptRejectRequest(rfc, uuid, enumAcceptReject);

@@ -34,6 +34,12 @@ namespace SW.Services.Pendings
                 return handler.HandleException(e);
             }
         }
+        /// <summary>
+        /// Servicio que consulta las solicitudes de cancelación pendientes de aceptación ó rechazo.
+        /// </summary>
+        /// <param name="rfc">RFC del emisor.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="PendingsResponse"/></returns>
         public PendingsResponse PendingsByRfc(string rfc)
         {
             return PendingsRequest(rfc);

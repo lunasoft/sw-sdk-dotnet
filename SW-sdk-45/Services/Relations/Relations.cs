@@ -89,20 +89,50 @@ namespace SW.Services.Relations
                 return handler.HandleException(e);
             }
         }
-
-
+        /// <summary>
+        /// Servicio para consultar por CSD si un comprobante cuenta con folios relacionados.
+        /// </summary>
+        /// <param name="cer">B64 del certificado CSD del emisor.</param>
+        /// <param name="key">B64 del certificado Key del emisor.</param>
+        /// <param name="rfc">RFC del emisor.</param>
+        /// <param name="password">Contraseña de los certificados.</param>
+        /// <param name="uuid">UUID del comprobante.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="RelationsResponse"/></returns>
         public RelationsResponse RelationsByCSD(string cer, string key, string rfc, string password, string uuid)
         {
             return RelationsRequest(cer, key, rfc, password, uuid);
         }
+        /// <summary>
+        /// Servicio para consultar por XML si un comprobante cuenta con folios relacionados.
+        /// </summary>
+        /// <param name="xmlCancelation">XML de la consulta firmado.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="RelationsResponse"/></returns>
         public RelationsResponse RelationsByXML(byte[] xmlCancelation)
         {
             return RelationsRequest(xmlCancelation);
         }
+        /// <summary>
+        /// Servicio para consultar por PFX si un comprobante cuenta con folios relacionados.
+        /// </summary>
+        /// <param name="pfx">B64 del PFX de los certificados del emisor.</param>
+        /// <param name="rfc">RFC del emisor.</param>
+        /// <param name="password">Contraseña del emisor.</param>
+        /// <param name="uuid">UUID del comprobante.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="RelationsResponse"/></returns>
         public RelationsResponse RelationsByPFX(string pfx, string rfc, string password, string uuid)
         {
             return RelationsRequest(pfx, rfc, password, uuid);
         }
+        /// <summary>
+        /// Servicio para consultar por UUID si un comprobante cuenta con folios relacionados.
+        /// </summary>
+        /// <param name="rfc">RFC del emisor.</param>
+        /// <param name="uuid">UUID del comprobante.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <returns><see cref="RelationsResponse"/></returns>
         public RelationsResponse RelationsByRfcUuid(string rfc, string uuid)
         {
             return RelationsRequest(rfc, uuid);
