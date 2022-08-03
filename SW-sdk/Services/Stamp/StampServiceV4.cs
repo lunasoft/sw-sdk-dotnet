@@ -17,12 +17,12 @@ namespace SW.Services.Stamp
         internal virtual HttpWebRequest RequestStamping(byte[] xml, string version, string format, string operation, string email, string customId)
         {
             this.SetupRequest();
-            HttpWebRequest.DefaultMaximumErrorResponseLength = (1000000 + xml.Length) * 2;
+            HttpWebRequest.DefaultMaximumErrorResponseLength = (xml.Length > 1000000 ? 1000000 : xml.Length + 1) * 2;
             var request = (HttpWebRequest)WebRequest.Create(this.Url + string.Format("v4/cfdi33/{0}/{1}/{2}", operation, version, format));
             Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
             request.ProtocolVersion = HttpVersion.Version10;
             request.Timeout = 300000;
-            request.ReadWriteTimeout = 500000;
+            request.ReadWriteTimeout = 600000;
             request.KeepAlive = false;
             request.ServicePoint.Expect100Continue = false;
             request.ContentType = "application/json";
