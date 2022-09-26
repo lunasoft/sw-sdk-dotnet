@@ -66,6 +66,7 @@
     <Compile Include="Services\Issue\IssueService.cs" />
     <Compile Include="Services\Pdf\BasePdf.cs" />
     <Compile Include="Services\Pdf\Pdf.cs" />
+    <Compile Include="Services\Pdf\PdfRequest.cs" />
     <Compile Include="Services\Pdf\PdfResponse.cs" />
     <Compile Include="Services\Pdf\PdfResponseHandler.cs" />
     <Compile Include="Services\Pdf\PdfService.cs" />

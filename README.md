@@ -1373,6 +1373,51 @@ namespace ExampleSDK
     }
 }
 ```
+## Generar PDF ##
+Método que genera y obtiene un pdf en base64 a partir de un documento XML y una plantilla.
+Este método recibe los siguientes parámetros:
+* Xml timbrado 
+* Logo **Base64**
+* Template id
+* Datos extra (opcional)
+
+**Ejemplo de consumo de la librería para la utilización**
+```cs
+using SW.Services.Stamp;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Pdf pdf = new Pdf("https://api.test.sw.com.mx","user", "password");
+                var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","cfdi40");
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+            //Puedes solicitar customizar tu propia plantilla para agregar datos adicionales que no vengan incluidos en el xml
+            try
+            {
+                Pdf pdf = new Pdf("https://api.test.sw.com.mx","user", "password");
+                Dictionary<string, string> extras = new Dictionary<string, string>() { { "DATOSEXTRA", "Entregar de 9am a 6pm" } };
+                var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","cfdi40", extras);
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
 Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
 
 Si deseas contribuir a la libreria o tienes dudas envianos un correo a **soporte@sw.com.mx**.

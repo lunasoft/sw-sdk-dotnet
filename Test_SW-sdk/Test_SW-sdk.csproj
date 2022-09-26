@@ -50,9 +50,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SW.Tools, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SW.Tools.0.0.0.1\lib\net40\SW.Tools.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SW.Tools, Version=1.0.7.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Downloads\sw-sdk-dotnet-master\sw-sdk-dotnet-master\Test_SW-sdk\bin\Debug\SW.Tools.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -87,6 +87,7 @@
     <Compile Include="Services\Issue\IssueJson_Test.cs" />
     <Compile Include="Services\Issue\IssueV2_Test.cs" />
     <Compile Include="Services\Issue\Issue_Test.cs" />
+    <Compile Include="Services\Pdf\Pdf_Test.cs" />
     <Compile Include="Services\Pendings\Pendings_Test.cs" />
     <Compile Include="Services\Relations\Relations_Test.cs" />
     <Compile Include="Services\Stamp\StampV2_Test.cs" />
