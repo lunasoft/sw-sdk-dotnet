@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using SW.Helpers;
 
 namespace SW.Services
@@ -63,6 +64,7 @@ namespace SW.Services
         }
         public Services SetupRequest()
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             if (string.IsNullOrEmpty(Token) || DateTime.Now > ExpirationDate)
             {
                 Authentication.Authentication auth = new Authentication.Authentication(Url,User,Password, ProxyPort, Proxy);
