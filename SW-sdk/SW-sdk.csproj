@@ -53,6 +53,7 @@
     <Compile Include="Helpers\ResponseHelper.cs" />
     <Compile Include="Helpers\ResponseType.cs" />
     <Compile Include="Helpers\StreamUtil.cs" />
+    <Compile Include="Helpers\TemplatesId.cs" />
     <Compile Include="Helpers\Validation.cs" />
     <Compile Include="Helpers\XmlUtils.cs" />
     <Compile Include="Services\Csd\UploadCsdRequest.cs" />

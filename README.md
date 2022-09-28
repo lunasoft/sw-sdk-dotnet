@@ -1377,8 +1377,8 @@ namespace ExampleSDK
 Método que genera y obtiene un pdf en base64 a partir de un documento XML y una plantilla.
 Este método recibe los siguientes parámetros:
 * Xml timbrado 
-* Logo **Base64**
-* Template id
+* Logo **Base64** (opcional)
+* Template id (opcional)
 * Datos extra (opcional)
 
 **Ejemplo de consumo de la librería para la utilización**
@@ -1395,7 +1395,7 @@ namespace ExampleSDK
             try
             {
                 Pdf pdf = new Pdf("https://api.test.sw.com.mx","user", "password");
-                var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","cfdi40");
+                var pdfResult = pdf.GenerarPdfCfdi40(xml,"/9j/4AAQSk...");
             }
             catch (Exception e)
             {
@@ -1407,7 +1407,7 @@ namespace ExampleSDK
             {
                 Pdf pdf = new Pdf("https://api.test.sw.com.mx","user", "password");
                 Dictionary<string, string> extras = new Dictionary<string, string>() { { "DATOSEXTRA", "Entregar de 9am a 6pm" } };
-                var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","cfdi40", extras);
+                var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","templateIdCustom", extras);
             }
             catch (Exception e)
             {
