@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SW.Helpers;
 using SW.Services.Pdf;
 using SW.Services.Stamp;
 using Test_SW.Helpers;
@@ -18,7 +19,7 @@ namespace Pdf_Test.Services.Pdf_Tests
             Pdf pdf = new Pdf(build.UrlApi, build.Token);
             var getXml = GetXml(build);
             var xml = StampXml(build, getXml);
-            var pdfResult = pdf.GenerarPdf(xml,build.Logo, build.templateId);
+            var pdfResult = pdf.GenerarPdf(xml,build.Logo, TemplatesId.cfdi40);
             Assert.IsTrue(pdfResult.status == "success");
 
         }
@@ -29,40 +30,7 @@ namespace Pdf_Test.Services.Pdf_Tests
             Pdf pdf = new Pdf(build.UrlApi, build.Token);
             var getXml = GetXml(build);
             var xml = StampXml(build, getXml);
-            var pdfResult = pdf.GenerarPdf(xml, build.Logo, build.templateId, build.observaciones);
-            Assert.IsTrue(pdfResult.status == "success");
-
-        }
-        [TestMethod]
-        public void UT_GeneratePdf_Pagos20()
-        {
-            var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.UrlApi, build.Token);
-            var getXml = GetXml(build);
-            var xml = StampXml(build, getXml);
-            var pdfResult = pdf.GenerarPdfPagos20(xml, build.Logo);
-            Assert.IsTrue(pdfResult.status == "success");
-
-        }
-        [TestMethod]
-        public void UT_GeneratePdf_Nomina()
-        {
-            var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.UrlApi, build.Token);
-            var getXml = GetXml(build);
-            var xml = StampXml(build, getXml);
-            var pdfResult = pdf.GenerarPdfNomina(xml, build.Logo);
-            Assert.IsTrue(pdfResult.status == "success");
-
-        }
-        [TestMethod]
-        public void UT_GeneratePdf_CartaPorte()
-        {
-            var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.UrlApi, build.Token);
-            var getXml = GetXml(build);
-            var xml = StampXml(build, getXml);
-            var pdfResult = pdf.GenerarPdfCartaPorte(xml, build.Logo);
+            var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.cfdi40, build.observaciones);
             Assert.IsTrue(pdfResult.status == "success");
 
         }
@@ -72,7 +40,7 @@ namespace Pdf_Test.Services.Pdf_Tests
             var build = new BuildSettings();
             Pdf pdf = new Pdf(build.UrlApi, build.Token);
             var getXml = GetXml(build);
-            var pdfResult = pdf.GenerarPdf(getXml, build.Logo, build.templateId, build.observaciones);
+            var pdfResult = pdf.GenerarPdf(getXml, build.Logo, TemplatesId.cfdi40, build.observaciones);
             Assert.IsTrue(pdfResult.status == "error");
 
         }
