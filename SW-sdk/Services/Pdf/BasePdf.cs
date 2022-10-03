@@ -16,6 +16,7 @@ namespace SW.Services.Pdf
         {
         }
 
+
         public virtual PdfResponse GenerarPdf(string xml, string logo,TemplatesId templateId, Dictionary<string, string> ObservacionesAdicionales = null, bool isB64 = false)
         {
             PdfResponseHandler handler = new PdfResponseHandler();
@@ -30,6 +31,21 @@ namespace SW.Services.Pdf
             }
 
         }
-     
+        public virtual PdfResponse GenerarPdf(string xml, string logo, string templateId, Dictionary<string, string> ObservacionesAdicionales = null, bool isB64 = false)
+        {
+            PdfResponseHandler handler = new PdfResponseHandler();
+            try
+            {
+                var xmlformat = xml.Replace("\"", "\'");
+                var request = this.RequestPdf(xmlformat, logo, templateId, ObservacionesAdicionales);
+                return handler.GetResponse(request);
+            }
+            catch (Exception ex)
+            {
+                return handler.HandleException(ex);
+            }
+
+        }
+
     }
 }
