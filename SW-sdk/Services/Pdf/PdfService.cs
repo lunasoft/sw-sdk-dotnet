@@ -12,16 +12,20 @@ namespace SW.Services.Pdf
 {
     public abstract class PdfService : Services
     {
-        protected PdfService(string url, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
+        private string _operation;
+        private string _apiUrl;
+        protected PdfService(string url, string urlApi, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
+            _apiUrl = urlApi;
         }
-        protected PdfService(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
+        protected PdfService(string url, string urlApi, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
+            _apiUrl = urlApi;
         }
         internal virtual HttpWebRequest RequestPdf(string xml, string logo, string TemplateId, Dictionary<string, string> ObservacionesAdicionales = null)
         {
             this.SetupRequest();
-            var request = (HttpWebRequest)WebRequest.Create(this.Url + string.Format("/pdf/v1/api/GeneratePdf"));
+            var request = (HttpWebRequest)WebRequest.Create( _apiUrl + string.Format("/pdf/v1/api/GeneratePdf"));
             request.ContentType = "application/json";
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);

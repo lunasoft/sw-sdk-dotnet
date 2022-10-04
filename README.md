@@ -1374,11 +1374,13 @@ namespace ExampleSDK
 }
 ```
 ## Generar PDF ##
-Método que genera y obtiene un pdf en base64 a partir de un documento XML y una plantilla.
+Método que genera y obtiene un pdf en base64 a partir de un documento XML y una plantilla. Puede ser consumido ingresando tu usuario y contraseña así como tambien ingresando solo el token.
 Este método recibe los siguientes parámetros:
+* Url servicios SW
+* Url Api
 * Xml timbrado 
 * Logo **Base64** (opcional)
-* Template id (opcional)
+* Template id 
 * Datos extra (opcional)
 
 **Ejemplo de consumo de la librería para la utilización**
@@ -1394,8 +1396,8 @@ namespace ExampleSDK
         {
             try
             {
-                Pdf pdf = new Pdf("https://api.test.sw.com.mx","user", "password");
-                var pdfResult = pdf.GenerarPdfCfdi40(xml,"/9j/4AAQSk...");
+                Pdf pdf = new Pdf("https://services.test.sw.com.mx","https://api.test.sw.com.mx","user", "password");
+                var pdfResult = pdf.GenerarPdfCfdi40(xml,"/9j/4AAQSk...",TemplatesId.cfdi40);
             }
             catch (Exception e)
             {
@@ -1405,7 +1407,19 @@ namespace ExampleSDK
             //Puedes solicitar customizar tu propia plantilla para agregar datos adicionales que no vengan incluidos en el xml
             try
             {
-                Pdf pdf = new Pdf("https://api.test.sw.com.mx","user", "password");
+                Pdf pdf = new Pdf("https://services.test.sw.com.mx","https://api.test.sw.com.mx",Token);
+                Dictionary<string, string> extras = new Dictionary<string, string>() { { "DATOSEXTRA", "Entregar de 9am a 6pm" } };
+                var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","templateIdCustom", extras);
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+            try
+            {
+                //Puedes enviar el xml convertido en Base64
+                Pdf pdf = new Pdf("https://services.test.sw.com.mx","https://api.test.sw.com.mx",Token);
                 Dictionary<string, string> extras = new Dictionary<string, string>() { { "DATOSEXTRA", "Entregar de 9am a 6pm" } };
                 var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","templateIdCustom", extras);
             }

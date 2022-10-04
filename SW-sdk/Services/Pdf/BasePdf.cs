@@ -9,10 +9,10 @@ namespace SW.Services.Pdf
     public abstract class BasePdf : PdfService
     {
        
-        public BasePdf(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
+        public BasePdf(string url, string urlApi, string token, string proxy, int proxyPort) : base(url, urlApi,token, proxy, proxyPort)
         {
         }
-        public BasePdf(string url, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
+        public BasePdf(string url, string urlApi, string user, string password, string proxy, int proxyPort) : base(url, urlApi, user, password, proxy, proxyPort)
         {
         }
 
@@ -22,10 +22,21 @@ namespace SW.Services.Pdf
             PdfResponseHandler handler = new PdfResponseHandler();
             try
             {
-                var xmlformat = xml.Replace("\"", "\'");
-                var request = this.RequestPdf(xmlformat, logo, templateId.ToString(), ObservacionesAdicionales);
-                return handler.GetResponse(request);
-            }catch(Exception ex)
+                if (isB64 != true)
+                {
+                    var xmlFormat = xml.Replace("\"", "\'");
+                    var request = this.RequestPdf(xmlFormat, logo, templateId.ToString(), ObservacionesAdicionales);
+                    return handler.GetResponse(request);
+                }
+                else
+                {
+                    var xmlString = Encoding.UTF8.GetString(Convert.FromBase64String(xml));
+                    var xmlFormat = xmlString.Replace("\"", "\'");
+                    var request = this.RequestPdf(xmlFormat, logo, templateId.ToString(), ObservacionesAdicionales);
+                    return handler.GetResponse(request);
+                }
+            }
+            catch(Exception ex)
             {
                 return handler.HandleException(ex);
             }
@@ -36,9 +47,19 @@ namespace SW.Services.Pdf
             PdfResponseHandler handler = new PdfResponseHandler();
             try
             {
-                var xmlformat = xml.Replace("\"", "\'");
-                var request = this.RequestPdf(xmlformat, logo, templateId, ObservacionesAdicionales);
-                return handler.GetResponse(request);
+                if (isB64 != true)
+                {
+                    var xmlFormat = xml.Replace("\"", "\'");
+                    var request = this.RequestPdf(xmlFormat, logo, templateId, ObservacionesAdicionales);
+                    return handler.GetResponse(request);
+                }
+                else {
+                    var xmlString = Encoding.UTF8.GetString(Convert.FromBase64String(xml));
+                    var xmlFormat = xmlString.Replace("\"", "\'");
+                    var request = this.RequestPdf(xmlFormat, logo, templateId, ObservacionesAdicionales);
+                    return handler.GetResponse(request);
+                }
+                
             }
             catch (Exception ex)
             {

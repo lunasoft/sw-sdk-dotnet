@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cfdi:Comprobante xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/CartaPorte20 http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd"
+    xmlns:cartaporte20="http://www.sat.gob.mx/CartaPorte20" Version="4.0" Serie="Serie" Folio="Folio123" Fecha="2022-07-21T00:18:10" Sello="e" CondicionesDePago="CondicionesDePago" SubTotal="200" Descuento="1" Moneda="AMD" TipoCambio="1" Total="199.16" TipoDeComprobante="I" Exportacion="01" MetodoPago="PPD" FormaPago="99" LugarExpedicion="20000"
+    xmlns:cfdi="http://www.sat.gob.mx/cfd/4"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <cfdi:Emisor Rfc="XIA190128J61" Nombre="XENON INDUSTRIAL ARTICLES" RegimenFiscal="601" />
+    <cfdi:Receptor Rfc="URE180429TM6" Nombre="UNIVERSIDAD ROBOTICA ESPAÑOLA" DomicilioFiscalReceptor="65000" RegimenFiscalReceptor="601" UsoCFDI="G01" />
+    <cfdi:Conceptos>
+        <cfdi:Concepto ClaveProdServ="78101500" Cantidad="1" ClaveUnidad="H87" Unidad="Pieza" Descripcion="Cigarros" ValorUnitario="200.00" Descuento="1" Importe="200.00" ObjetoImp="02">
+            <cfdi:Impuestos>
+                <cfdi:Traslados>
+                    <cfdi:Traslado Base="1" Importe="0.16" Impuesto="002" TasaOCuota="0.160000" TipoFactor="Tasa" />
+                </cfdi:Traslados>
+                <cfdi:Retenciones>
+                    <cfdi:Retencion Base="1" Impuesto="001" TipoFactor="Tasa" TasaOCuota="0.100000" Importe="0.00" />
+                    <cfdi:Retencion Base="1" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.106666" Importe="0.00" />
+                </cfdi:Retenciones>
+            </cfdi:Impuestos>
+        </cfdi:Concepto>
+    </cfdi:Conceptos>
+    <cfdi:Impuestos TotalImpuestosRetenidos="0.00" TotalImpuestosTrasladados="0.16">
+        <cfdi:Retenciones>
+            <cfdi:Retencion Impuesto="001" Importe="0.00" />
+            <cfdi:Retencion Impuesto="002" Importe="0.00" />
+        </cfdi:Retenciones>
+        <cfdi:Traslados>
+            <cfdi:Traslado Base="1" Importe="0.16" Impuesto="002" TasaOCuota="0.160000" TipoFactor="Tasa" />
+        </cfdi:Traslados>
+    </cfdi:Impuestos>
+    <cfdi:Complemento>
+        <cartaporte20:CartaPorte Version="2.0" TranspInternac="No" TotalDistRec="2">
+            <cartaporte20:Ubicaciones>
+                <cartaporte20:Ubicacion IDUbicacion="OR101010" TipoUbicacion="Origen" RFCRemitenteDestinatario="EKU9003173C9" FechaHoraSalidaLlegada="2021-11-01T00:00:00">
+                    <cartaporte20:Domicilio Calle="calle" NumeroExterior="211" Colonia="0347" Localidad="23" Referencia="casa blanca 1" Municipio="004" Estado="COA" Pais="MEX" CodigoPostal="25350" />
+                </cartaporte20:Ubicacion>
+                <cartaporte20:Ubicacion IDUbicacion="DE202020" TipoUbicacion="Destino" RFCRemitenteDestinatario="AAA010101AAA" FechaHoraSalidaLlegada="2021-11-01T01:00:00" DistanciaRecorrida="1">
+                    <cartaporte20:Domicilio Calle="calle" NumeroExterior="214" Colonia="0347" Localidad="23" Referencia="casa blanca 2" Municipio="004" Estado="COA" Pais="MEX" CodigoPostal="25350" />
+                </cartaporte20:Ubicacion>
+                <cartaporte20:Ubicacion IDUbicacion="DE202021" TipoUbicacion="Destino" RFCRemitenteDestinatario="AAA010101AAA" FechaHoraSalidaLlegada="2021-11-01T02:00:00" DistanciaRecorrida="1">
+                    <cartaporte20:Domicilio Calle="calle" NumeroExterior="220" Colonia="0347" Localidad="23" Referencia="casa blanca 3" Municipio="004" Estado="COA" Pais="MEX" CodigoPostal="25350" />
+                </cartaporte20:Ubicacion>
+            </cartaporte20:Ubicaciones>
+            <cartaporte20:Mercancias PesoBrutoTotal="2.0" UnidadPeso="XBX" NumTotalMercancias="2">
+                <cartaporte20:Mercancia BienesTransp="11121900" Descripcion="Productos de perfumería" Cantidad="1.0" ClaveUnidad="XBX" PesoEnKg="1.0" MaterialPeligroso="Sí" CveMaterialPeligroso="1266" Embalaje="4H2">
+                    <cartaporte20:CantidadTransporta Cantidad="1" IDOrigen="OR101010" IDDestino="DE202020" />
+                </cartaporte20:Mercancia>
+                <cartaporte20:Mercancia BienesTransp="11121900" Descripcion="Productos de perfumería" Cantidad="1.0" ClaveUnidad="XBX" PesoEnKg="1.0" MaterialPeligroso="Sí" CveMaterialPeligroso="1266" Embalaje="4H2">
+                    <cartaporte20:CantidadTransporta Cantidad="1" IDOrigen="OR101010" IDDestino="DE202021" />
+                </cartaporte20:Mercancia>
+                <cartaporte20:Autotransporte PermSCT="TPAF01" NumPermisoSCT="NumPermisoSCT">
+                    <cartaporte20:IdentificacionVehicular ConfigVehicular="VL" PlacaVM="plac892" AnioModeloVM="2020" />
+                    <cartaporte20:Seguros AseguraRespCivil="SW Seguros" PolizaRespCivil="123456789" AseguraCarga="SW Seguros" AseguraMedAmbiente="SW Seguros Ambientales" PolizaMedAmbiente="123456789" />
+                    <cartaporte20:Remolques>
+                        <cartaporte20:Remolque SubTipoRem="CTR021" Placa="ABC123"></cartaporte20:Remolque>
+                    </cartaporte20:Remolques>
+                </cartaporte20:Autotransporte>
+            </cartaporte20:Mercancias>
+            <cartaporte20:FiguraTransporte>
+                <cartaporte20:TiposFigura TipoFigura="01" RFCFigura="VAAM130719H60" NumLicencia="a234567890"></cartaporte20:TiposFigura>
+            </cartaporte20:FiguraTransporte>
+        </cartaporte20:CartaPorte>
+    </cfdi:Complemento>
+</cfdi:Comprobante>
