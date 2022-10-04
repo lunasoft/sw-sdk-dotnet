@@ -141,6 +141,10 @@
     <Content Include="Resources\fileANSI.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\fileXml.xml" />
+    <Content Include="Resources\fileXmlCarta_Porte20.xml" />
+    <Content Include="Resources\fileXmlNomina40.xml" />
+    <Content Include="Resources\fileXmlpagos20.xml" />
     <Content Include="Resources\largeXml.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
