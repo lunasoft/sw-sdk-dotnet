@@ -9,7 +9,7 @@ namespace SW.Services.Pdf
     public abstract class BasePdf : PdfService
     {
        
-        public BasePdf(string url, string urlApi, string token, string proxy, int proxyPort) : base(url, urlApi,token, proxy, proxyPort)
+        public BasePdf(string urlApi, string token, string proxy, int proxyPort) : base( urlApi,token, proxy, proxyPort)
         {
         }
         public BasePdf(string url, string urlApi, string user, string password, string proxy, int proxyPort) : base(url, urlApi, user, password, proxy, proxyPort)

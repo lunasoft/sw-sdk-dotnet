@@ -17,7 +17,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         public void UT_GeneratePdf_Token()
         {
             var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.Url,build.UrlApi, build.Token);
+            Pdf pdf = new Pdf(build.UrlApi, build.Token);
             var getXml = GetXml(build,null);
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml,build.Logo, TemplatesId.cfdi40);
@@ -28,7 +28,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         public void UT_GeneratePdf_User()
         {
             var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.Url, build.UrlApi, build.User, build.Password);
+            Pdf pdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
             var getXml = GetXml(build,null);
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, "cfdi40");
@@ -39,7 +39,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         public void UT_GeneratePdf_Extras()
         {
             var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.Url, build.UrlApi, build.Token);
+            Pdf pdf = new Pdf(build.UrlApi, build.Token);
             var getXml = GetXml(build,null);
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.cfdi40, build.observaciones);
@@ -50,7 +50,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         public void UT_GeneratePdf_isb64true()
         {
             var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.Url, build.UrlApi, build.Token);
+            Pdf pdf = new Pdf(build.UrlApi, build.Token);
             var getXml = GetXml(build,null);
             var xml = StampXml(build, getXml);
             var xmlB64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
@@ -62,7 +62,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         public void UT_GeneratePdf_Pagos20()
         {
             var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.Url, build.UrlApi, build.Token);
+            Pdf pdf = new Pdf(build.UrlApi, build.Token);
             var getXml = GetXml(build,"pagos20");
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.payment20);
@@ -73,7 +73,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         public void UT_GeneratePdf_Carta_Porte20()
         {
             var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.Url, build.UrlApi, build.Token);
+            Pdf pdf = new Pdf(build.UrlApi, build.Token);
             var getXml = GetXml(build, "Carta_Porte20");
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.billoflading40);
@@ -84,7 +84,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         public void UT_GeneratePdf_Nomina40()
         {
             var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.Url, build.UrlApi, build.Token);
+            Pdf pdf = new Pdf(build.UrlApi, build.Token);
             var getXml = GetXml(build, "Nomina40");
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.payroll40);
@@ -95,7 +95,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         public void UT_GeneratePdf_EmptyXML_Error()
         {
             var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.Url, build.UrlApi, build.Token);
+            Pdf pdf = new Pdf(build.UrlApi, build.Token);
             var pdfResult = pdf.GenerarPdf(null, build.Logo, TemplatesId.cfdi40, build.observaciones);
             Assert.IsTrue(pdfResult.status == "error");
 
@@ -114,7 +114,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         public void UT_GeneratePdf_invalidb64()
         {
             var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.Url, build.UrlApi, build.Token);
+            Pdf pdf = new Pdf(build.UrlApi, build.Token);
             var xmlB64Expected = "JVBERi0xLjQKJaqrrK0KMSAwIG9iago8PAovQ3JlYXRvciAoQWx0b3ZhIFN0eWxlVmlzaW9uIEVudGVycHJpc2UgRWRpdGlvbiAyMDIwIHNwMSBcKHg2NFwpIFwoaHR0cDovL3d3dy5hbHRvdmEuY2";
             var pdfResult = pdf.GenerarPdf(xmlB64Expected, build.Logo, TemplatesId.cfdi40, null, true);
             Assert.IsTrue(pdfResult.status == "error");

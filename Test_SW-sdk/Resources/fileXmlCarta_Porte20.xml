@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cfdi:Comprobante xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/CartaPorte20 http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd"
-    xmlns:cartaporte20="http://www.sat.gob.mx/CartaPorte20" Version="4.0" Serie="Serie" Folio="Folio123" Fecha="2022-07-21T00:18:10" Sello="e" CondicionesDePago="CondicionesDePago" SubTotal="200" Descuento="1" Moneda="AMD" TipoCambio="1" Total="199.16" TipoDeComprobante="I" Exportacion="01" MetodoPago="PPD" FormaPago="99" LugarExpedicion="20000"
+    xmlns:cartaporte20="http://www.sat.gob.mx/CartaPorte20" Version="4.0" Serie="Serie" Folio="Folio123" Fecha="2022-07-21T00:18:10" Sello="e" CondicionesDePago="CondicionesDePago" SubTotal="200" Descuento="1" Moneda="AMD" TipoCambio="1" Total="199.04" TipoDeComprobante="I" Exportacion="01" MetodoPago="PPD" FormaPago="99" LugarExpedicion="20000"
     xmlns:cfdi="http://www.sat.gob.mx/cfd/4"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <cfdi:Emisor Rfc="XIA190128J61" Nombre="XENON INDUSTRIAL ARTICLES" RegimenFiscal="601" />
@@ -12,16 +12,16 @@
                     <cfdi:Traslado Base="1" Importe="0.16" Impuesto="002" TasaOCuota="0.160000" TipoFactor="Tasa" />
                 </cfdi:Traslados>
                 <cfdi:Retenciones>
-                    <cfdi:Retencion Base="1" Impuesto="001" TipoFactor="Tasa" TasaOCuota="0.100000" Importe="0.00" />
-                    <cfdi:Retencion Base="1" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.106666" Importe="0.00" />
+                    <cfdi:Retencion Base="1" Impuesto="001" TipoFactor="Tasa" TasaOCuota="0.100000" Importe="0.06" />
+                    <cfdi:Retencion Base="1" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.106666" Importe="0.06" />
                 </cfdi:Retenciones>
             </cfdi:Impuestos>
         </cfdi:Concepto>
     </cfdi:Conceptos>
-    <cfdi:Impuestos TotalImpuestosRetenidos="0.00" TotalImpuestosTrasladados="0.16">
+    <cfdi:Impuestos TotalImpuestosRetenidos="0.12" TotalImpuestosTrasladados="0.16">
         <cfdi:Retenciones>
-            <cfdi:Retencion Impuesto="001" Importe="0.00" />
-            <cfdi:Retencion Impuesto="002" Importe="0.00" />
+            <cfdi:Retencion Impuesto="001" Importe="0.06" />
+            <cfdi:Retencion Impuesto="002" Importe="0.06" />
         </cfdi:Retenciones>
         <cfdi:Traslados>
             <cfdi:Traslado Base="1" Importe="0.16" Impuesto="002" TasaOCuota="0.160000" TipoFactor="Tasa" />
