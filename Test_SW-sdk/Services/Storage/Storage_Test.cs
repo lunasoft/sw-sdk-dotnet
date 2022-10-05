@@ -18,10 +18,10 @@ namespace Test_SW.Services.Storage_Test
         {
             var build = new BuildSettings();
             Storage storage = new Storage(build.UrlApi, build.Token);
-            var response = storage.GetByUUID(new Guid("3856c081-aba2-449e-b893-55851acfbb9e"));
+            var response = storage.GetByUUID(new Guid("b5875dd7-fe60-4547-834c-8e133d94d39f"));
 
             Assert.IsTrue(response.data != null && response.status == "success");
-            Assert.IsTrue(response.data.records[0].urlAckCfdi != null);
+            Assert.IsTrue(response.data.records[0].urlXml != null);
         }
         
     }

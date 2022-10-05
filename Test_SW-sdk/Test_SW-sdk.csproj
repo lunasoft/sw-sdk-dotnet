@@ -36,12 +36,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="cadenaoriginal33, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\cadenaoriginal33.dll.1.4.3\lib\net40\cadenaoriginal33.dll</HintPath>
+    </Reference>
+    <Reference Include="cadenaoriginal40, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\cadenaoriginal40.dll.0.0.2\lib\net40\cadenaoriginal40.dll</HintPath>
+    </Reference>
+    <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gma.QrCodeNet.0.4.1.2\lib\net40\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Security.3.2.3.0\lib\net40\Mono.Security.dll</HintPath>
@@ -50,9 +55,8 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SW.Tools, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SW.Tools.0.0.0.1\lib\net40\SW.Tools.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SW.Tools, Version=0.0.0.14, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SW.Tools.0.0.0.14\lib\net40\SW.Tools.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -87,6 +91,7 @@
     <Compile Include="Services\Issue\IssueJson_Test.cs" />
     <Compile Include="Services\Issue\IssueV2_Test.cs" />
     <Compile Include="Services\Issue\Issue_Test.cs" />
+    <Compile Include="Services\Pdf\Pdf_Test.cs" />
     <Compile Include="Services\Pendings\Pendings_Test.cs" />
     <Compile Include="Services\Relations\Relations_Test.cs" />
     <Compile Include="Services\Stamp\StampV2_Test.cs" />
@@ -136,6 +141,18 @@
     <Content Include="Resources\fileANSI.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\fileXml.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\fileXmlCarta_Porte20.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\fileXmlNomina40.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\fileXmlpagos20.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\largeXml.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -154,6 +171,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.cer">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

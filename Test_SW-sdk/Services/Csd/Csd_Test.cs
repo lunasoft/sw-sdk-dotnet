@@ -28,12 +28,12 @@ namespace Test_SW_sdk.Services.Csd
             var response = csd.UploadMyCsd("", build.Key, build.CerPassword, "stamp", true);
             Assert.IsTrue(response.message == "El certificado o llave privada vienen vacios" && response.status == "error");
         }
-        [TestMethod]
+        [Ignore]
         public void Csd_Test_DisableCsd()
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
-            var response = csd.DisableMyCsd("30001000000400002330");
+            var response = csd.DisableMyCsd("30001000000400002463");
             Assert.IsTrue(response.data != null && response.status == "success");
         }
         [TestMethod]
@@ -66,7 +66,7 @@ namespace Test_SW_sdk.Services.Csd
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
-            var response = csd.SearchMyCsd("20001000000300022816");
+            var response = csd.SearchMyCsd("30001000000400002434");
             Assert.IsTrue(response.data != null && response.status == "success");
         }
 
