@@ -12,7 +12,7 @@ namespace SW.Services.Pdf
         public BasePdf(string urlApi, string token, string proxy, int proxyPort) : base( urlApi,token, proxy, proxyPort)
         {
         }
-        public BasePdf(string url, string urlApi, string user, string password, string proxy, int proxyPort) : base(url, urlApi, user, password, proxy, proxyPort)
+        public BasePdf(string urlApi, string url, string user, string password, string proxy, int proxyPort) : base(url, urlApi, user, password, proxy, proxyPort)
         {
         }
 

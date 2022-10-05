@@ -28,7 +28,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         public void UT_GeneratePdf_User()
         {
             var build = new BuildSettings();
-            Pdf pdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
+            Pdf pdf = new Pdf(build.Url, build.UrlApi, build.User, build.Password);
             var getXml = GetXml(build,null);
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, "cfdi40");
