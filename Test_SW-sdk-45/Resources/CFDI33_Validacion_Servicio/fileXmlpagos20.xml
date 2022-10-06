@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:pago20="http://www.sat.gob.mx/Pagos20" xsi:schemaLocation="http://www.sat.gob.mx/Pagos20 http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd" Version="4.0" Serie="00" Folio="0000179826" Fecha="2022-09-14T00:33:38" Sello="" NoCertificado="30001000000400002434" Certificado="" SubTotal="0" Moneda="XXX" Total="0" TipoDeComprobante="P" Exportacion="01" LugarExpedicion="75700"
+    xmlns:cfdi="http://www.sat.gob.mx/cfd/4">
+	<cfdi:Emisor Rfc="XIA190128J61" Nombre="XENON INDUSTRIAL ARTICLES" RegimenFiscal="601" />
+	<cfdi:Receptor Rfc="XAXX010101000" Nombre="PUBLICO GENERAL" DomicilioFiscalReceptor="75700" RegimenFiscalReceptor="616" UsoCFDI="CP01" />
+	<cfdi:Conceptos>
+		<cfdi:Concepto ClaveProdServ="84111506" Cantidad="1" ClaveUnidad="ACT" Descripcion="Pago" ValorUnitario="0" Importe="0" ObjetoImp="01" />
+	</cfdi:Conceptos>
+	<cfdi:Complemento>
+		<pago20:Pagos Version="2.0">
+			<pago20:Totales TotalTrasladosBaseIVA16="5843.11" TotalTrasladosImpuestoIVA16="934.90" TotalTrasladosBaseIVA0="0.00" MontoTotalPagos="6778.00" />
+			<pago20:Pago FechaPago="2022-09-09T17:33:38" FormaDePagoP="01" MonedaP="MXN" TipoCambioP="1" Monto="6778.00">
+				<pago20:DoctoRelacionado IdDocumento="b7c8d2bf-cb4e-4f84-af89-c68b6731206a" Serie="FA" Folio="N0000216349" MonedaDR="MXN" EquivalenciaDR="1" NumParcialidad="2" ImpSaldoAnt="6777.41" ImpPagado="6777.41" ImpSaldoInsoluto="0.00" ObjetoImpDR="02">
+					<pago20:ImpuestosDR>
+						<pago20:TrasladosDR>
+							<pago20:TrasladoDR BaseDR="5842.600000" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.160000" ImporteDR="934.816000" />
+						</pago20:TrasladosDR>
+					</pago20:ImpuestosDR>
+				</pago20:DoctoRelacionado>
+				<pago20:DoctoRelacionado IdDocumento="94f4e541-bb38-4355-b779-02d337dc9720" Serie="FA" Folio="SI000032690" MonedaDR="MXN" EquivalenciaDR="1" NumParcialidad="1" ImpSaldoAnt="9610.81" ImpPagado="0.59" ImpSaldoInsoluto="9610.22" ObjetoImpDR="02">
+					<pago20:ImpuestosDR>
+						<pago20:TrasladosDR>
+							<pago20:TrasladoDR BaseDR="0.510000" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.160000" ImporteDR="0.081600" />
+						</pago20:TrasladosDR>
+					</pago20:ImpuestosDR>
+				</pago20:DoctoRelacionado>
+				<pago20:ImpuestosP>
+					<pago20:TrasladosP>
+						<pago20:TrasladoP BaseP="5843.110000" ImpuestoP="002" TipoFactorP="Tasa" TasaOCuotaP="0.160000" ImporteP="934.897600" />
+					</pago20:TrasladosP>
+				</pago20:ImpuestosP>
+			</pago20:Pago>
+		</pago20:Pagos>
+	</cfdi:Complemento>
+</cfdi:Comprobante>

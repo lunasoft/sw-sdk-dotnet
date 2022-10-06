@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Test_SW_sdk_45.Services.Csd
+namespace Test_SW_sdk.Services.Csd
 {
     [TestClass]
-    public class Csd_Test_45
+    public class Csd_Test
     {
         [TestMethod]
-        public void Csd_Test_45_UploadCsd()
+        public void Csd_Test_UploadCsd()
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
@@ -21,23 +21,23 @@ namespace Test_SW_sdk_45.Services.Csd
             Assert.IsTrue(response.data != null && response.status == "success");
         }
         [TestMethod]
-        public void Csd_Test_45_UploadCsd_EmptyCsd()
+        public void Csd_Test_UploadCsd_EmptyCsd()
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
             var response = csd.UploadMyCsd("", build.Key, build.CerPassword, "stamp", true);
             Assert.IsTrue(response.message == "El certificado o llave privada vienen vacios" && response.status == "error");
         }
-        [TestMethod]
-        public void Csd_Test_45_DisableCsd()
+        [Ignore]
+        public void Csd_Test_DisableCsd()
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
-            var response = csd.DisableMyCsd("30001000000400002330");
+            var response = csd.DisableMyCsd("30001000000400002463");
             Assert.IsTrue(response.data != null && response.status == "success");
         }
         [TestMethod]
-        public void Csd_Test_45_ListCsd()
+        public void Csd_Test_ListCsd()
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
@@ -45,7 +45,7 @@ namespace Test_SW_sdk_45.Services.Csd
             Assert.IsTrue(response.data != null && response.status == "success");
         }
         [TestMethod]
-        public void Csd_Test_45_ListCsdByType()
+        public void Csd_Test_ListCsdByType()
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
@@ -53,7 +53,7 @@ namespace Test_SW_sdk_45.Services.Csd
             Assert.IsTrue(response.data != null && response.status == "success");
         }
         [TestMethod]
-        public void Csd_Test_45_ListCsdByRfc()
+        public void Csd_Test_ListCsdByRfc()
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
@@ -62,16 +62,16 @@ namespace Test_SW_sdk_45.Services.Csd
         }
         [Ignore]
         [TestMethod]
-        public void Csd_Test_45_SearchCsd()
+        public void Csd_Test_SearchCsd()
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);
-            var response = csd.SearchMyCsd("20001000000300022816");
+            var response = csd.SearchMyCsd("30001000000400002434");
             Assert.IsTrue(response.data != null && response.status == "success");
         }
 
         [TestMethod]
-        public void Csd_Test_45_ListSearchActiveCsd()
+        public void Csd_Test_ListSearchActiveCsd()
         {
             var build = new BuildSettings();
             CsdUtils csd = new CsdUtils(build.Url, build.User, build.Password);

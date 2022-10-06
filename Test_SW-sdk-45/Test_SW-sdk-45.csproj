@@ -81,6 +81,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Helpers\BuildSettings.cs" />
+    <Compile Include="Helpers\ResponseHelpers.cs" />
     <Compile Include="Helpers\SignTools.cs" />
     <Compile Include="Services\AcceptReject\AcceptReject_Test.cs" />
     <Compile Include="Services\Account\Account_Test.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Services\Issue\IssueJson_Test.cs" />
     <Compile Include="Services\Issue\IssueV2_Test.cs" />
     <Compile Include="Services\Issue\Issue_Test.cs" />
+    <Compile Include="Services\Pdf\Pdf_Test.cs" />
     <Compile Include="Services\Pendings\Pendings_Test.cs" />
     <Compile Include="Services\Relations\Relations_Test.cs" />
     <Compile Include="Services\Stamp\StampV2_Test.cs" />
@@ -130,6 +132,18 @@
     </Content>
     <Content Include="Resources\error.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\fileXml.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\fileXmlCarta_Porte20.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\fileXmlNomina40.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\fileXmlpagos20.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\RelationsXML.xml">

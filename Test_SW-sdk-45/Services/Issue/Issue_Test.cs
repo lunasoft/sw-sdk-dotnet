@@ -8,15 +8,16 @@ using SW.Services.Issue;
 using SW.Services.Stamp;
 using System.IO;
 using System.Xml;
+using SW.Tools;
 using SW.Tools.Services.Fiscal;
 
 namespace Test_SW.Services.Issue
 {
     [TestClass]
-    public class Issue_Test_45
+    public class Issue_Test
     {
         [TestMethod]
-        public void Issue_Test_45_IssueXMLV1()
+        public void IssueXMLV1()
         {
             var build = new BuildSettings();
             SW.Services.Issue.Issue issue = new SW.Services.Issue.Issue(build.Url, build.User, build.Password);
@@ -27,7 +28,7 @@ namespace Test_SW.Services.Issue
         }
 
         [TestMethod]
-        public void Issue_Test_45_IssueXMLV2()
+        public void IssueXMLV2()
         {
             var build = new BuildSettings();
             SW.Services.Issue.Issue issue = new SW.Services.Issue.Issue(build.Url, build.User, build.Password);
@@ -38,7 +39,7 @@ namespace Test_SW.Services.Issue
         }
 
         [TestMethod]
-        public void Issue_Test_45_IssueXMLV3()
+        public void IssueXMLV3()
         {
             var build = new BuildSettings();
             SW.Services.Issue.Issue issue = new SW.Services.Issue.Issue(build.Url, build.User, build.Password);
@@ -49,7 +50,7 @@ namespace Test_SW.Services.Issue
         }
 
         [TestMethod]
-        public void Issue_Test_45_StampXMLV4byToken()
+        public void StampXMLV4byToken()
         {
             var build = new BuildSettings();
             SW.Services.Issue.Issue issue = new SW.Services.Issue.Issue(build.Url, build.Token);

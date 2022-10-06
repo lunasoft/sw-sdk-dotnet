@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using SW.Helpers;
 
@@ -11,6 +12,11 @@ namespace SW.Services.Pdf
         public override PdfResponse HandleException(Exception ex)
         {
             return ex.ToPdfResponse();
+        }
+
+        internal PdfResponse GetResponse(HttpWebRequest request)
+        {
+            throw new NotImplementedException();
         }
     }
 }

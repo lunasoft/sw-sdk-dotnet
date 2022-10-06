@@ -8,15 +8,16 @@ using SW.Services.Issue;
 using SW.Services.Stamp;
 using System.IO;
 using System.Xml;
+using SW.Tools;
 using SW.Tools.Services.Fiscal;
 
 namespace Test_SW.Services.Issue
 {
     [TestClass]
-    public class IssueV2_Test_45
+    public class IssueV2_Test
     {
         [TestMethod]
-        public void Issue_Test_45_IssueV2XMLV1()
+        public void IssueV2XMLV1()
         {
             var build = new BuildSettings();
             SW.Services.Issue.IssueV2 issue = new SW.Services.Issue.IssueV2(build.Url, build.User, build.Password);
@@ -24,12 +25,12 @@ namespace Test_SW.Services.Issue
             var response = (StampResponseV1)issue.TimbrarV1(xml);
             Assert.IsTrue(response.status == "success"
                 && !string.IsNullOrEmpty(response.data.tfd), "El resultado data.tfd viene vacio.");
-            response = (StampResponseV1)issue.TimbrarV1(xml);
-            Assert.IsTrue(response.status == "error" && response.message == "307. El comprobante contiene un timbre previo.");
+            response= (StampResponseV1)issue.TimbrarV1(xml);
+            Assert.IsTrue(response.status == "error" && response.message== "307. El comprobante contiene un timbre previo.");
         }
 
         [TestMethod]
-        public void Issue_Test_45_IssueV2XMLV2()
+        public void IssueV2XMLV2()
         {
             var build = new BuildSettings();
             SW.Services.Issue.IssueV2 issue = new SW.Services.Issue.IssueV2(build.Url, build.User, build.Password);
@@ -42,7 +43,7 @@ namespace Test_SW.Services.Issue
         }
 
         [TestMethod]
-        public void Issue_Test_45_IssueV2XMLV3()
+        public void IssueV2XMLV3()
         {
             var build = new BuildSettings();
             SW.Services.Issue.IssueV2 issue = new SW.Services.Issue.IssueV2(build.Url, build.User, build.Password);
@@ -55,7 +56,7 @@ namespace Test_SW.Services.Issue
         }
 
         [TestMethod]
-        public void Issue_Test_45_StampXMLV4byToken()
+        public void StampXMLV4byToken()
         {
             var build = new BuildSettings();
             SW.Services.Issue.IssueV2 issue = new SW.Services.Issue.IssueV2(build.Url, build.Token);
