@@ -79,6 +79,9 @@
     <Compile Include="Helpers\ResponseHelper.cs" />
     <Compile Include="Helpers\ResponseType.cs" />
     <Compile Include="Helpers\StreamUtil.cs" />
+    <Compile Include="Helpers\TemplatesId.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Helpers\Validation.cs" />
     <Compile Include="Helpers\XmlUtils.cs" />
     <Compile Include="Services\AcceptReject\AcceptReject.cs" />
@@ -117,6 +120,9 @@
     <Compile Include="Services\Issue\Issue.cs" />
     <Compile Include="Services\Pdf\BasePdf.cs" />
     <Compile Include="Services\Pdf\Pdf.cs" />
+    <Compile Include="Services\Pdf\PdfRequest.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Services\Pdf\PdfResponse.cs" />
     <Compile Include="Services\Pdf\PdfResponseHandler.cs" />
     <Compile Include="Services\Pdf\PdfService.cs" />

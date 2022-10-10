@@ -96,6 +96,53 @@ namespace SW.Services
                 };
             }
         }
+        //NewRs
+        public virtual T GetResponseRequest(HttpWebRequest request)
+        {
+            try
+            {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    return TryGetResponseRequest(response);
+                }
+            }
+            catch (WebException wex)
+            {
+                var response = (HttpWebResponse)wex.Response;
+                return TryGetResponseRequest(response);
+            }
+        }
+        private T TryGetResponseRequest(HttpWebResponse response)
+        {
+            try
+            {
+                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    using (var responseStream = response.GetResponseStream())
+                    using (StreamReader reader = new StreamReader(responseStream))
+                    {
+                        string responseFromServer = reader.ReadToEnd();
+                        return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseFromServer);
+                    }
+                }
+                else
+                    return new T()
+                    {
+                        message = ((int)response.StatusCode).ToString(),
+                        status = "error",
+                        messageDetail = response.StatusDescription
+                    };
+            }
+            catch (Exception)
+            {
+                return new T()
+                {
+                    message = ((int)response.StatusCode).ToString(),
+                    status = "error",
+                    messageDetail = response.StatusDescription
+                };
+            }
+        }
 
         public virtual T GetResponse(string url, Dictionary<string, string> headers, string path, HttpClientHandler proxy)
         {
