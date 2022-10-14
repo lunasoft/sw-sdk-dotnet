@@ -22,7 +22,7 @@ namespace Test_SW_sdk_45.Services.TaxpayersService
             {
                 var build = new BuildSettings();
                 Storage storage = new Storage(build.UrlApi, build.Token);
-                var response = storage.GetByUUID(new Guid("3856c081-aba2-449e-b893-55851acfbb9e"));
+                var response = storage.GetByUUID(new Guid("7354cc1f-3fb0-4803-ae90-fdc5d346eca3"));
                 Assert.IsTrue(response.data != null && response.status == "success");
                 Assert.IsTrue(response.data.records[0].urlAckCfdi != null);
             }

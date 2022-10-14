@@ -1,7 +1,12 @@
-﻿using System;
-using System.Xml;
+﻿using SW.Tools;
 using SW.Tools.Services.Fiscal;
 using SW.Tools.Services.Sign;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml;
+
 
 namespace Test_SW.Helpers
 {
