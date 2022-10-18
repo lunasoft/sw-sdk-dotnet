@@ -6,35 +6,46 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 
 namespace SW.Services.Pdf
 {
     public abstract class PdfService : Services
     {
-        protected PdfService(string url, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
+        private string _operation;
+        private string _apiUrl;
+        protected PdfService(string urlApi, string url, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
+            _apiUrl = urlApi;
         }
-        protected PdfService(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
+        protected PdfService(string urlApi, string token, string proxy, int proxyPort) : base(urlApi, token, proxy, proxyPort)
         {
+            _apiUrl = urlApi;
         }
-
-        internal virtual MultipartFormDataContent GetMultipartContent(byte[] xml, Dictionary<string, string> ObservacionesAdcionales)
-        {
-            MultipartFormDataContent content = new MultipartFormDataContent();
-            ByteArrayContent fileContent = new ByteArrayContent(xml);
-            content.Add(fileContent, "xml", "xml");
-            content.Add(new StringContent(JsonConvert.SerializeObject(ObservacionesAdcionales, Formatting.Indented)), "extras");
-            return content;
-        }
-        internal virtual Dictionary<string, string> GetHeaders()
+        internal virtual HttpWebRequest RequestPdf(string xml, string logo, string TemplateId, Dictionary<string, string> ObservacionesAdicionales = null)
         {
             this.SetupRequest();
-            Dictionary<string, string> headers = new Dictionary<string, string>() {
-                    { "Authorization", "bearer " + this.Token }
-                };
-            return headers;
+            var request = (HttpWebRequest)WebRequest.Create(_apiUrl + string.Format("/pdf/v1/api/GeneratePdf"));
+            request.ContentType = "application/json";
+            request.Method = WebRequestMethods.Http.Post;
+            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
+            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new PdfRequest()
+            {
+                xmlContent = xml,
+                logo = logo,
+                extras = ObservacionesAdicionales,
+                templateId = TemplateId
+            });
+            byte[] streamLenght = Encoding.UTF8.GetBytes(body);
+            request.ContentLength = streamLenght.Length;
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(body);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+            return request;
         }
     }
 }

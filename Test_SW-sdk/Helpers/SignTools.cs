@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SW.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+
 
 namespace Test_SW.Helpers
 {
@@ -11,7 +13,7 @@ namespace Test_SW.Helpers
         static Random randomNumber = new Random(1);
         public static string SigXml(string xml, byte[] pfx, string password, bool setDate = true)
         {
-            xml = SW.Tools.Fiscal.RemoverCaracteresInvalidosXml(xml);
+            xml = Fiscal.RemoverCaracteresInvalidosXml(xml);
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xml);
             if (setDate)
@@ -20,7 +22,7 @@ namespace Test_SW.Helpers
             }
             doc.DocumentElement.SetAttribute("Folio", DateTime.Now.Ticks.ToString() + randomNumber.Next(100));
             xml = doc.OuterXml;
-            xml = SW.Tools.Sign.SellarCFDIv33(pfx, password, xml);
+            xml = Sign.SellarCFDIv33(pfx, password, xml);
             return xml;
         }
     }

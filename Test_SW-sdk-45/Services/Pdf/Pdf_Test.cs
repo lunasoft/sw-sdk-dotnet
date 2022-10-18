@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,9 +18,9 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf pdf = new Pdf(build.UrlApi, build.Token);
-            var getXml = GetXml(build,null);
+            var getXml = GetXml(build, null);
             var xml = StampXml(build, getXml);
-            var pdfResult = pdf.GenerarPdf(xml,build.Logo, TemplatesId.cfdi40);
+            var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.cfdi40);
             Assert.IsTrue(pdfResult.status == "success");
 
         }
@@ -29,7 +29,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf pdf = new Pdf(build.Url, build.UrlApi, build.User, build.Password);
-            var getXml = GetXml(build,null);
+            var getXml = GetXml(build, null);
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, "cfdi40");
             Assert.IsTrue(pdfResult.status == "success");
@@ -40,7 +40,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf pdf = new Pdf(build.UrlApi, build.Token);
-            var getXml = GetXml(build,null);
+            var getXml = GetXml(build, null);
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.cfdi40, build.observaciones);
             Assert.IsTrue(pdfResult.status == "success");
@@ -51,7 +51,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf pdf = new Pdf(build.UrlApi, build.Token);
-            var getXml = GetXml(build,null);
+            var getXml = GetXml(build, null);
             var xml = StampXml(build, getXml);
             var xmlB64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
             var pdfResult = pdf.GenerarPdf(xmlB64, build.Logo, TemplatesId.cfdi40, null, true);
@@ -63,7 +63,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf pdf = new Pdf(build.UrlApi, build.Token);
-            var getXml = GetXml(build,"pagos20");
+            var getXml = GetXml(build, "pagos20");
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.payment20);
             Assert.IsTrue(pdfResult.status == "success");
@@ -105,7 +105,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf pdf = new Pdf(build.Url, build.UrlApi, build.User, build.Password);
-            var getXml = GetXml(build,null);
+            var getXml = GetXml(build, null);
             var pdfResult = pdf.GenerarPdf(getXml, build.Logo, TemplatesId.cfdi40);
             Assert.IsTrue(pdfResult.status == "error");
 
@@ -122,7 +122,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         }
         private static string GetXml(BuildSettings build, string fileName)
         {
-            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/fileXml"+ fileName+".xml"));
+            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/fileXml" + fileName + ".xml"));
             xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword);
             return xml;
         }
@@ -133,7 +133,7 @@ namespace Pdf_Test.Services.Pdf_Tests
             var response = (StampResponseV2)sellar.TimbrarV2(xml);
             return response.data.cfdi;
         }
-       
+
 
     }
 }
