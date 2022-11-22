@@ -103,47 +103,5 @@ namespace SW.Services.Stamp
             }
             return ConvertionHelper.ConvertV2ToV4Response(response);
         }
-        public virtual StampResponseV4 TimbrarV4Analytics(string xml, string email = null, string customId = null, bool isb64 = false, string[] extras = null)
-        {
-            StampResponseHandlerV2XML handler = new StampResponseHandlerV2XML(xml);
-
-            var xmlBytes = Encoding.UTF8.GetBytes(xml);
-            var headers = GetHeaders(email, customId, extras);
-            var content = GetMultipartContent(xmlBytes);
-            var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-            var response = handler.GetPostResponse(this.Url,
-                            string.Format("v4/cfdi33/{0}/{1}/{2}",
-                            "stamp",
-                            StampTypes.v2.ToString(),
-                            "analytics"), headers, content, proxy);
-            if (response.status == "error")
-            {
-                if (response.message == "CFDI3307 - Timbre duplicado. El customId proporcionado está duplicado.")
-                {
-                    StorageResponseHandler storangeHandler = new StorageResponseHandler();
-                    string uuid = XmlUtils.GetUUIDFromTFD(response.data.tfd);
-                    var xmlFromStorange = storangeHandler.GetResponse(_apiUrl,
-                                            headers, $"datawarehouse/v1/live/{uuid}",
-                                            RequestHelper.ProxySettings(this.Proxy, this.ProxyPort));
-                    var xmlStorange = xmlFromStorange.data.records.ElementAtOrDefault(0)?.urlXml;
-                    if (string.IsNullOrEmpty(xmlStorange))
-                    {
-                        return new StampResponseV4()
-                        {
-                            data = null,
-                            message = "No es posible obtener el url para descargar el XML",
-                            status = "error",
-                            messageDetail = "No esta disponible el URL de descarga del XML, intente más tarde"
-                        };
-                    }
-                    var dataResult = DowloadFile.DowloadFileAsync(xmlStorange, RequestHelper.ProxySettings(this.Proxy, this.ProxyPort));
-                    dataResult.data.tfd = response.data.tfd;
-                    dataResult.message = response.message;
-                    return ConvertionHelper.ConvertV2ToV4Response(dataResult);
-                }
-                return ConvertionHelper.ConvertV2ToV4Response(response);
-            }
-            return ConvertionHelper.ConvertV2ToV4Response(response);
-        }
     }
 }
