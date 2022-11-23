@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Services\Pendings\Pendings_Test.cs" />
     <Compile Include="Services\Relations\Relations_Test.cs" />
+    <Compile Include="Services\Resend\Resend_Test.cs" />
     <Compile Include="Services\Stamp\StampV2_Test.cs" />
     <Compile Include="Services\Stamp\StampV4XML_test.cs" />
     <Compile Include="Services\Stamp\StampV4Analytics_Test.cs" />
