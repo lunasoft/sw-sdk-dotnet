@@ -134,6 +134,12 @@
     <Compile Include="Services\Relations\RelationsResponse.cs" />
     <Compile Include="Services\Relations\RelationsResponseHandler.cs" />
     <Compile Include="Services\Relations\RelationsService.cs" />
+    <Compile Include="Services\Resend\BaseResend.cs" />
+    <Compile Include="Services\Resend\Resend.cs" />
+    <Compile Include="Services\Resend\ResendRequest.cs" />
+    <Compile Include="Services\Resend\ResendResponse.cs" />
+    <Compile Include="Services\Resend\ResendResponseHandler.cs" />
+    <Compile Include="Services\Resend\ResendService.cs" />
     <Compile Include="Services\ResponseHandler.cs" />
     <Compile Include="Services\Services.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
