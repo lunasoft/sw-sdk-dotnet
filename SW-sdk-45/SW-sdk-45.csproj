@@ -140,7 +140,6 @@
     <Compile Include="Services\Stamp\BaseStampV2.cs" />
     <Compile Include="Services\Stamp\BaseStamp.cs" />
     <Compile Include="Services\Stamp\BaseStampV4.cs" />
-    <Compile Include="Services\Stamp\BaseStampV4Analytics.cs" />
     <Compile Include="Services\Stamp\BaseStampV4XML.cs" />
     <Compile Include="Services\Stamp\StampServiceV4.cs" />
     <Compile Include="Services\Stamp\StampV2.cs" />
@@ -150,7 +149,6 @@
     <Compile Include="Services\Stamp\StampService.cs" />
     <Compile Include="Helpers\StampTypes.cs" />
     <Compile Include="Services\Stamp\StampV4.cs" />
-    <Compile Include="Services\Stamp\StampV4Analytics.cs" />
     <Compile Include="Services\Stamp\StampV4XML.cs" />
     <Compile Include="Services\Stamp\StampValidation.cs" />
     <Compile Include="Services\Status\Status.cs" />
