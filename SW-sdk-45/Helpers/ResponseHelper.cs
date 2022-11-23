@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SW.Services.Storage;
+using SW.Services.Resend;
 
 namespace SW.Helpers
 {
@@ -119,6 +120,15 @@ namespace SW.Helpers
         internal static PendingsResponse ToPendingsResponse(this Exception ex)
         {
             return new PendingsResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static ResendResponse ToResendResponse(this Exception ex)
+        {
+            return new ResendResponse()
             {
                 message = ex.Message,
                 status = "error",
