@@ -22,7 +22,6 @@ namespace Pdf_Test.Services.Pdf_Tests
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml,build.Logo, TemplatesId.cfdi40);
             Assert.IsTrue(pdfResult.status == "success");
-
         }
         [TestMethod]
         public void UT_GeneratePdf_User()
@@ -33,7 +32,6 @@ namespace Pdf_Test.Services.Pdf_Tests
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, "cfdi40");
             Assert.IsTrue(pdfResult.status == "success");
-
         }
         [TestMethod]
         public void UT_GeneratePdf_Extras()
@@ -44,7 +42,6 @@ namespace Pdf_Test.Services.Pdf_Tests
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.cfdi40, build.observaciones);
             Assert.IsTrue(pdfResult.status == "success");
-
         }
         [TestMethod]
         public void UT_GeneratePdf_isb64true()
@@ -56,7 +53,6 @@ namespace Pdf_Test.Services.Pdf_Tests
             var xmlB64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
             var pdfResult = pdf.GenerarPdf(xmlB64, build.Logo, TemplatesId.cfdi40, null, true);
             Assert.IsTrue(pdfResult.status == "success");
-
         }
         [TestMethod]
         public void UT_GeneratePdf_Pagos20()
@@ -67,7 +63,6 @@ namespace Pdf_Test.Services.Pdf_Tests
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.payment20);
             Assert.IsTrue(pdfResult.status == "success");
-
         }
         [TestMethod]
         public void UT_GeneratePdf_Carta_Porte20()
@@ -78,7 +73,6 @@ namespace Pdf_Test.Services.Pdf_Tests
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.billoflading40);
             Assert.IsTrue(pdfResult.status == "success");
-
         }
         [TestMethod]
         public void UT_GeneratePdf_Nomina40()
@@ -89,7 +83,6 @@ namespace Pdf_Test.Services.Pdf_Tests
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.payroll40);
             Assert.IsTrue(pdfResult.status == "success");
-
         }
         [TestMethod]
         public void UT_GeneratePdf_EmptyXML_Error()
@@ -98,7 +91,6 @@ namespace Pdf_Test.Services.Pdf_Tests
             Pdf pdf = new Pdf(build.UrlApi, build.Token);
             var pdfResult = pdf.GenerarPdf(null, build.Logo, TemplatesId.cfdi40, build.observaciones);
             Assert.IsTrue(pdfResult.status == "error");
-
         }
         [TestMethod]
         public void UT_GeneratePdf_NTFD_Error()
