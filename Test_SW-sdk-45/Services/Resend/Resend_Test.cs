@@ -16,7 +16,7 @@ namespace Resend_Test.Services.Resend_Tests
         public void UT_ResendEmail_Null()
         {
             var build = new BuildSettings();
-            Resend resend = new Resend(build.Url, build.UrlApi, "fernando.carrillo@sw.com.mx", "Nano+SW.2022");
+            Resend resend = new Resend(build.Url, build.UrlApi, build.User, build.Password);
             var resendResult = resend.ResendEmail(Guid.Parse("b711186a-8452-4206-9fec-1b14baad281e"), null);
             Assert.IsTrue(resendResult.status == "error");
         }
