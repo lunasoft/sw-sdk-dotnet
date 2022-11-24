@@ -788,6 +788,47 @@ namespace ExampleSDK
     }
 }
 ```
+# Reenvio Email #
+Este metodo realiza el reenvío de un xml y/o pdf existente mediante su UUID
+a través de correo electrónico.
+
+Este metodo recibe los siguientes parametros:
+* UUID: Folico fiscal del comprobante timbrado
+* email: Correo electrónico (máximo 5 correos separados por ” , ” )
+
+**Ejemplo de consumo de la librería para la consulta**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.Resend;
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+		//Creamos una instancia de tipo Resend
+		//A esta le pasamos el UrlAPi, asi como nuestro token
+		Resend resend = new Resend("https://api.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+		//Creamos una array con los correos (Max. 5 correos, separados por ",")
+		string[] email = {"prueba@test.com"};
+		//Automaticamente recibiremos a nuestro correo el XML y/o PDF existente
+		var response = resend.ResendEmail(Guid.Parse("b711186a-8452-4206-9fec-1b14baad281e"), email);
+                //Para obtener el estatus
+                Console.WriteLine(response.status);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
 
 # Consulta Estatus SAT #
 Este metodo recibe los siguientes parametros:
