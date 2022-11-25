@@ -15,7 +15,7 @@ namespace Resend_Test.Services.Resend_Tests
         public void UT_ResendEmail_Null()
         {
             var build = new BuildSettings();
-            Resend resend = new Resend(build.Url, build.UrlApi, build.User, build.Password);
+            Resend resend = new Resend(build.UrlApi, build.Url, build.User, build.Password);
             var resendResult = resend.ResendEmail(Guid.Parse("b711186a-8452-4206-9fec-1b14baad281e"), null);
             Assert.IsTrue(resendResult.status == "error");
         }
@@ -26,7 +26,7 @@ namespace Resend_Test.Services.Resend_Tests
             string[] email = {
                 " "
             };
-            Resend resend = new Resend(build.Url, build.UrlApi, build.User, build.Password);
+            Resend resend = new Resend(build.UrlApi, build.Url, build.User, build.Password);
             var resendResult = resend.ResendEmail(Guid.Parse("b711186a-8452-4206-9fec-1b14baad281e"), email);
             Assert.IsTrue(resendResult.status == "error");
         }
@@ -48,7 +48,7 @@ namespace Resend_Test.Services.Resend_Tests
             string[] email = {
                 "prueba@test.com"
             };
-            Resend resend = new Resend(build.Url, build.UrlApi, build.User, build.Password);
+            Resend resend = new Resend( build.UrlApi, build.Url, build.User, build.Password);
             var resendResult = resend.ResendEmail(Guid.Parse("b711186a-8452-4206-9fec-1b14baad281e"), email);
             Assert.IsTrue(resendResult.status == "success");
         }
@@ -63,7 +63,7 @@ namespace Resend_Test.Services.Resend_Tests
                 "prueba@test.com",
                 "prueba@test.com",
             };
-            Resend resend = new Resend(build.Url, build.UrlApi, build.User, build.Password);
+            Resend resend = new Resend(build.UrlApi, build.Url, build.User, build.Password);
             var resendResult = resend.ResendEmail(Guid.Parse("b711186a-8452-4206-9fec-1b14baad281e"), email);
             Assert.IsTrue(resendResult.status == "success");
         }
@@ -74,7 +74,7 @@ namespace Resend_Test.Services.Resend_Tests
             string[] email = {
                 "mail.com"
             };
-            Resend resend = new Resend(build.Url, build.UrlApi, build.User, build.Password);
+            Resend resend = new Resend(build.UrlApi, build.Url, build.User, build.Password);
             var resendResult = resend.ResendEmail(Guid.Parse("b711186a-8452-4206-9fec-1b14baad281e"), email);
             Assert.IsTrue(resendResult.status == "error");
         }
@@ -90,7 +90,7 @@ namespace Resend_Test.Services.Resend_Tests
                 "prueba@test.com",
                 "prueba@test.com"
             };
-            Resend resend = new Resend(build.Url, build.UrlApi, build.User, build.Password);
+            Resend resend = new Resend(build.UrlApi, build.Url, build.User, build.Password);
             var resendResult = resend.ResendEmail(Guid.Parse("b711186a-8452-4206-9fec-1b14baad281e"), email);
             Assert.IsTrue(resendResult.status == "error");
         }
