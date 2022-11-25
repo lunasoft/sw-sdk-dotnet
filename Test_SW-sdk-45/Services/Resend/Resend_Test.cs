@@ -19,6 +19,7 @@ namespace Resend_Test.Services.Resend_Tests
             Resend resend = new Resend(build.Url, build.UrlApi, build.User, build.Password);
             var resendResult = resend.ResendEmail(Guid.Parse("b711186a-8452-4206-9fec-1b14baad281e"), null);
             Assert.IsTrue(resendResult.status == "error");
+
         }
         [TestMethod]
         public void UT_ResendEmail_Empty()
