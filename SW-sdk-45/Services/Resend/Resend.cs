@@ -17,7 +17,7 @@ namespace SW.Services.Resend
         /// <param name="password">Contraseña.</param>
         /// <param name="proxyPort">Puerto proxy.</param>
         /// <param name="proxy">Proxy.</param>
-        public Resend(string url, string urlApi, string user, string password, int proxyPort = 0, string proxy = null) : base(url, urlApi, user, password, proxy, proxyPort)
+        public Resend(string urlApi,  string url, string user, string password, int proxyPort = 0, string proxy = null) : base(urlApi, url, user, password, proxy, proxyPort)
         {
         }
         /// <summary>

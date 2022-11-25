@@ -11,7 +11,7 @@ namespace SW.Services.Resend
         public BaseResend(string urlApi, string token, string proxy, int proxyPort) : base(urlApi, token, proxy, proxyPort)
     {
     }
-        public BaseResend(string urlApi, string url, string user, string password, string proxy, int proxyPort) : base(url, urlApi, user, password, proxy, proxyPort)
+        public BaseResend(string urlApi, string url, string user, string password, string proxy, int proxyPort) : base(urlApi, url, user, password, proxy, proxyPort)
         {
         }
         /// <summary>
