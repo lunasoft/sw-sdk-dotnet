@@ -20,7 +20,6 @@ namespace SW.Services.Resend
         {
             _apiUrl = urlApi;
         }
-
         internal virtual HttpWebRequest RequestResend(Guid uuid, string email)
         {
             this.SetupRequest();

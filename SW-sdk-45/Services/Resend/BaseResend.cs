@@ -18,7 +18,7 @@ namespace SW.Services.Resend
         /// <summary>
         /// Servicio para realizar el reenvio del XML y el PDF.
         /// </summary>
-        /// <param name="uuid">UUID .</param>
+        /// <param name="uuid">UUID.</param>
         /// <param name="emails">Listado de correos (Maximo 5).</param>
         /// <returns></returns>
         public virtual ResendResponse ResendEmail(Guid uuid, string[] emails)
