@@ -98,7 +98,6 @@
     <Compile Include="Services\Resend\Resend_Test.cs" />
     <Compile Include="Services\Stamp\StampV2_Test.cs" />
     <Compile Include="Services\Stamp\StampV4XML_test.cs" />
-    <Compile Include="Services\Stamp\StampV4Analytics_Test.cs" />
     <Compile Include="Services\Stamp\Stamp_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Stamp\StampV4_Test.cs" />
