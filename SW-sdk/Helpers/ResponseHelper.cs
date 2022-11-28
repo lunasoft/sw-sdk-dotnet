@@ -7,6 +7,7 @@ using SW.Services.Csd;
 using SW.Services.Pdf;
 using SW.Services.Pendings;
 using SW.Services.Relations;
+using SW.Services.Resend;
 using SW.Services.Stamp;
 using SW.Services.Storage;
 using SW.Services.Taxpayer;
@@ -120,6 +121,15 @@ namespace SW.Helpers
         internal static PendingsResponse ToPendingsResponse(this Exception ex)
         {
             return new PendingsResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static ResendResponse ToResendResponse(this Exception ex)
+        {
+            return new ResendResponse()
             {
                 message = ex.Message,
                 status = "error",
