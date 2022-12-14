@@ -139,6 +139,7 @@ namespace Pdf_Test.Services.Pdf_Tests
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
             var response = regeneratePdf.RegenerarPdf(new Guid("a519df30-f591-4c33-bbb9-277df20597e9"));
+            Assert.IsTrue(response.status == "success");
             Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
         }
 
@@ -148,6 +149,7 @@ namespace Pdf_Test.Services.Pdf_Tests
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Token);
             var response = regeneratePdf.RegenerarPdf(new Guid("3f7477b2-6cca-45af-95f9-e4ca3d8fe68d"));
+            Assert.IsTrue(response.status == "success");
             Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
         }
 
