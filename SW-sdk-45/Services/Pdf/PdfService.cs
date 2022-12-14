@@ -14,14 +14,38 @@ namespace SW.Services.Pdf
     {
         private string _operation;
         private string _apiUrl;
+        /// <summary>
+        /// Crear una instancia para PdfService heredado de Services
+        /// </summary>
+        /// <param name="urlApi">Url de la API</param>
+        /// <param name="url">Url de Services</param>
+        /// <param name="user">Correo del usuario</param>
+        /// <param name="password">Contraseña del usuario</param>
+        /// <param name="proxy">Proxy </param>
+        /// <param name="proxyPort">Puerto proxy</param>
         protected PdfService(string urlApi, string url, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
             _apiUrl = urlApi;
         }
+        /// <summary>
+        /// Crear una instancia para PdfService heredado de Services
+        /// </summary>
+        /// <param name="urlApi">Url de la API</param>
+        /// <param name="token">Token de la cuenta del usuario</param>
+        /// <param name="proxy">Proxy </param>
+        /// <param name="proxyPort">Puerto proxy</param>
         protected PdfService(string urlApi, string token, string proxy, int proxyPort) : base(urlApi, token, proxy, proxyPort)
         {
             _apiUrl = urlApi;
         }
+        /// <summary>
+        /// Peticion post para generar PDF de un comprobante previamente timbrado.
+        /// </summary>
+        /// <param name="xml">XML con formato UTF-8 del comprobante del cual se requiere el PDF </param>
+        /// <param name="logo">El logotipo en base 64 .</param>
+        /// <param name="TemplateId">XML con formato UTF-8 del comprobante del cual se requiere el PDF </param>
+        /// <param name="ObservacionesAdicionales">Informacion extra </param>
+        /// <returns>request</returns>
         internal virtual HttpWebRequest RequestPdf(string xml, string logo, string TemplateId, Dictionary<string, string> ObservacionesAdicionales = null)
         {
             this.SetupRequest();
@@ -47,6 +71,11 @@ namespace SW.Services.Pdf
             }
             return request;
         }
+        /// <summary>
+        /// Peticion post para regenerar PDF de un comprobante previamente timbrado.
+        /// </summary>
+        /// <param name="uuid">Folio fiscal del comprobante.</param>
+        /// <returns>request</returns>
         internal virtual HttpWebRequest RequestRegeneratePdf(Guid uuid)
         {
             this.SetupRequest();
