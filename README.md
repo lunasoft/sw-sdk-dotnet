@@ -1485,7 +1485,7 @@ using System;
 using System.IO;
 using System.Text;
 using SW.Helpers;
-using SW.Services.RegeneratePdf;
+using SW.Services.Pdf;
 
 namespace ExampleSDK
 {
@@ -1497,11 +1497,11 @@ namespace ExampleSDK
             {
                 //UUID del Xml al que quieres que se genere o regenere el PDF
                 Guid uuid = "01724196-ac5a-4735-b621-e3b42bcbb459";
-                //Creamos una instancia de tipo RegeneratePdf
+                //Creamos una instancia de tipo Pdf
                 //A esta le pasamos la UrlApi, Url, Usuario y Contraseña para obtener el token
-                RegeneratePdf regeneratePdf = new RegeneratePdf("https://api.test.sw.com.mx", "https://services.test.sw.com.mx", "user", "password");
+                Pdf regeneratePdf = new Pdf("https://api.test.sw.com.mx", "https://services.test.sw.com.mx", "user", "password");
                 //Realizamos la petición de regenerar el pdf.
-                RegeneratePdfResponse response = regeneratePdf.GetByUUID(uuid);
+                PdfResponse response = regeneratePdf.RegenerarPdf(uuid);
                 //Obtenemos el detalle de la respuesta
                  Console.WriteLine(response.status);
                  Console.WriteLine(response.message);
