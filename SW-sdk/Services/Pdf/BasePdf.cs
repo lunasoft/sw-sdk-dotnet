@@ -12,7 +12,7 @@ namespace SW.Services.Pdf
         public BasePdf(string urlApi, string token, string proxy, int proxyPort) : base( urlApi,token, proxy, proxyPort)
         {
         }
-        public BasePdf(string urlApi, string url, string user, string password, string proxy, int proxyPort) : base(url, urlApi, user, password, proxy, proxyPort)
+        public BasePdf(string urlApi, string url, string user, string password, string proxy, int proxyPort) : base(urlApi, url, user, password, proxy, proxyPort)
         {
         }
 
@@ -67,6 +67,18 @@ namespace SW.Services.Pdf
             }
 
         }
-
+        public virtual PdfResponse RegenerarPdf(Guid uuid) {
+            PdfResponseHandler handler = new PdfResponseHandler();
+            try
+            {
+                new Validation(Url, User, Password, Token).ValidateHeaderParameters();
+                var request = this.RequestRegeneratePdf(uuid);
+                return handler.GetResponse(request);
+            }
+            catch (Exception e)
+            {
+                return handler.HandleException(e);
+            }
+        }
     }
 }

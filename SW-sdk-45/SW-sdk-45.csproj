@@ -128,10 +128,6 @@
     <Compile Include="Services\Pendings\PendingsResponse.cs" />
     <Compile Include="Services\Pendings\PendingsResponseHandler.cs" />
     <Compile Include="Services\Pendings\PendingsService.cs" />
-    <Compile Include="Services\RegeneratePdf\RegeneratePdf.cs" />
-    <Compile Include="Services\RegeneratePdf\RegeneratePdfResponse.cs" />
-    <Compile Include="Services\RegeneratePdf\RegeneratePdfResponseHandler.cs" />
-    <Compile Include="Services\RegeneratePdf\RegeneratePdfService.cs" />
     <Compile Include="Services\Relations\Relations.cs" />
     <Compile Include="Services\Relations\RelationsRequestCSD.cs" />
     <Compile Include="Services\Relations\RelationsRequestPFX.cs" />

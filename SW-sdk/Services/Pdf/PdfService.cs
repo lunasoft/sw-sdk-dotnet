@@ -18,6 +18,7 @@ namespace SW.Services.Pdf
         {
             _apiUrl = urlApi;
         }
+        
         protected PdfService(string urlApi, string token, string proxy, int proxyPort) : base(urlApi, token, proxy, proxyPort)
         {
             _apiUrl = urlApi;
@@ -45,6 +46,19 @@ namespace SW.Services.Pdf
                 streamWriter.Flush();
                 streamWriter.Close();
             }
+            return request;
+        }
+        
+        internal virtual HttpWebRequest RequestRegeneratePdf(Guid uuid)
+        {
+            this.SetupRequest();
+            string path = $"/pdf/v1/api/RegeneratePdf/{uuid}";
+            var request = (HttpWebRequest)WebRequest.Create(this._apiUrl + path);
+            request.ContentType = "application/json";
+            request.ContentLength = 0;
+            request.Method = WebRequestMethods.Http.Post;
+            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
             return request;
         }
     }
