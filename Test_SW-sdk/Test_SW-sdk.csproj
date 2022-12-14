@@ -93,7 +93,6 @@
     <Compile Include="Services\Issue\Issue_Test.cs" />
     <Compile Include="Services\Pdf\Pdf_Test.cs" />
     <Compile Include="Services\Pendings\Pendings_Test.cs" />
-    <Compile Include="Services\RegeneratePdf\RegeneratePdf_Test.cs" />
     <Compile Include="Services\Relations\Relations_Test.cs" />
     <Compile Include="Services\Resend\Resend_Test.cs" />
     <Compile Include="Services\Stamp\StampV2_Test.cs" />
