@@ -15,8 +15,6 @@ using System.Linq;
 using System.Text;
 using SW.Services.Storage;
 using SW.Services.Resend;
-using SW.Services.RegeneratePdf;
-
 namespace SW.Helpers
 {
     internal static class ResponseHelper
@@ -184,15 +182,6 @@ namespace SW.Helpers
         internal static StorageResponse ToStorageResponse(this Exception ex)
         {
             return new StorageResponse()
-            {
-                message = ex.Message,
-                status = "error",
-                messageDetail = ex.GetErrorDetail()
-            };
-        }
-        internal static RegeneratePdfResponse ToRegeneratePdfResponse(this Exception ex)
-        {
-            return new RegeneratePdfResponse()
             {
                 message = ex.Message,
                 status = "error",
