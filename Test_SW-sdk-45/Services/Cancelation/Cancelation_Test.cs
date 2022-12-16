@@ -18,7 +18,7 @@ namespace Test_SW.Services.Cancelation_Test_45
     {
         private const string uuid = "e61b1d91-b4f5-4af7-b39d-8731ba06a23c";
         [TestMethod]
-        [Ignore]]
+        [Ignore]
         public void Cancelation_Test_45_CancelationByCSD()
         {
             var build = new BuildSettings();
