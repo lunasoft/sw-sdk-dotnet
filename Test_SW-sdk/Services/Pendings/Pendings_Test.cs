@@ -21,6 +21,7 @@ namespace Test_SW.Services.Pendings
             Assert.IsTrue(response.message.Contains((string)resultExpect) || response.status != "success");
         }
         [TestMethod]
+        [Ignore]
         public void RelationsByRfcUuid()
         {
             var build = new BuildSettings();
