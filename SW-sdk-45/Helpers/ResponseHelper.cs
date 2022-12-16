@@ -15,7 +15,6 @@ using System.Linq;
 using System.Text;
 using SW.Services.Storage;
 using SW.Services.Resend;
-
 namespace SW.Helpers
 {
     internal static class ResponseHelper
