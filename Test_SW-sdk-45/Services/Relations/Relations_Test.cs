@@ -20,6 +20,7 @@ namespace Test_SW.Services.Relations_Test
             Assert.IsTrue(response.messageDetail.Contains((string)resultExpect));
         }
         [TestMethod]
+        [Ignore]
         public void RelationsByRfcUuid()
         {
             var build = new BuildSettings();
@@ -28,6 +29,7 @@ namespace Test_SW.Services.Relations_Test
             Assert.IsTrue(response.status == "success");
         }
         [TestMethod]
+        [Ignore]
         public void RelationsByCSD()
         {
             var build = new BuildSettings();
@@ -36,6 +38,7 @@ namespace Test_SW.Services.Relations_Test
             Assert.IsTrue(response.status == "success");
         }
         [TestMethod]
+        [Ignore]
         public void RelationsRejectByPfx()
         {
             var build = new BuildSettings();

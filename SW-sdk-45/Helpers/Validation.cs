@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Net.Mail;
 
 namespace SW.Helpers
 {
@@ -51,6 +52,21 @@ namespace SW.Helpers
             {
                 throw new ServicesException("Token Mal Formado");
             }
+        }
+        internal static bool ValidateEmail(string[] emails)
+        {
+            try
+            {
+                foreach (string email in emails)
+                {
+                    new MailAddress(email);
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

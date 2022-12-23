@@ -788,6 +788,47 @@ namespace ExampleSDK
     }
 }
 ```
+# Reenvio Email #
+Este metodo realiza el reenvío de un xml y/o pdf existente mediante su UUID
+a través de correo electrónico.
+
+Este metodo recibe los siguientes parametros:
+* UUID: Folico fiscal del comprobante timbrado
+* email: Correo electrónico (máximo 5 correos separados por ” , ” )
+
+**Ejemplo de consumo de la librería para la consulta**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.Resend;
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+		//Creamos una instancia de tipo Resend
+		//A esta le pasamos el UrlAPi, asi como nuestro token
+		Resend resend = new Resend("https://api.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+		//Creamos una array con los correos (Max. 5 correos, separados por ",")
+		string[] email = {"prueba@test.com"};
+		//Automaticamente recibiremos a nuestro correo el XML y/o PDF existente
+		var response = resend.ResendEmail(Guid.Parse("b711186a-8452-4206-9fec-1b14baad281e"), email);
+                //Para obtener el estatus
+                Console.WriteLine(response.status);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
 
 # Consulta Estatus SAT #
 Este metodo recibe los siguientes parametros:
@@ -1432,6 +1473,52 @@ namespace ExampleSDK
     }
 }
 ```
+
+## Regenerar PDF ##
+El servicio podrá generar o regenerar un PDF de un CFDI previamente timbrados y podrá guardar o remplazar el archivo PDF para ser visualizado posteriormente desde el portal de Smarter. Puede ser consumido ingresando tu usuario y contraseña así como tambien ingresando solo el token.
+Este método recibe los siguientes parámetros:
+* Url servicios SW(cuando se añaden usuario y contraseña)
+* Url Api
+
+**Ejemplo de consumo de la librería para la utilización**
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.Pdf;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+      static void Main(string[] args)
+        {
+            try
+            {
+                //UUID del Xml al que quieres que se genere o regenere el PDF
+                Guid uuid = "01724196-ac5a-4735-b621-e3b42bcbb459";
+                //Creamos una instancia de tipo Pdf
+                //A esta le pasamos la UrlApi, Url, Usuario y Contraseña para obtener el token
+                Pdf regeneratePdf = new Pdf("https://api.test.sw.com.mx", "https://services.test.sw.com.mx", "user", "password");
+                //Realizamos la petición de regenerar el pdf.
+                PdfResponse response = regeneratePdf.RegenerarPdf(uuid);
+                //Obtenemos el detalle de la respuesta
+                 Console.WriteLine(response.status);
+                 Console.WriteLine(response.message);
+                 Console.WriteLine(response.messageDetail);
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+
+
+```
+
 Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
 
 Si deseas contribuir a la libreria o tienes dudas envianos un correo a **soporte@sw.com.mx**.

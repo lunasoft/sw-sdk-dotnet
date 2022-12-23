@@ -18,6 +18,7 @@ namespace Test_SW.Services.Cancelation_Test_45
     {
         private const string uuid = "e61b1d91-b4f5-4af7-b39d-8731ba06a23c";
         [TestMethod]
+        [Ignore]
         public void Cancelation_Test_45_CancelationByCSD()
         {
             var build = new BuildSettings();
@@ -26,6 +27,7 @@ namespace Test_SW.Services.Cancelation_Test_45
             Assert.IsTrue(response.data.acuse != null && response.status == "success");
         }
         [TestMethod]
+        [Ignore]
         public void Cancelation_Test_45_CancelationByRfcUuid()
         {
             var build = new BuildSettings();
@@ -35,6 +37,7 @@ namespace Test_SW.Services.Cancelation_Test_45
         }
 
         [TestMethod]
+        [Ignore]
         public void Cancelation_Test_45_CancelationByPFX()
         {
             var build = new BuildSettings();
@@ -42,8 +45,9 @@ namespace Test_SW.Services.Cancelation_Test_45
             CancelationResponse response = cancelation.CancelarByPFX(build.Pfx, build.Rfc, build.CerPassword, uuid, "02");
             Assert.IsTrue(response != null && response.status == "success");
         }
-        
+
         [TestMethod]
+        [Ignore]
         public void Cancelation_Test_45_CancelationByXML()
         {
             var build = new BuildSettings();

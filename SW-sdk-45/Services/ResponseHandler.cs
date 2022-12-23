@@ -176,7 +176,8 @@ namespace SW.Services
             {
                 if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
+                    var stringResult = response.Content.ReadAsStringAsync().Result;
+                    return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(stringResult);
                 }
                 else
                     return new T()
