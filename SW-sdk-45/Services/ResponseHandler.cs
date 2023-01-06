@@ -174,7 +174,7 @@ namespace SW.Services
         {
             try
             {
-                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest)
+                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest|| response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     var stringResult = response.Content.ReadAsStringAsync().Result;
                     return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(stringResult);
