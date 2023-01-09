@@ -59,7 +59,7 @@ namespace Test_SW
             Stamp stamp = new Stamp(Build.Url, Build.Token + "FakeToken");
             string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
             var response = (StampResponseV1)stamp.TimbrarV1(xml);
-            Assert.IsTrue(response.message.Contains("401"));
+            Assert.IsTrue(response.message.Contains("Firma inválidad."));
         }
         [TestMethod]
         public void UT_Service_Validation_45_404()

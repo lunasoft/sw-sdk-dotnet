@@ -100,22 +100,20 @@ namespace Test_SW.Services.Stamp_Test
         [TestMethod]
         public void ValidateFormatToken()
         {
-            var resultExpect = "Token Mal Formado";
             var build = new BuildSettings();
             StampV2 stamp = new StampV2(build.Url, build.Token + ".");
             var xml = File.ReadAllText("Resources/file.xml");
             var response = stamp.TimbrarV1(xml);
-            Assert.IsTrue(response.message.Contains("401"), (string)resultExpect);
+            Assert.IsTrue(response.message.Contains("El token debe contener 3 partes"));
         }
         [TestMethod]
         public void ValidateExistToken()
         {
-            var resultExpect = "401 Unauthorized";
             var build = new BuildSettings();
             StampV2 stamp = new StampV2(build.Url, "");
             var xml = File.ReadAllText("Resources/file.xml");
             var response = stamp.TimbrarV1(xml);
-            Assert.IsTrue(response.message.Contains("401"), (string)resultExpect);
+            Assert.IsTrue(response.message.Contains("El token debe contener 3 partes"));
         }
         [TestMethod]
         public void ValidateEmptyXML()
