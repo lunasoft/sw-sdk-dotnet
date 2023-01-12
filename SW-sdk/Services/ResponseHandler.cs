@@ -31,7 +31,7 @@ namespace SW.Services
         {
             try
             {
-                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest)
+                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest || response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     using (var responseStream = response.GetResponseStream())
                     using (StreamReader reader = new StreamReader(responseStream))
