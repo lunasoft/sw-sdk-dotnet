@@ -357,6 +357,18 @@ namespace Test_SW.Services.StampV4_Test
             Assert.IsTrue(response.status == "error");
             Assert.IsTrue(response.message == "El CustomId no es válido");
         }
+        [TestMethod]
+        public void Stamp_Test_StampV4XMLV1_InvalidCustomId_Empty()
+        {
+            var build = new BuildSettings();
+            StampV4 stamp = new StampV4(build.Url, build.User, build.Password);
+            var customId = Guid.NewGuid().ToString();
+            customId = "";
+            var xml = GetXml(build);
+            var response = (StampResponseV1)stamp.TimbrarV1(xml, null, customId);
+            Assert.IsTrue(response.status == "error");
+            Assert.IsTrue(response.message == "El CustomId viene vacío.");
+        }
         private string GetXml(BuildSettings build, string fileName = null, bool setDate = true)
         {
             var xml = Encoding.UTF8.GetString(File.ReadAllBytes(fileName ?? "Resources/file.xml"));
