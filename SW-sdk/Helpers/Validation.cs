@@ -68,7 +68,7 @@ namespace SW.Helpers
         }
         internal static void ValidateCustomId(string customId)
         {
-            if (customId.Length > 150 || customId.Length <= 0)
+            if (customId.Length > 150 )
             {
                 throw new ServicesException("El CustomId no es válido");
             }
