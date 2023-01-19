@@ -41,7 +41,6 @@ namespace SW.Services.Stamp
                 }
                 else
                 {
-                    customId = customId;
                     request.Headers.Add("customid", customId);
                 }
             }

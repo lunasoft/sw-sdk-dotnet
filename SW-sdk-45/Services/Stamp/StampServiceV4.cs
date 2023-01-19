@@ -33,10 +33,6 @@ namespace SW.Services.Stamp
                 {
                     customId = customId.HashTo256();
                 }
-                else
-                {
-                    customId = customId;
-                }
             }
             this.SetupRequest();
             Dictionary<string, string> headers = new Dictionary<string, string>() {
