@@ -37,13 +37,14 @@ namespace SW.Services.Stamp
                 if (customId.Length > 100)
                 {
                     customId = customId.HashTo256();
+                    request.Headers.Add("customid", customId);
                 }
                 else
                 {
                     customId = customId;
+                    request.Headers.Add("customid", customId);
                 }
             }
-            request.Headers.Add("customid", customId);
             request.ContentLength = xml != null ? xml.Length : 0;
             Helpers.RequestHelper.AddFileToRequest(xml, ref request);
             return request;
