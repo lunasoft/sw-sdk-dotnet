@@ -66,5 +66,16 @@ namespace SW.Helpers
             }
             return true;
         }
+        internal static void ValidateCustomId(string customId)
+        {
+            if (customId.Length > 150 || customId.Length <= 0)
+            {
+                throw new ServicesException("El CustomId no es válido");
+            }
+            else if (customId.Length <= 0)
+            {
+                throw new ServicesException("El CustomId viene vacío.");
+            }
+        }
     }
 }
