@@ -7,6 +7,7 @@ using SW.Helpers;
 using SW.Services.Stamp;
 using Test_SW.Helpers;
 using System.Xml;
+using System.Linq;
 
 namespace Test_SW.Services.StampV4_Test
 {
@@ -327,6 +328,46 @@ namespace Test_SW.Services.StampV4_Test
             var response = (StampResponseV4)stamp.TimbrarV4(xml, null, rnd.Next().ToString(), true);
             Assert.IsTrue(response != null, "El resultado viene vacio.");
             Assert.IsTrue(response.status == "error");
+        }
+        [TestMethod]
+        public void Stamp_Test_StampV4XMLV1_HashedCustomId_IdDuplicado_Error()
+        {
+            var build = new BuildSettings();
+            StampV4 stamp = new StampV4(build.Url, build.User, build.Password);
+            var customId = Guid.NewGuid().ToString();
+            customId = string.Concat(Enumerable.Repeat(customId, 4));
+            var xml = GetXml(build);
+            var response = (StampResponseV1)stamp.TimbrarV1(xml, null, customId);
+            Assert.IsTrue(response.status == "success"
+                && !string.IsNullOrEmpty(response.data.tfd), "El resultado data.tfd viene vacio.");
+            xml = GetXml(build);
+            response = (StampResponseV1)stamp.TimbrarV1(xml, null, customId);
+            Assert.IsTrue(response.status == "error");
+            Assert.IsTrue(response.message == "CFDI3307 - Timbre duplicado. El customId proporcionado está duplicado.");
+        }
+        [TestMethod]
+        public void Stamp_Test_StampV4XMLV1_InvalidCustomId_Error()
+        {
+            var build = new BuildSettings();
+            StampV4 stamp = new StampV4(build.Url, build.User, build.Password);
+            var customId = Guid.NewGuid().ToString();
+            customId = string.Concat(Enumerable.Repeat(customId, 10));
+            var xml = GetXml(build);
+            var response = (StampResponseV1)stamp.TimbrarV1(xml, null, customId);
+            Assert.IsTrue(response.status == "error");
+            Assert.IsTrue(response.message == "El CustomId no es válido");
+        }
+        [TestMethod]
+        public void Stamp_Test_StampV4XMLV1_InvalidCustomId_Empty()
+        {
+            var build = new BuildSettings();
+            StampV4 stamp = new StampV4(build.Url, build.User, build.Password);
+            var customId = Guid.NewGuid().ToString();
+            customId = "";
+            var xml = GetXml(build);
+            var response = (StampResponseV1)stamp.TimbrarV1(xml, null, customId);
+            Assert.IsTrue(response.status == "error");
+            Assert.IsTrue(response.message == "El CustomId viene vacío.");
         }
         private string GetXml(BuildSettings build, string fileName = null, bool setDate = true)
         {

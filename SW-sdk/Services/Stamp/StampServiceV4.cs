@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using SW.Helpers;
 
 namespace SW.Services.Stamp
 {
@@ -31,7 +32,18 @@ namespace SW.Services.Stamp
             if(email!=null)
                 request.Headers.Add("email", email);
             if (customId != null)
-                request.Headers.Add("customid", customId);
+            {
+                Validation.ValidateCustomId(customId);
+                if (customId.Length > 100)
+                {
+                    customId = customId.HashTo256();
+                    request.Headers.Add("customid", customId);
+                }
+                else
+                {
+                    request.Headers.Add("customid", customId);
+                }
+            }
             request.ContentLength = xml != null ? xml.Length : 0;
             Helpers.RequestHelper.AddFileToRequest(xml, ref request);
             return request;
