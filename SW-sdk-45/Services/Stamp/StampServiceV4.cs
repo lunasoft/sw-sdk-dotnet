@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using SW.Helpers;
 
 namespace SW.Services.Stamp
 {
@@ -25,6 +26,14 @@ namespace SW.Services.Stamp
         }
         internal virtual Dictionary<string, string> GetHeaders(string email = null, string customId = null)
         {
+            if (customId != null)
+            {
+                Validation.ValidateCustomId(customId);
+                if (customId.Length > 100)
+                {
+                    customId = customId.HashTo256();
+                }
+            }
             this.SetupRequest();
             Dictionary<string, string> headers = new Dictionary<string, string>() {
                     { "Authorization", "bearer " + this.Token },

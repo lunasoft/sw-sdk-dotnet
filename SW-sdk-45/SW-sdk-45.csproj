@@ -79,6 +79,9 @@
     <Compile Include="Helpers\ResponseHelper.cs" />
     <Compile Include="Helpers\ResponseType.cs" />
     <Compile Include="Helpers\StreamUtil.cs" />
+    <Compile Include="Helpers\StringExtensions.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Helpers\TemplatesId.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
