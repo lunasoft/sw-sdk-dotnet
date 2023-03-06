@@ -9,7 +9,7 @@
     </cfdi:Conceptos>
     <cfdi:Complemento>
         <pago20:Pagos Version="2.0">
-            <pago20:Totales TotalTrasladosBaseIVA16="5843.11" TotalTrasladosImpuestoIVA16="934.90" TotalTrasladosBaseIVA0="0.00" MontoTotalPagos="6778.00" />
+            <pago20:Totales TotalTrasladosBaseIVA16="5843.11" TotalTrasladosImpuestoIVA16="934.90" MontoTotalPagos="6778.00" />
             <pago20:Pago FechaPago="2022-09-09T17:33:38" FormaDePagoP="01" MonedaP="MXN" TipoCambioP="1" Monto="6778.00">
                 <pago20:DoctoRelacionado IdDocumento="b7c8d2bf-cb4e-4f84-af89-c68b6731206a" Serie="FA" Folio="N0000216349" MonedaDR="MXN" EquivalenciaDR="1" NumParcialidad="2" ImpSaldoAnt="6777.41" ImpPagado="6777.41" ImpSaldoInsoluto="0.00" ObjetoImpDR="02">
                     <pago20:ImpuestosDR>
