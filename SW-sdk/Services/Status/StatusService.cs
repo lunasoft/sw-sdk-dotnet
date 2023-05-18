@@ -1,12 +1,8 @@
 ﻿using SAT.Services;
 using SAT.Services.ConsultaCFDIService;
-using SW.Helpers;
 using System;
-using System.IO;
-using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
-using System.Xml;
 
 namespace SW.Services.Status
 {
