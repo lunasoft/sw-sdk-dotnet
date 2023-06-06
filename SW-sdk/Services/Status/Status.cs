@@ -1,8 +1,4 @@
-﻿using System;
-using SW.Helpers;
-using System.Net;
-using SAT.Services;
-using SAT.Services.ConsultaCFDIService;
+﻿using SAT.Services.ConsultaCFDIService;
 
 namespace SW.Services.Status
 {
