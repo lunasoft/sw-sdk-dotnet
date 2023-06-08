@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cfdi:Comprobante xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd" Version="4.0" Serie="Serie" Folio="Folio" Fecha="2022-07-19T00:18:11" Sello="e" CondicionesDePago="CondicionesDePago" SubTotal="200" Descuento="1" Moneda="AMD" TipoCambio="1" Total="199.16" TipoDeComprobante="I" Exportacion="01" MetodoPago="PPD" FormaPago="99" LugarExpedicion="20000"
+    xmlns:cfdi="http://www.sat.gob.mx/cfd/4"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<cfdi:Emisor Rfc="EKU9003173C9" Nombre="ESCUELA KEMPER URGATE" RegimenFiscal="601" />
+	<cfdi:Receptor Rfc="URE180429TM6" Nombre="UNIVERSIDAD ROBOTICA ESPAÑOLA" DomicilioFiscalReceptor="65000" RegimenFiscalReceptor="601" UsoCFDI="G01" />
+	<cfdi:Conceptos>
+		<cfdi:Concepto ClaveProdServ="50211503" Cantidad="1" ClaveUnidad="H87" Unidad="Pieza" Descripcion="Cigarros &amp; ñññññ [o[[p[p óoooo´´ooóóóóóóó &quot;" ValorUnitario="200.00" Descuento="1" Importe="200.00" ObjetoImp="02">
+			<cfdi:Impuestos>
+				<cfdi:Traslados>
+					<cfdi:Traslado Base="1" Importe="0.16" Impuesto="002" TasaOCuota="0.160000" TipoFactor="Tasa"/>
+				</cfdi:Traslados>
+				<cfdi:Retenciones>
+					<cfdi:Retencion Base="1" Impuesto="001" TipoFactor="Tasa" TasaOCuota="0.100000" Importe="0" />
+					<cfdi:Retencion Base="1" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.106666" Importe="0" />
+				</cfdi:Retenciones>
+			</cfdi:Impuestos>
+		</cfdi:Concepto>
+	</cfdi:Conceptos>
+	<cfdi:Impuestos TotalImpuestosRetenidos="0.00" TotalImpuestosTrasladados="0.16">
+		<cfdi:Retenciones>
+			<cfdi:Retencion Impuesto="001" Importe="0.00" />
+			<cfdi:Retencion Impuesto="002" Importe="0.00" />
+		</cfdi:Retenciones>
+		<cfdi:Traslados>
+			<cfdi:Traslado Base="1" Importe="0.16" Impuesto="002" TasaOCuota="0.160000" TipoFactor="Tasa"/>
+		</cfdi:Traslados>
+	</cfdi:Impuestos>
+</cfdi:Comprobante>

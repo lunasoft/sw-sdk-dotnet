@@ -57,7 +57,7 @@ namespace Test_SW
         public void UT_Service_Validation_45_401()
         {
             Stamp stamp = new Stamp(Build.Url, Build.Token + "FakeToken");
-            string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
+            string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/cfdi40.xml"));
             var response = (StampResponseV1)stamp.TimbrarV1(xml);
             Assert.IsTrue(response.message.Contains("Firma inválidad."));
         }
