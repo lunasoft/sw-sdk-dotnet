@@ -40,7 +40,7 @@ namespace Test_SW.Services.Relations_Test
         {
             var build = new BuildSettings();
             Relations relations = new Relations(build.Url, build.User, build.Password);
-            RelationsResponse response = relations.RelationsByPFX(build.Pfx, build.Rfc, build.CerPassword, build.uuid);
+            RelationsResponse response = relations.RelationsByPFX(build.Pfx, build.Rfc, build.PfxPassword, build.uuid);
             Assert.IsTrue(response.status == "success");
         }
         [TestMethod]

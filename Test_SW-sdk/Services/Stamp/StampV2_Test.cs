@@ -131,7 +131,7 @@ namespace Test_SW.Services.Stamp_Test
             var build = new BuildSettings();
             StampV2 stamp = new StampV2(build.Url, build.Token);
             var xml = File.ReadAllText("Resources/SpecialCharacters.xml");
-            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword);
+            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.PfxPassword);
             var response = stamp.TimbrarV1(xml);
             Assert.IsTrue(response.status == "success", "Result not expected. Error: " + response.message);
             Assert.IsFalse(string.IsNullOrEmpty(response.data.tfd), "Result not expected. Error: " + response.message);
@@ -156,8 +156,8 @@ namespace Test_SW.Services.Stamp_Test
             List<StampResponseV1> listXmlResult = new List<StampResponseV1>();
             for (int i = 0; i < iterations; i++)
             {
-                string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
-                xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword);
+                string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/cfdi40.xml"));
+                xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.PfxPassword);
                 var response = (StampResponseV1)stamp.TimbrarV1(xml);
                 listXmlResult.Add(response);
             }
@@ -168,8 +168,8 @@ namespace Test_SW.Services.Stamp_Test
         }
         private string GetXml(BuildSettings build)
         {
-            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/file.xml"));
-            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword);
+            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/cfdi40.xml"));
+            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.PfxPassword);
             return xml;
         }
     }

@@ -371,8 +371,8 @@ namespace Test_SW.Services.StampV4_Test
         }
         private string GetXml(BuildSettings build, string fileName = null, bool setDate = true)
         {
-            var xml = Encoding.UTF8.GetString(File.ReadAllBytes(fileName ?? "Resources/file.xml"));
-            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword, setDate);
+            var xml = Encoding.UTF8.GetString(File.ReadAllBytes(fileName ?? "Resources/cfdi40.xml"));
+            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.PfxPassword, setDate);
             return xml;
         }
     }

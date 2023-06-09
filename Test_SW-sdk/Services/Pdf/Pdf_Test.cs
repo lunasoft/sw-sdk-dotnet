@@ -59,7 +59,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf pdf = new Pdf(build.UrlApi, build.Token);
-            var getXml = GetXml(build,"pagos20");
+            var getXml = GetXml(build,"Pagos20");
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.payment20);
             Assert.IsTrue(pdfResult.status == "success");
@@ -79,7 +79,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf pdf = new Pdf(build.UrlApi, build.Token);
-            var getXml = GetXml(build, "Nomina40");
+            var getXml = GetXml(build, "Nomina12");
             var xml = StampXml(build, getXml);
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.payroll40);
             Assert.IsTrue(pdfResult.status == "success");
@@ -114,8 +114,8 @@ namespace Pdf_Test.Services.Pdf_Tests
         }
         private static string GetXml(BuildSettings build, string fileName)
         {
-            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/fileXml"+ fileName+".xml"));
-            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword);
+            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/CFDI40_Validacion_Servicio/xml40"+ fileName+".xml"));
+            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.PfxPassword);
             return xml;
         }
         private static string StampXml(BuildSettings build, string xml)

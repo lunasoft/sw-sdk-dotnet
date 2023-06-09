@@ -116,63 +116,52 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\Resources\acuse.xml" />
+    <Content Include="bin\Debug\Resources\CancelacionXML.xml" />
+    <Content Include="bin\Debug\Resources\cfdi40.xml" />
+    <Content Include="bin\Debug\Resources\cfdi40_ansi.xml" />
+    <Content Include="bin\Debug\Resources\cfdi40_big.xml" />
+    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\cfdi33_1.xml" />
+    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\cfdi33_big.xml" />
+    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\cfdi33_ComercioExterior.xml" />
+    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\cfdi33_nomina.xml" />
+    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\cfdi33_pago10.xml" />
+    <Content Include="bin\Debug\Resources\EmptyXML.xml" />
+    <Content Include="bin\Debug\Resources\error.xml" />
+    <Content Include="bin\Debug\Resources\fileIssue40.xml" />
+    <Content Include="bin\Debug\Resources\RelationsXML.xml" />
+    <Content Include="bin\Debug\Resources\SpecialCharacters40.xml" />
     <Content Include="Resources\acuse.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\CancelacionXML.xml" />
-    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_1.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_big.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_ComercioExterior.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_nomina.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\CFDI33_Validacion_Servicio\cfdi33_pago10.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\fileIssue.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\fileANSI.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\fileXml.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\fileXmlCarta_Porte20.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\fileXmlNomina40.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\fileXmlpagos20.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\largeXml.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Resources\cfdi40.xml" />
+    <Content Include="Resources\cfdi40_ansi.xml" />
+    <Content Include="Resources\cfdi40_big.xml" />
+    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40.xml" />
+    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Carta_Porte20.xml" />
+    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Comercio_Exterior.xml" />
+    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Nomina12.xml" />
+    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Pagos20.xml" />
+    <Content Include="Resources\error.xml" />
+    <Content Include="Resources\fileIssue40.xml" />
     <Content Include="Resources\RelationsXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\SpecialCharacters.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\file.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </Content>
     <Content Include="Resources\EmptyXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\SpecialCharacters40.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.cer" />
+    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.key" />
+    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.pfx" />
+    <None Include="bin\Debug\Resources\CertificadosDePrueba\EKU9003173C9.cer" />
+    <None Include="bin\Debug\Resources\CertificadosDePrueba\EKU9003173C9.key" />
+    <None Include="bin\Debug\Resources\CertificadosDePrueba\EKU9003173C9.pfx" />
+    <None Include="bin\Debug\Resources\cfdi.json" />
     <None Include="packages.config" />
     <None Include="Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.cer">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -183,15 +172,9 @@
     <None Include="Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\CertificadosDePrueba\CSD_XIA190128J61.cer">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\CertificadosDePrueba\CSD_XIA190128J61.key">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\CertificadosDePrueba\CSD_XIA190128J61.pfx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\CertificadosDePrueba\EKU9003173C9.cer" />
+    <None Include="Resources\CertificadosDePrueba\EKU9003173C9.key" />
+    <None Include="Resources\CertificadosDePrueba\EKU9003173C9.pfx" />
     <None Include="Resources\cfdi.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
