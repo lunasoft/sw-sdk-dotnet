@@ -122,8 +122,8 @@ namespace Pdf_Test.Services.Pdf_Tests
         }
         private static string GetXml(BuildSettings build, string fileName)
         {
-            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/xml40" + fileName + ".xml"));
-            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.CerPassword);
+            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/CFDI40_Validacion_Servicio/xml40" + fileName + ".xml"));
+            xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.PfxPassword);
             return xml;
         }
         private static string StampXml(BuildSettings build, string xml)
