@@ -273,7 +273,7 @@ namespace Test_SW.Services.StampV4_Test
             var build = new BuildSettings();
             Random rnd = new Random();
             StampV4 stamp = new StampV4(build.Url, build.Token);
-            var xml = GetXml(build, "Resources/largeXml.xml");
+            var xml = GetXml(build, "Resources/cfdi40.xml");
             var response = (StampResponseV4)stamp.TimbrarV4(xml, null, rnd.Next().ToString());
             Assert.IsTrue(response.data != null, "El resultado data viene vacio.");
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
@@ -292,7 +292,7 @@ namespace Test_SW.Services.StampV4_Test
             var build = new BuildSettings();
             Random rnd = new Random();
             StampV4 stamp = new StampV4(build.Url, build.Token);
-            var xml = GetXml(build, "Resources/largeXml.xml", false);
+            var xml = GetXml(build, "Resources/cfdi40.xml", false);
             var response = (StampResponseV4)stamp.TimbrarV4(xml, null, rnd.Next().ToString());
             Assert.IsTrue(response != null, "El resultado viene vacio.");
             Assert.IsTrue(response.status == "error");
@@ -323,7 +323,7 @@ namespace Test_SW.Services.StampV4_Test
             var build = new BuildSettings();
             Random rnd = new Random();
             StampV4 stamp = new StampV4(build.Url, build.Token);
-            var xml = GetXml(build, "Resources/largeXml.xml", false);
+            var xml = GetXml(build, "Resources/cfdi_big.xml", false);
             xml = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
             var response = (StampResponseV4)stamp.TimbrarV4(xml, null, rnd.Next().ToString(), true);
             Assert.IsTrue(response != null, "El resultado viene vacio.");
