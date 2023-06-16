@@ -8,6 +8,7 @@ using SW.Services.Issue;
 using SW.Services.Stamp;
 using System.IO;
 using System.Xml;
+using SW.Tools;
 
 namespace Test_SW.Services.Issue
 {
