@@ -13,7 +13,6 @@ namespace SW.Services.Validate
         public ValidateValidation(string url, string user, string password, string token) : base(url, user, password, token)
         {
         }
-
         public void ValidaXML(string XMLString)
         {
             this._xmlString = XMLString;
