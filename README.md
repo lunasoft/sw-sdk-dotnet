@@ -1481,6 +1481,7 @@ Este método recibe los siguientes parámetros:
 * Url Api
 
 **Ejemplo de consumo de la librería para la utilización**
+```cs
 using System;
 using System.IO;
 using System.Text;
@@ -1515,8 +1516,6 @@ namespace ExampleSDK
         }
     }
 }
-
-
 ```
 
 Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).

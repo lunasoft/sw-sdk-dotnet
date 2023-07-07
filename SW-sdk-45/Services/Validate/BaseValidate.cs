@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
 namespace SW.Services.Validate
 {
     public abstract class BaseValidate : ValidateService
