@@ -74,6 +74,7 @@ namespace Pdf_Test.Services.Pdf_Tests
             var pdfResult = pdf.GenerarPdf(xml, build.Logo, TemplatesId.billoflading40);
             Assert.IsTrue(pdfResult.status == "success");
         }
+
         [TestMethod]
         public void UT_GeneratePdf_Nomina40()
         {

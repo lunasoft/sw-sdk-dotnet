@@ -3,7 +3,7 @@
     xmlns:cfdi="http://www.sat.gob.mx/cfd/4"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<cfdi:Emisor Rfc="EKU9003173C9" Nombre="ESCUELA KEMPER URGATE" RegimenFiscal="601" />
-	<cfdi:Receptor Rfc="URE180429TM6" Nombre="UNIVERSIDAD ROBOTICA ESPAÑOLA" DomicilioFiscalReceptor="65000" RegimenFiscalReceptor="601" UsoCFDI="G01" />
+	<cfdi:Receptor Rfc="URE180429TM6" Nombre="UNIVERSIDAD ROBOTICA ESPAÑOLA" DomicilioFiscalReceptor="86991" RegimenFiscalReceptor="601" UsoCFDI="G01" />
 	<cfdi:Conceptos>
 		<cfdi:Concepto ClaveProdServ="50211503" Cantidad="1" ClaveUnidad="H87" Unidad="Pieza" Descripcion="Cigarros &amp; ñññññ [o[[p[p óoooo´´ooóóóóóóó &quot;" ValorUnitario="200.00" Descuento="1" Importe="200.00" ObjetoImp="02">
 			<cfdi:Impuestos>

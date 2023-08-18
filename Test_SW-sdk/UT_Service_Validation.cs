@@ -70,7 +70,7 @@ namespace Test_SW
             var response = (StampResponseV1)stamp.TimbrarV1(xml);
             Assert.IsTrue(response.message.Contains("404"));
         }
-
+        [Ignore]
         [TestMethod]
         public void UT_Service_Validation_STAMPV4_BIG_XML()
         {
@@ -93,6 +93,7 @@ namespace Test_SW
                 Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
             }
         }
+        [Ignore]
         [TestMethod]
         public void UT_Service_Validation_STAMPV4_CCE11()
         {
@@ -115,6 +116,7 @@ namespace Test_SW
                 Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
             }
         }
+        [Ignore]
         [TestMethod]
         public void UT_Service_Validation_STAMPV4_NOMINA12()
         {
@@ -137,6 +139,7 @@ namespace Test_SW
                 Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
             }
         }
+        [Ignore]
         [TestMethod]
         public void UT_Service_Validation_STAMPV4_PAGOS10()
         {

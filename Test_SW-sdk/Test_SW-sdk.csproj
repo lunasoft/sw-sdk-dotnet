@@ -121,11 +121,11 @@
     <Content Include="bin\Debug\Resources\cfdi40.xml" />
     <Content Include="bin\Debug\Resources\cfdi40_ansi.xml" />
     <Content Include="bin\Debug\Resources\cfdi40_big.xml" />
-    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\cfdi33_1.xml" />
-    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\cfdi33_big.xml" />
-    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\cfdi33_ComercioExterior.xml" />
-    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\cfdi33_nomina.xml" />
-    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\cfdi33_pago10.xml" />
+    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\xml40.xml" />
+    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\xml40Carta_Porte20.xml" />
+    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\xml40Comercio_Exterior.xml" />
+    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\xml40Nomina12.xml" />
+    <Content Include="bin\Debug\Resources\CFDI40_Validacion_Servicio\xml40Pagos20.xml" />
     <Content Include="bin\Debug\Resources\EmptyXML.xml" />
     <Content Include="bin\Debug\Resources\error.xml" />
     <Content Include="bin\Debug\Resources\fileIssue40.xml" />
@@ -163,23 +163,13 @@
     <None Include="bin\Debug\Resources\CertificadosDePrueba\EKU9003173C9.pfx" />
     <None Include="bin\Debug\Resources\cfdi.json" />
     <None Include="packages.config" />
-    <None Include="Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.cer">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.key">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.pfx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\CertificadosDePrueba\EKU9003173C9.cer" />
-    <None Include="Resources\CertificadosDePrueba\EKU9003173C9.key" />
-    <None Include="Resources\CertificadosDePrueba\EKU9003173C9.pfx" />
     <None Include="Resources\cfdi.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\CertificadosDePrueba\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

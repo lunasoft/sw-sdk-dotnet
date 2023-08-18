@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd" Version="4.0" Serie="Serie" Folio="Folio" Fecha="2022-07-21T00:00:00" Sello="" SubTotal="5000" Descuento="300" Moneda="MXN" TipoCambio="1" Total="4700" TipoDeComprobante="N" Exportacion="01" MetodoPago="PPD" LugarExpedicion="20000"
     xmlns:cfdi="http://www.sat.gob.mx/cfd/4" NoCertificado="30001000000400002444" Certificado="">
     <cfdi:Emisor Rfc="XIA190128J61" Nombre="XENON INDUSTRIAL ARTICLES" RegimenFiscal="601" />
-    <cfdi:Receptor Rfc="XOJI740919U48" Nombre="INGRID XODAR JIMENEZ" DomicilioFiscalReceptor="88965" RegimenFiscalReceptor="605" UsoCFDI="CN01" />
+    <cfdi:Receptor Rfc="XOJI740919U48" Nombre="INGRID XODAR JIMENEZ" DomicilioFiscalReceptor="76028" RegimenFiscalReceptor="605" UsoCFDI="CN01" />
     <cfdi:Conceptos>
         <cfdi:Concepto ClaveProdServ="84111505" Cantidad="1" ClaveUnidad="ACT" Descripcion="Pago de nómina" ValorUnitario="5000.00" Descuento="300" Importe="5000.00" ObjetoImp="01"></cfdi:Concepto>
     </cfdi:Conceptos>
