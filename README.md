@@ -18,15 +18,17 @@
  
 ----------------
 # Instalaci&oacute;n #
-Instalar la librería para versión 3.5 a traves Package Manager Console [nuget.org](https://www.nuget.org/packages/SW-sdk)
-```cs
-Install-Package SW-sdk
-```
-Instalar la librería para la versión 4.5 a traves Package Manager Console [nuget.org](https://www.nuget.org/packages/SW-sdk-45)
 
+Instalar la librería para .Net Framework 4.5 (o superior), a traves de Package Manager Console [nuget.org](https://www.nuget.org/packages/SW-sdk-45)
 ```cs
 Install-Package SW-sdk-45
 ```
+
+Instalar la librería para .Net Framework 3.5 (o superior), a traves Package Manager Console [nuget.org](https://www.nuget.org/packages/SW-sdk)
+```cs
+Install-Package SW-sdk
+```
+
 En caso de no utilizar Package Manager Console puedes descargar la librería directamente a traves del siguiente [link](https://github.com/lunasoft/sw-sdk-dotnet/releases) y agregarla como Referencia local a tu proyecto. Asegurate de utilizar la última versión publicada.
 
 # Implementaci&oacute;n #
