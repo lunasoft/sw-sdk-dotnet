@@ -148,26 +148,8 @@
     <Content Include="Resources\error.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.cer" />
-    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.key" />
-    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.pfx" />
-    <None Include="bin\Debug\Resources\CertificadosDePrueba\EKU9003173C9.cer" />
-    <None Include="bin\Debug\Resources\CertificadosDePrueba\EKU9003173C9.key" />
-    <None Include="bin\Debug\Resources\CertificadosDePrueba\EKU9003173C9.pfx" />
     <None Include="bin\Debug\Resources\cfdi.json" />
     <None Include="packages.config" />
-    <None Include="Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.cer">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.key">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.pfx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\CertificadosDePrueba\EKU9003173C9.cer" />
-    <None Include="Resources\CertificadosDePrueba\EKU9003173C9.key" />
-    <None Include="Resources\CertificadosDePrueba\EKU9003173C9.pfx" />
     <None Include="Resources\cfdi.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -182,7 +164,10 @@
       <Name>SW-sdk-45</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bin\Debug\Resources\CertificadosDePrueba\" />
+    <Folder Include="Resources\CertificadosDePrueba\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
