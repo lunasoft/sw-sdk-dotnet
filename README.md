@@ -4,7 +4,7 @@
 
 # Compatibilidad #
 * CFDI 4.0
-* .Net Framework 3.5 ó 4.5
+* .Net Framework
 
 
 # Dependencias #
