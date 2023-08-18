@@ -24,7 +24,7 @@ Instalar la librería para .Net Framework 4.5 (o superior), a traves de Package 
 Install-Package SW-sdk-45
 ```
 
-Instalar la librería para .Net Framework 3.5 (o superior), a traves Package Manager Console [nuget.org](https://www.nuget.org/packages/SW-sdk)
+Instalar la librería para .Net Framework 3.5, a traves Package Manager Console [nuget.org](https://www.nuget.org/packages/SW-sdk)
 ```cs
 Install-Package SW-sdk
 ```
