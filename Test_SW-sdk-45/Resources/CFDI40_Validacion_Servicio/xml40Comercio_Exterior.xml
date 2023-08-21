@@ -9,7 +9,7 @@
     </cfdi:Concepto>
   </cfdi:Conceptos>
   <cfdi:Complemento>
-    <cce11:ComercioExterior CertificadoOrigen="0" ClaveDePedimento="A1" Incoterm="FOB" Subdivision="0" TipoCambioUSD="17.076800" TipoOperacion="2" TotalUSD="25.56" Version="1.1">
+    <cce11:ComercioExterior CertificadoOrigen="0" ClaveDePedimento="A1" Incoterm="FOB" Subdivision="0" TipoCambioUSD="17.122500" TipoOperacion="2" TotalUSD="25.56" Version="1.1">
       <cce11:Emisor>
         <cce11:Domicilio Calle="CALLE DEL PAPEL" CodigoPostal="76199" Colonia="0214" Estado="QUE" Localidad="01" Municipio="014" Pais="MEX" />
       </cce11:Emisor>
