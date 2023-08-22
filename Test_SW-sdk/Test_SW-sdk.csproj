@@ -155,11 +155,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.cer" />
-    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.key" />
-    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Prueba_CFDI_LAN8507268IA.pfx" />
-    <None Include="bin\Debug\Resources\CertificadosDePrueba\EKU9003173C9.cer" />
-    <None Include="bin\Debug\Resources\CertificadosDePrueba\EKU9003173C9.key" />
+    <None Include="bin\Debug\Resources\CertificadosDePrueba\CACX7605101P8.pfx" />
+    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Sucursal_1_CACX7605101P8_20230509_130254.cer" />
+    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Sucursal_1_CACX7605101P8_20230509_130254.key" />
+    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Sucursal_1_EKU9003173C9_20230517_223850.cer" />
+    <None Include="bin\Debug\Resources\CertificadosDePrueba\CSD_Sucursal_1_EKU9003173C9_20230517_223850.key" />
     <None Include="bin\Debug\Resources\CertificadosDePrueba\EKU9003173C9.pfx" />
     <None Include="bin\Debug\Resources\cfdi.json" />
     <None Include="packages.config" />
