@@ -4,7 +4,7 @@
     xmlns:cfdi="http://www.sat.gob.mx/cfd/4"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <cfdi:Emisor Rfc="XIA190128J61" Nombre="XENON INDUSTRIAL ARTICLES" RegimenFiscal="601" />
-    <cfdi:Receptor Rfc="URE180429TM6" Nombre="UNIVERSIDAD ROBOTICA ESPAÑOLA" DomicilioFiscalReceptor="65000" RegimenFiscalReceptor="601" UsoCFDI="G01" />
+    <cfdi:Receptor Rfc="URE180429TM6" Nombre="UNIVERSIDAD ROBOTICA ESPAÑOLA" DomicilioFiscalReceptor="86991" RegimenFiscalReceptor="601" UsoCFDI="G01" />
     <cfdi:Conceptos>
         <cfdi:Concepto ClaveProdServ="78101500" Cantidad="1" ClaveUnidad="H87" Unidad="Pieza" Descripcion="Cigarros" ValorUnitario="200.00" Descuento="1" Importe="200.00" ObjetoImp="02">
             <cfdi:Impuestos>
