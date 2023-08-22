@@ -190,16 +190,16 @@
     <None Include="Resources\CertificadosDePrueba\CACX7605101P8.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\CertificadosDePrueba\CSD_Sucursal_1_CACX7605101P8_20230509_130254.cer">
+    <None Include="Resources\CertificadosDePrueba\CSD_CACX7605101P8.cer">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\CertificadosDePrueba\CSD_Sucursal_1_CACX7605101P8_20230509_130254.key">
+    <None Include="Resources\CertificadosDePrueba\CSD_CACX7605101P8.key">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\CertificadosDePrueba\CSD_Sucursal_1_EKU9003173C9_20230517_223850.cer">
+    <None Include="Resources\CertificadosDePrueba\CSD_EKU9003173C9.cer">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\CertificadosDePrueba\CSD_Sucursal_1_EKU9003173C9_20230517_223850.key">
+    <None Include="Resources\CertificadosDePrueba\CSD_EKU9003173C9.key">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\CertificadosDePrueba\EKU9003173C9.pfx">
