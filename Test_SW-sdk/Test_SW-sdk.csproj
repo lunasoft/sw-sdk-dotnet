@@ -134,24 +134,48 @@
     <Content Include="Resources\acuse.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\CancelacionXML.xml" />
-    <Content Include="Resources\cfdi40.xml" />
-    <Content Include="Resources\cfdi40_ansi.xml" />
-    <Content Include="Resources\cfdi40_big.xml" />
-    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40.xml" />
-    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Carta_Porte20.xml" />
-    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Comercio_Exterior.xml" />
-    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Nomina12.xml" />
-    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Pagos20.xml" />
-    <Content Include="Resources\error.xml" />
-    <Content Include="Resources\fileIssue40.xml" />
+    <Content Include="Resources\CancelacionXML.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\cfdi40.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\cfdi40_ansi.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\cfdi40_big.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Carta_Porte20.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Comercio_Exterior.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Nomina12.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Pagos20.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\error.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\fileIssue40.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\RelationsXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\EmptyXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\SpecialCharacters40.xml" />
+    <Content Include="Resources\SpecialCharacters40.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
