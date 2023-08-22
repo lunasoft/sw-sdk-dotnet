@@ -163,12 +163,24 @@
     <None Include="bin\Debug\Resources\CertificadosDePrueba\EKU9003173C9.pfx" />
     <None Include="bin\Debug\Resources\cfdi.json" />
     <None Include="packages.config" />
-    <None Include="Resources\CertificadosDePrueba\CACX7605101P8.pfx" />
-    <None Include="Resources\CertificadosDePrueba\CSD_Sucursal_1_CACX7605101P8_20230509_130254.cer" />
-    <None Include="Resources\CertificadosDePrueba\CSD_Sucursal_1_CACX7605101P8_20230509_130254.key" />
-    <None Include="Resources\CertificadosDePrueba\CSD_Sucursal_1_EKU9003173C9_20230517_223850.cer" />
-    <None Include="Resources\CertificadosDePrueba\CSD_Sucursal_1_EKU9003173C9_20230517_223850.key" />
-    <None Include="Resources\CertificadosDePrueba\EKU9003173C9.pfx" />
+    <None Include="Resources\CertificadosDePrueba\CACX7605101P8.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\CertificadosDePrueba\CSD_Sucursal_1_CACX7605101P8_20230509_130254.cer">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\CertificadosDePrueba\CSD_Sucursal_1_CACX7605101P8_20230509_130254.key">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\CertificadosDePrueba\CSD_Sucursal_1_EKU9003173C9_20230517_223850.cer">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\CertificadosDePrueba\CSD_Sucursal_1_EKU9003173C9_20230517_223850.key">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\CertificadosDePrueba\EKU9003173C9.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\cfdi.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
