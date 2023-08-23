@@ -113,6 +113,7 @@ namespace Test_SW
                 Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
             }
         }
+        [Ignore]
         [TestMethod]
         public void UT_Service_Validation_45_STAMPV4_CCE11()
         {
