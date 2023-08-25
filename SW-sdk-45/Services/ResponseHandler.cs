@@ -169,6 +169,31 @@ namespace SW.Services
                 };
             }
         }
+        public virtual T GetResponse(string url, Dictionary<string, string> headers, string path, HttpContent content, HttpClientHandler proxy)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient(proxy))
+                {
+                    foreach (var header in headers)
+                    {
+                        client.DefaultRequestHeaders.Add(header.Key, header.Value);
+                    }
+                    client.BaseAddress = new Uri(url);
+                    var result = client.PostAsync(path,content).Result;
+                    return TryGetResponse(result);
+                }
+            }
+            catch (HttpRequestException wex)
+            {
+                return new T()
+                {
+                    message = wex.Message,
+                    status = "error",
+                    messageDetail = wex.StackTrace
+                };
+            }
+        }
         public abstract T HandleException(Exception ex);
         internal virtual T TryGetResponse(HttpResponseMessage response)
         {

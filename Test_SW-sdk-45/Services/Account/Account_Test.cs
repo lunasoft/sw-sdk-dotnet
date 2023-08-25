@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
-using SW.Services.Account;
+using SW.Services.Account.AccountBalance;
 using SW.Helpers;
 using Test_SW.Helpers;
 
@@ -26,6 +26,72 @@ namespace Test_SW.Services.Account_Test
             BalanceAccount account = new BalanceAccount(build.Url, build.Token);
             var response = account.ConsultarSaldo();
             Assert.IsTrue(response.status == "success", response.messageDetail);
+        }
+        [Ignore]
+        public void AsignarTimbresByUser()
+        {
+            var build = new BuildSettings();
+            Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+            BalanceAccount account = new BalanceAccount(build.Url, build.UrlApi, build.User, build.Password);
+            var response = account.AgregarTimbres(idUser, 2, "Timbres agregados");
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+        }
+        [Ignore]
+        public void AsignarTimbresByToken()
+        {
+            var build = new BuildSettings();
+            Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+            BalanceAccount account = new BalanceAccount(build.UrlApi, build.Token);
+            var response = account.AgregarTimbres(idUser, 2, "Timbres agregados");
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+        }
+        [Ignore]
+        public void EliminarTimbresByUser()
+        {
+            var build = new BuildSettings();
+            Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+            BalanceAccount account = new BalanceAccount(build.Url, build.UrlApi, build.User, build.Password);
+            var response = account.EliminarTimbres(idUser, 2, "Timbres removidos");
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+        }
+        [Ignore]
+        public void EliminarTimbresByToken()
+        {
+            var build = new BuildSettings();
+            Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+            BalanceAccount account = new BalanceAccount(build.UrlApi, build.Token);
+            var response = account.EliminarTimbres(idUser, 2, "Timbres removidos");
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+        }
+        [TestMethod]
+        public void AsignarTimbresEmptyUrlApi()
+        {
+            var build = new BuildSettings();
+            Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+            BalanceAccount account = new BalanceAccount(build.Url, "", build.User, build.Password);
+            var response = account.AgregarTimbres(idUser, 2, "Timbres agregados");
+            Assert.IsTrue(response.status == "error");
+            Assert.IsTrue(response.message == "Falta Capturar URL Api");
+        }
+        [TestMethod]
+        public void AsignarTimbresEmptyUrl()
+        {
+            var build = new BuildSettings();
+            Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+            BalanceAccount account = new BalanceAccount("", build.Token);
+            var response = account.AgregarTimbres(idUser, 2, "Timbres agregados");
+            Assert.IsTrue(response.status == "error");
+            Assert.IsTrue(response.message == "Falta Capturar URL");
+        }
+        [TestMethod]
+        public void EliminarTimbresWrongUser()
+        {
+            var build = new BuildSettings();
+            Guid idUser = Guid.Parse("32501CF2-DC62-0000-0000-25024C44E131");
+            BalanceAccount account = new BalanceAccount(build.Url, build.UrlApi, build.User, build.Password);
+            var response = account.EliminarTimbres(idUser, 2, "Timbres removidos");
+            Assert.IsTrue(response.status == "error");
+            Assert.IsTrue(response.message == "Usuario no pertenece al Dealer");
         }
     }
 }
