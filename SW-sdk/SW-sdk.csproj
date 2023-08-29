@@ -97,7 +97,7 @@
     <Compile Include="Services\AcceptReject\AcceptRejectResponse.cs" />
     <Compile Include="Services\AcceptReject\AcceptRejectResponseHandler.cs" />
     <Compile Include="Services\AcceptReject\AcceptRejectService.cs" />
-    <Compile Include="Services\Account\AccountBalance\Account.cs" />
+    <Compile Include="Services\Account\AccountBalance\AccountBalance.cs" />
     <Compile Include="Services\Account\AccountBalance\AccountResponse.cs" />
     <Compile Include="Services\Account\AccountBalance\AccountResponseHandler.cs" />
     <Compile Include="Services\Account\AccountBalance\AccountService.cs" />

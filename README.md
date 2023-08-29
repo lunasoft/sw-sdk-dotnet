@@ -694,6 +694,7 @@ Métodos para realizar la consulta de saldo así como la asignación y eliminaci
 <br>Este método recibe los siguientes parametros:
 * Usuario y contraseña o Token
 * Url Servicios SW
+* Url Api
 
 **Ejemplo de consumo de la libreria para consultar el saldo**
 ```cs
@@ -701,7 +702,7 @@ using System;
 using System.IO;
 using System.Text;
 using SW.Helpers;
-using SW.Services.BalanceAccount;
+using SW.Services.Account.AccountBalance;
 
 namespace ExampleSDK
 {
@@ -711,10 +712,10 @@ namespace ExampleSDK
         {
             try
             {
-                //Creamos una instancia de tipo BalanceAccount 
+                //Creamos una instancia de tipo AccountBalance 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a consultar el saldo
-                BalanceAccount account = new BalanceAccount("http://services.test.sw.com.mx", "user", "password");
+                AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
                 AccountResponse response = account.ConsultarSaldo();
               
                 //Para Obtener el idSaldoCliente
@@ -777,11 +778,11 @@ namespace ExampleSDK
         {
             try
             {
-                //Creamos una instancia de tipo BalanceAccount 
+                //Creamos una instancia de tipo AccountBalance 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-                BalanceAccount account = new BalanceAccount("http://services.test.sw.com.mx", "http://api.test.sw.com.mx","user", "password");
+                AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
                 //Obtenemos y convertimos a tipo Guid el id del usuario
-                Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+                Guid idUser = Guid.Parse("32701CF2-DC63-4370-B47D-25024C44E131");
                 //Se envían los parámetros a la función AgregarTimbres
                 AccountResponse response = account.AgregarTimbres(idUser, 2, "Timbres agregados");
               
@@ -826,9 +827,9 @@ namespace ExampleSDK
         {
             try
             {
-                //Creamos una instancia de tipo BalanceAccount 
+                //Creamos una instancia de tipo AccountBalance 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-                BalanceAccount account = new BalanceAccount("http://services.test.sw.com.mx", "http://api.test.sw.com.mx","user", "password");
+                AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
                 //Obtenemos y convertimos a tipo Guid el id del usuario
                 Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
                 //Se envían los parámetros a la función EliminarTimbres

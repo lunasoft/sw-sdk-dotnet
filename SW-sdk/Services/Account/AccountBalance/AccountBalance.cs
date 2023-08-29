@@ -1,14 +1,14 @@
 ﻿using System;
 using SW.Helpers;
 using SW.Entities;
-using System.Collections.Generic;
+using System.Net;
 using Newtonsoft.Json;
 using System.Text;
-using System.Net.Http;
+using System.IO;
 
 namespace SW.Services.Account.AccountBalance
 {
-    public class BalanceAccount : BalanceAccountService
+    public class AccountBalance : BalanceAccountService
     {
 
         BalanceAccountResponseHandler _handler;
@@ -16,19 +16,9 @@ namespace SW.Services.Account.AccountBalance
         /// <summary>
         /// Crear una instancia de la clase BalanceAccount.
         /// </summary>
-        /// <param name="url">Url Services</param>
-        /// <param name="user">Usuario.</param>
-        /// <param name="password">Contraseña.</param>
-        public BalanceAccount(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
-        {
-            _handler = new BalanceAccountResponseHandler();
-        }
-        /// <summary>
-        /// Crear una instancia de la clase BalanceAccount.
-        /// </summary>
         /// <param name="url">Url Services.</param>
         /// <param name="token">Token de autenticación</param>
-        public BalanceAccount(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
+        public AccountBalance(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
             _handler = new BalanceAccountResponseHandler();
             _handlerBalance = new BalanceResponseHandler();
@@ -40,8 +30,9 @@ namespace SW.Services.Account.AccountBalance
         /// <param name="urlApi"></Url Api.param>
         /// <param name="user">Usuario.</param>
         /// <param name="password">Contraseña.</param>
-        public BalanceAccount(string url, string urlApi, string user, string password, int proxyPort = 0, string proxy = null) : base(url, urlApi, user, password, proxy, proxyPort)
+        public AccountBalance(string url, string urlApi, string user, string password, int proxyPort = 0, string proxy = null) : base(url, urlApi, user, password, proxy, proxyPort)
         {
+            _handler = new BalanceAccountResponseHandler();
             _handlerBalance = new BalanceResponseHandler();
         }
         /// <summary>
@@ -79,52 +70,57 @@ namespace SW.Services.Account.AccountBalance
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
                 this.SetupRequest();
-
-                Dictionary<string, string> headers = new Dictionary<string, string>() {
-                    { "Authorization", "bearer " + this.Token }
-                };
-                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                return _handler.GetResponse(this.Url, headers, "account/balance", proxy);
-            }
-            catch (Exception e)
-            {
-                return _handler.HandleException(e);
-            }
-        }
-        internal override Response StampsDistribution(Guid idUser, int stamps, ActionsAccountBalance action, string comment)
-        {
-            try
-            {
-                new Validation(Url, UrlApi, User, Password, Token).ValidateHeaderParameters();
-                this.SetupRequest();
-
-                Dictionary<string, string> headers = new Dictionary<string, string>() {
-                    { "Authorization", "bearer " + this.Token }
-                };
                 var baseUrl = this.UrlApi ?? this.Url;
-                var endpoint = String.Format("{0}/{1}/{2}/{3}", "management/api/balance", idUser, action.ToString().ToLower(), stamps);
-                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                var content = GetStringContent(comment);
-                return _handlerBalance.GetResponse(baseUrl, headers, endpoint, content, proxy);
+                var request = (HttpWebRequest)WebRequest.Create(baseUrl + "management/api/balance");
+                request.ContentType = "application/json";
+                request.Method = WebRequestMethods.Http.Get;
+                request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+                Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
+                request.ContentLength = 0;
+                return _handlerBalance.GetResponse(request);
             }
             catch (Exception e)
             {
                 return _handlerBalance.HandleException(e);
             }
         }
-        internal virtual StringContent GetStringContent(string comment)
+        internal override Response StampsDistribution(Guid idUser, int stamps, ActionsAccountBalance action, string content)
         {
+            try
+            {
+                new Validation(Url, UrlApi, User, Password, Token).ValidateHeaderParameters();
+                this.SetupRequest();
+                var baseUrl = this.UrlApi ?? this.Url;
+                var endpoint = String.Format("{0}/{1}/{2}/{3}", "management/api/balance", idUser, action.ToString().ToLower(), stamps);
+                var request = (HttpWebRequest)WebRequest.Create(baseUrl + endpoint);
+                request.ContentType = "application/json";
+                request.Method = WebRequestMethods.Http.Post;
+                request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+                Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
+                request.ContentLength = 0;
+                GetStringContent(request, content);
+                return _handler.GetResponse(request);
+            }
+            catch (Exception e)
+            {
+                return _handler.HandleException(e);
+            }
+        }
+        internal virtual HttpWebRequest GetStringContent(HttpWebRequest request, string comment)
+        {
+            var balanceRequest = new AccountBalanceRequest
+            {
+                Comment = comment
+            };
+            string jsonContent = JsonConvert.SerializeObject(balanceRequest);
+            byte[] byteArray = Encoding.UTF8.GetBytes(jsonContent);
+            request.ContentLength = byteArray.Length;
 
-            var request = new AccountBalanceRequest();
-            request.Comment = comment;
-            var content = new StringContent(JsonConvert.SerializeObject(
-                request, new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                }),
-            Encoding.UTF8, "application/json");
-            return content;
-
+            using (Stream requestStream = request.GetRequestStream())
+            {
+                requestStream.Write(byteArray, 0, byteArray.Length);
+            }
+            return request;
         }
     }
 }
