@@ -8,7 +8,7 @@ namespace SW.Services.Account.AccountBalance
     /// <summary>
     /// Estructura de la respuesta que se obtiene del metodo Balance de timbres.
     /// </summary>
-    public class AccountResponse : Response
+    public class BalanceResponse : Response
     {
         [DataMember]
         public Data data { get; set; }

@@ -30,9 +30,9 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }
-        internal static AccountResponse ToAccountResponse(this Exception ex)
+        internal static BalanceResponse ToBalanceResponse(this Exception ex)
         {
-            return new AccountResponse()
+            return new BalanceResponse()
             {
                 message = ex.Message,
                 status = "error",

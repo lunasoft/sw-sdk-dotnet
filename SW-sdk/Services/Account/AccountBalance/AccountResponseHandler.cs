@@ -5,7 +5,7 @@ using SW.Entities;
 namespace SW.Services.Account.AccountBalance
 {
 
-    internal class BalanceResponseHandler : ResponseHandler<AccountResponse>
+    internal class AccountResponseHandler : ResponseHandler<AccountResponse>
     {
         public override AccountResponse HandleException(Exception ex)
         {

@@ -8,10 +8,10 @@ using System.Net.Http;
 
 namespace SW.Services.Account.AccountBalance
 {
-    public class AccountBalance : BalanceAccountService
+    public class AccountBalance : AccountService
     {
 
-        BalanceAccountResponseHandler _handler;
+        AccountBalanceResponseHandler _handler;
         BalanceResponseHandler _handlerBalance;
         /// <summary>
         /// Crear una instancia de la clase BalanceAccount.
@@ -20,7 +20,7 @@ namespace SW.Services.Account.AccountBalance
         /// <param name="token">Token de autenticación</param>
         public AccountBalance(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
-            _handler = new BalanceAccountResponseHandler();
+            _handler = new AccountBalanceResponseHandler();
             _handlerBalance = new BalanceResponseHandler();
         }
         /// <summary>
@@ -33,14 +33,14 @@ namespace SW.Services.Account.AccountBalance
         public AccountBalance(string url, string urlApi, string user, string password, int proxyPort = 0, string proxy = null) : base(url, urlApi, user, password, proxy, proxyPort)
         {
             _handlerBalance = new BalanceResponseHandler();
-            _handler = new BalanceAccountResponseHandler();
+            _handler = new AccountBalanceResponseHandler();
         }
         /// <summary>
         /// Metodo que obtiene el balance de timbres del usuario.
         /// </summary>
-        public AccountResponse ConsultarSaldo()
+        public BalanceResponse ConsultarSaldo()
         {
-            return (AccountResponse)GetBalance();
+            return (BalanceResponse)GetBalance();
         }
         /// <summary>
         /// Metodo para añadir timbres a una cuenta hijo desde la cuenta dealer.
@@ -76,11 +76,11 @@ namespace SW.Services.Account.AccountBalance
                 };
                 var baseUrl = this.UrlApi ?? this.Url;
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                return _handler.GetResponse(baseUrl, headers, "management/api/balance", proxy);
+                return _handlerBalance.GetResponse(baseUrl, headers, "management/api/balance", proxy);
             }
             catch (Exception e)
             {
-                return _handler.HandleException(e);
+                return _handlerBalance.HandleException(e);
             }
         }
         internal override Response StampsDistribution(Guid idUser, int stamps, ActionsAccountBalance action, string comment)
@@ -97,11 +97,11 @@ namespace SW.Services.Account.AccountBalance
                 var endpoint = String.Format("{0}/{1}/{2}/{3}", "management/api/balance", idUser, action.ToString().ToLower(), stamps);
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 var content = GetStringContent(comment);
-                return _handlerBalance.GetResponse(baseUrl, headers, endpoint, content, proxy);
+                return _handler.GetPostResponse(baseUrl, endpoint, headers, content, proxy);
             }
             catch (Exception e)
             {
-                return _handlerBalance.HandleException(e);
+                return _handler.HandleException(e);
             }
         }
         internal virtual StringContent GetStringContent(string comment)

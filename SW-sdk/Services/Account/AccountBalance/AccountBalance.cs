@@ -8,11 +8,11 @@ using System.IO;
 
 namespace SW.Services.Account.AccountBalance
 {
-    public class AccountBalance : BalanceAccountService
+    public class AccountBalance : AccountService
     {
 
         BalanceAccountResponseHandler _handler;
-        BalanceResponseHandler _handlerBalance;
+        AccountResponseHandler _handlerBalance;
         /// <summary>
         /// Crear una instancia de la clase BalanceAccount.
         /// </summary>
@@ -21,7 +21,7 @@ namespace SW.Services.Account.AccountBalance
         public AccountBalance(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
             _handler = new BalanceAccountResponseHandler();
-            _handlerBalance = new BalanceResponseHandler();
+            _handlerBalance = new AccountResponseHandler();
         }
         /// <summary>
         /// Crear una instancia de la clase BalanceAccount.
@@ -33,7 +33,7 @@ namespace SW.Services.Account.AccountBalance
         public AccountBalance(string url, string urlApi, string user, string password, int proxyPort = 0, string proxy = null) : base(url, urlApi, user, password, proxy, proxyPort)
         {
             _handler = new BalanceAccountResponseHandler();
-            _handlerBalance = new BalanceResponseHandler();
+            _handlerBalance = new AccountResponseHandler();
         }
         /// <summary>
         /// Metodo que obtiene el balance de timbres del usuario.
