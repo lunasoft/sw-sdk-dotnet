@@ -685,15 +685,16 @@ namespace ExampleSDK
 ```
 </details>
 
-## Consulta de Saldos ##
-Método mediante el cual puedes realizar la consulta de tu saldo para consumir los servicios de SW.
+## Consulta y Asignación de Timbres ##
+Métodos para realizar la consulta de saldo así como la asignación y eliminación de timbres a un usuario.
 
 <details>
-  <summary>Ejemplos</summary>
+  <summary>Consulta de timbres</summary>
 
 <br>Este método recibe los siguientes parametros:
 * Usuario y contraseña o Token
 * Url Servicios SW
+* Url Api
 
 **Ejemplo de consumo de la libreria para consultar el saldo**
 ```cs
@@ -701,7 +702,7 @@ using System;
 using System.IO;
 using System.Text;
 using SW.Helpers;
-using SW.Services.BalanceAccount;
+using SW.Services.Account.AccountBalance;
 
 namespace ExampleSDK
 {
@@ -711,10 +712,10 @@ namespace ExampleSDK
         {
             try
             {
-                //Creamos una instancia de tipo BalanceAccount 
+                //Creamos una instancia de tipo AccountBalance 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a consultar el saldo
-                BalanceAccount account = new BalanceAccount("http://services.test.sw.com.mx", "user", "password");
+                AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
                 AccountResponse response = account.ConsultarSaldo();
               
                 //Para Obtener el idSaldoCliente
@@ -737,6 +738,105 @@ namespace ExampleSDK
                 
                 //Para Obtener los timbres Asignados
                 response.Data.timbresAsignados;
+                
+                //En caso de error, se pueden visualizar los campos message y/o messageDetail
+                response.message;
+                response.messageDetail;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Agregar timbres</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Url Api
+* IdUser
+* Número de timbres
+* Comentario
+
+**Ejemplo de consumo de la libreria para agregar timbres**
+```cs
+using System;
+using SW.Helpers;
+using SW.Services.Account.AccountBalance;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo AccountBalance 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
+                //Obtenemos y convertimos a tipo Guid el id del usuario
+                Guid idUser = Guid.Parse("32701CF2-DC63-4370-B47D-25024C44E131");
+                //Se envían los parámetros a la función AgregarTimbres
+                AccountResponse response = account.AgregarTimbres(idUser, 2, "Timbres agregados");
+              
+                //Para Obtener el mensaje de respuesta.
+                response.data;
+                
+                //En caso de error, se pueden visualizar los campos message y/o messageDetail
+                response.message;
+                response.messageDetail;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+<details>
+  <summary>Eliminar timbres</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Url Api
+* IdUser
+* Número de timbres
+* Comentario
+
+**Ejemplo de consumo de la libreria para remover timbres**
+```cs
+using System;
+using SW.Helpers;
+using SW.Services.Account.AccountBalance;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo AccountBalance 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
+                //Obtenemos y convertimos a tipo Guid el id del usuario
+                Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+                //Se envían los parámetros a la función EliminarTimbres
+                AccountResponse response = account.EliminarTimbres(idUser, 2, "Timbres removidos");
+              
+                //Para Obtener el mensaje de respuesta.
+                response.data;
                 
                 //En caso de error, se pueden visualizar los campos message y/o messageDetail
                 response.message;

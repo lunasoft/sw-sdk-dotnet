@@ -1,6 +1,6 @@
 ﻿using SW.Helpers;
 using SW.Services.AcceptReject;
-using SW.Services.Account;
+using SW.Services.Account.AccountBalance;
 using SW.Services.Authentication;
 using SW.Services.Cancelation;
 using SW.Services.Csd;
@@ -33,6 +33,15 @@ namespace SW.Helpers
         internal static AccountResponse ToAccountResponse(this Exception ex)
         {
             return new AccountResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static AccountBalanceResponse ToAccountBalanceResponse(this Exception ex)
+        {
+            return new AccountBalanceResponse()
             {
                 message = ex.Message,
                 status = "error",

@@ -85,7 +85,7 @@
     <Compile Include="Services\AcceptReject\AcceptReject_Test.cs" />
     <Compile Include="Services\Authentication\Authentication_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Account\Account_Test.cs" />
+    <Compile Include="Services\Account\AccountBalance\Account_Test.cs" />
     <Compile Include="Services\Cancelation\Cancelation_Test.cs" />
     <Compile Include="Services\Csd\Csd_Test.cs" />
     <Compile Include="Services\Issue\IssueJson_Test.cs" />

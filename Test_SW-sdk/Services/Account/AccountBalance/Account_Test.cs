@@ -8,19 +8,19 @@ using Test_SW.Helpers;
 namespace Test_SW.Services.Account_Test
 {
     [TestClass]
-    public class Account_Test_45
+    public class Account_Test
     {
-        
+
         [TestMethod]
-        public void Account_Test_45_ConsultaDeSaldoByUser()
+        public void ConsultaDeSaldoByUser()
         {
             var build = new BuildSettings();
-            AccountBalance account = new AccountBalance(build.Url, build.UrlApi, build.User, build.Password);
+            AccountBalance account = new AccountBalance(build.Url,build.UrlApi, build.User, build.Password);
             var response = account.ConsultarSaldo();
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [TestMethod]
-        public void Account_Test_45_ConsultaDeSaldoByToken()
+        public void ConsultaDeSaldoByToken()
         {
             var build = new BuildSettings();
             AccountBalance account = new AccountBalance(build.UrlApi, build.Token);
@@ -101,5 +101,6 @@ namespace Test_SW.Services.Account_Test
             Assert.IsTrue(response.status == "error");
             Assert.IsTrue(response.message == "Usuario no pertenece al Dealer");
         }
+
     }
 }

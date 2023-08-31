@@ -15,6 +15,8 @@ using System.Linq;
 using System.Text;
 using SW.Services.Storage;
 using SW.Services.Resend;
+using SW.Services.Account.AccountBalance;
+
 namespace SW.Helpers
 {
     internal static class ResponseHelper
@@ -28,9 +30,18 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }
-        internal static AccountResponse ToAccountResponse(this Exception ex)
+        internal static BalanceResponse ToBalanceResponse(this Exception ex)
         {
-            return new AccountResponse()
+            return new BalanceResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static AccountBalanceResponse ToAccountBalanceResponse(this Exception ex)
+        {
+            return new AccountBalanceResponse()
             {
                 message = ex.Message,
                 status = "error",
