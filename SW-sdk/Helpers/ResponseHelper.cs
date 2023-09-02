@@ -1,6 +1,7 @@
 ﻿using SW.Helpers;
 using SW.Services.AcceptReject;
 using SW.Services.Account.AccountBalance;
+using SW.Services.Account.AccountUser;
 using SW.Services.Authentication;
 using SW.Services.Cancelation;
 using SW.Services.Csd;
@@ -193,6 +194,33 @@ namespace SW.Helpers
         internal static StorageResponse ToStorageResponse(this Exception ex)
         {
             return new StorageResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static AccountUserActionsResponse ToAccountUserActionsResponse(this Exception ex)
+        {
+            return new AccountUserActionsResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static AccountGetUserResponse ToAccountGetUserResponse(this Exception ex)
+        {
+            return new AccountGetUserResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static AccountGetUsersResponse ToAccountGetUsersResponse(this Exception ex)
+        {
+            return new AccountGetUsersResponse()
             {
                 message = ex.Message,
                 status = "error",

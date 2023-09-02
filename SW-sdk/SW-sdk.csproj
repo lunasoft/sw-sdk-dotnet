@@ -61,6 +61,11 @@
     <Compile Include="Helpers\Validation.cs" />
     <Compile Include="Helpers\XmlUtils.cs" />
     <Compile Include="Services\Account\AccountBalance\AccountBalanceRequest.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUser.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserRequest.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserResponse.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserResponseHandler.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserService.cs" />
     <Compile Include="Services\Csd\UploadCsdRequest.cs" />
     <Compile Include="Services\Csd\CsdResponse.cs" />
     <Compile Include="Services\Csd\CsdResponseHandler.cs" />
