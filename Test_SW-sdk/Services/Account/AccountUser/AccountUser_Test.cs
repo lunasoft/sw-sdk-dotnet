@@ -10,16 +10,13 @@ namespace Test_SW.Services.AccountUser_Test
     [TestClass]
     public class AccountUser_Test
     {
-        string tokenDealer = "T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGQyZmtSaFI1RGQ2dEtBYXNWem1rTHo4cHhpS3lWa0s1MG5wZUYxVHo2MWRqcjdtSnJLcit3bS8zTXAyaHB5by9zdWJkNXlpRUE1TjBQdENVMTNzaG9CcE9RaWhNRlIvbFV0elhKMnZPN2xkQzA1dnRPMnhjYTUvODlBS2lOaEVvWDlCVklKMWtXelJMMmlmd1lqTzFKNU4rTDJOb2ptUDFNNmNqMERXd1F2T2lpVVdGWFA4M1EySEh6b0E3TVg5RFFTQ3JzT0M4TlA4RzczempTWTF5RmpDWksrc2JjM0I1b1JwR1dObVhGb0RvNmF1YWNEWlBOM0w1YnZIUSt3YnNpREhrTzA2dkpCZGlkNmRRN1RaYlQ2NGtabUVoK2w3RVRRS0NEUE9UZ0dHWlhWQVV3Zy9lY2NvM2YxOWJUblJpS0ExVm5EK2NFYkp1dW9BRUtCa1FCQkN2cUhiMFlDS2JEWm50N3gvT2dMZ1FOMC9YcFNwSDJEby9ROHNTRzk5SVE.2qKwZRx2qt65pxqBuPA6SrHg11t8c5ZBVqtSZTTP00c";
-        string userDealer= "marifer.mares@sw.com.mx";
-        string passwordDealer= "M4rifer+SW2";
-
         [TestMethod]
         public void GetUserByTokenAuthSuccess()
         {
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
             var response = infoUser.GetUserByToken();
+            Assert.IsNotNull(response.data);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [TestMethod]
@@ -28,6 +25,7 @@ namespace Test_SW.Services.AccountUser_Test
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
             var response = infoUser.GetUserByToken();
+            Assert.IsNotNull(response.data);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [TestMethod]
@@ -36,6 +34,7 @@ namespace Test_SW.Services.AccountUser_Test
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, "fakepassword");
             var response = infoUser.GetUserByToken();
+            Assert.IsNull(response.data);
             Assert.IsTrue(response.status == "error", response.messageDetail);
         }
         [TestMethod]
@@ -44,6 +43,7 @@ namespace Test_SW.Services.AccountUser_Test
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.UrlApi, "T2jendl...");
             var response = infoUser.GetUserByToken();
+            Assert.IsNull(response.data);
             Assert.IsTrue(response.status == "error", response.messageDetail);
         }
         [TestMethod]
@@ -85,6 +85,7 @@ namespace Test_SW.Services.AccountUser_Test
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
             var response = infoUser.GetUserById(idUser);
+            Assert.IsNotNull(response.data);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [TestMethod]
@@ -94,6 +95,7 @@ namespace Test_SW.Services.AccountUser_Test
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
             var response = infoUser.GetUserById(idUser);
+            Assert.IsNotNull(response.data);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [TestMethod]
@@ -103,6 +105,7 @@ namespace Test_SW.Services.AccountUser_Test
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
             var response = infoUser.GetUserById(idUserFake);
+            Assert.IsNull(response.data);
             Assert.IsTrue(response.status == "error", response.messageDetail);
         }
         [TestMethod]
@@ -112,6 +115,7 @@ namespace Test_SW.Services.AccountUser_Test
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
             var response = infoUser.GetUserById(idUserFake);
+            Assert.IsNull(response.data);
             Assert.IsTrue(response.status == "error", response.messageDetail);
         }
         [TestMethod]
@@ -121,13 +125,14 @@ namespace Test_SW.Services.AccountUser_Test
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
             var response = infoUser.GetUserById(idUser);
+            Assert.IsNull(response.data);
             Assert.IsTrue(response.status == "error", response.messageDetail);
         }
         [TestMethod]
         public void CreateUserSuccess()
         {
             var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.UrlApi, tokenDealer);
+            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
             var response = infoUser.CreateUser(new AccountUserRequest()
             {
                 email = $"hijo_{build.User}",
@@ -138,16 +143,17 @@ namespace Test_SW.Services.AccountUser_Test
                 stamps = 1,
                 unlimited = false
             });
+            Assert.IsNotNull(response);
             Assert.IsTrue(response.status.Equals("success") || (response.status.Equals("error") && response.message.Contains("AU1001")), response.messageDetail);
         }
         [TestMethod]
         public void CreateUserAuthSuccess()
         {
             var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, userDealer, passwordDealer);
+            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
             var response = infoUser.CreateUser(new AccountUserRequest()
             {
-                email = $"hijo_{build.User}",
+                email = $"cuenta_hijo_{build.User}",
                 password = "SwpassTest1!",
                 name = "Pruebas User",
                 rfc = "XAXX010101000",
@@ -155,6 +161,7 @@ namespace Test_SW.Services.AccountUser_Test
                 stamps = 1,
                 unlimited = false
             });
+            Assert.IsNotNull(response);
             Assert.IsTrue(response.status.Equals("success") || (response.status.Equals("error") && response.message.Contains("AU1001")), response.messageDetail);
         }
         [TestMethod]
@@ -172,13 +179,14 @@ namespace Test_SW.Services.AccountUser_Test
                 stamps = 1,
                 unlimited = false
             });
+            Assert.IsNotNull(response);
             Assert.IsTrue(response.status == "error", response.messageDetail);
         }
         [TestMethod]
         public void CreateUserPasswordError()
         {
             var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.UrlApi, tokenDealer);
+            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
             var response = infoUser.CreateUser(new AccountUserRequest()
             {
                 email = $"hijo_{build.User}",
@@ -189,6 +197,7 @@ namespace Test_SW.Services.AccountUser_Test
                 stamps = 1,
                 unlimited = false
             });
+            Assert.IsNotNull(response);
             Assert.IsTrue(response.status == "error", response.messageDetail);
         }
 
@@ -196,7 +205,7 @@ namespace Test_SW.Services.AccountUser_Test
         public void CreateUserNoDealerError()
         {
             var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
+            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.UserNoDealer, build.PasswordNoDealer);
             var response = infoUser.CreateUser(new AccountUserRequest()
             {
                 email = $"hijo_{build.User}",
@@ -207,15 +216,15 @@ namespace Test_SW.Services.AccountUser_Test
                 stamps = 1,
                 unlimited = false
             });
-            Assert.IsTrue(response.status == "error", response.messageDetail);
+            Assert.IsTrue(response.status == "error", response.messageDetail= "Profile del token no se encuentra en los permitidos para crear usuarios (Admin, Dealer). Perfil del token: User");
         }
         [TestMethod]
         public void UpdateUserSuccess()
         {
-            Guid idUser = Guid.Parse("4ec7dbb9-8457-4c90-8eb3-91bfeeb1b24b");
-            
+            Guid idUser = Guid.Parse("106f4d82-575e-436c-a923-8c85517f2ca9");
+            String tokenUserUpdate = "T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRod1g3Y1FGcGVpS1Z5OVZoMEZRTDBkdHZCbUFsYjZTbS9MQWh0V0dtQTcwNVQ1VldhSDN0ZFBJL0ZaN3FnM1RqcGU2UENQMjVuSzRhVUtGblcwb01BTzhWWXcwQTR6aGg0V2QyRDE2MFZ3dW5vWG5QZXNRekxUeVdGMHJwekRuQUJBeDgvTTRxb0g4YWlaQW1DR2xydlBnRFdzYmpXYkZ1RDhCbGtteTJhRXZSVDRvamJZclN0NkFCNGN2V1lXYUtQQnBZMGt2WTJkNWVJM043TzFVL09PNjU4cXVuOXZQYmVZZkVBKytRemp0Vm0wSUgycVdla1dMbU5oTGVEeHZ5SHVqU2JrdHR0NlVLOXM5Wjh1S3hDY00yMmRMQTN2bm1jbzJpcDRWK1RVamFGQ1FwYTlnVlBXMXBGSFZrUUErSTFqbnAvRkUyQUwwRXRNWm1weFlMRCs0Znk2OStFd2hBK2Y4dUEyekg2VVF4TitvNlJpQmVhRDg3MkZJM3BuT0gwUElzMW1DYmJmcE5iUGxrVnNySmRnPT0.voHhJQQkVfPC8swHKekH0giMAQfnny2YsXypG6cIqqo";
             var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.UrlApi, "T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRMTy9DVFlZNXArQnJxTUw5SGkwM0tXNDhDT0w5RXQ5V1VjRm9US24veVcybm12aDVZTUNWc0lzRi9BM0taS2laRUZaTmxUNXgrUDlRMUdVb3htZXZXMTlhRWM2TFJNNXZBOFFLbFdBbEhDTGYzK1k3ZFB0SWFId2J6ajQ2UVJCVjQzRXBHcTRWbnRsZkxyWlh4Y2c4WWVxWlovd3plWEw4eVJISVFlQ3ZzTnFLVFVHb1p4NEVSRXNLdFJENVFHWkpPclZFYURneGRNbUwycGQwaXNjY2dUdC9SeUdsSHdBQ3paNkNEUHFGWlJQKzJHeXVpSHI0WTF3Z2RVTjVJSmFEZ09EWFVic2lnUHVoVUp0RjFweE9VOEU2ZG5oekxad1MxMnN3eWFObGQ1aXVXRWZWcWc1RUdsMytHNWlYNTRxdFc4S294cGljNVQzbEpXL0tDUEd6ZHhURW9sOE5MVHJGZzZlazBUdWdkeFVhdXkrdTFmUDJubEE1OHBzcm1UMms.BecefhoDitho2V5ZiqhA171yAO46NoCvw6wx-pWBVR8");
+            AccountUser infoUser = new AccountUser(build.UrlApi, tokenUserUpdate);
             var response = infoUser.UpdateUser(idUser,"prueba update","prueba",false, true);
             Assert.IsTrue(response.status.Equals("success"), response.messageDetail);
         }
@@ -223,21 +232,22 @@ namespace Test_SW.Services.AccountUser_Test
         [TestMethod]
         public void UpdateUserAuthSuccess()
         {
-            Guid idUser = Guid.Parse("4ec7dbb9-8457-4c90-8eb3-91bfeeb1b24b");
-
+            Guid idUser = Guid.Parse("106f4d82-575e-436c-a923-8c85517f2ca9");
+            String userUpdate = "cuenta_hijo_pruebas_ut@sw.com.mx";
+            String passUpdate = "SwpassTest1!";
             var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi,userDealer, passwordDealer);
-            var response = infoUser.UpdateUser(idUser, "prueba update", "prueba", false, true);
+            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi,userUpdate, passUpdate);
+            var response = infoUser.UpdateUser(idUser, "Pruebas Update", "AAAA000101010", false, true);
             Assert.IsTrue(response.status.Equals("success"), response.messageDetail);
         }
         [TestMethod]
         public void UpdateUserAuthError()
         {
-            Guid idUser = Guid.Parse("4ec7dbb9-8957-4c90-8eb3-91bfeeb1b24b");
+            Guid idUser = Guid.Parse("106f4d82-575e-436c-a923-8c85517f2ca9");
 
             var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, userDealer, passwordDealer);
-            var response = infoUser.UpdateUser(idUser, "prueba update", "prueba", false, true);
+            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
+            var response = infoUser.UpdateUser(idUser, "Pruebas Update", "AAAA000101010", false, true);
             Assert.IsTrue(response.status.Equals("error"), response.messageDetail);
         }
         [TestMethod]
@@ -246,7 +256,7 @@ namespace Test_SW.Services.AccountUser_Test
             Guid idUser = Guid.Parse("4ec7dbb9-8957-4c90-8eb3-91bfeeb1b24b");
 
             var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.UrlApi, tokenDealer);
+            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
             var response = infoUser.UpdateUser(idUser, "prueba update", "prueba", false, true);
             Assert.IsTrue(response.status.Equals("error"), response.messageDetail);
         }
