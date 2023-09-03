@@ -12,20 +12,17 @@ namespace SW.Services.Account.AccountUser
         private readonly string _path = "management/api/users";
         AccountGetUsersResponseHandler _handlerUsers;
         AccountGetUserResponseHandler _handlerUser;
-        AccountUserActionsResponseHandler _handlerUserActions;
 
         public AccountUser(string url, string urlApi, string user, string password, int proxyPort = 0, string proxy = null) : base(url, urlApi, user, password, proxy, proxyPort)
         {
             _handlerUsers = new AccountGetUsersResponseHandler();
             _handlerUser = new AccountGetUserResponseHandler();
-            _handlerUserActions = new AccountUserActionsResponseHandler();
         }
 
         public AccountUser(string urlApi, string token, int proxyPort = 0, string proxy = null) : base(urlApi, token, proxy, proxyPort)
         {
             _handlerUsers = new AccountGetUsersResponseHandler();
             _handlerUser = new AccountGetUserResponseHandler();
-            _handlerUserActions = new AccountUserActionsResponseHandler();
         }
         public AccountGetUserResponse GetUserByToken()
         {
@@ -52,19 +49,27 @@ namespace SW.Services.Account.AccountUser
         {
             return (AccountUserActionsResponse)UserActions(AccountUserAction.Delete, idUsuario);
         }
+
+
+        private HttpWebRequest ConfigureHttpRequest(string endpoint, string method)
+        {
+            new Validation(Url, User, Password, Token).ValidateHeaderParameters();
+            this.SetupRequest();
+            var baseUrl = this.UrlApi ?? this.Url;
+            var request = (HttpWebRequest)WebRequest.Create(baseUrl + endpoint);
+            request.ContentType = "application/json";
+            request.Method = method;
+            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
+            request.ContentLength = 0;
+            return request;
+        }
+
         internal override Response GetUsers()
         {
             try
             {
-                new Validation(Url, User, Password, Token).ValidateHeaderParameters();
-                this.SetupRequest();
-                var baseUrl = this.UrlApi ?? this.Url;
-                var request = (HttpWebRequest)WebRequest.Create(baseUrl + _path);
-                request.ContentType = "application/json";
-                request.Method = WebRequestMethods.Http.Get;
-                request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
-                Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
-                request.ContentLength = 0;
+                var request = ConfigureHttpRequest(_path, WebRequestMethods.Http.Get);
                 return _handlerUsers.GetResponse(request);
             }
             catch (Exception e)
@@ -72,21 +77,13 @@ namespace SW.Services.Account.AccountUser
                 return _handlerUsers.HandleException(e);
             }
         }
+
         internal override Response GetUser(Guid? idUser = null)
         {
             try
             {
-                new Validation(Url, User, Password, Token).ValidateHeaderParameters();
-                this.SetupRequest();
-                var baseUrl = this.UrlApi ?? this.Url;
-                string endpoint;
-                if (idUser == null) { endpoint = String.Format("{0}/{1}", _path, "info"); } else { endpoint = String.Format("{0}/{1}", _path,idUser); }
-                var request = (HttpWebRequest)WebRequest.Create(baseUrl+endpoint);
-                request.ContentType = "application/json";
-                request.Method = WebRequestMethods.Http.Get;
-                request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
-                Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
-                request.ContentLength = 0;
+                string endpoint = idUser == null ? $"{_path}/info" : $"{_path}/{idUser}";
+                var request = ConfigureHttpRequest(endpoint, WebRequestMethods.Http.Get);
                 return _handlerUser.GetResponse(request);
             }
             catch (Exception e)
@@ -94,6 +91,7 @@ namespace SW.Services.Account.AccountUser
                 return _handlerUser.HandleException(e);
             }
         }
+
         internal override Response UserActions(AccountUserAction action, Guid? idUser = null, AccountUserRequest bodyRequest = null)
         {
             AccountUserActionsResponseHandler handler = new AccountUserActionsResponseHandler();
@@ -124,70 +122,34 @@ namespace SW.Services.Account.AccountUser
             }
         }
 
-
-        internal virtual HttpWebRequest RequestCreateUser(AccountUserRequest bodyRequest )
+        private HttpWebRequest ConfigureHttpRequestWithBody(string endpoint, string method, object requestBody)
         {
-            this.SetupRequest();
-            var baseUrl = this.UrlApi ?? this.Url;
-            var request = (HttpWebRequest)WebRequest.Create(String.Format("{0}/{1}", baseUrl,_path));
-            request.ContentType = "application/json";
-            request.Method = WebRequestMethods.Http.Post;
-            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
-            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
-            bodyRequest.profile = (int)bodyRequest.profileType;
-            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new AccountUserRequest()
-            {
-                email=bodyRequest.email,
-                name=bodyRequest.name,
-                rfc=bodyRequest.rfc,
-                password=bodyRequest.password,
-                stamps=bodyRequest.stamps,
-                unlimited=bodyRequest.unlimited,
-                activo=bodyRequest.activo,
-                profileType=bodyRequest.profileType,
-                profile=bodyRequest.profile
-                
-            });
-            request.ContentLength = body.Length;
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                streamWriter.Write(body);
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-            return request;
-        }
-        internal virtual HttpWebRequest RequestUpdateUser(Guid? idUser, AccountUserRequest bodyRequest)
-        {
-            this.SetupRequest();
-            var baseUrl = this.UrlApi ?? this.Url;
-            var request = (HttpWebRequest)WebRequest.Create(String.Format("{0}/{1}/{2}", baseUrl, _path,idUser));
-            request.ContentType = "application/json";
-            request.Method = WebRequestMethods.Http.Put;
-            request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
-            Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
+            var request = ConfigureHttpRequest(endpoint, method);
             var settings = new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore
             };
+            string jsonContent = JsonConvert.SerializeObject(requestBody,settings);
+            byte[] byteArray = Encoding.UTF8.GetBytes(jsonContent);
+            request.ContentLength = byteArray.Length;
 
-            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new AccountUserRequest()
+            using (Stream requestStream = request.GetRequestStream())
             {
-                rfc = bodyRequest.rfc,
-                name = bodyRequest.name,
-                unlimited = bodyRequest.unlimited,
-                activo = bodyRequest.activo,
-            }, settings);
-
-
-            request.ContentLength = body.Length;
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                streamWriter.Write(body);
-                streamWriter.Flush();
-                streamWriter.Close();
+                requestStream.Write(byteArray, 0, byteArray.Length);
             }
             return request;
+        }
+        internal virtual HttpWebRequest RequestCreateUser(AccountUserRequest bodyRequest)
+        {
+            bodyRequest.profile = (int)bodyRequest.profileType;
+            var endpoint = $"{_path}";
+            return ConfigureHttpRequestWithBody(endpoint, WebRequestMethods.Http.Post, bodyRequest);
+        }
+
+        internal virtual HttpWebRequest RequestUpdateUser(Guid? idUser, AccountUserRequest bodyRequest)
+        {
+            var endpoint = $"{_path}/{idUser}";
+            return ConfigureHttpRequestWithBody(endpoint, WebRequestMethods.Http.Put, bodyRequest);
         }
         internal virtual HttpWebRequest RequestDeleteUser(Guid? idUser)
         {
@@ -197,30 +159,6 @@ namespace SW.Services.Account.AccountUser
             request.Method = "DELETE";
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
             Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
-            return request;
-        }
-        internal virtual HttpWebRequest GetStringContent(HttpWebRequest request, AccountUserRequest bodyRequest) {
-            var body = Newtonsoft.Json.JsonConvert.SerializeObject(new AccountUserRequest()
-            {
-                email = bodyRequest.email,
-                name = bodyRequest.name,
-                password = bodyRequest.password,
-                profileType = bodyRequest.profileType,
-                rfc = bodyRequest.rfc,
-                stamps = bodyRequest.stamps,
-                unlimited = bodyRequest.unlimited,
-                activo = bodyRequest.activo
-
-            });
-            bodyRequest.profile = (int)bodyRequest.profileType;
-            string jsonContent = JsonConvert.SerializeObject(bodyRequest);
-            byte[] byteArray = Encoding.UTF8.GetBytes(jsonContent);
-            request.ContentLength = byteArray.Length;
-
-            using (Stream requestStream = request.GetRequestStream())
-            {
-                requestStream.Write(byteArray, 0, byteArray.Length);
-            }
             return request;
         }
     }
