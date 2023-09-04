@@ -910,6 +910,16 @@ namespace ExampleSDK
     }
 }
 ```
+:pushpin: ***NOTA:*** La contraseña debe cumplir con las siguientes politicas:
+* La contraseña no debe ser igual que el nombre de usuario.
+* La contraseña debe incluir al menos una letra mayúscula.
+* La contraseña debe incluir al menos una letra minúscula
+* La contraseña debe incluir al menos un número.
+* La contraseña debe incluir al menos un símbolo (carácter especial).
+* La contraseña no debe incluir espacios en blanco.
+* La contraseña debe tener entre 10 y 20 caracteres.
+* La contraseña no debe incluir símbolos especiales fuera de lo común.
+* Los caracteres especiales aceptados son los siguientes: !@#$%^&*()_+=\[{\]};:<>|./?,-]
 </details>
 <details>
   <summary>Actualizacion de datos de usuario</summary>
