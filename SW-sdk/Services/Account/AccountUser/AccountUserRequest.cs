@@ -30,16 +30,4 @@ namespace SW.Services.Account.AccountUser
         [DataMember]
         internal int profile { get; set; }
     }
-    [DataContract]
-    public partial class AccountUserUpdateRequest
-    {
-        [DataMember]
-        public string name { get; set; }
-        [DataMember]
-        public string rfc { get; set; }
-        [DataMember]
-        public bool unlimited { get; set; } = false;
-        [DataMember]
-        public bool activo { get; set; } = true;
-    }
 }

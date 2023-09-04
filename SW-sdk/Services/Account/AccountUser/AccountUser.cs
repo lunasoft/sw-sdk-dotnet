@@ -12,39 +12,85 @@ namespace SW.Services.Account.AccountUser
         private readonly string _path = "management/api/users";
         AccountGetUsersResponseHandler _handlerUsers;
         AccountGetUserResponseHandler _handlerUser;
-
+        /// <summary>
+        /// Sobrecarga para usar el servicio Account User con credenciales para autenticarse
+        /// </summary>
+        /// <param name="url">URL de servicios</param>
+        /// <param name="urlApi">URL de API a consumir</param>
+        /// <param name="user">Correo electronico de usuario</param>
+        /// <param name="password">Secuencia de caracteres privadas del usuario para el acceso a su cuenta</param>
+        /// <param name="proxyPort">Proxy Port</param>
+        /// <param name="proxy">Proxy</param>
         public AccountUser(string url, string urlApi, string user, string password, int proxyPort = 0, string proxy = null) : base(url, urlApi, user, password, proxy, proxyPort)
         {
             _handlerUsers = new AccountGetUsersResponseHandler();
             _handlerUser = new AccountGetUserResponseHandler();
         }
-
+        /// <summary>
+        /// Sobrecarga para usar el servicio Account User con el token del usuario
+        /// </summary>
+        /// <param name="urlApi">URL de API a consumir</param>
+        /// <param name="token">Token de acceso a la cuenta del cliente</param>
+        /// <param name="proxyPort">Proxy port</param>
+        /// <param name="proxy"Proxy></param>
         public AccountUser(string urlApi, string token, int proxyPort = 0, string proxy = null) : base(urlApi, token, proxy, proxyPort)
         {
             _handlerUsers = new AccountGetUsersResponseHandler();
             _handlerUser = new AccountGetUserResponseHandler();
         }
+        /// <summary>
+        /// Metodo para Obtener la informacion del usuario por medio de su token de acceso
+        /// </summary>
+        /// <returns></returns>
         public AccountGetUserResponse GetUserByToken()
         {
             return (AccountGetUserResponse)GetUser();
         }
+        /// <summary>
+        /// Metodo para obtener la informacion de todas las cuentas hijas de una cuenta distribuidor
+        /// </summary>
+        /// <returns></returns>
         public AccountGetUsersResponse GetAllUsers()
         {
             return (AccountGetUsersResponse)GetUsers();
         }
+        /// <summary>
+        /// Metodo para obtener la informacion de un usuario mediante su ID
+        /// </summary>
+        /// <param name="idUser">Secuencia de caracteres asignados al cliente a consultar</param>
+        /// <returns></returns>
         public AccountGetUserResponse GetUserById(Guid idUser)
         {
             return (AccountGetUserResponse)GetUser(idUser);
         }
+        /// <summary>
+        /// Metodo para crear un nuevo usuario
+        /// </summary>
+        /// <param name="bodyRequest">Informacion asignada para el nuevo usuario</param>
+        /// <returns></returns>
         public AccountUserActionsResponse CreateUser(AccountUserRequest bodyRequest)
         {
             return (AccountUserActionsResponse)UserActions(AccountUserAction.Add, null, bodyRequest);
         }
+        /// <summary>
+        /// Metodo para actualizar los datos de un usuario previamente registrado
+        /// </summary>
+        /// <param name="idUser">Id del usuario a modificar</param>
+        /// <param name="rfc">Registro Federal de Contribuyentes</param>
+        /// <param name="nombre">Nombre del usuario</param>
+        /// <param name="unlimited">Timbres ilimitados o no</param>
+        /// <param name="activo">Estatus del usuario</param>
+        /// <returns></returns>
         public AccountUserActionsResponse UpdateUser(Guid idUser, string rfc = null, string nombre = null, bool unlimited = false, bool activo = true)
         {
             return (AccountUserActionsResponse)UserActions(AccountUserAction.Update, idUser, new AccountUserRequest
             { rfc = rfc, name = nombre, unlimited = unlimited, activo=activo });
         }
+        /// <summary>
+        /// Metodo para eliminar un usuario
+        /// </summary>
+        /// <param name="idUsuario">Id para identificar el usuario a eliminar</param>
+        /// <returns></returns>
         public AccountUserActionsResponse DeleteUser(Guid idUsuario)
         {
             return (AccountUserActionsResponse)UserActions(AccountUserAction.Delete, idUsuario);
