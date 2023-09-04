@@ -16,6 +16,7 @@ using System.Text;
 using SW.Services.Storage;
 using SW.Services.Resend;
 using SW.Services.Account.AccountBalance;
+using SW.Services.Account.AccountUser;
 
 namespace SW.Helpers
 {
@@ -193,6 +194,33 @@ namespace SW.Helpers
         internal static StorageResponse ToStorageResponse(this Exception ex)
         {
             return new StorageResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static AccountUserActionsResponse ToAccountUserActionsResponse(this Exception ex)
+        {
+            return new AccountUserActionsResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static AccountGetUserResponse ToAccountGetUserResponse(this Exception ex)
+        {
+            return new AccountGetUserResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static AccountGetUsersResponse ToAccountGetUsersResponse(this Exception ex)
+        {
+            return new AccountGetUsersResponse()
             {
                 message = ex.Message,
                 status = "error",

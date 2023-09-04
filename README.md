@@ -852,6 +852,303 @@ namespace ExampleSDK
 ```
 </details>
 
+## API Usuarios ##
+Métodos para realizar la consulta de informacion de usuarios, así como la creación, actualización y eliminacion  de los mismos
+
+<details>
+  <summary>Crear usuario</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Url Api
+* Informacion del nuevo cliente
+
+**Ejemplo de consumo de la libreria para crear un usuario**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.Account.AccountUser;
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo AccountUser
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                AccountUser user = new AccountUser("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
+
+                //Obtenemos el response haciendo uso del metodo CreateUser, agregandole la informacion de nuestro nuevo usuario
+                 var response = user.CreateUser(new AccountUserRequest()
+                {
+                 email = "cuenta_nuevo_usuario@gmail.com",
+                 password = "nueva_contraseña!2",
+                 name = "Usuarionuevo",
+                 rfc = "XAXX010101000",
+                 profileType = SW.Helpers.AccountUserProfile.Hijo,
+                 stamps = 1,
+                 unlimited = false
+                 });
+
+                //Para Obtener el mensaje de respuesta.
+                response.data;
+                
+                //En caso de error, se pueden visualizar los campos message y/o messageDetail
+                response.message;
+                response.messageDetail;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+:pushpin: ***NOTA:*** La contraseña debe cumplir con las siguientes politicas:
+* La contraseña no debe ser igual que el nombre de usuario.
+* La contraseña debe incluir al menos una letra mayúscula.
+* La contraseña debe incluir al menos una letra minúscula
+* La contraseña debe incluir al menos un número.
+* La contraseña debe incluir al menos un símbolo (carácter especial).
+* La contraseña no debe incluir espacios en blanco.
+* La contraseña debe tener entre 10 y 20 caracteres.
+* La contraseña no debe incluir símbolos especiales fuera de lo común.
+* Los caracteres especiales aceptados son los siguientes: !@#$%^&*()_+=\[{\]};:<>|./?,-]
+</details>
+<details>
+  <summary>Actualizacion de datos de usuario</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Url Api
+* IdUser
+* Datos nuevos del cliente
+
+**Ejemplo de consumo de la libreria para actualiza usuarios**
+```cs
+using System;
+using SW.Helpers;
+using SW.Services.Account.AccountUser;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo AccountUser 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                AccountUser user = new AccountUser("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
+                //Obtenemos y convertimos a tipo Guid el id del usuario
+                Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+                //Se envían los parámetros a la función UpdateUser
+                var response = user.UpdateUser(idUser, "AAAA000101010", "Pruebas Update", false, true);
+                //Para Obtener el mensaje de respuesta.
+                response.data;
+                
+                //En caso de error, se pueden visualizar los campos message y/o messageDetail
+                response.message;
+                response.messageDetail;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Eliminación de usuario</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Url Api
+* IdUser
+
+**Ejemplo de consumo de la libreria para eliminar usuarios**
+```cs
+using System;
+using SW.Helpers;
+using SW.Services.Account.AccountUser;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo AccountUser 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                AccountUser user = new AccountUser("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
+                //Obtenemos y convertimos a tipo Guid el id del usuario
+                Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+                //Se envían los parámetros a la función DeleteUser
+                  var response = user.DeleteUser(idUser);
+                //Para Obtener el mensaje de respuesta.
+                response.data;
+                
+                //En caso de error, se pueden visualizar los campos message y/o messageDetail
+                response.message;
+                response.messageDetail;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+<details>
+  <summary>Obtener usuario por token</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Url Api
+
+**Ejemplo de consumo de la libreria para obtener usuario por token**
+```cs
+using System;
+using SW.Helpers;
+using SW.Services.Account.AccountUser;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo AccountUser 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                AccountUser infoUser = new AccountUser("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
+                //Se instancia el metodo GetUserByToken
+                var response = infoUser.GetUserByToken();
+                //Para Obtener el mensaje de respuesta.
+                response.data;
+                
+                //En caso de error, se pueden visualizar los campos message y/o messageDetail
+                response.message;
+                response.messageDetail;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+<details>
+  <summary>Obtener usuario por ID</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Url Api
+* IdUser
+
+**Ejemplo de consumo de la libreria para obtener usuario por ID**
+```cs
+using System;
+using SW.Helpers;
+using SW.Services.Account.AccountUser;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo AccountUser 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                AccountUser infoUser = new AccountUser("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
+                //Obtenemos y convertimos a tipo Guid el id del usuario
+                Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+                //Se envían los parámetros a la función GetUserById
+                 var response = infoUser.GetUserById(idUser);
+                //Para Obtener el mensaje de respuesta.
+                response.data;
+                
+                //En caso de error, se pueden visualizar los campos message y/o messageDetail
+                response.message;
+                response.messageDetail;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+<details>
+  <summary>Obtener todos los usuarios</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Url Api
+
+**Ejemplo de consumo de la libreria para obtener todos los usuarios**
+```cs
+using System;
+using SW.Helpers;
+using SW.Services.Account.AccountUser;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo AccountUser 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                AccountUser infoUser = new AccountUser("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
+                //Se instancia el metodo GetAllUsers
+                var response = infoUser.GetAllUsers();
+                //Para Obtener el mensaje de respuesta.
+                response.data;
+                
+                //En caso de error, se pueden visualizar los campos message y/o messageDetail
+                response.message;
+                response.messageDetail;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+
 ## Validaciones ##
 
 <details>

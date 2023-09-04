@@ -83,7 +83,8 @@
     <Compile Include="Helpers\BuildSettings.cs" />
     <Compile Include="Helpers\SignTools.cs" />
     <Compile Include="Services\AcceptReject\AcceptReject_Test.cs" />
-    <Compile Include="Services\Account\Account_Test.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUser_Test.cs" />
+    <Compile Include="Services\Account\AccountBalance\Account_Test.cs" />
     <Compile Include="Services\Authentication\Authentication_Test.cs" />
     <Compile Include="Services\Cancelation\Cancelation_Test.cs" />
     <Compile Include="Services\Csd\Csd_Test.cs" />

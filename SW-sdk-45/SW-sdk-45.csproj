@@ -99,6 +99,11 @@
     <Compile Include="Services\Account\AccountBalance\AccountResponse.cs" />
     <Compile Include="Services\Account\AccountBalance\AccountResponseHandler.cs" />
     <Compile Include="Services\Account\AccountBalance\AccountService.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUser.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserRequest.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserResponse.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserResponseHandler.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserService.cs" />
     <Compile Include="Services\Authentication\Authentication.cs" />
     <Compile Include="Services\Authentication\AuthenticationResponseHandler.cs" />
     <Compile Include="Services\Authentication\AuthenticationService.cs" />
