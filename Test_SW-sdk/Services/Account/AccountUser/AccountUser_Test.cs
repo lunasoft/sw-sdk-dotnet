@@ -135,8 +135,8 @@ namespace Test_SW.Services.AccountUser_Test
             AccountUser user = new AccountUser(build.UrlApi, build.TokenDealer);
             var response = user.CreateUser(new AccountUserRequest()
             {
-                email = $"hijo_{build.User}",
-                password = "SwpassTest1!",
+                email = $"user_{build.UserDealer}",
+                password = $"_{build.PasswordDealer}",
                 name = "Pruebas User",
                 rfc = "XAXX010101000",
                 profileType = SW.Helpers.AccountUserProfile.Hijo,
@@ -153,8 +153,8 @@ namespace Test_SW.Services.AccountUser_Test
             AccountUser user = new AccountUser(build.Url, build.UrlApi, build.UserDealer, build.PasswordDealer);
             var response = user.CreateUser(new AccountUserRequest()
             {
-                email = $"cuenta_hijo_{build.User}",
-                password = "SwpassTest1!",
+                email = $"user_{build.UserDealer}",
+                password = $"_{build.PasswordDealer}",
                 name = "Pruebas User",
                 rfc = "XAXX010101000",
                 profileType = SW.Helpers.AccountUserProfile.Hijo,
@@ -171,8 +171,8 @@ namespace Test_SW.Services.AccountUser_Test
             AccountUser user = new AccountUser(build.Url, build.UrlApi, build.UserDealer, "fakepassword");
             var response = user.CreateUser(new AccountUserRequest()
             {
-                email = $"hijo_{build.User}",
-                password = "SwpassTest1!",
+                email = $"user_{build.UserDealer}",
+                password = $"_{build.PasswordDealer}",
                 name = "Pruebas User",
                 rfc = "XAXX010101000",
                 profileType = SW.Helpers.AccountUserProfile.Hijo,
@@ -189,8 +189,8 @@ namespace Test_SW.Services.AccountUser_Test
             AccountUser user = new AccountUser(build.UrlApi, build.TokenDealer);
             var response = user.CreateUser(new AccountUserRequest()
             {
-                email = $"hijo_{build.User}",
-                password = "SwpassTest",
+                email = $"user_{build.UserDealer}",
+                password = $"_{build.PasswordDealer}",
                 name = "Pruebas User",
                 rfc = "XAXX010101000",
                 profileType = SW.Helpers.AccountUserProfile.Hijo,
@@ -208,8 +208,8 @@ namespace Test_SW.Services.AccountUser_Test
             AccountUser user = new AccountUser(build.Url, build.UrlApi, build.UserDealer, build.PasswordDealer);
             var response = user.CreateUser(new AccountUserRequest()
             {
-                email = $"hijo_{build.User}",
-                password = "SwpassTest1!",
+                email = $"user_{build.UserDealer}",
+                password = $"_{build.PasswordDealer}",
                 name = "Pruebas User",
                 rfc = "XAXX010101000",
                 profileType = SW.Helpers.AccountUserProfile.Hijo,
@@ -221,22 +221,22 @@ namespace Test_SW.Services.AccountUser_Test
         [TestMethod]
         public void UpdateUserSuccess()
         {
-            Guid idUser = Guid.Parse("106f4d82-575e-436c-a923-8c85517f2ca9");
-            String tokenUserUpdate = "T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRod1g3Y1FGcGVpS1Z5OVZoMEZRTDBkdHZCbUFsYjZTbS9MQWh0V0dtQTcwNVQ1VldhSDN0ZFBJL0ZaN3FnM1RqcGU2UENQMjVuSzRhVUtGblcwb01BTzhWWXcwQTR6aGg0V2QyRDE2MFZ3dW5vWG5QZXNRekxUeVdGMHJwekRuQUJBeDgvTTRxb0g4YWlaQW1DR2xydlBnRFdzYmpXYkZ1RDhCbGtteTJhRXZSVDRvamJZclN0NkFCNGN2V1lXYUtQQnBZMGt2WTJkNWVJM043TzFVL09PNjU4cXVuOXZQYmVZZkVBKytRemp0Vm0wSUgycVdla1dMbU5oTGVEeHZ5SHVqU2JrdHR0NlVLOXM5Wjh1S3hDY00yMmRMQTN2bm1jbzJpcDRWK1RVamFGQ1FwYTlnVlBXMXBGSFZrUUErSTFqbnAvRkUyQUwwRXRNWm1weFlMRCs0Znk2OStFd2hBK2Y4dUEyekg2VVF4TitvNlJpQmVhRDg3MkZJM3BuT0gwUElzMW1DYmJmcE5iUGxrVnNySmRnPT0.voHhJQQkVfPC8swHKekH0giMAQfnny2YsXypG6cIqqo";
             var build = new BuildSettings();
-            AccountUser user = new AccountUser(build.UrlApi, tokenUserUpdate);
-            var response = user.UpdateUser(idUser, "AAAA000101010", "Pruebas Update", false, true);
-            Assert.IsTrue(response.status.Equals("success"), response.messageDetail);
+            Guid idUser = Guid.Parse("106f4d82-575e-436c-a923-8c85517f2ca9");
+            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.UserDealer, build.PasswordDealer);
+            var response = infoUser.GetUserById(idUser);
+            string tokenUser = response.data.tokenAccess;
+            AccountUser user = new AccountUser(build.UrlApi,tokenUser);
+            var responseUpdate = user.UpdateUser(idUser, "AAAA000101010", "Pruebas Update", false, true);
+            Assert.IsTrue(responseUpdate.status.Equals("success"), responseUpdate.messageDetail);
         }
 
         [TestMethod]
         public void UpdateUserAuthSuccess()
         {
-            Guid idUser = Guid.Parse("106f4d82-575e-436c-a923-8c85517f2ca9");
-            String userUpdate = "cuenta_hijo_pruebas_ut@sw.com.mx";
-            String passUpdate = "SwpassTest1!";
+            Guid idUser = Guid.Parse("2c6a91f6-2b14-4e61-b528-2becd26d6c33");
             var build = new BuildSettings();
-            AccountUser user = new AccountUser(build.Url, build.UrlApi,userUpdate, passUpdate);
+            AccountUser user = new AccountUser(build.Url, build.UrlApi, $"user_{build.UserDealer}", $"_{build.PasswordDealer}");
             var response = user.UpdateUser(idUser, "AAAA000101010", "Pruebas Update", false, true);
             Assert.IsTrue(response.status.Equals("success"), response.messageDetail);
         }
