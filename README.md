@@ -851,8 +851,9 @@ namespace ExampleSDK
 }
 ```
 </details>
-## Creación, actualización, consultar informacion y eliminación de usuarios ##
-Métodos para realizar la consulta de información de usuarios así como crear, actualizar y borrar usuarios.
+
+## API Usuarios ##
+Métodos para realizar la consulta de informacion de usuarios, así como la creación, actualización y eliminacion  de los mismos
 
 <details>
   <summary>Crear usuario</summary>
@@ -861,7 +862,7 @@ Métodos para realizar la consulta de información de usuarios así como crear, 
 * Usuario y contraseña o Token
 * Url Servicios SW
 * Url Api
-*Informacion del nuevo cliente
+* Informacion del nuevo cliente
 
 **Ejemplo de consumo de la libreria para crear un usuario**
 ```cs
