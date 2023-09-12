@@ -100,7 +100,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Stamp 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a timbrar el xml
-                Stamp stamp = new Stamp("http://services.test.sw.com.mx", user, password);
+                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "user", "password");
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
                 StampResponseV1 response = stamp.TimbrarV1(xml);
                 Console.WriteLine(response.status);
@@ -176,7 +176,7 @@ namespace ExampleSDK
         {
             try
             {//Instancia del servicio Issue, pasando como paremetros URL de servicios, usuario y contraseña como metodo de autenticación.
-            Issue issue = new Issue("http://services.test.sw.com.mx", user, password);
+            Issue issue = new Issue("http://services.test.sw.com.mx", "user", "password");
             //El XML armado a sellar y timbrar como cadena
             var xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
             //Recibimos la respuesta enviando el XML al metodo TimbrarV1
@@ -254,7 +254,7 @@ namespace ExampleSDK
             try
             {
                 //Creamos una instancia de tipo Issue con parametros Url y credenciales de acceso
-                IssueJson issue = new IssueJson("http://services.test.sw.com.mx", user, password);
+                IssueJson issue = new IssueJson("http://services.test.sw.com.mx", "user", "password");
                 //Colocamos el JSON a timbrar en una variable
                 var json = Encoding.UTF8.GetString(File.ReadAllBytes("file.json"));
                 //Recibimos la respuesta enviando el JSON al metodo TimbrarJsonV1
@@ -287,7 +287,7 @@ namespace ExampleSDK
             try
             {
                 //Creamos una instancia de tipo Issue con parametros Url y token de acceso
-                IssueJson issue = new IssueJson("http://services.test.sw.com.mx", token);
+                IssueJson issue = new IssueJson("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
                 //Colocamos el JSON a timbrar en una variable
                 var json = Encoding.UTF8.GetString(File.ReadAllBytes("file.json"));
                 //Recibimos la respuesta enviando el JSON al metodo TimbrarJsonV1
@@ -416,7 +416,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Cancelation 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
+                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user", "password");
 
                 //Obtenemos Certificado y lo convertimos a Base 64
                 string CerB64 = Convert.ToBase64String(File.ReadAllBytes("CSD_Prueba_CFDI_LAN8507268IA.cer"));
@@ -664,7 +664,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Cancelation 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
+                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user", "password");
 
                 //Obtenemos el XML de cancelacion
                 byte[] pfx = File.ReadAllBytes(Path.Combine(@"Resources\CertificadosDePrueba", "CSD_Prueba_CFDI_LAN8507268IA.pfx"));
@@ -738,7 +738,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Cancelation 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
-                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "demo", "123456789");
+                Cancelation cancelation = new Cancelation("http://services.test.sw.com.mx", "user", "password");
                 //Realizamos la petición de cancelación al servicio.
                 CancelationResponse response = cancelation.CancelarByRfcUuid(rfc,uuid,"02");
                 if (response.status == "success" && response.data != null)
@@ -1409,7 +1409,7 @@ namespace ExampleSDK
             //Puedes solicitar customizar tu propia plantilla para agregar datos adicionales que no vengan incluidos en el xml
             try
             {
-                Pdf pdf = new Pdf("https://services.test.sw.com.mx","https://api.test.sw.com.mx",Token);
+                Pdf pdf = new Pdf("https://services.test.sw.com.mx","https://api.test.sw.com.mx","T2lYQ0t4L0R....ReplaceForRealToken");
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
                 Dictionary<string, string> extras = new Dictionary<string, string>() { { "DATOSEXTRA", "Entregar de 9am a 6pm" } };
                 var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","templateIdCustom", extras);
@@ -1424,7 +1424,7 @@ namespace ExampleSDK
             try
             {
                 //Puedes enviar el xml convertido en Base64
-                Pdf pdf = new Pdf("https://services.test.sw.com.mx","https://api.test.sw.com.mx",Token);
+                Pdf pdf = new Pdf("https://services.test.sw.com.mx","https://api.test.sw.com.mx","T2lYQ0t4L0R....ReplaceForRealToken");
                 Dictionary<string, string> extras = new Dictionary<string, string>() { { "DATOSEXTRA", "Entregar de 9am a 6pm" } };
                 var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","templateIdCustom", extras, null, true);
                 //Devuleve el pdf en formato Base64
@@ -2254,7 +2254,7 @@ namespace ExampleSDKS
                 string keyb64 =Convert.ToBase64String(File.ReadAllBytes("Resources/CertificadosDePrueba/EKU9003173C9.key"));
                 string cerPassword = "12345678a";
                 //Creamos una instancia de tipo CsdUtils esta le pasamos la Url y credenciales para autenticarnos
-                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", user, password);
+                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "user", "password");
                 //Obtenemos la respuesta del metodo UploadMyCsd con los datos del CSD que requieres agregar a tu cuenta **Nota: type (Default="stamp"), is_active (Default=true)
                 var response = csd.UploadMyCsd(cerb64, keyb64, cerPassword, "stamp", true);
                 //Mostramos el mensaje
@@ -2291,7 +2291,7 @@ namespace ExampleSDK
             try
             {
                 //Creamos una instancia de tipo CsdUtils esta le pasamos la Url y credenciales para autenticarnos
-                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", user, password);
+                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "user", "password");
                 //Obtenemos la respuesta del metodo GetListCsd, así en el response obtendremos la lista de CSD cargados previamente
                 var response = csd.GetListCsd();
                 //Mostramos el mensaje
@@ -2329,7 +2329,7 @@ namespace ExampleSDK
             try
             {
                 //Creamos una instancia de tipo CsdUtils esta le pasamos la Url y credenciales para autenticarnos
-                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", user, password);
+                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "user", "password");
                 //Obtenemos la respuesta del metodo SearchMyCsd con el parametro del Numero de certificado
                 var response = csd.SearchMyCsd("20001000000300022816");
                 //Mostramos el mensaje
@@ -2367,7 +2367,7 @@ namespace ExampleSDK
             try
             {
                 //Creamos una instancia de tipo CsdUtils esta le pasamos la Url y credenciales para autenticarnos
-                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", user, password);
+                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "user", "password");
                 //Obtenemos la respuesta del metodo DisableMyCsd enviando el parametro Numero de certificado
                 var response = csd.DisableMyCsd("20001000000300022816");
                 //Mostramos el mensaje
@@ -2392,45 +2392,14 @@ Servicio para recuperar información de un XML timbrado con SW.
 
 <br>Este método recibe los siguientes parametros:
 * Url Api SW
-* Url Servicios SW (Cuando se use usuario y contraseña)
-* Usuario y contraseña o token
 * UUID del XML a encontrar
 
-**Ejemplo de consumo de la libreria recuperar XML por UUID con usuario y contraseña**
-```cs
-using SW.Services.Storage;
-using System;
-
-namespace Readme
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            try
-            {   //Instanciamos el servicio Storage para usarlo con usuario y contraseña
-                Storage storage = new Storage("http://api.test.sw.com.mx", "http://services.test.sw.com.mx", user, password);
-                //Obtenemos la respuesta del metodo GetByUUID enviando el parametro UUID para buscar el XML
-                var response = storage.GetByUUID(new Guid("7354cc1f-3fb0-4808-ae90-fdc5d346eca3"));         
-                //Mostramos el mensaje
-                Console.WriteLine(response.data);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-    }
-}
-
-
-```
 **Ejemplo de consumo de la libreria recuperar XML por UUID con token**
 ```cs
 using SW.Services.Storage;
 using System;
 
-namespace Readme
+namespace ExampleSDK
 {
     class Program
     {
@@ -2480,7 +2449,7 @@ namespace ExampleSDK
             try
             {
                 //url para pord http://services.sw.com.mx y http://api.sw.com.mx
-                StampV4XML stamp = new StampV4XML("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "T2lYQ0t4L0RHVkR4dH........");
+                StampV4XML stamp = new StampV4XML("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
                 
                 string CustomId = "RamdoncustomId_Max100Char"
                 response = (StampResponseV2) stamp.TimbrarV2(xml, null, CustomId);
@@ -2538,7 +2507,7 @@ namespace ExampleSDK
             try
             {
                 //Creamos una instancia de tipo StampV4 con parametros Url y credenciales de acceso 
-                StampV4 stamp = new StampV4("http://services.test.sw.com.mx", user, password);
+                StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password");
                 //El XML armado a sellar y timbrar como cadena
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
                 //Recibimos la respuesta enviando el XML al metodo TimbrarV1
