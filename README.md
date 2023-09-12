@@ -64,7 +64,6 @@ namespace ExampleSDK
         }
     }
 }
-
 ```
 
 ## Timbrado ##
@@ -74,7 +73,7 @@ namespace ExampleSDK
 Timbrado CFDI V1
 </summary>
 
-<br>El método **TimbrarV1** recibe el contenido de un **XML** ya emitido (sellado) en formato **String**  ó tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
+<br>El método **TimbrarV1** recibe el contenido de un **XML** ya emitido (sellado) en formato **String**  o tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
 
 Este método recibe los siguientes parámetros:
 * Archivo en formato **String** o **Base64**
@@ -147,6 +146,40 @@ namespace ExampleSDK
     }
 }
 ```
+**Ejemplo de consumo de la librería para Timbrado XML en formato b64 utilizando usuario y contraseña**
+```cs
+using SW.Services.Stamp;
+using System;
+using System.IO;
+using System.Text;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo Stamp con parametros Url y credenciales de acceso
+                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "user", "password");
+                //Colocamos el XML a timbrar en una variable
+                var xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
+                //Convertimos el XML a formato B64
+                xml = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
+                //Recibimos la respuesta enviando el XML en B64 al metodo TimbrarV1, acompañado del valor "true" indicando que enviamos un b64 **Nota: el tfd se recibe en formatob64
+                var response = (StampResponseV1)stamp.TimbrarV1(xml, true);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
 </details>
 
 <details>
@@ -193,7 +226,7 @@ namespace ExampleSDK
 }
 ```
 
-**Timbrar XML en formato string utilizando token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+**Emision timbrado con XML en formato string utilizando token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
 ```cs
 using System;
 using System.IO;
@@ -220,6 +253,40 @@ namespace ExampleSDK
             catch (Exception e)
             {
                  Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+**Ejemplo de consumo de la librería para Emision Timbrado en formato b64 utilizando usuario y contraseña**
+```cs
+using SW.Services.Issue;
+using System;
+using System.IO;
+using System.Text;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo Issue con parametros Url y credenciales de acceso
+                Issue issue = new Issue("http://services.test.sw.com.mx", "user", "password");
+                //Colocamos el XML a timbrar en una variable
+                var xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
+                //Convertimos el XML a formato B64
+                xml = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
+                //Recibimos la respuesta enviando el XML en B64 al metodo TimbrarV1, acompañado del valor "true" indicando que enviamos un b64 **Nota: el tfd se recibe en formatob64
+                var response = issue.TimbrarV1(xml, true);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }
@@ -1513,7 +1580,7 @@ a través de correo electrónico.
 Este método recibe los siguientes parámetros:
 * Url Servicios SW(cuando se añaden usuario y contraseña)
 * Url Api
-* UUID: Folico fiscal del comprobante timbrado
+* UUID: Folio fiscal del comprobante timbrado
 * Email: Correo electrónico (máximo 5 correos separados por ”,” )
 
 **Ejemplo de consumo de la librería para la consulta mediante token**
@@ -2510,7 +2577,7 @@ namespace ExampleSDK
                 StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "user", "password");
                 //El XML armado a sellar y timbrar como cadena
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
-                //Recibimos la respuesta enviando el XML al metodo TimbrarV1
+                //Recibimos la respuesta enviando el XML al metodo TimbrarV1 junto con la(s) direccion(es) de correos a las que queremos que se envien los archivos
                 var response = stamp.TimbrarV1(xml, "some@email.com");
                 Console.WriteLine(response.status);
                 Console.WriteLine(response.data.tfd);
