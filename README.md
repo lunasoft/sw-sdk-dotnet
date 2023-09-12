@@ -34,7 +34,7 @@ En caso de no utilizar Package Manager Console puedes descargar la librería dir
 # Implementaci&oacute;n #
 La librería contara con los servicios principales como lo son Timbrado de CFDI, Cancelación, Consulta estatus CFDI, etc.
 
-## Aunteticaci&oacute;n ##
+## Autenticaci&oacute;n ##
 El servicio de Autenticación es utilizado principalmente para obtener el **token** el cual será utilizado para poder timbrar nuestro CFDI (xml) ya emitido (sellado), para poder utilizar este servicio es necesario que cuente con un **usuario** y **contraseña** para posteriormente obtenga el token.
 
 
@@ -77,8 +77,8 @@ Timbrado CFDI V1
 <br>El método **TimbrarV1** recibe el contenido de un **XML** ya emitido (sellado) en formato **String**  ó tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
 
 Este método recibe los siguientes parámetros:
-* Archivo en formato **String** ó **Base64**
-* Usuario y contraseña ó Token
+* Archivo en formato **String** o **Base64**
+* Usuario y contraseña o Token
 * Url Servicios SW
 
 **Timbrar XML en formato string utilizando usuario y contraseña**
@@ -100,9 +100,11 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Stamp 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a timbrar el xml
-                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "user", "password");
+                Stamp stamp = new Stamp("http://services.test.sw.com.mx", user, password);
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
                 StampResponseV1 response = stamp.TimbrarV1(xml);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
             }
             catch (Exception e)
             {
@@ -135,6 +137,8 @@ namespace ExampleSDK
                 Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
                 StampResponseV1 response = stamp.TimbrarV1(xml);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
             }
             catch (Exception e)
             {
@@ -143,14 +147,58 @@ namespace ExampleSDK
     }
 }
 ```
+</details>
 
-**Timbrar XML en Base64 utilizando token**
+<details>
+<summary>
+Emisión Timbrado V1
+</summary>
+
+<br>Emisión Timbrado realiza el sellado y timbrado de un comprobante CFDI 4.0. Recibe el contenido de un XML en formato String ó tambien puede ser en Base64, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (TFD), en caso contrario lanza una excepción.
+
+Este método recibe los siguientes parámetros:
+* Archivo en formato **String** o **Base64**
+* Usuario y contraseña o Token
+* Url Servicios SW
+
+**Ejemplo de consumo de la librería para la emisión Timbrado XML en formato string utilizando usuario y contraseña**
+```cs
+using SW.Services.Issue;
+using System;
+using System.IO;
+using System.Text;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {//Instancia del servicio Issue, pasando como paremetros URL de servicios, usuario y contraseña como metodo de autenticación.
+            Issue issue = new Issue("http://services.test.sw.com.mx", user, password);
+            //El XML armado a sellar y timbrar como cadena
+            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
+            //Recibimos la respuesta enviando el XML al metodo TimbrarV1
+            var response = issue.TimbrarV1(xml);
+            Console.WriteLine(response.status);
+            Console.WriteLine(response.data.tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**Timbrar XML en formato string utilizando token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
 ```cs
 using System;
 using System.IO;
 using System.Text;
-using SW.Helpers;
-using SW.Services.Stamp;
+using SW.Services.Issue;
 
 namespace ExampleSDK
 {
@@ -160,21 +208,113 @@ namespace ExampleSDK
         {
             try
             {
-                //Creamos una instancia de tipo Stamp 
-                //A esta le pasamos la Url y su Token infinito 
-                //Este lo puede obtener ingresando al administrador de timbres con su usuario y contraseña
-                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                //Creamos una instancia de tipo Issue con parametros Url y su Token infinito 
+                Issue issue = new Issue ("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                //El XML armado a sellar y timbrar como cadena
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
-                xml = Convert.ToBase64String(xmlBase);
-                StampResponseV1 response = stamp.TimbrarV1(xml, true);
+                //Recibimos la respuesta enviando el XML al metodo TimbrarV1
+                var response = issue.TimbrarV1(xml);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
             }
             catch (Exception e)
             {
+                 Console.WriteLine(e.Message);
             }
         }
     }
 }
 ```
+</details>
+<details>
+<summary>
+Emisión Timbrado JSON V1
+</summary>
+
+<br>Emisión Timbrado JSON realiza el sellado y timbrado de un CFDI 4.0. Recibe el contenido de un JSON en formato String, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (TFD), en caso contrario lanza una excepción
+
+Este método recibe los siguientes parámetros:
+* Archivo en formato **String**
+* Usuario y contraseña o Token
+* Url Servicios SW
+
+**Ejemplo de consumo de la librería para la emisión Timbrado JSON en formato string utilizando usuario y contraseña**
+```cs
+using SW.Services.Issue;
+using System;
+using System.IO;
+using System.Text;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo Issue con parametros Url y credenciales de acceso
+                IssueJson issue = new IssueJson("http://services.test.sw.com.mx", user, password);
+                //Colocamos el JSON a timbrar en una variable
+                var json = Encoding.UTF8.GetString(File.ReadAllBytes("file.json"));
+                //Recibimos la respuesta enviando el JSON al metodo TimbrarJsonV1
+                var response = issue.TimbrarJsonV1(json);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**Timbrar XML en formato string utilizando token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+```cs
+using SW.Services.Issue;
+using System;
+using System.IO;
+using System.Text;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo Issue con parametros Url y token de acceso
+                IssueJson issue = new IssueJson("http://services.test.sw.com.mx", token);
+                //Colocamos el JSON a timbrar en una variable
+                var json = Encoding.UTF8.GetString(File.ReadAllBytes("file.json"));
+                //Recibimos la respuesta enviando el JSON al metodo TimbrarJsonV1
+                var response = issue.TimbrarJsonV1(json);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+:pushpin: ***NOTA:*** Existen varias versiones de respuesta:
+
+| Version |                         Respuesta                             | 
+|---------|---------------------------------------------------------------|
+|  V1     | Devuelve el timbre fiscal digital                             | 
+|  V2     | Devuelve el timbre fiscal digital y el CFDI timbrado          | 
+|  V3     | Devuelve el CFDI timbrado                                     | 
+|  V4     | Devuelve todos los datos del timbrado                         |
+
+Para mayor referencia de estas versiones de respuesta, favor de visitar el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/).
 </details>
 
 ## Cancelación ##
@@ -685,174 +825,7 @@ namespace ExampleSDK
 ```
 </details>
 
-## Consulta y Asignación de Timbres ##
-Métodos para realizar la consulta de saldo así como la asignación y eliminación de timbres a un usuario.
-
-<details>
-  <summary>Consulta de timbres</summary>
-
-<br>Este método recibe los siguientes parametros:
-* Usuario y contraseña o Token
-* Url Servicios SW
-* Url Api
-
-**Ejemplo de consumo de la libreria para consultar el saldo**
-```cs
-using System;
-using System.IO;
-using System.Text;
-using SW.Helpers;
-using SW.Services.Account.AccountBalance;
-
-namespace ExampleSDK
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            try
-            {
-                //Creamos una instancia de tipo AccountBalance 
-                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-                //Automaticamente despues de obtenerlo se procedera a consultar el saldo
-                AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
-                AccountResponse response = account.ConsultarSaldo();
-              
-                //Para Obtener el idSaldoCliente
-                response.Data.idSaldoCliente;
-                
-                //Para Obtener el idClienteUsuario
-                response.Data.idClienteUsuario;
-                
-                //Para Obtener el saldo Timbres
-                response.Data.saldoTimbres;
-                
-                //Para Obtenerlos timbres Utilizados
-                response.Data.timbresUtilizados;
-                
-                //Para Obtener la fechaExpiracion
-                response.Data.fechaExpiracion;
-                
-                //Para Obtener si es Ilimitado
-                response.Data.unlimited;
-                
-                //Para Obtener los timbres Asignados
-                response.Data.timbresAsignados;
-                
-                //En caso de error, se pueden visualizar los campos message y/o messageDetail
-                response.message;
-                response.messageDetail;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-    }
-}
-```
-</details>
-
-<details>
-  <summary>Agregar timbres</summary>
-
-<br>Este método recibe los siguientes parametros:
-* Usuario y contraseña o Token
-* Url Servicios SW
-* Url Api
-* IdUser
-* Número de timbres
-* Comentario
-
-**Ejemplo de consumo de la libreria para agregar timbres**
-```cs
-using System;
-using SW.Helpers;
-using SW.Services.Account.AccountBalance;
-
-namespace ExampleSDK
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            try
-            {
-                //Creamos una instancia de tipo AccountBalance 
-                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-                AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
-                //Obtenemos y convertimos a tipo Guid el id del usuario
-                Guid idUser = Guid.Parse("32701CF2-DC63-4370-B47D-25024C44E131");
-                //Se envían los parámetros a la función AgregarTimbres
-                AccountResponse response = account.AgregarTimbres(idUser, 2, "Timbres agregados");
-              
-                //Para Obtener el mensaje de respuesta.
-                response.data;
-                
-                //En caso de error, se pueden visualizar los campos message y/o messageDetail
-                response.message;
-                response.messageDetail;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-    }
-}
-```
-</details>
-<details>
-  <summary>Eliminar timbres</summary>
-
-<br>Este método recibe los siguientes parametros:
-* Usuario y contraseña o Token
-* Url Servicios SW
-* Url Api
-* IdUser
-* Número de timbres
-* Comentario
-
-**Ejemplo de consumo de la libreria para remover timbres**
-```cs
-using System;
-using SW.Helpers;
-using SW.Services.Account.AccountBalance;
-
-namespace ExampleSDK
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            try
-            {
-                //Creamos una instancia de tipo AccountBalance 
-                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
-                AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
-                //Obtenemos y convertimos a tipo Guid el id del usuario
-                Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
-                //Se envían los parámetros a la función EliminarTimbres
-                AccountResponse response = account.EliminarTimbres(idUser, 2, "Timbres removidos");
-              
-                //Para Obtener el mensaje de respuesta.
-                response.data;
-                
-                //En caso de error, se pueden visualizar los campos message y/o messageDetail
-                response.message;
-                response.messageDetail;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-    }
-}
-```
-</details>
-
-## API Usuarios ##
+## Usuarios ##
 Métodos para realizar la consulta de informacion de usuarios, así como la creación, actualización y eliminacion  de los mismos
 
 <details>
@@ -1131,6 +1104,174 @@ namespace ExampleSDK
                 AccountUser infoUser = new AccountUser("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
                 //Se instancia el metodo GetAllUsers
                 var response = infoUser.GetAllUsers();
+                //Para Obtener el mensaje de respuesta.
+                response.data;
+                
+                //En caso de error, se pueden visualizar los campos message y/o messageDetail
+                response.message;
+                response.messageDetail;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+
+## Consulta y Asignación de Timbres ##
+Métodos para realizar la consulta de saldo así como la asignación y eliminación de timbres a un usuario.
+
+<details>
+  <summary>Consulta de timbres</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Url Api
+
+**Ejemplo de consumo de la libreria para consultar el saldo**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.Account.AccountBalance;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo AccountBalance 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a consultar el saldo
+                AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
+                AccountResponse response = account.ConsultarSaldo();
+              
+                //Para Obtener el idSaldoCliente
+                response.Data.idSaldoCliente;
+                
+                //Para Obtener el idClienteUsuario
+                response.Data.idClienteUsuario;
+                
+                //Para Obtener el saldo Timbres
+                response.Data.saldoTimbres;
+                
+                //Para Obtenerlos timbres Utilizados
+                response.Data.timbresUtilizados;
+                
+                //Para Obtener la fechaExpiracion
+                response.Data.fechaExpiracion;
+                
+                //Para Obtener si es Ilimitado
+                response.Data.unlimited;
+                
+                //Para Obtener los timbres Asignados
+                response.Data.timbresAsignados;
+                
+                //En caso de error, se pueden visualizar los campos message y/o messageDetail
+                response.message;
+                response.messageDetail;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Agregar timbres</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Url Api
+* IdUser
+* Número de timbres
+* Comentario
+
+**Ejemplo de consumo de la libreria para agregar timbres**
+```cs
+using System;
+using SW.Helpers;
+using SW.Services.Account.AccountBalance;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo AccountBalance 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
+                //Obtenemos y convertimos a tipo Guid el id del usuario
+                Guid idUser = Guid.Parse("32701CF2-DC63-4370-B47D-25024C44E131");
+                //Se envían los parámetros a la función AgregarTimbres
+                AccountResponse response = account.AgregarTimbres(idUser, 2, "Timbres agregados");
+              
+                //Para Obtener el mensaje de respuesta.
+                response.data;
+                
+                //En caso de error, se pueden visualizar los campos message y/o messageDetail
+                response.message;
+                response.messageDetail;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+<details>
+  <summary>Eliminar timbres</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Url Api
+* IdUser
+* Número de timbres
+* Comentario
+
+**Ejemplo de consumo de la libreria para remover timbres**
+```cs
+using System;
+using SW.Helpers;
+using SW.Services.Account.AccountBalance;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo AccountBalance 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                AccountBalance account = new AccountBalance("http://services.test.sw.com.mx", "http://api.test.sw.com.mx", "user", "password");
+                //Obtenemos y convertimos a tipo Guid el id del usuario
+                Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+                //Se envían los parámetros a la función EliminarTimbres
+                AccountResponse response = account.EliminarTimbres(idUser, 2, "Timbres removidos");
+              
                 //Para Obtener el mensaje de respuesta.
                 response.data;
                 
@@ -2078,6 +2219,241 @@ namespace ExampleSDK
 }
 ```
 </details>
+</details>
+
+
+## Certificados ##
+Servicio para gestionar los certificados CSD de tu cuenta, será posible cargar, consultar y eliminar los certificados. Para administrar los certificados de manera gráfica, puede hacerlo desde el [Administrador de timbres](https://portal.sw.com.mx/).
+
+<details>
+  <summary>Cargar certificado</summary>
+Método para cargar un certificado en la cuenta.
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* CSD en Base64
+* Key en Base64
+* Contraseña del certificado
+
+**Ejemplo de consumo de la libreria para la carga de un certificado**
+```cs
+using SW.Services.Csd;
+using System;
+using System.IO;
+
+namespace ExampleSDKS
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                string cerb64 = Convert.ToBase64String(File.ReadAllBytes("Resources/CertificadosDePrueba/EKU9003173C9.cer"));
+                string keyb64 =Convert.ToBase64String(File.ReadAllBytes("Resources/CertificadosDePrueba/EKU9003173C9.key"));
+                string cerPassword = "12345678a";
+                //Creamos una instancia de tipo CsdUtils esta le pasamos la Url y credenciales para autenticarnos
+                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", user, password);
+                //Obtenemos la respuesta del metodo UploadMyCsd con los datos del CSD que requieres agregar a tu cuenta **Nota: type (Default="stamp"), is_active (Default=true)
+                var response = csd.UploadMyCsd(cerb64, keyb64, cerPassword, "stamp", true);
+                //Mostramos el mensaje
+                Console.WriteLine(response.data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+<details>
+  <summary>Consultar certificados</summary>
+Servicio para consultar todos los certificados cargados en la cuenta.
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+
+**Ejemplo de consumo de la libreria para consulta de certificados**
+```cs
+using SW.Services.Csd;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo CsdUtils esta le pasamos la Url y credenciales para autenticarnos
+                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", user, password);
+                //Obtenemos la respuesta del metodo GetListCsd, así en el response obtendremos la lista de CSD cargados previamente
+                var response = csd.GetListCsd();
+                //Mostramos el mensaje
+                Console.WriteLine(response.data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+<details>
+  <summary>Consultar certificado por NoCertificado</summary>
+Método para obtener un certificado cargado enviando como parámetro el número de certificado.
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Número de certificado a obtener
+
+**Ejemplo de consumo de la libreria para consulta de un certificado por su NoCertificado**
+```cs
+using SW.Services.Csd;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo CsdUtils esta le pasamos la Url y credenciales para autenticarnos
+                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", user, password);
+                //Obtenemos la respuesta del metodo SearchMyCsd con el parametro del Numero de certificado
+                var response = csd.SearchMyCsd("20001000000300022816");
+                //Mostramos el mensaje
+                Console.WriteLine(response.data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+<details>
+  <summary>Eliminar certificado</summary>
+Método para eliminar un certificado de la cuenta.
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Número de certificado a obtener
+
+**Ejemplo de consumo de la libreria para eliminar certificado**
+```cs
+using SW.Services.Csd;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo CsdUtils esta le pasamos la Url y credenciales para autenticarnos
+                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", user, password);
+                //Obtenemos la respuesta del metodo DisableMyCsd enviando el parametro Numero de certificado
+                var response = csd.DisableMyCsd("20001000000300022816");
+                //Mostramos el mensaje
+                Console.WriteLine(response.data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+
+## Recuperar XML por UUID ##
+Servicio para recuperar información de un XML timbrado con SW.
+
+<details>
+<summary>Recuperar XML por UUID</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Url Api SW
+* Url Servicios SW (Cuando se use usuario y contraseña)
+* Usuario y contraseña o token
+* UUID del XML a encontrar
+
+**Ejemplo de consumo de la libreria recuperar XML por UUID con usuario y contraseña**
+```cs
+using SW.Services.Storage;
+using System;
+
+namespace Readme
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {   //Instanciamos el servicio Storage para usarlo con usuario y contraseña
+                Storage storage = new Storage("http://api.test.sw.com.mx", "http://services.test.sw.com.mx", user, password);
+                //Obtenemos la respuesta del metodo GetByUUID enviando el parametro UUID para buscar el XML
+                var response = storage.GetByUUID(new Guid("7354cc1f-3fb0-4808-ae90-fdc5d346eca3"));         
+                //Mostramos el mensaje
+                Console.WriteLine(response.data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+
+
+```
+**Ejemplo de consumo de la libreria recuperar XML por UUID con token**
+```cs
+using SW.Services.Storage;
+using System;
+
+namespace Readme
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                 //Instanciamos el servicio Storage para usarlo con token como medio de autenticacion
+                Storage storage = new Storage("https://api.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                //Obtenemos la respuesta del metodo GetByUUID enviando el parametro UUID para buscar el XML
+                var response = storage.GetByUUID(new Guid("7354cc1f-3fb0-4808-ae90-fdc5d346eca3"));         
+                //Mostramos el mensaje
+                Console.WriteLine(response.data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
 
 ## TimbradoV4 ##
 
@@ -2131,6 +2507,47 @@ namespace ExampleSDK
             catch (Exception e)
             {
                 //Una Exception relacionado a este metod puede ser "No es posible obtener el UUID"
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+### **Email** ###
+Servicio de timbrado que recibe un comprobante CFDI 4.0 para ser timbrado y que recibe un header conocido como email, el cuál tiene como objetivo indicar uno o hasta 5 correos electrónicos a los que se requiera enviar el xml timbrado así como también su pdf.
+En caso de que no se cuente con una plantilla pdf customizada los pdf’s serán generados con las [plantillas genéricas](https://developers.sw.com.mx/knowledge-base/plantillas-pdf/).
+
+<details>
+  <summary>Timbrado CFDI (StampV4)</summary>
+
+**Ejemplo del consumo de la librería para el servicio StampV4(Email) XML en formato string mediante usuario y contraseña**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Services.Stamp;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo StampV4 con parametros Url y credenciales de acceso 
+                StampV4 stamp = new StampV4("http://services.test.sw.com.mx", user, password);
+                //El XML armado a sellar y timbrar como cadena
+                string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
+                //Recibimos la respuesta enviando el XML al metodo TimbrarV1
+                var response = stamp.TimbrarV1(xml, "some@email.com");
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
             }
         }
