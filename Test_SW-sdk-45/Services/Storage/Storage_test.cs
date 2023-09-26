@@ -18,6 +18,15 @@ namespace Test_SW_sdk_45.Services.TaxpayersService
         public class Storage_Test_45
         {
             [TestMethod]
+            public void Storage_Test_45_GetByUUIDByUser()
+            {
+                var build = new BuildSettings();
+                Storage storage = new Storage(build.UrlApi, build.Url, build.User, build.Password);
+                var response = storage.GetByUUID(new Guid("9529824a-24e5-4ea6-900c-476ed11f0ea5"));
+                Assert.IsTrue(response.data != null && response.status == "success");
+                Assert.IsTrue(response.data.records[0].urlAckCfdi != null);
+            }
+            [TestMethod]
             public void Storage_Test_45_GetByUUIDByToken()
             {
                 var build = new BuildSettings();
@@ -25,6 +34,24 @@ namespace Test_SW_sdk_45.Services.TaxpayersService
                 var response = storage.GetByUUID(new Guid("9529824a-24e5-4ea6-900c-476ed11f0ea5"));
                 Assert.IsTrue(response.data != null && response.status == "success");
                 Assert.IsTrue(response.data.records[0].urlAckCfdi != null);
+            }
+            [TestMethod]
+            public void Storage_Test_45_GetByUUIDUserError()
+            {
+                var build = new BuildSettings();
+                Storage storage = new Storage(build.UrlApi, build.Url, "", build.Password);
+                var response = storage.GetByUUID(new Guid("9529824a-24e5-4ea6-900c-476ed11f0ea5"));
+                Assert.IsTrue(response.data == null && response.status == "error");
+                Assert.IsTrue(response.message == "Falta Capturar Usuario");
+            }
+            [TestMethod]
+            public void Storage_Test_45_GetByUUIDUrlError()
+            {
+                var build = new BuildSettings();
+                Storage storage = new Storage("", build.Token);
+                var response = storage.GetByUUID(new Guid("9529824a-24e5-4ea6-900c-476ed11f0ea5"));
+                Assert.IsTrue(response.data == null && response.status == "error");
+                Assert.IsTrue(response.message == "Falta Capturar URL");
             }
         }
     }

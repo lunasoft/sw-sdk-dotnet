@@ -2489,6 +2489,34 @@ namespace ExampleSDK
     }
 }
 ```
+**Ejemplo de consumo de la libreria recuperar XML por UUID con usuario**
+```cs
+using SW.Services.Storage;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                 //Instanciamos el servicio Storage para usarlo mediante usuario y contraseña.
+                Storage storage = new Storage("https://api.test.sw.com.mx","http://services.test.sw.com.mx","user","password");
+                //Obtenemos la respuesta del metodo GetByUUID enviando el parametro UUID para buscar el XML
+                var response = storage.GetByUUID(new Guid("7354cc1f-3fb0-4808-ae90-fdc5d346eca3"));         
+                //Mostramos el mensaje
+                Console.WriteLine(response.data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
 </details>
 
 ## TimbradoV4 ##

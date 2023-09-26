@@ -9,10 +9,27 @@ namespace SW.Services.Storage
 {
     public class Storage : StorageService
     {
-        StorageResponseHandler _handler;
+        /// <summary>
+        /// Crear una instancia de la clase Resend.
+        /// </summary>
+        /// <param name="urlApi">URL API.</param>
+        /// <param name="url">URL Services.</param>
+        /// <param name="user">Email del usuario.</param>
+        /// <param name="password">Contraseña.</param>
+        /// <param name="proxyPort">Puerto proxy.</param>
+        /// <param name="proxy">Proxy.</param>
+        public Storage(string urlApi, string url, string user, string password, int proxyPort = 0, string proxy = null) : base(urlApi, url, user, password, proxy, proxyPort)
+        {
+        }
+        /// <summary>
+        /// Crear una instancia de la clase Resend.
+        /// </summary>
+        /// <param name="urlApi">URL API.</param>
+        /// <param name="token">Token de autenticacion.</param>
+        /// <param name="proxyPort">Puerto proxy.</param>
+        /// <param name="proxy">Proxy.</param>
         public Storage(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
-            _handler = new StorageResponseHandler();
         }
         public StorageResponse GetByUUID(Guid uuid)
         {
