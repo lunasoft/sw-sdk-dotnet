@@ -15,6 +15,9 @@ using System.Linq;
 using System.Text;
 using SW.Services.Storage;
 using SW.Services.Resend;
+using SW.Services.Account.AccountBalance;
+using SW.Services.Account.AccountUser;
+
 namespace SW.Helpers
 {
     internal static class ResponseHelper
@@ -28,9 +31,18 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }
-        internal static AccountResponse ToAccountResponse(this Exception ex)
+        internal static BalanceResponse ToBalanceResponse(this Exception ex)
         {
-            return new AccountResponse()
+            return new BalanceResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static AccountBalanceResponse ToAccountBalanceResponse(this Exception ex)
+        {
+            return new AccountBalanceResponse()
             {
                 message = ex.Message,
                 status = "error",
@@ -182,6 +194,33 @@ namespace SW.Helpers
         internal static StorageResponse ToStorageResponse(this Exception ex)
         {
             return new StorageResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static AccountUserActionsResponse ToAccountUserActionsResponse(this Exception ex)
+        {
+            return new AccountUserActionsResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static AccountGetUserResponse ToAccountGetUserResponse(this Exception ex)
+        {
+            return new AccountGetUserResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static AccountGetUsersResponse ToAccountGetUsersResponse(this Exception ex)
+        {
+            return new AccountGetUsersResponse()
             {
                 message = ex.Message,
                 status = "error",

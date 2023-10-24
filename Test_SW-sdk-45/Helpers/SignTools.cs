@@ -24,7 +24,7 @@ namespace Test_SW.Helpers
             }
             doc.DocumentElement.SetAttribute("Folio", DateTime.Now.Ticks.ToString() + randomNumber.Next(100));
             xml = doc.OuterXml;
-            xml = Sign.SellarCFDIv33(pfx, password, xml);
+            xml = Sign.SellarCFDIv40(pfx, password, xml);
             return xml;
         }
     }

@@ -26,7 +26,7 @@ namespace Test_SW.Services.Cancelation_Test
         {
             var build = new BuildSettings();
             Cancelation cancelation = new Cancelation(build.Url, build.User, build.Password);
-            CancelationResponse response = cancelation.CancelarByPFX(build.Pfx, build.Rfc, build.CerPassword, uuid, "02");
+            CancelationResponse response = cancelation.CancelarByPFX(build.Pfx, build.Rfc, build.PfxPassword, uuid, "02");
             Assert.IsTrue(response.data.acuse != null && response.status == "success");
         }
         [TestMethod]

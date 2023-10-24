@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cfdi:Comprobante xmlns:nomina12="http://www.sat.gob.mx/nomina12"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd" Version="4.0" Serie="Serie" Folio="Folio" Fecha="2022-07-21T00:00:00" Sello="" SubTotal="5000" Descuento="300" Moneda="MXN" TipoCambio="1" Total="4700" TipoDeComprobante="N" Exportacion="01" MetodoPago="PPD" LugarExpedicion="20000"
+    xmlns:cfdi="http://www.sat.gob.mx/cfd/4" NoCertificado="30001000000400002444" Certificado="">
+  <cfdi:Emisor Rfc="EKU9003173C9" Nombre="ESCUELA KEMPER URGATE" RegimenFiscal="601" />
+    <cfdi:Receptor Rfc="XOJI740919U48" Nombre="INGRID XODAR JIMENEZ" DomicilioFiscalReceptor="76028" RegimenFiscalReceptor="605" UsoCFDI="CN01" />
+    <cfdi:Conceptos>
+        <cfdi:Concepto ClaveProdServ="84111505" Cantidad="1" ClaveUnidad="ACT" Descripcion="Pago de nómina" ValorUnitario="5000.00" Descuento="300" Importe="5000.00" ObjetoImp="01"></cfdi:Concepto>
+    </cfdi:Conceptos>
+    <cfdi:Complemento>
+        <nomina12:Nomina Version="1.2" TipoNomina="O" FechaPago="2021-12-24" FechaInicialPago="2021-12-09" FechaFinalPago="2021-12-24" NumDiasPagados="15" TotalPercepciones="5000.0" TotalDeducciones="300">
+            <nomina12:Emisor RegistroPatronal="B5510768108" RfcPatronOrigen="URE180429TM6" />
+            <nomina12:Receptor Curp="XEXX010101HNEXXXA4" NumSeguridadSocial="000000" FechaInicioRelLaboral="2015-01-01" Antigüedad="P364W" TipoContrato="01" TipoJornada="01" TipoRegimen="03" NumEmpleado="120" Departamento="Desarrollo" Puesto="Ingeniero de Software" RiesgoPuesto="1" PeriodicidadPago="04" CuentaBancaria="1111111111" Banco="002" SalarioBaseCotApor="490.22" SalarioDiarioIntegrado="146.47" ClaveEntFed="JAL" />
+            <nomina12:Percepciones TotalSueldos="5000.0" TotalGravado="2808.8" TotalExento="2191.2">
+                <nomina12:Percepcion TipoPercepcion="001" Clave="00500" Concepto="Sueldos, Salarios Rayas y Jornales" ImporteGravado="2808.8" ImporteExento="2191.2" />
+            </nomina12:Percepciones>
+            <nomina12:Deducciones TotalOtrasDeducciones="200" TotalImpuestosRetenidos="100">
+                <nomina12:Deduccion TipoDeduccion="001" Clave="00301" Concepto="Seguridad Social" Importe="200" />
+                <nomina12:Deduccion TipoDeduccion="002" Clave="00302" Concepto="ISR" Importe="100" />
+            </nomina12:Deducciones>
+        </nomina12:Nomina>
+    </cfdi:Complemento>
+</cfdi:Comprobante>
