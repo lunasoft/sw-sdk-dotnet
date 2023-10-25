@@ -21,10 +21,10 @@ namespace SW.Services.Status
               delegate (object sender, X509Certificate certificate, X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors) { return true; };
             _myBinding = GetBinding();
         }
-        internal abstract Acuse StatusRequest(string rfcEmisor, string rfcReceptor, string Total, string uuid);
-        internal virtual Acuse RequestStatus(string rfcEmisor, string rfcReceptor, string total, string uuid)
+        internal abstract Acuse StatusRequest(string rfcEmisor, string rfcReceptor, string Total, string uuid, string sello);
+        internal virtual Acuse RequestStatus(string rfcEmisor, string rfcReceptor, string total, string uuid, string sello)
         {
-            var consulta = "?re=" + rfcEmisor.ToUpper() + "&rr=" + rfcReceptor.ToUpper() + "&tt=" + total + "&id=" + uuid.ToUpper();
+            var consulta = "?re=" + rfcEmisor.ToUpper() + "&rr=" + rfcReceptor.ToUpper() + "&tt=" + total + "&id=" + uuid.ToUpper() + "&fe=" + sello;
             Acuse acuse = null;
 
             for (int i = 0; i < 3; i++)
