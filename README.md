@@ -1744,6 +1744,6 @@ namespace ExampleSDK
 
 ----------------
 
-Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](https://developers.sw.com.mx/).
+Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
 
 Si deseas contribuir a la libreria o tienes dudas envianos un correo a **soporte@sw.com.mx**.
