@@ -197,6 +197,31 @@ namespace SW.Services.Stamp
                 return handler.HandleException(ex);
             }
         }
+
+        public virtual StampResponseV4 TimbrarV4Analytics(string xml, string email = null, string customId = null, bool isb64 = false)
+        {
+            StampResponseHandlerV4 handler = new StampResponseHandlerV4();
+            try
+            {
+                string format = isb64 ? "b64" : "";
+                var xmlBytes = Encoding.UTF8.GetBytes(xml);
+                var headers = GetHeaders(email, customId);
+                var content = GetMultipartContent(xmlBytes);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
+                return handler.GetPostResponse(this.Url,
+                                string.Format("v4/cfdi33/{0}/{1}/{2}/analytics",
+                                _operation,
+                                StampTypes.v4.ToString(),
+                                format), headers, content, proxy);
+
+            }
+            catch (Exception ex)
+            {
+                return handler.HandleException(ex);
+            }
+        }
+
+
         public virtual ConcurrentDictionary<string, StampResponseV4> TimbrarV4(string[] xmls, string email = null, bool isb64 = false)
         {
             StampResponseHandlerV4 handler = new StampResponseHandlerV4();
