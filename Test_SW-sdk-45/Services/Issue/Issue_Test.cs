@@ -79,6 +79,5 @@ namespace Test_SW.Services.Issue
             xml = doc.OuterXml;
             return xml;
         }
-
     }
 }
