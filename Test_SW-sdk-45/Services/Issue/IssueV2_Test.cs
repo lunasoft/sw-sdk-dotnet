@@ -75,6 +75,48 @@ namespace Test_SW.Services.Issue
             Assert.IsTrue(response.status == "error" && response.message == "307. El comprobante contiene un timbre previo.");
         }
 
+        [TestMethod]
+        public void Stamp_Test_45_StampV4_V4_customId_Analytics()
+        {
+            Random rnd = new Random();
+            var build = new BuildSettings();
+            IssueAnalytics stamp = new IssueAnalytics(build.Url, build.Token);
+            var xml = GetXml(build);
+            var response = (StampResponseV4)stamp.TimbrarV4Analytics(xml, null, rnd.Next().ToString());
+            Assert.IsTrue(response.data != null, "El resultado data viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoSAT), "El resultado data.noCertificadoSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoCFDI), "El resultado data.noCertificadoCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.uuid), "El resultado data.uuid viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloSAT), "El resultado data.selloSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
+        }
+
+        [TestMethod]
+        public void Stamp_Test_45_StampV4_V4_customId_Analytics_Error()
+        {
+            Random rnd = new Random();
+            var build = new BuildSettings();
+            IssueAnalytics stamp = new IssueAnalytics(build.Url, build.Token);
+            var xml = GetXml(build);
+            var response = (StampResponseV4)stamp.TimbrarV4Analytics(xml, null, rnd.Next().ToString());
+            Assert.IsTrue(response.data != null, "El resultado data viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoSAT), "El resultado data.noCertificadoSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoCFDI), "El resultado data.noCertificadoCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.uuid), "El resultado data.uuid viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloSAT), "El resultado data.selloSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
+            response = (StampResponseV4)stamp.TimbrarV4Analytics(xml, null, rnd.Next().ToString());
+            Assert.IsTrue(response.status == "error" && response.message == "307. El comprobante contiene un timbre previo.");
+        }
+
         static Random randomNumber = new Random(1);
         private string GetXml(BuildSettings build)
         {
