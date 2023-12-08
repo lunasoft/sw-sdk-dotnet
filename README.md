@@ -2412,6 +2412,44 @@ namespace ExampleSDK
 ```
 </details>
 <details>
+  <summary>Consultar certificado por RFC</summary>
+Método para obtener un certificado cargado enviando como parámetro el RFC.
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* RFC de certificado a obtener
+
+**Ejemplo de consumo de la libreria para consulta de un certificado por su NoCertificado**
+```cs
+using SW.Services.Csd;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo CsdUtils esta le pasamos la Url y credenciales para autenticarnos
+                CsdUtils csd = new CsdUtils("http://services.test.sw.com.mx", "user", "password");
+                //Obtenemos la respuesta del metodo GetListCsdByRfc con el parametro del RFC
+                var response = csd.GetListCsdByRfc("XAXX010101000");
+                //Mostramos el mensaje
+                Console.WriteLine(response.data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+<details>
   <summary>Eliminar certificado</summary>
 Método para eliminar un certificado de la cuenta.
 
