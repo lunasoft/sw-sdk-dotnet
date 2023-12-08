@@ -2420,7 +2420,7 @@ Método para obtener un certificado cargado enviando como parámetro el RFC.
 * Url Servicios SW
 * RFC de certificado a obtener
 
-**Ejemplo de consumo de la libreria para consulta de un certificado por su NoCertificado**
+**Ejemplo de consumo de la libreria para consulta de un certificado por su RFC**
 ```cs
 using SW.Services.Csd;
 using System;
