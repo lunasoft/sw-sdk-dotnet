@@ -2692,6 +2692,84 @@ namespace ExampleSDK
 ```
 
 </details>
+<details>
+  <summary>Timbrado Json (IssueJsonV4)</summary>
+
+  **Ejemplo del consumo de la librería para el servicio IssueJsonV4 (Email) Json en formato string mediante usuario y contraseña.**
+```cs
+using SW.Services.Stamp;
+using SW.Services.Issue;
+using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+          try
+            {
+                //obtenemos el archivo Json
+                var json = Encoding.UTF8.GetString(File.ReadAllBytes(file));
+                //creamos el listado de correos(máximo 5)
+                string[] email = { "prueba@test.com", "someone@email.com" };
+                //Creamos una instancia de tipo IssueJsonV4 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password");
+                //Realizamos la petición
+                var response =  (StampResponseV1)issue.TimbrarJsonV1(json, email);
+                Console.WriteLine(response.Status);
+                Console.WriteLine(response.Data.Tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+**Ejemplo del consumo de la librería para el servicio IssueJsonV4 (Email) Json en formato string mediante token.**
+```cs
+using SW.Services.Stamp;
+using SW.Services.Issue;
+using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            try
+            {
+                //obtenemos el archivo Json
+                var json = Encoding.UTF8.GetString(File.ReadAllBytes(file));
+                //creamos el listado de correos(máximo 5)
+                string[] email = { "prueba@test.com", "someone@email.com" };
+                //Creamos una instancia de tipo IssueJsonV4 
+                //A esta le pasamos la Url y el token
+                IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                //Realizamos la peticion
+                var response = (StampResponseV1)issue.TimbrarJsonV1(json, email);
+                Console.WriteLine(response.Status);
+                Console.WriteLine(response.Data.Tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
 
 ### **CustomId** ###
 Este servicio recibe un comprobante CFDI para ser timbrado y que recibe un header conocido como CustomID, el cuál tiene el objetivo de agregar un filtro adicional al timbrado para evitar la duplicidad de timbrado.
@@ -2828,6 +2906,168 @@ namespace ExampleSDK
 ```
 </details>
 
+<details>
+ <summary>Timbrado Json (IssueJsonV4)</summary>
+
+ **Ejemplo del consumo de la librería para el servicio IssueJsonV4 (CustomId) Json en formato string mediante usuario y contraseña.**
+```cs
+using SW.Services.Stamp;
+using SW.Services.Issue;
+using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+          try
+            {
+                //obtenemos el archivo Json
+                var json = Encoding.UTF8.GetString(File.ReadAllBytes(file));
+                //creamos la variable de nuestro customId
+                var customId = Guid.NewGuid().ToString();
+                //Creamos una instancia de tipo IssueJsonV4 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password");
+                //Realizamos la petición
+                var response =  (StampResponseV1)issue.TimbrarJsonV1(json, null, customId);
+                Console.WriteLine(response.Status);
+                Console.WriteLine(response.Data.Tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+**Ejemplo del consumo de la librería para el servicio IssueJsonV4 (CustomId) Json en formato string mediante token.**[¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+```cs
+using SW.Services.Stamp;
+using SW.Services.Issue;
+using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            try
+            {
+                //obtenemos el archivo Json
+                var json = Encoding.UTF8.GetString(File.ReadAllBytes(file));
+                //creamos la variable de nuestro customId
+                var customId = Guid.NewGuid().ToString();
+                //Creamos una instancia de tipo IssueJsonV4 
+                //A esta le pasamos la Url y el token
+                IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                //Realizamos la peticion
+                var response = (StampResponseV1)issue.TimbrarJsonV1(json, null, customId);
+                Console.WriteLine(response.Status);
+                Console.WriteLine(response.Data.Tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+### **PDF** ###
+Este servicio recibe un comprobante CFDI para ser timbrado y que recibe un header conocido como extra mediante el cual se confirma la generación de un PDF del CFDI timbrado que será guardado en automático en el ADT.
+
+Existen varias versiones de respuesta a este método, las cuales puede consultar mas a detalle en el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/).
+
+***NOTA:*** En caso de que no se cuente con una plantilla PDF customizada los PDF’s serán generados con las plantillas genéricas.
+
+<details>
+ <summary>Timbrado Json (IssueJsonV4)</summary>
+
+ **Ejemplo del consumo de la librería para el servicio IssueJsonV4 (PDF) Json en formato string mediante usuario y contraseña.**
+```cs
+using SW.Services.Stamp;
+using SW.Services.Issue;
+using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+          try
+            {
+                //obtenemos el archivo Json
+                var json = Encoding.UTF8.GetString(File.ReadAllBytes(file));
+                //Creamos una instancia de tipo IssueJsonV4 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "user", "password");
+                //Realizamos la petición enviando en el cuarto parametro true
+                //para indicar la generación de pdf
+                var response =  (StampResponseV1)issue.TimbrarJsonV1(json, null, null, true);
+                Console.WriteLine(response.Status);
+                Console.WriteLine(response.Data.Tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+**Ejemplo del consumo de la librería para el servicio IssueJsonV4 (PDF) Json en formato string mediante token.**[¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+```cs
+using SW.Services.Stamp;
+using SW.Services.Issue;
+using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            try
+            {
+                //obtenemos el archivo Json
+                var json = Encoding.UTF8.GetString(File.ReadAllBytes(file));
+                //Creamos una instancia de tipo IssueJsonV4 
+                //A esta le pasamos la Url y el token
+                IssueJsonV4 stamp = new IssueJsonV4("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                //Realizamos la petición enviando en el cuarto parametro true
+                //para indicar la generación de pdf
+                var response = (StampResponseV1)issue.TimbrarJsonV1(json, null, null, true);
+                Console.WriteLine(response.Status);
+                Console.WriteLine(response.Data.Tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
 ----------------
 
 Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
