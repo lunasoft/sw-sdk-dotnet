@@ -141,12 +141,12 @@ namespace Test_SW.Services.Issue
             var build = new BuildSettings();
             SW.Services.Issue.IssueJsonV4 issue = new SW.Services.Issue.IssueJsonV4(build.Url, build.User, build.Password);
             Random rnd = new Random();
-            string randomString = new string(Enumerable.Repeat("0123456789", 151).Select(s => s[rnd.Next(s.Length)]).ToArray());
+            string randomString = new string(Enumerable.Repeat("0123456789", 101).Select(s => s[rnd.Next(s.Length)]).ToArray());
             string[] email = { "prueba@test.com" };
             var json = GetJson(build);
             var response = (StampResponseV2)issue.TimbrarJsonV2(json, email, randomString, false);
             Assert.IsTrue(response.status == "error"
-                && !string.IsNullOrEmpty(response.message), "El CustomId no es válido o es mayor a 150 cracteres.");
+                && !string.IsNullOrEmpty(response.message), "El CustomId no es válido o es mayor a 100 cracteres.");
         }
         [TestMethod]
         public void IssueJsonV3_V4_InvalidEmail()

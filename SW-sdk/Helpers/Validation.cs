@@ -82,9 +82,9 @@ namespace SW.Helpers
         }
         internal static void ValidateCustomId(string customId)
         {
-            if (customId.Length > 150 )
+            if (customId.Length > 100 )
             {
-                throw new ServicesException("El CustomId no es válido o es mayor a 150 cracteres.");
+                throw new ServicesException("El CustomId no es válido o es mayor a 100 cracteres.");
             }
             else if (customId.Length <= 0)
             {
