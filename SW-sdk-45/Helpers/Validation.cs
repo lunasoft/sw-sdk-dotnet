@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Mail;
 
 namespace SW.Helpers
@@ -90,6 +91,27 @@ namespace SW.Helpers
             else if (customId.Length <= 0)
             {
                 throw new ServicesException("El CustomId viene vacío.");
+            }
+        }
+        internal static void ValidateFormatEmail(string[] emails)
+        {
+            try
+            {
+                if (!Validation.ValidateEmail(emails) || emails.Length > 5)
+                {
+                    throw new Exception("El listado contiene más de 5 correos o el formato es incorrecto.");
+                }
+                else
+                {
+                    for (int i = 0; i < emails.Length; i++)
+                    {
+                        emails[i] = emails[i].Trim();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }
