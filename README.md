@@ -835,8 +835,8 @@ Generar PDF
 
 <br>Este método genera y obtiene un  PDF en base64 a partir de un documento XML timbrado y una plantilla. Puede ser consumido ingresando tu usuario y contraseña así como tambien ingresando solo el token. Este método recibe los siguientes parámetros:
 
-* Url servicios SW
 * Url API
+* Url servicios SW
 * Logo Base64 (opcional)
 * Template ID
 * XML timbrado
@@ -857,7 +857,7 @@ namespace ExampleSDK
         {
             try
             {
-                Pdf pdf = new Pdf("https://services.test.sw.com.mx","https://api.test.sw.com.mx","user", "password");
+                Pdf pdf = new Pdf("https://api.test.sw.com.mx","https://services.test.sw.com.mx","user", "password");
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
                 var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...",TemplatesId.cfdi40);
                 //Devuleve el pdf en formato Base64
@@ -871,7 +871,7 @@ namespace ExampleSDK
             //Puedes solicitar customizar tu propia plantilla para agregar datos adicionales que no vengan incluidos en el xml
             try
             {
-                Pdf pdf = new Pdf("https://services.test.sw.com.mx","https://api.test.sw.com.mx",Token);
+                Pdf pdf = new Pdf("https://api.test.sw.com.mx","https://services.test.sw.com.mx",Token);
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
                 Dictionary<string, string> extras = new Dictionary<string, string>() { { "DATOSEXTRA", "Entregar de 9am a 6pm" } };
                 var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","templateIdCustom", extras);
@@ -886,7 +886,7 @@ namespace ExampleSDK
             try
             {
                 //Puedes enviar el xml convertido en Base64
-                Pdf pdf = new Pdf("https://services.test.sw.com.mx","https://api.test.sw.com.mx",Token);
+                Pdf pdf = new Pdf("https://api.test.sw.com.mx","https://services.test.sw.com.mx",Token);
                 Dictionary<string, string> extras = new Dictionary<string, string>() { { "DATOSEXTRA", "Entregar de 9am a 6pm" } };
                 var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","templateIdCustom", extras, null, true);
                 //Devuleve el pdf en formato Base64
