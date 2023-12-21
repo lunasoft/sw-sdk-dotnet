@@ -84,7 +84,7 @@ namespace SW.Helpers
         {
             if (customId.Length > 100 )
             {
-                throw new ServicesException("El CustomId no es válido o es mayor a 100 cracteres.");
+                throw new ServicesException("El CustomId no es válido o es mayor a 100 caracteres.");
             }
             else if (customId.Length <= 0)
             {

@@ -145,7 +145,7 @@ namespace Test_SW.Services.Issue
             var json = GetJson(build);
             var response = (StampResponseV2)issue.TimbrarJsonV2(json, email, randomString, false);
             Assert.IsTrue(response.status == "error"
-                && !string.IsNullOrEmpty(response.message), "El CustomId no es válido o es mayor a 100 cracteres.");
+                && !string.IsNullOrEmpty(response.message), "El CustomId no es válido o es mayor a 100 caracteres.");
         }
         [TestMethod]
         public void IssueJsonV3_V4_InvalidEmail()

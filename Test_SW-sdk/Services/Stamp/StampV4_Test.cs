@@ -377,7 +377,7 @@ namespace Test_SW.Services.StampV4_Test
             var xml = GetXml(build);
             var response = (StampResponseV1)stamp.TimbrarV1(xml, null, customId);
             Assert.IsTrue(response.status == "error");
-            Assert.IsTrue(response.message == "El CustomId no es válido o es mayor a 100 cracteres.");
+            Assert.IsTrue(response.message == "El CustomId no es válido o es mayor a 100 caracteres.");
         }
         [TestMethod]
         public void Stamp_Test_StampV4XMLV1_InvalidCustomId_Empty()
