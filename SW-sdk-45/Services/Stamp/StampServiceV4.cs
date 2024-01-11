@@ -28,10 +28,14 @@ namespace SW.Services.Stamp
         {
             if (customId != null)
             {
-                Validation.ValidateCustomId(customId);
-                if (customId.Length > 100)
+                
+                if (customId.Length > 100 && customId.Length < 300)
                 {
                     customId = customId.HashTo256();
+                }
+                else
+                {
+                    Validation.ValidateCustomId(customId);
                 }
             }
             this.SetupRequest();

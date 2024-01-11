@@ -124,8 +124,10 @@
     <Compile Include="Services\Csd\CsdResponseHandler.cs" />
     <Compile Include="Services\Csd\CsdService.cs" />
     <Compile Include="Services\Issue\BaseJson.cs" />
+    <Compile Include="Services\Issue\BaseJsonV4.cs" />
     <Compile Include="Services\Issue\IssueAnalytics.cs" />
     <Compile Include="Services\Issue\IssueJson.cs" />
+    <Compile Include="Services\Issue\IssueJsonV4.cs" />
     <Compile Include="Services\Issue\IssueService.cs" />
     <Compile Include="Services\Issue\IssueV2.cs" />
     <Compile Include="Services\Issue\Issue.cs" />
