@@ -1019,6 +1019,7 @@ namespace ExampleSDK
 * IdUser
 
 **Ejemplo de consumo de la libreria para eliminar usuarios**
+
 ```cs
 using System;
 using SW.Helpers;
@@ -1045,6 +1046,7 @@ namespace ExampleSDK
                 //En caso de error, se pueden visualizar los campos message y/o messageDetail
                 response.message;
                 response.messageDetail;
+
             }
             catch (Exception e)
             {
