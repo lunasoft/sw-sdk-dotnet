@@ -8,6 +8,7 @@ namespace SW.Services
     {
         private string _token;
         private string _url;
+        private string _urlApi;
         private string _user;
         private string _password;
         private string _proxy;
@@ -21,6 +22,10 @@ namespace SW.Services
         public string Url
         {
             get { return _url; }
+        }
+        public string UrlApi
+        {
+            get { return _urlApi; }
         }
         public string User
         {
@@ -56,6 +61,15 @@ namespace SW.Services
         public Services(string url, string user, string password, string proxy, int proxyPort)
         {
             _url = Helpers.RequestHelper.NormalizeBaseUrl(url); ;
+            _user = user;
+            _password = password;
+            _proxy = proxy;
+            _proxyPort = proxyPort;
+        }
+        public Services(string url, string urlApi, string user, string password, string proxy, int proxyPort)
+        {
+            _url = Helpers.RequestHelper.NormalizeBaseUrl(url); ;
+            _urlApi = Helpers.RequestHelper.NormalizeBaseUrl(urlApi); ;
             _user = user;
             _password = password;
             _proxy = proxy;

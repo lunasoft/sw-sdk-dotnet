@@ -33,14 +33,15 @@ namespace SW.Services.Stamp
                 request.Headers.Add("email", email);
             if (customId != null)
             {
-                Validation.ValidateCustomId(customId);
-                if (customId.Length > 100)
+                
+                if (customId.Length > 100 && customId.Length < 300)
                 {
                     customId = customId.HashTo256();
                     request.Headers.Add("customid", customId);
                 }
                 else
                 {
+                    Validation.ValidateCustomId(customId);
                     request.Headers.Add("customid", customId);
                 }
             }

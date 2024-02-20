@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PeticionConsultaRelacionados xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Uuid="51BADE4D-8285-4597-A092-7DB1D50E5EFD" RfcReceptor="LAN7008173R5" RfcPacEnviaSolicitud="DAL050601L35" 
+<PeticionConsultaRelacionados xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Uuid="51BADE4D-8285-4597-A092-7DB1D50E5EFD" RfcReceptor="LAN7008173R5" RfcPacEnviaSolicitud="DAL050601L35"
     xmlns="http://cancelacfd.sat.gob.mx">
     <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
         <SignedInfo>

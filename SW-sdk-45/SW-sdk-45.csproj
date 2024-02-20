@@ -75,6 +75,7 @@
     <Compile Include="Helpers\ConvertionHelper.cs" />
     <Compile Include="Helpers\DowloadFile.cs" />
     <Compile Include="Helpers\EnumAcceptReject.cs" />
+    <Compile Include="Helpers\EnumAccountServices.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
     <Compile Include="Helpers\ResponseHelper.cs" />
     <Compile Include="Helpers\ResponseType.cs" />
@@ -93,10 +94,16 @@
     <Compile Include="Services\AcceptReject\AcceptRejectResponse.cs" />
     <Compile Include="Services\AcceptReject\AcceptRejectResponseHandler.cs" />
     <Compile Include="Services\AcceptReject\AcceptRejectService.cs" />
-    <Compile Include="Services\Account\Account.cs" />
-    <Compile Include="Services\Account\AccountResponse.cs" />
-    <Compile Include="Services\Account\AccountResponseHandler.cs" />
-    <Compile Include="Services\Account\AccountService.cs" />
+    <Compile Include="Services\Account\AccountBalance\AccountBalance.cs" />
+    <Compile Include="Services\Account\AccountBalance\AccountBalanceRequest.cs" />
+    <Compile Include="Services\Account\AccountBalance\AccountResponse.cs" />
+    <Compile Include="Services\Account\AccountBalance\AccountResponseHandler.cs" />
+    <Compile Include="Services\Account\AccountBalance\AccountService.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUser.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserRequest.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserResponse.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserResponseHandler.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserService.cs" />
     <Compile Include="Services\Authentication\Authentication.cs" />
     <Compile Include="Services\Authentication\AuthenticationResponseHandler.cs" />
     <Compile Include="Services\Authentication\AuthenticationService.cs" />
@@ -117,7 +124,10 @@
     <Compile Include="Services\Csd\CsdResponseHandler.cs" />
     <Compile Include="Services\Csd\CsdService.cs" />
     <Compile Include="Services\Issue\BaseJson.cs" />
+    <Compile Include="Services\Issue\BaseJsonV4.cs" />
+    <Compile Include="Services\Issue\IssueAnalytics.cs" />
     <Compile Include="Services\Issue\IssueJson.cs" />
+    <Compile Include="Services\Issue\IssueJsonV4.cs" />
     <Compile Include="Services\Issue\IssueService.cs" />
     <Compile Include="Services\Issue\IssueV2.cs" />
     <Compile Include="Services\Issue\Issue.cs" />
@@ -192,6 +202,7 @@
       <Name>SAT.Services</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -78,7 +78,7 @@ namespace Test_SW.Services.Issue
         static Random randomNumber = new Random(1);
         private string GetXml(BuildSettings build)
         {
-            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/fileIssue.xml"));
+            var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/fileIssue40.xml"));
             xml = Fiscal.RemoverCaracteresInvalidosXml(xml);
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xml);

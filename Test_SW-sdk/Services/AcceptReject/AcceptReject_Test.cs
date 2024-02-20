@@ -76,7 +76,7 @@ namespace Test_SW.Services.AcceptReject_Test
         {
             var build = new BuildSettings();
             AcceptReject acceptReject = new AcceptReject(build.Url, build.User, build.Password);
-            var response = acceptReject.AcceptByPFX(build.Pfx, build.Rfc, build.CerPassword, new AceptacionRechazoItem[] { new AceptacionRechazoItem() { uuid = "01724196-ac5a-4735-b621-e3b42bcbb459", action = EnumAcceptReject.Aceptacion } });
+            var response = acceptReject.AcceptByPFX(build.Pfx, build.Rfc, build.PfxPassword, new AceptacionRechazoItem[] { new AceptacionRechazoItem() { uuid = "01724196-ac5a-4735-b621-e3b42bcbb459", action = EnumAcceptReject.Aceptacion } });
             Assert.IsTrue(response.status == "success");
         }
         [Ignore]
