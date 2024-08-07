@@ -216,6 +216,7 @@ namespace Test_SW_sdk_45.Services.Stamp
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
         }
+
         [TestMethod]
         public void Stamp_Test_45_StampV4_V4_customId()
         {
@@ -270,6 +271,70 @@ namespace Test_SW_sdk_45.Services.Stamp
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
+        }
+
+
+        [TestMethod]
+        public void Stamp_Test_45_StampXmlV4_V4_customId()
+        {
+            Random rnd = new Random();
+            var build = new BuildSettings();
+            StampV4 stamp = new StampV4(build.Url, build.User, build.Password);
+            var xml = GetXml(build);
+            var response = (StampResponseV4)stamp.TimbrarXmlV4(xml, null, rnd.Next().ToString());
+            Assert.IsTrue(response.data != null, "El resultado data viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoSAT), "El resultado data.noCertificadoSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoCFDI), "El resultado data.noCertificadoCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.uuid), "El resultado data.uuid viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloSAT), "El resultado data.selloSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
+        }
+
+
+        [TestMethod]
+        public void Stamp_Test_45_StampXmlV4_V4_some_emails()
+        {
+            var build = new BuildSettings();
+            StampV4 stamp = new StampV4(build.Url, build.User, build.Password);
+            var xml = GetXml(build);
+            var response = (StampResponseV4)stamp.TimbrarXmlV4(xml, "some@email.com,some2@email.com,some3@email.com,some4@email.com,some5@email.com");
+            Assert.IsTrue(response.data != null, "El resultado data viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoSAT), "El resultado data.noCertificadoSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.noCertificadoCFDI), "El resultado data.noCertificadoCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.uuid), "El resultado data.uuid viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloSAT), "El resultado data.selloSAT viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.selloCFDI), "El resultado data.selloCFDI viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.fechaTimbrado), "El resultado data.fechaTimbrado viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
+        }
+        [TestMethod]
+        public void Stamp_Test_45_StampXmlV4_V4_InvalidCustomId_Error()
+        {
+            var build = new BuildSettings();
+            StampV4 stamp = new StampV4(build.Url, build.User, build.Password);
+            var customId = Guid.NewGuid().ToString();
+            customId = string.Concat(Enumerable.Repeat(customId, 10));
+            var xml = GetXml(build);
+            var response = (StampResponseV4)stamp.TimbrarXmlV4(xml, null, customId);
+            Assert.IsTrue(response.status == "error");
+            Assert.IsTrue(response.message == "El CustomId no es válido o es mayor a 100 caracteres.");
+        }
+        [TestMethod]
+        public void Stamp_Test_45_StampXmlV4_V4_InvalidCustomId_Error2()
+        {
+            var build = new BuildSettings();
+            StampV4 stamp = new StampV4(build.Url, build.User, build.Password);
+            var customId = Guid.NewGuid().ToString();
+            var xml = File.ReadAllText("Resources/EmptyXML.xml");
+            var response = (StampResponseV4)stamp.TimbrarXmlV4(xml, null, null);
+            Assert.IsTrue(response.status == "error");
+            Assert.IsTrue(response.message == "Xml CFDI33 no proporcionado o viene vacio.");
         }
         [TestMethod]
         public void Stamp_Test_StampV4XMLV1_HashedCustomId_IdDuplicado_Error()

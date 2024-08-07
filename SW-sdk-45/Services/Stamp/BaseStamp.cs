@@ -143,6 +143,38 @@ namespace SW.Services.Stamp
                 return handler.HandleException(ex);
             }
         }
+        //Método para reintento request
+        public virtual StampResponseV3 TimbrarXmlV3(string xml, bool isb64 = false)
+        {
+            StampResponseHandlerV3 handler = new StampResponseHandlerV3();
+            string format = isb64 ? "b64" : "";
+            var xmlBytes = Encoding.UTF8.GetBytes(xml);
+            var headers = GetHeaders();
+            var content = GetMultipartContent(xmlBytes);
+            var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
+            int maxRetries = 2;
+            int retries = 0;
+
+            try
+            {
+                var response = handler.GetPostResponse(this.Url,string.Format("cfdi33/{0}/{1}/{2}",
+                    _operation,StampTypes.v3.ToString(),format), headers, content, proxy);
+
+                while (response.message != null && (response.message.Equals("Se han producido uno o varios errores.") 
+                    || response.message.Equals("One or more errors occurred.")) && retries < maxRetries)
+                {
+                    retries++;
+                    response = handler.GetPostResponse(this.Url,string.Format("cfdi33/{0}/{1}/{2}",
+                                    _operation,StampTypes.v3.ToString(),format), headers, content, proxy);
+                }
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return handler.HandleException(ex);
+            }
+        }
         public virtual ConcurrentDictionary<string, StampResponseV3> TimbrarV3(string[] xmls, bool isb64 = false)
         {
             StampResponseHandlerV3 handler = new StampResponseHandlerV3();
