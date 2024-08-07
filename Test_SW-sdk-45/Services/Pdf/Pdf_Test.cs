@@ -69,7 +69,8 @@ namespace Pdf_Test.Services.Pdf_Tests
             Assert.IsTrue(pdfResult.status == "success");
 
         }
-        [TestMethod]
+        //Omitida por vigencia de CP
+        [Ignore]
         public void UT_GeneratePdf_Carta_Porte20()
         {
             var build = new BuildSettings();
