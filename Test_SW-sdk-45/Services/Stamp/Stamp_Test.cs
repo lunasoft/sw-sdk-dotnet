@@ -181,6 +181,47 @@ namespace Test_SW.Services.Stamp_Test
                 Assert.IsTrue(!string.IsNullOrEmpty(dic.Value.data.qrCode), "El resultado data.qrCode viene vacio.");
             }
         }
+
+        [TestMethod]
+        public void Stamp_Test_45_StampXmlV3byToken()
+        {
+            var build = new BuildSettings();
+            Stamp stamp = new Stamp(build.Url, build.Token);
+            var xml = GetXml(build);
+            var response = (StampResponseV3)stamp.TimbrarXmlV3(xml);
+            Assert.IsTrue(response.status == "success"
+               && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
+        }
+        [TestMethod]
+        public void Stamp_Test_45_StampXmlV3Base64byToken()
+        {
+            var build = new BuildSettings();
+            Stamp stamp = new Stamp(build.Url, build.Token);
+            var xml = GetXml(build);
+            xml = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
+            var response = (StampResponseV3)stamp.TimbrarXmlV3(xml, true);
+            Assert.IsTrue(response.status == "success"
+               && !string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
+        }
+        [TestMethod]
+        public void Stamp_Test_45_StampXmlV3_ValidateEmptyXML()
+        {
+            var resultExpect = "Xml CFDI33 no proporcionado o viene vacio.";
+            var build = new BuildSettings();
+            Stamp stamp = new Stamp(build.Url, build.Token);
+            var xml = File.ReadAllText("Resources/EmptyXML.xml");
+            var response = stamp.TimbrarXmlV3(xml);
+            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
+        }
+        [TestMethod]
+        public void Stamp_Test_45_StampXmlV3_ValidateExistToken()
+        {
+            var build = new BuildSettings();
+            Stamp stamp = new Stamp(build.Url, "");
+            var xml = File.ReadAllText("Resources/cfdi40.xml");
+            var response = stamp.TimbrarXmlV3(xml);
+            Assert.IsTrue(response.message.Contains("El token debe contener 3 partes"));
+        }
         [TestMethod]
         public void Stamp_Test_45_ValidateServerError()
         {
