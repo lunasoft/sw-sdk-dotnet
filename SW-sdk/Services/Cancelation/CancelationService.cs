@@ -1,6 +1,7 @@
 ﻿using SW.Helpers;
 using System.IO;
 using System.Net;
+using System.Text;
 
 namespace SW.Services.Cancelation
 {
@@ -34,12 +35,13 @@ namespace SW.Services.Cancelation
                 motivo = motivo,
                 folioSustitucion = folioSustitucion
             });
-            request.ContentLength = body.Length;
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            byte[] bodyBytes = Encoding.UTF8.GetBytes(body);
+            request.ContentLength = bodyBytes.Length;
+            using (var requestStream = request.GetRequestStream())
             {
-                streamWriter.Write(body);
-                streamWriter.Flush();
-                streamWriter.Close();
+                requestStream.Write(bodyBytes, 0, bodyBytes.Length);
+                requestStream.Flush();
+                requestStream.Close();
             }
             return request;
         }
