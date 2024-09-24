@@ -22,7 +22,7 @@ namespace Test_SW_sdk_45.Services.TaxpayersService
             {
                 var build = new BuildSettings();
                 Storage storage = new Storage(build.UrlApi, build.Url, build.User, build.Password);
-                var response = storage.GetByUUID(new Guid("9529824a-24e5-4ea6-900c-476ed11f0ea5"));
+                var response = storage.GetByUUID(new Guid("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"));
                 Assert.IsTrue(response.data != null && response.status == "success");
                 Assert.IsTrue(response.data.records[0].urlAckCfdi != null);
             }
@@ -31,7 +31,7 @@ namespace Test_SW_sdk_45.Services.TaxpayersService
             {
                 var build = new BuildSettings();
                 Storage storage = new Storage(build.UrlApi, build.Token);
-                var response = storage.GetByUUID(new Guid("9529824a-24e5-4ea6-900c-476ed11f0ea5"));
+                var response = storage.GetByUUID(new Guid("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"));
                 Assert.IsTrue(response.data != null && response.status == "success");
                 Assert.IsTrue(response.data.records[0].urlAckCfdi != null);
             }
@@ -40,7 +40,7 @@ namespace Test_SW_sdk_45.Services.TaxpayersService
             {
                 var build = new BuildSettings();
                 Storage storage = new Storage(build.UrlApi, build.Url, "", build.Password);
-                var response = storage.GetByUUID(new Guid("9529824a-24e5-4ea6-900c-476ed11f0ea5"));
+                var response = storage.GetByUUID(new Guid("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"));
                 Assert.IsTrue(response.data == null && response.status == "error");
                 Assert.IsTrue(response.message == "Falta Capturar Usuario");
             }
@@ -49,7 +49,7 @@ namespace Test_SW_sdk_45.Services.TaxpayersService
             {
                 var build = new BuildSettings();
                 Storage storage = new Storage("", build.Token);
-                var response = storage.GetByUUID(new Guid("9529824a-24e5-4ea6-900c-476ed11f0ea5"));
+                var response = storage.GetByUUID(new Guid("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"));
                 Assert.IsTrue(response.data == null && response.status == "error");
                 Assert.IsTrue(response.message == "Falta Capturar URL");
             }

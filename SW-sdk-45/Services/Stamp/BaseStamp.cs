@@ -147,28 +147,40 @@ namespace SW.Services.Stamp
         public virtual StampResponseV3 TimbrarXmlV3(string xml, bool isb64 = false)
         {
             StampResponseHandlerV3 handler = new StampResponseHandlerV3();
-            string format = isb64 ? "b64" : "";
-            var xmlBytes = Encoding.UTF8.GetBytes(xml);
-            var headers = GetHeaders();
-            var content = GetMultipartContent(xmlBytes);
-            var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-            int maxRetries = 2;
-            int retries = 0;
-
             try
             {
-                var response = handler.GetPostResponse(this.Url,string.Format("cfdi33/{0}/{1}/{2}",
-                    _operation,StampTypes.v3.ToString(),format), headers, content, proxy);
-
-                while (response.message != null && (response.message.Equals("Se han producido uno o varios errores.") 
-                    || response.message.Equals("One or more errors occurred.")) && retries < maxRetries)
+                string format = isb64 ? "b64" : "";
+                var xmlBytes = Encoding.UTF8.GetBytes(xml);
+                var headers = GetHeaders();
+                var content = GetMultipartContent(xmlBytes);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
+                var response = handler.GetPostResponse(this.Url,
+                                    string.Format("cfdi33/{0}/{1}/{2}",
+                                    _operation,
+                                    StampTypes.v3.ToString(),
+                                    format), headers, content, proxy);
+                if (response.message != null && (response.message.Equals("Se han producido uno o varios errores.")
+                    || response.message.Equals("One or more errors occurred.")) || response.status.Equals("500"))
                 {
-                    retries++;
-                    response = handler.GetPostResponse(this.Url,string.Format("cfdi33/{0}/{1}/{2}",
-                                    _operation,StampTypes.v3.ToString(),format), headers, content, proxy);
+                    return RetryHelper.Retry<StampResponseV3>(() =>
+                    {
+                        //Se genera nuevamente variables del request ya que son desechados en cada reintento
+                        format = isb64 ? "b64" : "";
+                        xmlBytes = Encoding.UTF8.GetBytes(xml);
+                        headers = GetHeaders();
+                        content = GetMultipartContent(xmlBytes);
+                        proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
+                        return handler.GetPostResponse(this.Url,
+                                    string.Format("cfdi33/{0}/{1}/{2}",
+                                    _operation,
+                                    StampTypes.v3.ToString(),
+                                    format), headers, content, proxy);
+                    }, 3, 10);
                 }
-
-                return response;
+                else
+                {
+                    return response;
+                }
             }
             catch (Exception ex)
             {
