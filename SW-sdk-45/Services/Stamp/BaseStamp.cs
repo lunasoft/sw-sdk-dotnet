@@ -175,7 +175,7 @@ namespace SW.Services.Stamp
                                     _operation,
                                     StampTypes.v3.ToString(),
                                     format), headers, content, proxy);
-                    }, 2, 1);
+                    }, 3, 10);
                 }
                 else
                 {
