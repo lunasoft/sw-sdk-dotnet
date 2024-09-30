@@ -36,34 +36,7 @@ namespace SW.Services
                     return TryGetResponse(result);
                 }
             }
-            catch (AggregateException aggEx)
-            {
-                //Obtiene las excepciones internas para encontrar TaskCanceledException
-                foreach (var innerEx in aggEx.InnerExceptions)
-                {
-                    if (innerEx is TaskCanceledException tex)
-                    {
-                        return new T()
-                        {
-                            message = aggEx.Message,
-                            status = "500",
-                            messageDetail = tex.Message
-                        };
-                    }
-                }
-                throw;
-            }
-            //Captura directa de timeout (cuando no está dentro de AggregateException)
-            catch (TaskCanceledException tex)
-            {
-                return new T()
-                {
-                    message = tex.Message,
-                    status = "500",
-                    messageDetail = tex.StackTrace
-                };
-            }
-            catch (HttpRequestException wex)
+            catch (Exception wex)
             {
                 return new T()
                 {

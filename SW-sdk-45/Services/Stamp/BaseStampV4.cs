@@ -203,45 +203,30 @@ namespace SW.Services.Stamp
             StampResponseHandlerV4 handler = new StampResponseHandlerV4();
             try
             {
-                string format = isb64 ? "b64" : "";
-                var xmlBytes = Encoding.UTF8.GetBytes(xml);
-                var headers = GetHeaders(email, customId);
-                var content = GetMultipartContent(xmlBytes);
-                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                var response = handler.GetPostResponse(this.Url,
-                                string.Format("v4/cfdi33/{0}/{1}/{2}",
-                                _operation,
-                                StampTypes.v4.ToString(),
-                                format), headers, content, proxy);
-                if (response.message != null && (response.message.Equals("Se han producido uno o varios errores.")
-                    || response.message.Equals("One or more errors occurred.")) || response.status.Equals("500"))
+                return RetryHelper.Retry<StampResponseV4>(() =>
                 {
-                    return RetryHelper.Retry<StampResponseV4>(() =>
-                    {
-                        //Se genera nuevamente variables del request ya que son desechados en cada reintento
-                        format = isb64 ? "b64" : "";
-                        xmlBytes = Encoding.UTF8.GetBytes(xml);
-                        headers = GetHeaders(email, customId);
-                        content = GetMultipartContent(xmlBytes);
-                        proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                        return handler.GetPostResponse(this.Url,
-                                string.Format("v4/cfdi33/{0}/{1}/{2}",
-                                _operation,
-                                StampTypes.v4.ToString(),
-                                format), headers, content, proxy);
-                    }, 3, 10);
-                }
-                else
-                {
-                    return response;
-                }
+                    string format = isb64 ? "b64" : "";
+                    var xmlBytes = Encoding.UTF8.GetBytes(xml);
+                    var headers = GetHeaders(email, customId);
+                    var content = GetMultipartContent(xmlBytes);
+                    var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
+                    var response = handler.GetPostResponse(this.Url,
+                            string.Format("v4/cfdi33/{0}/{1}/{2}",
+                            _operation,
+                            StampTypes.v4.ToString(),
+                            format), headers, content, proxy);
+                    if(response.status.Equals("error"))
+                        throw new Exception(response.message, new Exception(response.messageDetail));
 
+                    return response;
+                }, 3, 10);
             }
             catch (Exception ex)
             {
                 return handler.HandleException(ex);
             }
         }
+
         public virtual StampResponseV4 TimbrarV4Analytics(string xml, string email = null, string customId = null, bool isb64 = false)
         {
             StampResponseHandlerV4 handler = new StampResponseHandlerV4();
