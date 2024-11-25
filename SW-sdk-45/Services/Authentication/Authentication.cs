@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 
 namespace SW.Services.Authentication
 {
@@ -19,12 +20,15 @@ namespace SW.Services.Authentication
             {
                 new AuthenticationValidation(Url, User, Password, Token);
 
-                Dictionary<string, string> headers = new Dictionary<string, string>() {
-                    { "user", this.User },
-                    { "password", this.Password }
-                };
+                var body = Newtonsoft.Json.JsonConvert.SerializeObject(new AuthenticationRequest()
+                {
+                    user = this.User,
+                    password = this.Password
+                });
+                StringContent content = new StringContent(body, Encoding.UTF8, "application/json");
+
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                return _handler.GetPostResponse(this.Url, headers, "security/authenticate", proxy);
+                return _handler.GetPostResponse(this.Url, "v2/security/authenticate", content, proxy);
 
             }
             catch (Exception e)
