@@ -209,18 +209,18 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }
-        internal static AccountGetUserResponse ToAccountGetUserResponse(this Exception ex)
+        internal static AccountGetUsersResponse ToAccountGetUsersResponse(this Exception ex)
         {
-            return new AccountGetUserResponse()
+            return new AccountGetUsersResponse()
             {
                 message = ex.Message,
                 status = "error",
                 messageDetail = ex.GetErrorDetail()
             };
         }
-        internal static AccountGetUsersResponse ToAccountGetUsersResponse(this Exception ex)
+        internal static AccountGetUserResponse ToAccountGetUserResponse(this Exception ex)
         {
-            return new AccountGetUsersResponse()
+            return new AccountGetUserResponse()
             {
                 message = ex.Message,
                 status = "error",

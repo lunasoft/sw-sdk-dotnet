@@ -20,6 +20,64 @@ namespace SW.Services
         {
             _xmlOriginal = xmlOriginal;
         }
+        public virtual T GetPostResponse(string url, string path, HttpContent content, HttpClientHandler proxy)
+        {
+            try
+            {
+                // Configurar el protocolo TLS 1.2
+                System.Net.ServicePointManager.SecurityProtocol =
+                    SecurityProtocolType.Tls12 |
+                    SecurityProtocolType.Tls11 |
+                    SecurityProtocolType.Tls;
+
+                using (HttpClient client = new HttpClient(proxy))
+                {
+                    client.BaseAddress = new Uri(url);
+
+                    var result = client.PostAsync(path, content).Result;
+
+                    return TryGetResponse(result);
+                }
+            }
+            catch (AggregateException aggEx)
+            {
+                // Obtiene las excepciones internas para encontrar TaskCanceledException
+                foreach (var innerEx in aggEx.InnerExceptions)
+                {
+                    if (innerEx is TaskCanceledException tex)
+                    {
+                        return new T()
+                        {
+                            message = aggEx.Message,
+                            status = "500",
+                            messageDetail = tex.Message
+                        };
+                    }
+                }
+                throw;
+            }
+            // Captura directa de timeout (cuando no está dentro de AggregateException)
+            catch (TaskCanceledException tex)
+            {
+                return new T()
+                {
+                    message = tex.Message,
+                    status = "500",
+                    messageDetail = tex.StackTrace
+                };
+            }
+            catch (HttpRequestException wex)
+            {
+                return new T()
+                {
+                    message = wex.Message,
+                    status = "error",
+                    messageDetail = wex.StackTrace
+                };
+            }
+        }
+
+
         public virtual T GetPostResponse(string url, string path, Dictionary<string, string> headers, HttpContent content, HttpClientHandler proxy)
         {
             try
@@ -129,6 +187,12 @@ namespace SW.Services
         {
             try
             {
+                // Configurar el protocolo TLS 1.2
+                System.Net.ServicePointManager.SecurityProtocol =
+                    SecurityProtocolType.Tls12 |
+                    SecurityProtocolType.Tls11 |
+                    SecurityProtocolType.Tls; 
+
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
                     return TryGetResponseRequest(response);

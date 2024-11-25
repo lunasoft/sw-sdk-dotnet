@@ -1,4 +1,5 @@
 ﻿using SW.Entities;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace SW.Services.Account.AccountUser
@@ -13,50 +14,42 @@ namespace SW.Services.Account.AccountUser
     public class AccountGetUsersResponse : Response
     {
         [DataMember]
-        public AccountUserData[] data { get; set; }
-    }
-    [DataContract]
-    public class AccountUserData
-    {
-        [DataMember]
-        public string idUsuario { get; set; }
-        [DataMember]
-        public string idCliente { get; set; }
-        [DataMember]
-        public int stamps { get; set; }
-        [DataMember]
-        public bool unlimited { get; set; }
-        [DataMember]
-        public string nombre { get; set; }
-        [DataMember]
-        public string apellidoPaterno { get; set; }
-        [DataMember]
-        public string apellidoMaterno { get; set; }
-        [DataMember]
-        public string username { get; set; }
-        [DataMember]
-        public string fechaUltimoPassword { get; set; }
-        [DataMember]
-        public string email { get; set; }
-        [DataMember]
-        public string telefono { get; set; }
-        [DataMember]
-        public bool administrador { get; set; }
-        [DataMember]
-        public int profile { get; set; }
-        [DataMember]
-        public bool activo { get; set; }
-        [DataMember]
-        public string registeredDate { get; set; }
-        [DataMember]
-        public bool eliminado { get; set; }
-        [DataMember]
-        public string tokenAccess { get; set; }
+        public List<AccountUserData> data { get; set; }
     }
     [DataContract]
     public class AccountUserActionsResponse : Response
     {
         [DataMember]
-        internal string data { get; set; }
+        public string data { get; set; } 
+    }
+    [DataContract]
+    public class AccountUserData
+    {
+        [DataMember]
+        public string idUser { get; set; }
+        [DataMember]
+        public string idDealer { get; set; }
+        [DataMember]
+        public string name { get; set; }
+        [DataMember]
+        public string taxId { get; set; }
+        [DataMember]
+        public string username { get; set; }
+        [DataMember]
+        public string lastPasswordChange { get; set; }
+        [DataMember]
+        public string email { get; set; }
+        [DataMember]
+        public bool isAdmin { get; set; }
+        [DataMember]
+        public int profile { get; set; }
+        [DataMember]
+        public bool isActive { get; set; }
+        [DataMember]
+        public string registeredDate { get; set; }
+        [DataMember]
+        public string accessToken { get; set; }
+        [DataMember]
+        public string phone { get; set; }
     }
 }
