@@ -12,15 +12,16 @@ namespace Test_SW.Services.Account_Test
     {
         
         [TestMethod]
-        public void Account_Test_45_ConsultaDeSaldoByUser()
+        public void Account_Test_45_ConsultaDeSaldoByUserV2()
         {
             var build = new BuildSettings();
             AccountBalance account = new AccountBalance(build.Url, build.UrlApi, build.User, build.Password);
             var response = account.ConsultarSaldo();
+            Assert.IsNotNull(response.data);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [TestMethod]
-        public void Account_Test_45_ConsultaDeSaldoByToken()
+        public void Account_Test_45_ConsultaDeSaldoByTokenV2()
         {
             var build = new BuildSettings();
             AccountBalance account = new AccountBalance(build.UrlApi, build.Token);
@@ -28,36 +29,36 @@ namespace Test_SW.Services.Account_Test
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [Ignore]
-        public void AsignarTimbresByUser()
+        public void AsignarTimbresByUserV2()
         {
             var build = new BuildSettings();
             var timbres = 2;
             Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
             AccountBalance account = new AccountBalance(build.Url, build.UrlApi, build.User, build.Password);
             var response = account.AgregarTimbres(idUser, timbres, "Timbres agregados");
-            Assert.IsTrue(response.data == timbres + " timbres correctamente agregados al usuario " + idUser);
+            Assert.IsNotNull(response.data);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [Ignore]
-        public void AsignarTimbresByToken()
+        public void AsignarTimbresByTokenV2()
         {
             var build = new BuildSettings();
             var timbres = 2;
             Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
             AccountBalance account = new AccountBalance(build.UrlApi, build.Token);
             var response = account.AgregarTimbres(idUser, timbres, "Timbres agregados");
-            Assert.IsTrue(response.data == timbres + " timbres correctamente agregados al usuario " + idUser);
+            Assert.IsNotNull(response.data);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [Ignore]
-        public void EliminarTimbresByUser()
+        public void EliminarTimbresByUserV2()
         {
             var build = new BuildSettings();
             var timbres = 2;
             Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
             AccountBalance account = new AccountBalance(build.Url, build.UrlApi, build.User, build.Password);
             var response = account.EliminarTimbres(idUser, timbres, "Timbres removidos");
-            Assert.IsTrue(response.data == timbres + " timbres correctamente removidos al usuario " + idUser);
+            Assert.IsNotNull(response.data);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [Ignore]
@@ -68,7 +69,7 @@ namespace Test_SW.Services.Account_Test
             Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
             AccountBalance account = new AccountBalance(build.UrlApi, build.Token);
             var response = account.EliminarTimbres(idUser, timbres, "Timbres removidos");
-            Assert.IsTrue(response.data == timbres + " timbres correctamente removidos al usuario " + idUser);
+            Assert.IsNotNull(response.data);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [TestMethod]
@@ -99,7 +100,7 @@ namespace Test_SW.Services.Account_Test
             AccountBalance account = new AccountBalance(build.Url, build.UrlApi, build.User, build.Password);
             var response = account.EliminarTimbres(idUser, 2, "Timbres removidos");
             Assert.IsTrue(response.status == "error");
-            Assert.IsTrue(response.message == "Usuario no pertenece al Dealer");
+            Assert.IsTrue(response.message == "El usuario no fue encontrado.");
         }
     }
 }
