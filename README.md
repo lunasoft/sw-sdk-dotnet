@@ -1050,7 +1050,8 @@ namespace ExampleSDK
 | phone             | Número del telefono del usuario          |
 
 
-> [!NOTE]
+
+> [!NOTE]  
 > Puedes asignarles “null” a las propiedades que no vayas a actualizar.
 
 **Ejemplo de consumo de la libreria para actualizar usuarios**
@@ -1788,7 +1789,7 @@ namespace ExampleSDK
 * Número de timbres
 * Comentario
 
-> [!NOTE]  
+> [!NOTE] 
 > El servicio regresa unicamente la cantidad de timbres despues del abono de timbres.
 
 **Ejemplo de consumo de la libreria para agregar timbres**
@@ -1840,7 +1841,7 @@ namespace ExampleSDK
 * Número de timbres
 * Comentario
 
-> [!NOTE]  
+> [!NOTE]
 > El servicio regresa unicamente la cantidad de timbres despues de remover los timbres.
 
 **Ejemplo de consumo de la libreria para remover timbres**
