@@ -264,8 +264,7 @@ namespace Test_SW.Services.AccountUser_Test
         [TestMethod]
         public void UpdateUserAuthErrorV2()
         {
-            Guid idUser = Guid.Parse("106f4d82-575e-436c-a923-8c85517f2ca9");
-
+            Guid idUser = Guid.Parse("d1defb8a-f7f8-4a70-83f2-989458560cfa");
             var build = new BuildSettings();
             AccountUser user = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
             var response = user.UpdateUser(idUser, "Nombre Actualizado", "AAAA000101010", null, "1234567890", false);
@@ -274,8 +273,7 @@ namespace Test_SW.Services.AccountUser_Test
         [TestMethod]
         public void UpdateUserError()
         {
-            Guid idUser = Guid.Parse("4ec7dbb9-8957-4c90-8eb3-91bfeeb1b24b");
-
+            Guid idUser = Guid.Parse("d1defb8a-f7f8-4a70-83f2-989458560cfa");
             var build = new BuildSettings();
             AccountUser user = new AccountUser(build.UrlApi, build.Token);
             var response = user.UpdateUser(idUser, "Nombre Actualizado", "AAAA000101010", null, "1234567890", false);
@@ -291,7 +289,7 @@ namespace Test_SW.Services.AccountUser_Test
             var response = user.DeleteUser(idUser);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
-        [Ignore]
+        [TestMethod]
         public void DeleteUserErrorV2()
         {
             Guid idUserFake = Guid.Parse("fbed157d-1949-4531-8058-0a8ee0209d36");
@@ -309,7 +307,7 @@ namespace Test_SW.Services.AccountUser_Test
             var response = user.DeleteUser(idUser);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
-        [Ignore]
+        [TestMethod]
         public void DeleteUserAuthError()
         {
             Guid idUserFake = Guid.Parse("fbed157d-1949-4531-8058-0a8ee0209d36");
