@@ -139,6 +139,12 @@ namespace SW.Services.Account.AccountUser
                         request = RequestUpdateUser(idUser, bodyRequest);
                         var responseUpdate = handler.GetResponseRequest(request);
                         if (responseUpdate.status == "400") { responseUpdate.status = "error"; }
+                        else if (responseUpdate.message == "500")
+                        {
+                            responseUpdate.message = "Error al Actualizar";
+                            responseUpdate.messageDetail = "Error al generar la petición.";
+                            responseUpdate.messageDetail = "Error al generar la petición.";
+                        }
                         return responseUpdate;
                     case AccountUserAction.Delete:
                         request = RequestDeleteUser(idUser);
@@ -147,6 +153,11 @@ namespace SW.Services.Account.AccountUser
                         {
                             responseDelete.status = "success";
                             responseDelete.message = "Usuario eliminado con exito";
+                        }
+                        else if (responseDelete.message == "404" || responseDelete.message == "500")
+                        {
+                            responseDelete.message = "error al cancelar";
+                            responseDelete.messageDetail = "El usuario no se encuentra o aun tiene timbres";
                         }
                         return responseDelete;
                     default:

@@ -82,6 +82,12 @@ namespace SW.Services
         {
             try
             {
+                // Configurar el protocolo TLS 1.2
+                System.Net.ServicePointManager.SecurityProtocol =
+                    SecurityProtocolType.Tls12 |
+                    SecurityProtocolType.Tls11 |
+                    SecurityProtocolType.Tls;
+
                 using (HttpClient client = new HttpClient(proxy))
                 {
                     client.BaseAddress = new Uri(url);
@@ -135,6 +141,12 @@ namespace SW.Services
         {
             try
             {
+                // Configurar el protocolo TLS 1.2
+                System.Net.ServicePointManager.SecurityProtocol =
+                    SecurityProtocolType.Tls12 |
+                    SecurityProtocolType.Tls11 |
+                    SecurityProtocolType.Tls;
+
                 using (HttpClient client = new HttpClient(proxy))
                 {
                     foreach (var header in headers)
@@ -161,6 +173,12 @@ namespace SW.Services
         {
             try
             {
+                // Configurar el protocolo TLS 1.2
+                System.Net.ServicePointManager.SecurityProtocol =
+                    SecurityProtocolType.Tls12 |
+                    SecurityProtocolType.Tls11 |
+                    SecurityProtocolType.Tls;
+
                 using (HttpClient client = new HttpClient(proxy))
                 {
                     foreach (var header in headers)
