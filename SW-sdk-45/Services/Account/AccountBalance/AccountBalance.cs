@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Text;
 using System.Net.Http;
+using System.Net;
+using Org.BouncyCastle.Asn1.Ocsp;
+using System.IO;
 
 namespace SW.Services.Account.AccountBalance
 {
@@ -70,13 +73,12 @@ namespace SW.Services.Account.AccountBalance
             {
                 new Validation(Url, UrlApi, User, Password, Token).ValidateHeaderParameters();
                 this.SetupRequest();
-
                 Dictionary<string, string> headers = new Dictionary<string, string>() {
                     { "Authorization", "bearer " + this.Token }
                 };
                 var baseUrl = this.UrlApi ?? this.Url;
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                return _handlerBalance.GetResponse(baseUrl, headers, "management/api/balance", proxy);
+                return _handlerBalance.GetResponse(baseUrl, headers, "management/v2/api/users/balance", proxy);
             }
             catch (Exception e)
             {
@@ -89,34 +91,46 @@ namespace SW.Services.Account.AccountBalance
             {
                 new Validation(Url, UrlApi, User, Password, Token).ValidateHeaderParameters();
                 this.SetupRequest();
-
                 Dictionary<string, string> headers = new Dictionary<string, string>() {
                     { "Authorization", "bearer " + this.Token }
                 };
                 var baseUrl = this.UrlApi ?? this.Url;
-                var endpoint = String.Format("{0}/{1}/{2}/{3}", "management/api/balance", idUser, action.ToString().ToLower(), stamps);
+                var endpoint = String.Format("{0}/{1}/{2}", "/management/v2/api/dealers/users", idUser, "stamps");
+                var request = (HttpWebRequest)WebRequest.Create(baseUrl + endpoint);
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                var content = GetStringContent(comment);
-                return _handler.GetPostResponse(baseUrl, endpoint, headers, content, proxy);
+                request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+                GetMethod(request, action);
+                request.ContentType = "application/json";
+                GetStringContent(request, comment, stamps);
+                return _handler.GetResponseRequest(request);
             }
             catch (Exception e)
             {
                 return _handler.HandleException(e);
             }
         }
-        internal virtual StringContent GetStringContent(string comment)
+        internal virtual HttpWebRequest GetStringContent(HttpWebRequest request, string comment, int stamps)
         {
-
-            var request = new AccountBalanceRequest();
-            request.Comment = comment;
-            var content = new StringContent(JsonConvert.SerializeObject(
-                request, new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                }),
-            Encoding.UTF8, "application/json");
-            return content;
-
+            var balanceRequest = new AccountBalanceRequest
+            {
+                comment = comment,
+                stamps = stamps
+            };
+            string jsonContent = JsonConvert.SerializeObject(balanceRequest);
+            byte[] byteArray = Encoding.UTF8.GetBytes(jsonContent);
+            request.ContentLength = byteArray.Length;
+            using (Stream requestStream = request.GetRequestStream())
+            {
+                requestStream.Write(byteArray, 0, byteArray.Length);
+            }
+            return request;
+        }
+        internal virtual HttpWebRequest GetMethod(HttpWebRequest request, ActionsAccountBalance action)
+        {
+            request.Method = action == ActionsAccountBalance.Add
+                ? WebRequestMethods.Http.Post
+                : "DELETE";
+            return request;
         }
     }
 }

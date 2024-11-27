@@ -10,6 +10,8 @@ namespace SW.Services.Account.AccountBalance
     internal class AccountBalanceRequest
     {
         [DataMember]
-        public string Comment { get; set; }
+        public string comment { get; set; }
+        [DataMember]
+        public int stamps { get; set; }
     }
 }

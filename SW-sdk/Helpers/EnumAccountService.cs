@@ -2,14 +2,16 @@
 {
 
     public enum ActionsAccountBalance { Add, Remove }
-    public enum AccountUserProfile
+    public enum AccountUserFilter
     {
-        Distribuidor = 2,
-        Hijo = 3
+        All,
+        Email,
+        Id,
+        TaxId,
+        IsActive
     }
     public enum AccountUserAction
     {
-        Add,
         Update,
         Delete
     }

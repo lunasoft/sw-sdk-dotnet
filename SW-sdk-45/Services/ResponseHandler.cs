@@ -20,10 +20,47 @@ namespace SW.Services
         {
             _xmlOriginal = xmlOriginal;
         }
+        public virtual T GetPostResponse(string url, string path, HttpContent content, HttpClientHandler proxy)
+        {
+            try
+            {
+                // Configurar el protocolo TLS 1.2
+                System.Net.ServicePointManager.SecurityProtocol =
+                    SecurityProtocolType.Tls12 |
+                    SecurityProtocolType.Tls11 |
+                    SecurityProtocolType.Tls;
+
+                using (HttpClient client = new HttpClient(proxy))
+                {
+                    client.BaseAddress = new Uri(url);
+
+                    var result = client.PostAsync(path, content).Result;
+
+                    return TryGetResponse(result);
+                }
+            }
+            catch (HttpRequestException wex)
+            {
+                return new T()
+                {
+                    message = wex.Message,
+                    status = "error",
+                    messageDetail = wex.StackTrace
+                };
+            }
+        }
+
+
         public virtual T GetPostResponse(string url, string path, Dictionary<string, string> headers, HttpContent content, HttpClientHandler proxy)
         {
             try
             {
+                // Configurar el protocolo TLS 1.2
+                System.Net.ServicePointManager.SecurityProtocol =
+                    SecurityProtocolType.Tls12 |
+                    SecurityProtocolType.Tls11 |
+                    SecurityProtocolType.Tls;
+
                 using (HttpClient client = new HttpClient(proxy))
                 {
                     client.BaseAddress = new Uri(url);
@@ -77,6 +114,12 @@ namespace SW.Services
         {
             try
             {
+                // Configurar el protocolo TLS 1.2
+                System.Net.ServicePointManager.SecurityProtocol =
+                    SecurityProtocolType.Tls12 |
+                    SecurityProtocolType.Tls11 |
+                    SecurityProtocolType.Tls;
+
                 using (HttpClient client = new HttpClient(proxy))
                 {
                     foreach (var header in headers)
@@ -103,6 +146,12 @@ namespace SW.Services
         {
             try
             {
+                // Configurar el protocolo TLS 1.2
+                System.Net.ServicePointManager.SecurityProtocol =
+                    SecurityProtocolType.Tls12 |
+                    SecurityProtocolType.Tls11 |
+                    SecurityProtocolType.Tls;
+
                 using (HttpClient client = new HttpClient(proxy))
                 {
                     foreach (var header in headers)
@@ -129,6 +178,12 @@ namespace SW.Services
         {
             try
             {
+                // Configurar el protocolo TLS 1.2
+                System.Net.ServicePointManager.SecurityProtocol =
+                    SecurityProtocolType.Tls12 |
+                    SecurityProtocolType.Tls11 |
+                    SecurityProtocolType.Tls; 
+
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
                     return TryGetResponseRequest(response);
