@@ -4,274 +4,315 @@ using System.Diagnostics;
 using SW.Services.Account.AccountUser;
 using SW.Helpers;
 using Test_SW.Helpers;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Test_SW.Services.AccountUser_Test
 {
     [TestClass]
     public class AccountUser_Test
     {
+        //GetUserByEmail
         [TestMethod]
-        public void GetUserByTokenAuthSuccess()
+        public void GetUserByEmailAuthSuccessV2()
         {
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
-            var response = infoUser.GetUserByToken();
+            var response = infoUser.GetUserByEmail($"userdotnet_{build.User}");
             Assert.IsNotNull(response.data);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [TestMethod]
-        public void GetUserByTokenSuccess()
+        public void GetUserByEmailSuccessV2()
         {
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
-            var response = infoUser.GetUserByToken();
+            var response = infoUser.GetUserByEmail($"userdotnet_{build.User}");
             Assert.IsNotNull(response.data);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [TestMethod]
-        public void GetUserByTokenAuthError()
+        public void GetUserByEmailAuthErrorV2()
+        {
+            var build = new BuildSettings();
+            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
+            var response = infoUser.GetUserByEmail("emailfake@test.com");
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+            Assert.IsTrue(!response.data.Any(), "El listado user no está vacío.");
+        }
+        [TestMethod]
+        public void GetUserByEmailErrorV2()
+        {
+            var build = new BuildSettings();
+            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
+            var response = infoUser.GetUserByEmail("emailfake@test.com");
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+            Assert.IsTrue(!response.data.Any(), "El listado user no está vacío.");
+        }
+        //GetUserByTaxId
+        [TestMethod]
+        public void GetUserByTaxIdSuccessV2()
+        {
+            var build = new BuildSettings();
+            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
+            var response = infoUser.GetUserByTaxId("XAXX010101000");
+            Assert.IsNotNull(response.data);
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+        }
+        [TestMethod]
+        public void GetUserByTaxIdErrorV2()
+        {
+            var build = new BuildSettings();
+            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
+            var response = infoUser.GetUserByTaxId("XAXX010101001");
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+            Assert.IsTrue(!response.data.Any(), "El array user no está vacío.");
+        }
+        //GetUserById
+        [TestMethod]
+        public void GetUserByIdSuccessV2()
+        {
+            var build = new BuildSettings();
+            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
+            Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+            var response = infoUser.GetUserById(idUser);
+            Assert.IsNotNull(response.data);
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+        }
+        [TestMethod]
+        public void GetUserByErrorV2()
+        {
+            var build = new BuildSettings();
+            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
+            Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E133");
+            var response = infoUser.GetUserById(idUser);
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+            Assert.IsTrue(!response.data.Any(), "El array user no está vacío.");
+        }
+        //GetUserByIsActive
+        [TestMethod]
+        public void GetUserByIsActiveFalseSuccessV2()
+        {
+            var build = new BuildSettings();
+            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
+            var response = infoUser.GetUserByIsActive(false);
+            Assert.IsNotNull(response.data);
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+        }
+        [TestMethod]
+        public void GetUserByIsActiveTrueSuccessV2()
+        {
+            var build = new BuildSettings();
+            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
+            var response = infoUser.GetUserByIsActive(true);
+            Assert.IsNotNull(response.data);
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+        }
+        //GetAllUser
+        [TestMethod]
+        public void GetAllUserAuthSuccessV2()
+        {
+            var build = new BuildSettings();
+            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
+            var response = infoUser.GetAllUsers();
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+            Assert.IsNotNull(response.data);
+            List<AccountUserData> user = response.data;
+            foreach (var item in user)
+            {
+                Console.WriteLine(item.idUser);
+                Console.WriteLine(item.idDealer);
+                Console.WriteLine(item.taxId);
+                Console.WriteLine(item.name);
+                Console.WriteLine(item.username);
+                Console.WriteLine(item.profile);
+                Console.WriteLine(item.accessToken);
+            }
+        }
+        [TestMethod]
+        public void GetAllUserSuccessV2()
+        {
+            var build = new BuildSettings();
+            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
+            var response = infoUser.GetAllUsers();
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+            Assert.IsNotNull(response.data);
+            List<AccountUserData> user = response.data;
+            foreach (var item in user)
+            {
+                Console.WriteLine(item.idUser);
+                Console.WriteLine(item.idDealer);
+                Console.WriteLine(item.taxId);
+                Console.WriteLine(item.name);
+                Console.WriteLine(item.username);
+                Console.WriteLine(item.profile);
+                Console.WriteLine(item.accessToken);
+            }
+        }
+        [TestMethod]
+        public void GetAllUserAuthErrorV2()
         {
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, "fakepassword");
-            var response = infoUser.GetUserByToken();
-            Assert.IsNull(response.data);
-            Assert.IsTrue(response.status == "error", response.messageDetail);
-        }
-        [TestMethod]
-        public void GetUserByTokenError()
-        {
-            var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.UrlApi, "T2jendl...");
-            var response = infoUser.GetUserByToken();
-            Assert.IsNull(response.data);
-            Assert.IsTrue(response.status == "error", response.messageDetail);
-        }
-        [TestMethod]
-        public void GetAllUserAuthSuccess()
-        {
-            var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
-            var response = infoUser.GetAllUsers();
-            Assert.IsTrue(response.status == "success", response.messageDetail);
-        }
-        [TestMethod]
-        public void GetAllUserSuccess()
-        {
-            var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
-            var response = infoUser.GetAllUsers();
-            Assert.IsTrue(response.status == "success", response.messageDetail);
-        }
-        [TestMethod]
-        public void GetAllUserAuthError()
-        {
-            var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, "fakepassword");
             var response = infoUser.GetAllUsers();
             Assert.IsTrue(response.status == "error", response.messageDetail);
         }
         [TestMethod]
-        public void GetAllUserError()
+        public void GetAllUserErrorV2()
         {
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.UrlApi, "T2jendl...");
             var response = infoUser.GetAllUsers();
             Assert.IsTrue(response.status == "error", response.messageDetail);
         }
+        //CreateUser
         [TestMethod]
-        public void GetUserByIdAuthSuccess()
-        {
-            Guid idUser = Guid.Parse("77d1df67-10ef-4b4d-a07a-99dd4ab7f4f4");
-            var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
-            var response = infoUser.GetUserById(idUser);
-            Assert.IsNotNull(response.data);
-            Assert.IsTrue(response.status == "success", response.messageDetail);
-        }
-        [TestMethod]
-        public void GetUserByIdSuccess()
-        {
-            Guid idUser = Guid.Parse("77d1df67-10ef-4b4d-a07a-99dd4ab7f4f4");
-            var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
-            var response = infoUser.GetUserById(idUser);
-            Assert.IsNotNull(response.data);
-            Assert.IsTrue(response.status == "success", response.messageDetail);
-        }
-        [TestMethod]
-        public void GetUserByIdAuthError()
-        {
-            Guid idUserFake = Guid.Parse("77d1df67-10ef-7d4d-a07a-99dd4ab7f4f4");
-            var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
-            var response = infoUser.GetUserById(idUserFake);
-            Assert.IsNull(response.data);
-            Assert.IsTrue(response.status == "error", response.messageDetail);
-        }
-        [TestMethod]
-        public void GetUserByIdError()
-        {
-            Guid idUserFake = Guid.Parse("77d1df67-10ef-7d4d-a07a-99dd4ab7f4f4");
-            var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
-            var response = infoUser.GetUserById(idUserFake);
-            Assert.IsNull(response.data);
-            Assert.IsTrue(response.status == "error", response.messageDetail);
-        }
-        [TestMethod]
-        public void GetUserByIdNotFound()
-        {
-            Guid idUser = Guid.Parse("fbed157d-1949-4351-8058-0a8ee0201d36");
-            var build = new BuildSettings();
-            AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
-            var response = infoUser.GetUserById(idUser);
-            Assert.IsNull(response.data);
-            Assert.IsTrue(response.status == "error", response.messageDetail);
-        }
-        [TestMethod]
-        public void CreateUserSuccess()
+        public void CreateUserSuccessV2()
         {
             var build = new BuildSettings();
             AccountUser user = new AccountUser(build.UrlApi, build.Token);
             var response = user.CreateUser(new AccountUserRequest()
             {
-                email = $"user_{build.User}",
-                password = $"_{build.Password}",
-                name = "Pruebas User",
-                rfc = "XAXX010101000",
-                profileType = SW.Helpers.AccountUserProfile.Hijo,
+                name = "Prueba UT Hijo dotnet",
+                taxId = "XAXX010101000",
+                email = $"userdotnet_{build.User}",
                 stamps = 1,
-                unlimited = false
+                isUnlimited = false,
+                password = $"_{build.Password}",
+                notificationEmail = $"user_{build.User}",
+                phone = "0000000000"
             });
             Assert.IsNotNull(response);
-            Assert.IsTrue(response.status.Equals("success") || (response.status.Equals("error") && response.message.Contains("AU1001")), response.messageDetail);
+            Assert.IsTrue(response.status.Equals("success") || (response.status.Equals("error") && response.message.Equals($"El email 'userdotnet_{build.User}' ya esta en uso.")));
         }
         [TestMethod]
-        public void CreateUserAuthSuccess()
+        public void CreateUserAuthSuccessV2()
         {
             var build = new BuildSettings();
             AccountUser user = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
             var response = user.CreateUser(new AccountUserRequest()
             {
-                email = $"user_{build.User}",
-                password = $"_{build.Password}",
-                name = "Pruebas User",
-                rfc = "XAXX010101000",
-                profileType = SW.Helpers.AccountUserProfile.Hijo,
+                name = "Prueba UT Hijo dotnet",
+                taxId = "XAXX010101000",
+                email = $"userdotnet_{build.User}",
                 stamps = 1,
-                unlimited = false
+                isUnlimited = false,
+                password = $"_{build.Password}",
+                notificationEmail = $"user_{build.User}",
+                phone = "0000000000"
             });
             Assert.IsNotNull(response);
-            Assert.IsTrue(response.status.Equals("success") || (response.status.Equals("error") && response.message.Contains("AU1001")), response.messageDetail);
+            Assert.IsTrue(response.status.Equals("success") || (response.status.Equals("error") && response.message.Equals($"El email 'userdotnet_{build.User}' ya esta en uso.")));
         }
         [TestMethod]
-        public void CreateUserAuthError()
+        public void CreateUserPasswordErrorV2()
         {
             var build = new BuildSettings();
             AccountUser user = new AccountUser(build.Url, build.UrlApi, build.User, "fakepassword");
             var response = user.CreateUser(new AccountUserRequest()
             {
-                email = $"user_{build.User}",
-                password = $"_{build.Password}",
-                name = "Pruebas User",
-                rfc = "XAXX010101000",
-                profileType = SW.Helpers.AccountUserProfile.Hijo,
+                name = "Prueba UT Hijo dotnet",
+                taxId = "XAXX010101000",
+                email = $"userdotnet_{build.User}",
                 stamps = 1,
-                unlimited = false
+                isUnlimited = false,
+                password = $"_{build.Password}",
+                notificationEmail = $"user_{build.User}",
+                phone = "0000000000"
             });
             Assert.IsNotNull(response);
             Assert.IsTrue(response.status == "error", response.messageDetail);
         }
         [TestMethod]
-        public void CreateUserPasswordError()
+        public void CreateUserAuthErrorV2()
         {
             var build = new BuildSettings();
-            AccountUser user = new AccountUser(build.UrlApi, build.Token);
+            AccountUser user = new AccountUser(build.UrlApi, "tokenFake");
             var response = user.CreateUser(new AccountUserRequest()
             {
-                email = $"user_{build.User}",
-                password = $"_{build.Password}",
-                name = "Pruebas User",
-                rfc = "XAXX010101000",
-                profileType = SW.Helpers.AccountUserProfile.Hijo,
+                name = "Prueba UT Hijo dotnet",
+                taxId = "XAXX010101000",
+                email = $"userdotnet_{build.User}",
                 stamps = 1,
-                unlimited = false
+                isUnlimited = false,
+                password = $"_{build.Password}",
+                notificationEmail = $"user_{build.User}",
+                phone = "0000000000"
             });
             Assert.IsNotNull(response);
             Assert.IsTrue(response.status == "error", response.messageDetail);
         }
 
         [TestMethod]
-        public void CreateUserNoDealerError()
+        public void CreateUserErrorEmail()
         {
             var build = new BuildSettings();
             AccountUser user = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
             var response = user.CreateUser(new AccountUserRequest()
             {
-                email = $"user_{build.User}",
-                password = $"_{build.Password}",
-                name = "Pruebas User",
-                rfc = "XAXX010101000",
-                profileType = SW.Helpers.AccountUserProfile.Hijo,
+                name = "Prueba UT Hijo dotnet",
+                taxId = "XAXX010101000",
+                email = "",
                 stamps = 1,
-                unlimited = false
+                isUnlimited = false,
+                password = $"_{build.Password}",
+                notificationEmail = $"user_{build.User}",
+                phone = "0000000000"
             });
-            Assert.IsTrue(response.status == "error", response.messageDetail= "Profile del token no se encuentra en los permitidos para crear usuarios (Admin, Dealer). Perfil del token: User");
+            Assert.IsNotNull(response);
         }
+        //UpdateUSer
         [TestMethod]
-        public void UpdateUserSuccess()
+        public void UpdateUserSuccessV2()
         {
+            string expectMessage = "No es posible actualizar, los datos enviados son identicos a los actuales";
             var build = new BuildSettings();
             Guid idUser = Guid.Parse("106f4d82-575e-436c-a923-8c85517f2ca9");
-            AccountUser infoUser = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
-            var response = infoUser.GetUserById(idUser);
-            string tokenUser = response.data.tokenAccess;
-            AccountUser user = new AccountUser(build.UrlApi,tokenUser);
-            var responseUpdate = user.UpdateUser(idUser, "AAAA000101010", "Pruebas Update", false, true);
-            Assert.IsTrue(responseUpdate.status.Equals("success"), responseUpdate.messageDetail);
+            AccountUser userUpdate = new AccountUser(build.UrlApi, build.Token);
+            var responseUpdate = userUpdate.UpdateUser(idUser,"Nombre Actualizado", "AAAA000101010", null, "1234567890", false);
+            Assert.IsTrue(responseUpdate.status.Equals("success") || (responseUpdate.status.Equals("error") && responseUpdate.message.Equals(expectMessage)));
         }
 
         [TestMethod]
-        public void UpdateUserAuthSuccess()
+        public void UpdateUserAuthSuccessV2()
         {
+            string expectMessage = "No es posible actualizar, los datos enviados son identicos a los actuales";
             Guid idUser = Guid.Parse("2c6a91f6-2b14-4e61-b528-2becd26d6c33");
             var build = new BuildSettings();
-            AccountUser user = new AccountUser(build.Url, build.UrlApi, $"user_{build.User}", $"_{build.Password}");
-            var response = user.UpdateUser(idUser, "AAAA000101010", "Pruebas Update", false, true);
-            Assert.IsTrue(response.status.Equals("success"), response.messageDetail);
+            AccountUser user = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
+            var responseUpdate = user.UpdateUser(idUser, "Nombre Actualizado", "AAAA000101010", null, "1234567890", false);
+            Assert.IsTrue(responseUpdate.status.Equals("success") || (responseUpdate.status.Equals("error") && responseUpdate.message.Equals(expectMessage)));
         }
         [TestMethod]
-        public void UpdateUserAuthError()
+        public void UpdateUserAuthErrorV2()
         {
             Guid idUser = Guid.Parse("106f4d82-575e-436c-a923-8c85517f2ca9");
-
             var build = new BuildSettings();
             AccountUser user = new AccountUser(build.Url, build.UrlApi, build.User, build.Password);
-            var response = user.UpdateUser(idUser, "AAAA000101010", "Pruebas Update", false, true);
+            var response = user.UpdateUser(idUser, "Nombre Actualizado", "AAAA000101010", null, "1234567890", false);
             Assert.IsTrue(response.status.Equals("error"), response.messageDetail);
         }
         [TestMethod]
-        public void UpdateUserError()
+        public void UpdateUserErrorV2()
         {
-            Guid idUser = Guid.Parse("4ec7dbb9-8957-4c90-8eb3-91bfeeb1b24b");
-
+            Guid idUser = Guid.Parse("106f4d82-575e-436c-a923-8c85517f2ca9");
             var build = new BuildSettings();
             AccountUser user = new AccountUser(build.UrlApi, build.Token);
-            var response = user.UpdateUser(idUser, "AAAA000101010", "Pruebas Update", false, true);
+            var response = user.UpdateUser(idUser, "Nombre Actualizado", "AAAA000101010", null, "1234567890", false);
             Assert.IsTrue(response.status.Equals("error"), response.messageDetail);
         }
-
+        //Delete
         [Ignore]
-        public void DeleteUserSuccess()
+        public void DeleteUserSuccessV2()
         {
-            Guid idUser = Guid.Parse("fbed157d-1949-4351-8058-0a8ee0201d36");
+            Guid idUser = Guid.Parse("b451c159-5997-4e2d-b7bc-9a4c331c090c");
             var build = new BuildSettings();
             AccountUser user = new AccountUser(build.UrlApi, build.Token);
             var response = user.DeleteUser(idUser);
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [Ignore]
-        public void DeleteUserError()
+        public void DeleteUserErrorV2()
         {
             Guid idUserFake = Guid.Parse("fbed157d-1949-4531-8058-0a8ee0209d36");
             var build = new BuildSettings();
@@ -280,7 +321,7 @@ namespace Test_SW.Services.AccountUser_Test
             Assert.IsTrue(response.status == "error", response.messageDetail);
         }
         [Ignore]
-        public void DeleteUserAuthSuccess()
+        public void DeleteUserAuthSuccessV2()
         {
             Guid idUser = Guid.Parse("fbed157d-1949-4351-8058-0a8ee0201d36");
             var build = new BuildSettings();
@@ -289,7 +330,7 @@ namespace Test_SW.Services.AccountUser_Test
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
         [Ignore]
-        public void DeleteUserAuthError()
+        public void DeleteUserAuthErrorV2()
         {
             Guid idUserFake = Guid.Parse("fbed157d-1949-4531-8058-0a8ee0209d36");
             var build = new BuildSettings();

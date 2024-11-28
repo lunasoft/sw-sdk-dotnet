@@ -79,6 +79,7 @@
     <Compile Include="Helpers\RequestHelper.cs" />
     <Compile Include="Helpers\ResponseHelper.cs" />
     <Compile Include="Helpers\ResponseType.cs" />
+    <Compile Include="Helpers\RetryHelper.cs" />
     <Compile Include="Helpers\StreamUtil.cs" />
     <Compile Include="Helpers\StringExtensions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -104,7 +105,9 @@
     <Compile Include="Services\Account\AccountUser\AccountUserResponse.cs" />
     <Compile Include="Services\Account\AccountUser\AccountUserResponseHandler.cs" />
     <Compile Include="Services\Account\AccountUser\AccountUserService.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserUpdateRequest.cs" />
     <Compile Include="Services\Authentication\Authentication.cs" />
+    <Compile Include="Services\Authentication\AuthenticationRequest.cs" />
     <Compile Include="Services\Authentication\AuthenticationResponseHandler.cs" />
     <Compile Include="Services\Authentication\AuthenticationService.cs" />
     <Compile Include="Services\Authentication\AuthenticationValidation.cs" />

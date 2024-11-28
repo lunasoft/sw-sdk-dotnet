@@ -37,7 +37,7 @@ namespace Test_SW_sdk_45.Services.Resend
             var build = new BuildSettings();
             string[] email = {"prueba@test.com"};
             SW.Services.Resend.Resend resend = new SW.Services.Resend.Resend(build.UrlApi, build.Token);
-            var responseResend = resend.ResendEmail(Guid.Parse("9529824a-24e5-4ea6-900c-476ed11f0ea5"), email);
+            var responseResend = resend.ResendEmail(Guid.Parse("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"), email);
             Assert.IsTrue(responseResend.status == "success");
             Assert.IsTrue(responseResend.data == "email sent ok" &&
                 responseResend.message == "OK" &&
@@ -49,7 +49,7 @@ namespace Test_SW_sdk_45.Services.Resend
             var build = new BuildSettings();
             string[] email = {"prueba@test.com"};
             SW.Services.Resend.Resend resend = new SW.Services.Resend.Resend(build.UrlApi, build.Url, build.User, build.Password);
-            var responseResend = resend.ResendEmail(Guid.Parse("9529824a-24e5-4ea6-900c-476ed11f0ea5"), email);
+            var responseResend = resend.ResendEmail(Guid.Parse("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"), email);
             Assert.IsTrue(responseResend.status == "success");
             Assert.IsTrue(responseResend.data == "email sent ok" &&
                 responseResend.message == "OK" &&
@@ -67,7 +67,7 @@ namespace Test_SW_sdk_45.Services.Resend
                 "prueba@test.com",
             };
             SW.Services.Resend.Resend resend = new SW.Services.Resend.Resend(build.UrlApi, build.Url, build.User, build.Password);
-            var responseResend = resend.ResendEmail(Guid.Parse("9529824a-24e5-4ea6-900c-476ed11f0ea5"), email);
+            var responseResend = resend.ResendEmail(Guid.Parse("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"), email);
             Assert.IsTrue(responseResend.status == "success");
             Assert.IsTrue(responseResend.data == "email sent ok" &&
                 responseResend.message == "OK" &&
@@ -79,7 +79,7 @@ namespace Test_SW_sdk_45.Services.Resend
             var build = new BuildSettings();
             string[] email = {"@mail.com"};
             SW.Services.Resend.Resend resend = new SW.Services.Resend.Resend(build.UrlApi, build.Url, build.User, build.Password);
-            var responseResend = resend.ResendEmail(Guid.Parse("b711186a-8452-4206-9fec-1b14baad281e"), email);
+            var responseResend = resend.ResendEmail(Guid.Parse("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"), email);
             Assert.IsTrue(responseResend.status == "error");
             Assert.IsTrue(responseResend.message == "El listado contiene mas de 5 correos o el formato es incorrecto");
         }

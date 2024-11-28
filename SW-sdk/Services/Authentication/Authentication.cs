@@ -16,12 +16,22 @@ namespace SW.Services.Authentication
             try
             {
                 new AuthenticationValidation(Url, User, Password, Token);
-                var request = (HttpWebRequest)WebRequest.Create(this.Url + "security/authenticate");
+                var request = (HttpWebRequest)WebRequest.Create(this.Url + "v2/security/authenticate");
                 request.ContentType = "application/json";
                 request.ContentLength = 0;
                 request.Method = WebRequestMethods.Http.Post;
-                request.Headers.Add("user", this.User);
-                request.Headers.Add("password", Password);
+                var body = Newtonsoft.Json.JsonConvert.SerializeObject(new AuthenticationRequest()
+                {
+                    user = this.User,
+                    password = this.Password,
+                });
+                request.ContentLength = body.Length;
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    streamWriter.Write(body);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
                 Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
                 return _handler.GetResponse(request);
             }

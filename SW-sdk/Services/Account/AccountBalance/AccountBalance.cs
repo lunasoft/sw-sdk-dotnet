@@ -71,7 +71,7 @@ namespace SW.Services.Account.AccountBalance
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
                 this.SetupRequest();
                 var baseUrl = this.UrlApi ?? this.Url;
-                var request = (HttpWebRequest)WebRequest.Create(baseUrl + "management/api/balance");
+                var request = (HttpWebRequest)WebRequest.Create(baseUrl + "management/v2/api/users/balance");
                 request.ContentType = "application/json";
                 request.Method = WebRequestMethods.Http.Get;
                 request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
@@ -90,15 +90,15 @@ namespace SW.Services.Account.AccountBalance
             {
                 new Validation(Url, UrlApi, User, Password, Token).ValidateHeaderParameters();
                 this.SetupRequest();
+                var endpoint = String.Format("{0}/{1}/{2}", "/management/v2/api/dealers/users",idUser,"stamps");
                 var baseUrl = this.UrlApi ?? this.Url;
-                var endpoint = String.Format("{0}/{1}/{2}/{3}", "management/api/balance", idUser, action.ToString().ToLower(), stamps);
                 var request = (HttpWebRequest)WebRequest.Create(baseUrl + endpoint);
                 request.ContentType = "application/json";
-                request.Method = WebRequestMethods.Http.Post;
+                GetMethod(request, action);
                 request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
                 Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
                 request.ContentLength = 0;
-                GetStringContent(request, content);
+                GetStringContent(request, content, stamps);
                 return _handler.GetResponse(request);
             }
             catch (Exception e)
@@ -106,11 +106,12 @@ namespace SW.Services.Account.AccountBalance
                 return _handler.HandleException(e);
             }
         }
-        internal virtual HttpWebRequest GetStringContent(HttpWebRequest request, string comment)
+        internal virtual HttpWebRequest GetStringContent(HttpWebRequest request, string comment, int stamps)
         {
             var balanceRequest = new AccountBalanceRequest
             {
-                Comment = comment
+                comment = comment,
+                stamps = stamps
             };
             string jsonContent = JsonConvert.SerializeObject(balanceRequest);
             byte[] byteArray = Encoding.UTF8.GetBytes(jsonContent);
@@ -120,6 +121,13 @@ namespace SW.Services.Account.AccountBalance
             {
                 requestStream.Write(byteArray, 0, byteArray.Length);
             }
+            return request;
+        }
+        internal virtual HttpWebRequest GetMethod(HttpWebRequest request, ActionsAccountBalance action) 
+        {
+            request.Method = action == ActionsAccountBalance.Add
+                ? WebRequestMethods.Http.Post
+                : "DELETE";
             return request;
         }
     }

@@ -66,6 +66,8 @@
     <Compile Include="Services\Account\AccountUser\AccountUserResponse.cs" />
     <Compile Include="Services\Account\AccountUser\AccountUserResponseHandler.cs" />
     <Compile Include="Services\Account\AccountUser\AccountUserService.cs" />
+    <Compile Include="Services\Account\AccountUser\AccountUserUpdateRequest.cs" />
+    <Compile Include="Services\Authentication\AuthenticationRequest.cs" />
     <Compile Include="Services\Csd\UploadCsdRequest.cs" />
     <Compile Include="Services\Csd\CsdResponse.cs" />
     <Compile Include="Services\Csd\CsdResponseHandler.cs" />

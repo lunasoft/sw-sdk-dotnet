@@ -11,13 +11,6 @@ namespace SW.Services.Account.AccountUser
             return ex.ToAccountUserActionsResponse();
         }
     }
-    internal class AccountGetUserResponseHandler : ResponseHandler<AccountGetUserResponse>
-    {
-        public override AccountGetUserResponse HandleException(Exception ex)
-        {
-            return ex.ToAccountGetUserResponse();
-        }
-    }
     internal class AccountGetUsersResponseHandler : ResponseHandler<AccountGetUsersResponse>
     {
         public override AccountGetUsersResponse HandleException(Exception ex)
@@ -25,5 +18,11 @@ namespace SW.Services.Account.AccountUser
             return ex.ToAccountGetUsersResponse();
         }
     }
-
+    internal class AccountGetUserResponseHandler : ResponseHandler<AccountGetUserResponse>
+    {
+        public override AccountGetUserResponse HandleException(Exception ex)
+        {
+            return ex.ToAccountGetUserResponse();
+        }
+    }
 }

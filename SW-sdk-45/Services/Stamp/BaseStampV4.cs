@@ -201,45 +201,41 @@ namespace SW.Services.Stamp
         public virtual StampResponseV4 TimbrarXmlV4(string xml, string email = null, string customId = null, bool isb64 = false)
         {
             StampResponseHandlerV4 handler = new StampResponseHandlerV4();
-            string format = isb64 ? "b64" : "";
-            var xmlBytes = Encoding.UTF8.GetBytes(xml);
-            var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-            int maxRetries = 2;
-            int retries = 0;
-            var content = GetMultipartContent(xmlBytes);
-            var headers = new Dictionary<string, string>();
-
             try
             {
-                 headers = GetHeaders(email, customId);
-            }
-            catch (Exception ex)
-            {
-                return handler.HandleException(ex);
-            }
-
-            try
-            {
-                var response = handler.GetPostResponse(this.Url, string.Format("v4/cfdi33/{0}/{1}/{2}", _operation,
-                                       StampTypes.v4.ToString(), format), headers, content, proxy);
-
-                while (response.message != null && (response.message.Equals("Se han producido uno o varios errores.")
-                    || response.message.Equals("One or more errors occurred.")) && retries < maxRetries)
+                string format = isb64 ? "b64" : "";
+                var xmlBytes = Encoding.UTF8.GetBytes(xml);
+                var headers = GetHeaders(email, customId);
+                var content = GetMultipartContent(xmlBytes);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
+                var response = handler.GetPostResponse(this.Url,
+                                string.Format("v4/cfdi33/{0}/{1}/{2}",
+                                _operation,
+                                StampTypes.v4.ToString(),
+                                format), headers, content, proxy);
+                if (response.message != null && (response.message.Equals("Se han producido uno o varios errores.")
+                    || response.message.Equals("One or more errors occurred.")) || response.status.Equals("500"))
                 {
-                    retries++;
-
-                    try
+                    return RetryHelper.Retry<StampResponseV4>(() =>
                     {
-                        response = handler.GetPostResponse(this.Url, string.Format("v4/cfdi33/{0}/{1}/{2}", _operation,
-                                            StampTypes.v4.ToString(), format), headers, content, proxy);
-                    }
-                    catch (Exception ex)
-                    {
-                        return handler.HandleException(ex);
-                    }
+                        //Se genera nuevamente variables del request ya que son desechados en cada reintento
+                        format = isb64 ? "b64" : "";
+                        xmlBytes = Encoding.UTF8.GetBytes(xml);
+                        headers = GetHeaders(email, customId);
+                        content = GetMultipartContent(xmlBytes);
+                        proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
+                        return handler.GetPostResponse(this.Url,
+                                string.Format("v4/cfdi33/{0}/{1}/{2}",
+                                _operation,
+                                StampTypes.v4.ToString(),
+                                format), headers, content, proxy);
+                    }, 3, 10);
+                }
+                else
+                {
+                    return response;
                 }
 
-                return response;
             }
             catch (Exception ex)
             {

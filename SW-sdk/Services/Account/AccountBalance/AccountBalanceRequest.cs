@@ -6,9 +6,11 @@ namespace SW.Services.Account.AccountBalance
     /// Estructura del body del servicio Balance Management
     /// </summary>
     [DataContract]
-    internal class AccountBalanceRequest
+    internal partial class AccountBalanceRequest
     {
         [DataMember]
-        public string Comment { get; set; }
+        public string comment { get; set; }
+        [DataMember]
+        public int stamps { get; set; }
     }
 }

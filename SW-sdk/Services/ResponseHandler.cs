@@ -15,6 +15,9 @@ namespace SW.Services
         {
             try
             {
+                // Configurar para aceptar TLS 1.2 y TLS 1.1
+                System.Net.ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072 | (SecurityProtocolType)768;
+
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
                     return TryGetResponse(response);

@@ -9,7 +9,7 @@ namespace Test_SW.Services.Authentication_Test
     public class Authentication_Test_45
     {
         [TestMethod]
-        public void Authentication_Test_45_ValidateAuthentication()
+        public void Authentication_Test_45_ValidateAuthenticationV2()
         {
             var build = new BuildSettings();
             Authentication auth = new Authentication(build.Url, build.User, build.Password);
@@ -17,7 +17,7 @@ namespace Test_SW.Services.Authentication_Test
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.token));
         }
         [TestMethod]
-        public void Authentication_Test_45_ValidateExistUser()
+        public void Authentication_Test_45_ValidateExistUserV2()
         {
             var build = new BuildSettings();
             var resultExpect = "Falta Capturar Usuario";
@@ -26,7 +26,7 @@ namespace Test_SW.Services.Authentication_Test
             Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
         }
         [TestMethod]
-        public void Authentication_Test_45_ValidateExistPassword()
+        public void Authentication_Test_45_ValidateExistPasswordV2()
         {
             var build = new BuildSettings();
             var resultExpect = "Falta Capturar Contraseña";
@@ -35,7 +35,7 @@ namespace Test_SW.Services.Authentication_Test
             Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
         }
         [TestMethod]
-        public void Authentication_Test_45_ValidateExistUrl()
+        public void Authentication_Test_45_ValidateExistUrlV2()
         {
             var build = new BuildSettings();
             var resultExpect = "Falta Capturar URL";
