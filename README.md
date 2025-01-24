@@ -2056,6 +2056,9 @@ Regenerar PDF
 * Url Servicios SW(cuando se añaden usuario y contraseña)
 * Url Api
 * UUID
+* Logo en base 64
+* TemplateId
+* Parametros Extras
 
 **Ejemplo de consumo de la librería para la regeneración de PDF mediante usuario y contraseña**
 ```cs
@@ -2079,7 +2082,8 @@ namespace ExampleSDK
                 //A esta le pasamos la UrlApi, Url, Usuario y Contraseña para obtener el token
                 Pdf regeneratePdf = new Pdf("https://api.test.sw.com.mx", "https://services.test.sw.com.mx", "user", "password");
                 //Realizamos la petición de regenerar el pdf.
-                PdfResponse response = regeneratePdf.RegenerarPdf(uuid);
+                 Dictionary<string, string> extras = new Dictionary<string, string>() { { "Observaciones", "Entregar de 9am a 6pm" }, { "DireccionEntrega", "Calles gomez Farías esquina con Tlaloc" }, { "REFERENCIA", "Ejemplo de referencia" } };
+                PdfResponse response = regeneratePdf.RegenerarPdf(uuid, logob64, templateId, extras);
                 //Obtenemos el detalle de la respuesta
                  Console.WriteLine(response.status);
                  Console.WriteLine(response.message);
