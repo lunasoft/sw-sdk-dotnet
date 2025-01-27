@@ -30,7 +30,7 @@ namespace Pdf_Test.Services.Pdf_Tests
             Pdf pdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
             var getXml = GetXml(build,null);
             var xml = StampXml(build, getXml);
-            var pdfResult = pdf.GenerarPdf(xml, build.Logo, "cfdi40");
+            var pdfResult = pdf.GenerarPdf(xml, build.Logo, "cfdi40",null);
             Assert.IsTrue(pdfResult.status == "success");
         }
         [TestMethod]
@@ -132,8 +132,16 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
-            var response = regeneratePdf.RegenerarPdf(new Guid("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"));
+            var response = regeneratePdf.RegenerarPdf(new Guid("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"), null, null, null);
             Assert.IsTrue(response.status == "success");
+            Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
+        }
+        [TestMethod]
+        public void UT_RegeneratePdfWithBody_SuccessAuth()
+        {
+            var build = new BuildSettings();
+            Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
+            var response = regeneratePdf.RegenerarPdf(new Guid("705db56c-1b70-46e5-89f1-ed2a89bfba48"), build.Logo, "payment20", build.observaciones);
             Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
         }
         [TestMethod]
@@ -145,7 +153,15 @@ namespace Pdf_Test.Services.Pdf_Tests
             Assert.IsTrue(response.status == "success");
             Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
         }
-
+        [TestMethod]
+        public void UT_RegeneratePdfWithBody_SuccessToken()
+        {
+            var build = new BuildSettings();
+            Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
+            var response = regeneratePdf.RegenerarPdf(new Guid("705db56c-1b70-46e5-89f1-ed2a89bfba48"), null, null, build.observaciones);
+            Assert.IsTrue(response.status == "success");
+            Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
+        }
         [TestMethod]
         public void UT_RegeneratePdf_ErrorToken()
         {
@@ -170,6 +186,14 @@ namespace Pdf_Test.Services.Pdf_Tests
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
             var response = regeneratePdf.RegenerarPdf(new Guid("21348cb0-a94a-466c-a8e0-abef7f35a71b"));
+            Assert.IsTrue(response.status == "error");
+        }
+        [TestMethod]
+        public void UT_RegeneratePdfWithBody_ErrorUuid()
+        {
+            var build = new BuildSettings();
+            Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
+            var response = regeneratePdf.RegenerarPdf(new Guid("21348cb0-a94a-466c-a8e0-abef7f35a71b"), build.Logo);
             Assert.IsTrue(response.status == "error");
         }
     }

@@ -28,7 +28,7 @@ namespace Test_SW.Helpers
         public byte[] CancelacionXML = File.ReadAllBytes("Resources/CancelacionXML.xml");
 
 
-        public Dictionary<string, string> observaciones = new Dictionary<string, string>() { { "Observaciones", "Entregar de 9am a 6pm" }, { "DireccionEntrega", "Calles gomez Farías esquina con Tlaloc" } };
+        public Dictionary<string, string> observaciones = new Dictionary<string, string>() { { "Observaciones", "Entregar de 9am a 6pm" }, { "DireccionEntrega", "Calles gomez Farías esquina con Tlaloc" }, { "REFERENCIA", "Ejemplo de referencia" } };
         public string templateId = "cfdi40";
     }
 }
