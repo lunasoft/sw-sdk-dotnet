@@ -8,22 +8,19 @@ namespace SW.Services.Validate
 {
     public abstract class BaseValidate : ValidateService
     {
-        private string _operation;
-        public BaseValidate(string url, string user, string password, string operation, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
+        public BaseValidate(string url, string user, string password, string proxy, int proxyPort) : base(url, user, password, proxy, proxyPort)
         {
-            _operation = operation;
         }
-        public BaseValidate(string url, string token, string operation, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
+        public BaseValidate(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
-            _operation = operation;
         }
-        public virtual ValidateXMLResponse ValidateXML(string XML)
+        public virtual ValidateXMLResponse ValidateXML(string XML, bool? Status = true)
         {
             ValidateXMLResponseHandler handler = new ValidateXMLResponseHandler();
             try
             {
                 var xmlBytes = Encoding.UTF8.GetBytes(XML);
-                var request = this.RequestValidateXml(xmlBytes);
+                var request = this.RequestValidateXml(xmlBytes,Status);
                 return handler.GetResponse(request);
             }
             catch (Exception ex)
