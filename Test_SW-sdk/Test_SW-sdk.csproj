@@ -138,6 +138,9 @@
     <Content Include="Resources\CancelacionXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\cfdi40_stamp.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\cfdi40.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

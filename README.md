@@ -1956,6 +1956,66 @@ namespace ExampleSDK
     }
 }
 ```
+**Ejemplo de consumo de la librería para validar el XML pero no consultar su estatus en el SAT mediante usuario y contraseña**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.Validate;
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo Validate
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a validar el XML
+                Validate validate = new Validate ("http://services.test.sw.com.mx", "user", "password");
+                var xml = GetXml(build);
+                ValidateXmlResponse response = validate.ValidateXml(xml, false);
+                //Para iterar la lista sobre la validacion estructura
+                List<Detail> detail1 = response.detail;
+                Console.Write("Status: "+response.status);
+                Console.Write("\ndetail: ");
+                foreach (var i in detail1)
+                {
+                    foreach(var j in i.detail)
+                    {
+                        Console.Write("\n\tdetail: ");
+                        Console.Write("\n\t\tMessage: "+ j.message);
+                        Console.Write("\n\t\tMessageDetail: "+ j.messageDetail);
+                        TextBoxOut.AppendText("\n\t\tType: "+ j.type);
+                    }
+                    Console.Write("\n\tSection: \n"+ i.section);
+                }
+				//Para obtener la cadena original SAT
+				Console.Write(response.cadenaOriginalSAT + "\n");
+				//Para obtener la cadena original del comprobante
+				Console.Write(response.cadenaOriginalComprobante + "\n");
+				//Para obtener el uuid
+				Console.Write(response.uuid + "\n");
+				//Para obtener el status SAT
+				Console.Write(response.statusSat + "\n");
+				//Para obtener el status code SAT
+                Console.Write(response.statusCodeSat + "\n");
+	            //En caso de error se pueden consultar los siguientes campos
+	            Console.WriteLine(response.message);
+	            Console.WriteLine(response.messageDetail);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+:pushpin: ***NOTA:*** Este método permite  validar la estructura del XML pero no su estatus en SAT, optimizando tiempos. En los atributos como
+"statusSat" y "statusCodeSat" se obtendra un "No Aplica".
 </details>
 
 ## PDF ##

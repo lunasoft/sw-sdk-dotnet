@@ -14,10 +14,11 @@ namespace SW.Services.Validate
         protected ValidateService(string url, string token, string proxy, int proxyPort) : base(url, token, proxy, proxyPort)
         {
         }
-        internal virtual HttpWebRequest RequestValidateXml(byte[] xml)
+        internal virtual HttpWebRequest RequestValidateXml(byte[] xml, bool? status = true)
         {
             this.SetupRequest();
-            var request = (HttpWebRequest)WebRequest.Create(this.Url + "/validate/cfdi33");
+            string path = (status == false) ? "validate/cfdi?validatestatus=false" : "validate/cfdi";
+            var request = (HttpWebRequest)WebRequest.Create(this.Url + path);
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
             request.ContentLength = xml != null ? xml.Length : 0;
