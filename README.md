@@ -2065,8 +2065,8 @@ namespace ExampleSDK
             {
                 Pdf pdf = new Pdf("https://api.test.sw.com.mx","https://services.test.sw.com.mx","T2lYQ0t4L0R....ReplaceForRealToken");
                 string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
-                Dictionary<string, string> extras = new Dictionary<string, string>() { { "DATOSEXTRA", "Entregar de 9am a 6pm" } };
-                var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","templateIdCustom", extras);
+               Dictionary<string, object> extras_basico = new Dictionary<string, object>() { { "extras", new Dictionary<string, object> { { "Observaciones", "Entregar de 9am a 6pm" }, { "DireccionEntrega", "Calles gomez Farías esquina con Tlaloc" }, { "REFERENCIA", "Ejemplo de referencia" } } } };
+                var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","templateIdCustom", extras_basico);
                 //Devuleve el pdf en formato Base64
                 Console.WriteLine(pdfResult.data.contentB64);
             }
@@ -2079,8 +2079,8 @@ namespace ExampleSDK
             {
                 //Puedes enviar el xml convertido en Base64
                 Pdf pdf = new Pdf("https://api.test.sw.com.mx","https://services.test.sw.com.mx","T2lYQ0t4L0R....ReplaceForRealToken");
-                Dictionary<string, string> extras = new Dictionary<string, string>() { { "DATOSEXTRA", "Entregar de 9am a 6pm" } };
-                var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","templateIdCustom", extras, null, true);
+                Dictionary<string, object> extras_basico = new Dictionary<string, object>() { { "extras", new Dictionary<string, object> { { "Observaciones", "Entregar de 9am a 6pm" }, { "DireccionEntrega", "Calles gomez Farías esquina con Tlaloc" }, { "REFERENCIA", "Ejemplo de referencia" } } } };
+                var pdfResult = pdf.GenerarPdf(xml,"/9j/4AAQSk...","templateIdCustom", extras_basico, null, true);
                 //Devuleve el pdf en formato Base64
                 Console.WriteLine(pdfResult.data.contentB64);
             }
@@ -2142,8 +2142,8 @@ namespace ExampleSDK
                 //A esta le pasamos la UrlApi, Url, Usuario y Contraseña para obtener el token
                 Pdf regeneratePdf = new Pdf("https://api.test.sw.com.mx", "https://services.test.sw.com.mx", "user", "password");
                 //Realizamos la petición de regenerar el pdf.
-                 Dictionary<string, string> extras = new Dictionary<string, string>() { { "Observaciones", "Entregar de 9am a 6pm" }, { "DireccionEntrega", "Calles gomez Farías esquina con Tlaloc" }, { "REFERENCIA", "Ejemplo de referencia" } };
-                PdfResponse response = regeneratePdf.RegenerarPdf(uuid, logob64, templateId, extras);
+                 Dictionary<string, object> extras_basico = new Dictionary<string, object>() { { "extras", new Dictionary<string, object> { { "Observaciones", "Entregar de 9am a 6pm" }, { "DireccionEntrega", "Calles gomez Farías esquina con Tlaloc" }, { "REFERENCIA", "Ejemplo de referencia" } } } };
+                PdfResponse response = regeneratePdf.RegenerarPdf(uuid, logob64, templateId, extras_basico);
                 //Obtenemos el detalle de la respuesta
                  Console.WriteLine(response.status);
                  Console.WriteLine(response.message);
