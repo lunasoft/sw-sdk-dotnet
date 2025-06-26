@@ -26,9 +26,8 @@ namespace Test_SW.Helpers
         public byte[] Acuse = File.ReadAllBytes("Resources/acuse.xml");
         public byte[] RelationsXML = File.ReadAllBytes("Resources/RelationsXML.xml");
         public byte[] CancelacionXML = File.ReadAllBytes("Resources/CancelacionXML.xml");
-
-
-        public Dictionary<string, string> observaciones = new Dictionary<string, string>() { { "Observaciones", "Entregar de 9am a 6pm" }, { "DireccionEntrega", "Calles gomez Farías esquina con Tlaloc" }, { "REFERENCIA", "Ejemplo de referencia" } };
+        public Dictionary<string, object> extras_basico = new Dictionary<string, object>() { { "extras", new Dictionary<string, object> { { "Observaciones", "Entregar de 9am a 6pm" }, { "DireccionEntrega", "Calles gomez Farías esquina con Tlaloc" }, { "REFERENCIA", "Ejemplo de referencia" } } } };
+        public Dictionary<string, object> extras_anidados = new Dictionary<string, object>() { { "extraInformation", new Dictionary<string, object> { { "extraData", new Dictionary<string, object> { { "InfoUbicaciones", new Dictionary<string, object> { { "Ubicacion", new List<Dictionary<string, string>> { new Dictionary<string, string> { { "nombre_ubicacion", "TAD LA PAZ BAJA CALIFORNIA" } }, new Dictionary<string, string> { { "nombre_ubicacion", "CTG LOS CABOS" } } } } } } } } } }, { "extras", new Dictionary<string, string> { { "OBSERVACIONES", "Aquí se colocan las observaciones del cliente." } } } };
         public string templateId = "cfdi40";
     }
 }
