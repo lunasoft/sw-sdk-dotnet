@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SW.Entities;
 using SW.Helpers;
 using System;
@@ -80,19 +81,25 @@ namespace SW.Services.Pdf
         /// <param name="templateId">Identificador de la plantilla.</param>
         /// <param name="extras">Información adicional.</param>
         /// <returns>Una instancia configurada de <see cref="HttpWebRequest"/>.</returns>
-        internal virtual HttpWebRequest RequestPdf(string xml, string logo=null, string templateId = null, Dictionary<string, string> extras = null)
+        internal virtual HttpWebRequest RequestPdf(string xml, string logo=null, string templateId = null, Dictionary<string, object> extras = null)
         {
             SetupRequest();
 
             var request = CreateHttpRequest("/pdf/v1/api/GeneratePdf");
-            var body = JsonConvert.SerializeObject(new PdfRequest
+            var jsonBody = new JObject
             {
-                xmlContent = xml,
-                logo = logo,
-                extras = extras,
-                templateId = templateId
-            });
-
+                ["xmlContent"] = xml,
+                ["logo"] = logo,
+                ["templateId"] = templateId
+            };
+            if (extras != null)
+            {
+                foreach (var kvp in extras)
+                {
+                    jsonBody[kvp.Key] = JToken.FromObject(kvp.Value);
+                }
+            }
+            var body = jsonBody.ToString();
             WriteRequestBody(request, body);
             return request;
         }
@@ -105,18 +112,24 @@ namespace SW.Services.Pdf
         /// <param name="templateId">Identificador de la plantilla.</param>
         /// <param name="extras">Información adicional.</param>
         /// <returns>Una instancia configurada de <see cref="HttpWebRequest"/>.</returns>
-        internal virtual HttpWebRequest RequestRegeneratePdf(Guid uuid, string logo=null, string templateId = null, Dictionary<string, string> extras = null)
+        internal virtual HttpWebRequest RequestRegeneratePdf(Guid uuid, string logo=null, string templateId = null, Dictionary<string, object> extras = null)
         {
             SetupRequest();
 
             var request = CreateHttpRequest($"/pdf/v1/api/RegeneratePdf/{uuid}");
-            var body = JsonConvert.SerializeObject(new PdfRequest
+            var jsonBody = new JObject
             {
-                logo = logo,
-                extras = extras,
-                templateId = templateId
-            });
-
+                ["logo"] = logo,
+                ["templateId"] = templateId
+            };
+            if (extras != null)
+            {
+                foreach (var kvp in extras)
+                {
+                    jsonBody[kvp.Key] = JToken.FromObject(kvp.Value);
+                }
+            }
+            var body = jsonBody.ToString();
             WriteRequestBody(request, body);
             return request;
         }
