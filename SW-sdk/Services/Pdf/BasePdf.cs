@@ -42,7 +42,7 @@ namespace SW.Services.Pdf
         /// <param name="observacionesAdicionales">Información extra.</param>
         /// <param name="isB64">Indica si el XML está en formato base64.</param>
         /// <returns>Respuesta con el PDF generado.</returns>
-        public virtual PdfResponse GenerarPdf(string xml, string logo, TemplatesId templateId, Dictionary<string, string> observacionesAdicionales = null, bool isB64 = false)
+        public virtual PdfResponse GenerarPdf(string xml, string logo, TemplatesId templateId, Dictionary<string, object> observacionesAdicionales = null, bool isB64 = false)
         {
             PdfResponseHandler handler = new PdfResponseHandler();
             try
@@ -68,7 +68,7 @@ namespace SW.Services.Pdf
         /// <param name="observacionesAdicionales">Información extra.</param>
         /// <param name="isB64">Indica si el XML está en formato base64.</param>
         /// <returns>Respuesta con el PDF generado.</returns>
-        public virtual PdfResponse GenerarPdf(string xml, string logo, string templateId, Dictionary<string, string> observacionesAdicionales = null, bool isB64 = false)
+        public virtual PdfResponse GenerarPdf(string xml, string logo, string templateId, Dictionary<string, object> observacionesAdicionales = null, bool isB64 = false)
         {
             PdfResponseHandler handler = new PdfResponseHandler();
             try
@@ -93,7 +93,7 @@ namespace SW.Services.Pdf
         /// <param name="templateId">Identificador de la plantilla (opcional).</param>
         /// <param name="extras">Información adicional (opcional).</param>
         /// <returns>Respuesta con el PDF regenerado.</returns>
-        public virtual PdfResponse RegenerarPdf(Guid uuid, string logo = null, string templateId = null, Dictionary<string, string> extras = null)
+        public virtual PdfResponse RegenerarPdf(Guid uuid, string logo = null, string templateId = null, Dictionary<string, object> extras = null)
         {
             PdfResponseHandler handler = new PdfResponseHandler();
             try
