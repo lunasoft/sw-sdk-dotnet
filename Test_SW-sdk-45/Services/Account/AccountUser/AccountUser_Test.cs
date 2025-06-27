@@ -62,7 +62,7 @@ namespace Test_SW.Services.AccountUser_Test
         {
             var build = new BuildSettings();
             AccountUser infoUser = new AccountUser(build.UrlApi, build.Token);
-            var response = infoUser.GetUserByTaxId("XAXX010101001");
+            var response = infoUser.GetUserByTaxId("XEXX010101001");
             Assert.IsTrue(response.status == "success", response.messageDetail);
             Assert.IsTrue(!response.data.Any(), "El array user no está vacío.");
         }

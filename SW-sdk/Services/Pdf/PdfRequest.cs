@@ -14,7 +14,7 @@ namespace SW.Services.Pdf
         [DataMember]
         public string logo { get; set; }
         [DataMember]
-        public Dictionary<string, string> extras { get; set; }
+        public Dictionary<string, object> extras { get; set; }
         [DataMember]
         public string templateId { get; set; }
     }

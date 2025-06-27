@@ -145,10 +145,10 @@
     <Content Include="Resources\CFDI40_Validacion_Servicio\xml40.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Carta_Porte20.xml">
+    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Carta_Porte31.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Comercio_Exterior.xml">
+    <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Comercio_Exterior20.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\CFDI40_Validacion_Servicio\xml40Nomina12.xml">
