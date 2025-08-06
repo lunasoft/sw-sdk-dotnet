@@ -178,6 +178,9 @@
     <Content Include="Resources\EmptyXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\retention20.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\SpecialCharacters40.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

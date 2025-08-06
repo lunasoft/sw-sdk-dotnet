@@ -7,6 +7,7 @@ using SW.Services.Pdf;
 using SW.Services.Pendings;
 using SW.Services.Relations;
 using SW.Services.Stamp;
+using SW.Services.StampRetention;
 using SW.Services.Validate;
 using SW.Services.Taxpayer;
 using System;
@@ -221,6 +222,15 @@ namespace SW.Helpers
         internal static AccountGetUsersResponse ToAccountGetUsersResponse(this Exception ex)
         {
             return new AccountGetUsersResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static StampRetentionResponseV3 ToStampRetentionResponseV3(this Exception ex)
+        {
+            return new StampRetentionResponseV3()
             {
                 message = ex.Message,
                 status = "error",
