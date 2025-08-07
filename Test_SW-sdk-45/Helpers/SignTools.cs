@@ -27,5 +27,19 @@ namespace Test_SW.Helpers
             xml = Sign.SellarCFDIv40(pfx, password, xml);
             return xml;
         }
+        public static string SigXmlRetention(string xml, byte[] pfx, string password, bool setDate = true)
+        {
+            xml = Fiscal.RemoverCaracteresInvalidosXml(xml);
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+            if (setDate)
+            {
+                doc.DocumentElement.SetAttribute("FechaExp", DateTime.Now.AddHours(-12).ToString("s"));
+            }
+            doc.DocumentElement.SetAttribute("FolioInt", DateTime.Now.Ticks.ToString() + randomNumber.Next(100));
+            xml = doc.OuterXml;
+            xml = Sign.SellarRetencionv20(pfx, password, xml);
+            return xml;
+        }
     }
 }

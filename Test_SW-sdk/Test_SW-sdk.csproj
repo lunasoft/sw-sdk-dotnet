@@ -100,6 +100,7 @@
     <Compile Include="Services\Stamp\StampV4XML_Test.cs" />
     <Compile Include="Services\Stamp\Stamp_Test.cs" />
     <Compile Include="Services\Stamp\StampV4_Test.cs" />
+    <Compile Include="Services\StampRetention\StampRetention_Test.cs" />
     <Compile Include="Services\Status\Status_Test.cs" />
     <Compile Include="Services\Storage\Storage_Test.cs" />
     <Compile Include="Services\Taxpayer\Taxpayer_Test.cs" />
@@ -175,6 +176,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\EmptyXML.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\retention20.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\SpecialCharacters40.xml">

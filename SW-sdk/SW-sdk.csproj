@@ -141,6 +141,11 @@
     <Compile Include="Services\Stamp\StampResponse.cs" />
     <Compile Include="Services\Stamp\StampResponseHandler.cs" />
     <Compile Include="Services\Stamp\StampService.cs" />
+    <Compile Include="Services\StampRetention\BaseStampRetention.cs" />
+    <Compile Include="Services\StampRetention\StampRetention.cs" />
+    <Compile Include="Services\StampRetention\StampRetentionResponse.cs" />
+    <Compile Include="Services\StampRetention\StampRetentionResponseHandler.cs" />
+    <Compile Include="Services\StampRetention\StampRetentionService.cs" />
     <Compile Include="Helpers\StampTypes.cs" />
     <Compile Include="Services\Stamp\StampValidation.cs" />
     <Compile Include="Services\Storage\Storage.cs" />
