@@ -24,6 +24,7 @@ namespace Test_SW.Helpers
         public string Rfc = "EKU9003173C9";
         public string noCertificado = "30001000000500003416";
         public byte[] Acuse = File.ReadAllBytes("Resources/acuse.xml");
+        public byte[] CancelationRetXML = File.ReadAllBytes("Resources/CancelacionRetXML.xml");
         public byte[] RelationsXML = File.ReadAllBytes("Resources/RelationsXML.xml");
 
         public Dictionary<string, object> extras_basico = new Dictionary<string, object>() { { "extras", new Dictionary<string, object> { { "Observaciones", "Entregar de 9am a 6pm" }, { "DireccionEntrega", "Calles gomez Farías esquina con Tlaloc" }, { "REFERENCIA", "Ejemplo de referencia" } } } };

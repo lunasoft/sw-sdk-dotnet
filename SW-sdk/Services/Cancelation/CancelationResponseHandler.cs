@@ -3,7 +3,7 @@ using SW.Helpers;
 
 namespace SW.Services.Cancelation
 {
-    internal class CanelationResponseHandler : ResponseHandler<CancelationResponse>
+    internal class CancelationResponseHandler : ResponseHandler<CancelationResponse>
     {
         public override CancelationResponse HandleException(Exception ex)
         {

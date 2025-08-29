@@ -434,7 +434,7 @@ namespace ExampleSDK
                 string KeyB64 = Convert.ToBase64String(File.ReadAllBytes("CSD_Prueba_CFDI_LAN8507268IA.key"));
 
                
-                CancelationResponse response = cancelation.CancelarByCSD(CerB64, KeyB64, "LAN8507268IA", "12345678a", "01724196-ac5a-4735-b621-e3b42bcbb459","01","09d849d8-1cbf-424e-84bc-8e6724dcb649");
+                CancelationResponse response = cancelation.CancelarByCSD(CerB64, KeyB64, "LAN8507268IA", "12345678a", "01724196-ac5a-4735-b621-e3b42bcbb459","02");
               
                 if (response.status == "success" && response.Data != null)
 
@@ -665,7 +665,6 @@ namespace ExampleSDK
                 string rfc = "LAN8507268IA";
                 string passwordKey = "12345678a";
                 string motivo = "02";
-                string folioSustitucion = "09d849d8-1cbf-424e-84bc-8e6724dcb649";
                 //Creamos una instancia de tipo Cancelation 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
                 //Automaticamente despues de obtenerlo se procedera a Cancelar el xml o cfdi
@@ -679,7 +678,7 @@ namespace ExampleSDK
 
                 //Realizamos la petición de cancelación al servicio.
 
-                CancelationResponse response = cancelation.CancelarByPFX(pfxB64, rfc, passwordKey, uuid, motivo, folioSustitucion);
+                CancelationResponse response = cancelation.CancelarByPFX(pfxB64, rfc, passwordKey, uuid, motivo);
                 if (response.status == "success" && response.Data != null)
 
                 {
@@ -739,7 +738,7 @@ namespace ExampleSDK
                 string pfxB64 = Convert.ToBase64String(pfx);
 
                 //Realizamos la petición de cancelación al servicio.
-                CancelationResponse response = cancelation.CancelarByPFX(pfxB64, rfc, passwordKey, uuid,"02", "017241788-ac5a-4735-b621-e3b42bcbb584");
+                CancelationResponse response = cancelation.CancelarByPFX(pfxB64, rfc, passwordKey, uuid,"01", "017241788-ac5a-4735-b621-e3b42bcbb584");
                 if (response.status == "success" && response.data != null)
                 {
                     //Acuse de cancelación
@@ -854,7 +853,7 @@ namespace ExampleSDK
                 //Datos de Cancelación
                 string uuid = "01724196-ac5a-4735-b621-e3b42bcbb459";
                 string rfc = "LAN8507268IA";
-                string motivo = "02";
+                string motivo = "01";
                 string folioSustitucion = "09d849d8-1cbf-424e-84bc-8e6724dcb649";
                 //Creamos una instancia de tipo Cancelation 
                 //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
@@ -3659,7 +3658,533 @@ namespace ExampleSDK
 }
 ```
 </details>
-----------------
+
+## Timbrado Retenciones ##
+
+
+<details>
+<summary>
+Timbrado Retenciones V3
+</summary>
+
+**TimbrarV3** Recibe el contenido de un **XML** ya emitido (sellado) en formato **String**, posteriormente si la factura y el token son correctos devuelve el CFDI timbrado, en caso contrario lanza una excepción.
+
+Este método recibe los siguientes parámetros:
+* Archivo en formato **String** ó **Base64**
+* Usuario y contraseña ó Token
+* Url Servicios SW
+
+**Ejemplo de consumo de la librería para timbrar XML en formato string utilizando usuario y contraseña**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.StampRetention;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo Stamp 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a timbrar el xml
+                StampRetention StampRetention = new StampRetention("http://services.test.sw.com.mx", "user", "password");
+                string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
+                var response = (StampRetentionResponseV3)stampRetention.TimbrarV3(xml);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.retencion);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**Ejemplo de consumo de la librería para timbrar XML en formato string utilizando token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.StampRetention;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo Stamp 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a timbrar el xml
+                StampRetention StampRetention = new StampRetention("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
+                var response = (StampRetentionResponseV3)stampRetention.TimbrarV3(xml);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.retencion);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+| Version |                         Respuesta                             | 
+|---------|---------------------------------------------------------------|
+|  V3     | Devuelve el CFDI timbrado                                     | 
+
+
+## Cancelación Retenciones ##
+
+<b>Este servicio se utiliza para cancelar facturas de retenciones y se puede hacer mediante varios métodos Cancelación.
+
+<details>
+<summary>
+<b>Cancelación de retención por XML
+</summary>
+
+<br>Servicio para cancelar enviando un XML con la información y folios de las facturas a cancelar. 
+
+Este método recibe los siguientes parámetros:
+* Usuario y contraseña
+* Url Servicios SW
+* XML sellado con los UUID a cancelar.
+
+**Ejemplo de XML para Cancelar retenciones**
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<Cancelacion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" Fecha="2025-08-12T05:35:05" RfcEmisor="EKU9003173C9"
+	xmlns="http://www.sat.gob.mx/esquemas/retencionpago/1">
+	<Folios>
+		<Folio UUID="3044cc3f-572f-4535-85e2-374c205f5b11" Motivo="02" FolioSustitucion=""/>
+	</Folios>
+	<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+		<SignedInfo>
+			<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+			<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+			<Reference URI="">
+				<Transforms>
+					<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+				</Transforms>
+				<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+				<DigestValue>kLy96SjbSI/bQpAkaSnH5wAUZ1o=</DigestValue>
+			</Reference>
+		</SignedInfo>
+		<SignatureValue>M9aigTNqcPgFHgj16YxpsrJYg5kG6OBB7KybbOiWWNtpYSAVICUVc5tYqrwDQ6jUqVQhQ/RsbJeKv2H0CdH1mZKwAzlZHy9zjIviPMpckjTBBQdf/gHQmOxozRP3a9FsS/oFd9CbtIh6f+XAhDaVUeleRNaXsjwDz+9l5FTRTrP+clGDfEAYfc6imbpprAq6kd6jefBxzIMaHWjT0pO6LBGRVdhk6T244ZHi9xO2V1j4MQOZWz0Ra83enkfEpkA60lP1x4SBoRvwYPnlYcZ6y4lGPVrUbhk2B8mxrduNMW+1x+Lq+EDcb/3P7+/XA2Cy/QKGX3dIRsnOQpbe+N19GQ==</SignatureValue>
+		<KeyInfo>
+			<X509Data>
+				<X509Certificate>MIIFsDCCA5igAwIBAgIUMzAwMDEwMDAwMDA1MDAwMDM0MTYwDQYJKoZIhvcNAQELBQAwggErMQ8wDQYDVQQDDAZBQyBVQVQxLjAsBgNVBAoMJVNFUlZJQ0lPIERFIEFETUlOSVNUUkFDSU9OIFRSSUJVVEFSSUExGjAYBgNVBAsMEVNBVC1JRVMgQXV0aG9yaXR5MSgwJgYJKoZIhvcNAQkBFhlvc2Nhci5tYXJ0aW5lekBzYXQuZ29iLm14MR0wGwYDVQQJDBQzcmEgY2VycmFkYSBkZSBjYWxpejEOMAwGA1UEEQwFMDYzNzAxCzAJBgNVBAYTAk1YMRkwFwYDVQQIDBBDSVVEQUQgREUgTUVYSUNPMREwDwYDVQQHDAhDT1lPQUNBTjERMA8GA1UELRMIMi41LjQuNDUxJTAjBgkqhkiG9w0BCQITFnJlc3BvbnNhYmxlOiBBQ0RNQS1TQVQwHhcNMjMwNTE4MTE0MzUxWhcNMjcwNTE4MTE0MzUxWjCB1zEnMCUGA1UEAxMeRVNDVUVMQSBLRU1QRVIgVVJHQVRFIFNBIERFIENWMScwJQYDVQQpEx5FU0NVRUxBIEtFTVBFUiBVUkdBVEUgU0EgREUgQ1YxJzAlBgNVBAoTHkVTQ1VFTEEgS0VNUEVSIFVSR0FURSBTQSBERSBDVjElMCMGA1UELRMcRUtVOTAwMzE3M0M5IC8gVkFEQTgwMDkyN0RKMzEeMBwGA1UEBRMVIC8gVkFEQTgwMDkyN0hTUlNSTDA1MRMwEQYDVQQLEwpTdWN1cnNhbCAxMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtmecO6n2GS0zL025gbHGQVxznPDICoXzR2uUngz4DqxVUC/w9cE6FxSiXm2ap8Gcjg7wmcZfm85EBaxCx/0J2u5CqnhzIoGCdhBPuhWQnIh5TLgj/X6uNquwZkKChbNe9aeFirU/JbyN7Egia9oKH9KZUsodiM/pWAH00PCtoKJ9OBcSHMq8Rqa3KKoBcfkg1ZrgueffwRLws9yOcRWLb02sDOPzGIm/jEFicVYt2Hw1qdRE5xmTZ7AGG0UHs+unkGjpCVeJ+BEBn0JPLWVvDKHZAQMj6s5Bku35+d/MyATkpOPsGT/VTnsouxekDfikJD1f7A1ZpJbqDpkJnss3vQIDAQABox0wGzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAgEAFaUgj5PqgvJigNMgtrdXZnbPfVBbukAbW4OGnUhNrA7SRAAfv2BSGk16PI0nBOr7qF2mItmBnjgEwk+DTv8Zr7w5qp7vleC6dIsZFNJoa6ZndrE/f7KO1CYruLXr5gwEkIyGfJ9NwyIagvHHMszzyHiSZIA850fWtbqtythpAliJ2jF35M5pNS+YTkRB+T6L/c6m00ymN3q9lT1rB03YywxrLreRSFZOSrbwWfg34EJbHfbFXpCSVYdJRfiVdvHnewN0r5fUlPtR9stQHyuqewzdkyb5jTTw02D2cUfL57vlPStBj7SEi3uOWvLrsiDnnCIxRMYJ2UA2ktDKHk+zWnsDmaeleSzonv2CHW42yXYPCvWi88oE1DJNYLNkIjua7MxAnkNZbScNw01A6zbLsZ3y8G6eEYnxSTRfwjd8EP4kdiHNJftm7Z4iRU7HOVh79/lRWB+gd171s3d/mI9kte3MRy6V8MMEMCAnMboGpaooYwgAmwclI2XZCczNWXfhaWe0ZS5PmytD/GDpXzkX0oEgY9K/uYo5V77NdZbGAjmyi8cE2B2ogvyaN2XfIInrZPgEffJ4AB7kFA2mwesdLOCh0BLD9itmCve3A1FGR4+stO2ANUoiI3w3Tv2yQSg4bjeDlJ08lXaaFCLW2peEXMXjQUk7fmpb5MNuOUTW6BE=</X509Certificate>
+				<X509IssuerSerial>
+					<X509IssuerName>CN=AC UAT, O=SERVICIO DE ADMINISTRACION TRIBUTARIA, OU=SAT-IES Authority, E=oscar.martinez@sat.gob.mx, STREET=3ra cerrada de caliz, PostalCode=06370, C=MX, ST=CIUDAD DE MEXICO, L=COYOACAN, OID.2.5.4.45=2.5.4.45, OID.1.2.840.113549.1.9.2=responsable: ACDMA-SAT</X509IssuerName>
+					<X509SerialNumber>3330303031303030303030353030303033343136</X509SerialNumber>
+				</X509IssuerSerial>
+			</X509Data>
+		</KeyInfo>
+	</Signature>
+</Cancelacion>
+```
+
+Para caso de motivo 01 deberá añadir el atributo "FolioSustitucion" dentro del Nodo <Folio>
+
+Ejemplo de nodo Folio: 
+```xml
+<Folios>
+	<Folio UUID="b374db50-a0a3-4028-9d01-32b93e2b925a" Motivo="01" FolioSustitucion="b3641a4b-7177-4323-aaa0-29bd34bf1ff8" />
+</Folios>
+```
+
+**Ejemplo de consumo de la librería para cancelar con XML mediante usuario y contraseña**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.CancelationRetention;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Obtenemos el XML de cancelacion
+                byte[] xml = File.ReadAllBytes("cancelacion.xml");
+                //Creamos una instancia de tipo CancelationRetention 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a Cancelar el XML o CFDI
+                CancelationRetention cancelationRetention = new CancelationRetention("http://services.test.sw.com.mx", "user", "password");
+                CancelationResponse response = cancelation.CancelarUno(xml);
+                if (response.status == "success" && response.data != null)
+                {
+                    //Acuse de cancelación
+                    Console.WriteLine(response.data.acuse);
+                    //Estatus por UUID
+                    foreach (var folio in response.data.uuid)
+                    {
+                        Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
+                    }
+                }
+                else
+                {
+                    //Obtenemos el detalle del Error
+                    Console.WriteLine("Error al Cancelar\n\n");
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**Ejemplo de consumo de la librería para cancelar con XML mediante token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.CancelationRetention;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Obtenemos el XML de cancelacion
+                byte[] xml = File.ReadAllBytes("cancelacion.xml");
+                //Creamos una instancia de tipo CancelationRetention 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a Cancelar el XML o CFDI
+                CancelationRetention cancelationRetention = new CancelationRetention("http://services.test.sw.com.mx", "TQL2....");
+                CancelationResponse response = cancelation.CancelarUno(xml);
+                if (response.status == "success" && response.data != null)
+                {
+                    //Acuse de cancelación
+                    Console.WriteLine(response.data.acuse);
+                    //Estatus por UUID
+                    foreach (var folio in response.data.uuid)
+                    {
+                        Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
+                    }
+                }
+                else
+                {
+                    //Obtenemos el detalle del Error
+                    Console.WriteLine("Error al Cancelar\n\n");
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+<b>Cancelación de retención por CSD
+</summary>
+
+<br>Servicio para cancelar enviando un único UUID utilizando el certificado y llave privada del emisor.
+
+Este método recibe los siguientes parámetros:
+* Usuario y contraseña
+* Url Servicios SW
+* Certificado (.cer) en **Base64**
+* Key (.key) en **Base64**
+* RFC emisor
+* Password del archivo key
+* UUID
+* Motivo
+* Folio Sustitución (Si el motivo es 01: "Comprobante emitido con errores con relación")
+
+[¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+
+**Ejemplo de consumo de la librería para cancelar retención con CSD con motivo de cancelación 02 "Comprobante emitido con errores sin relación", mediante token**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.CancelationRetention;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo CancelationRetention 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a Cancelar el XML o CFDI
+                CancelationRetention cancelation = new CancelationRetention("http://services.test.sw.com.mx", "TQL2....");
+                //Datos de Cancelación
+                string password = "12345678a";
+                string rfc = "EKU9003173C9";
+                string uuid = "478569b5-c323-4dc4-91cf-b6e9f6979527";
+                //Obtenemos Certificado y lo convertimos a Base 64
+                string csdBase64 = Convert.ToBase64String(File.ReadAllBytes("EKU9003173C9.cer"));
+                //Obtenemos LLave y lo convertimos a Base 64
+                string keyBase64 = Convert.ToBase64String(File.ReadAllBytes("EKU9003173C9.key"));
+
+                //Realizamos la petición de cancelación al servicio.
+                CancelationResponse response = cancelation.CancelarUnoCSD(csdBase64,keyBase64,rfc,password,uuid,"02");
+                if (response.status == "success" && response.Data != null)
+
+                {
+                    //Acuse de cancelación
+                    Console.WriteLine(response.data.acuse);
+                    //Estatus por UUID
+                    foreach (var folio in response.data.uuid)
+                    {
+                        Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
+                    }
+                }
+                else
+                {
+                    //Obtenemos el detalle del Error
+                    Console.WriteLine("Error al Cancelar\n\n");
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+**Ejemplo de consumo de la librería para cancelar retención con CSD con motivo de cancelación 01 "Comprobante emitido con errores con relación", mediante token**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.CancelationRetention;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo CancelationRetention 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a Cancelar el XML o CFDI
+                CancelationRetention cancelation = new CancelationRetention("http://services.test.sw.com.mx", "TQL2....");
+                //Datos de Cancelación
+                string password = "12345678a";
+                string rfc = "EKU9003173C9";
+                string uuid = "478569b5-c323-4dc4-91cf-b6e9f6979527";
+                string folioSustitucion = "01724196-ac5a-4735-b621-e3b42bcbb459";
+                //Obtenemos Certificado y lo convertimos a Base 64
+                string csdBase64 = Convert.ToBase64String(File.ReadAllBytes("EKU9003173C9.cer"));
+                //Obtenemos LLave y lo convertimos a Base 64
+                string keyBase64 = Convert.ToBase64String(File.ReadAllBytes("EKU9003173C9.key"));
+
+                //Realizamos la petición de cancelación al servicio.
+                CancelationResponse response = cancelation.CancelarUnoCSD(csdBase64,keyBase64,rfc,password,uuid,"01", folioSustitucion);
+                if (response.status == "success" && response.Data != null)
+
+                {
+                    //Acuse de cancelación
+                    Console.WriteLine(response.data.acuse);
+                    //Estatus por UUID
+                    foreach (var folio in response.data.uuid)
+                    {
+                        Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
+                    }
+                }
+                else
+                {
+                    //Obtenemos el detalle del Error
+                    Console.WriteLine("Error al Cancelar\n\n");
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+<details>
+<summary>
+<b>Cancelación de retención por PFX
+</summary>
+
+<br>Servicio para cancelar enviando un único UUID utilizando el archivo .PFX del emisor.
+
+Este método recibe los siguientes parámetros:
+* Usuario y contraseña
+* Url Servicios SW
+* Archivo PFX en **Base64**
+* RFC emisor
+* Password (PFX)
+* UUID
+* Motivo
+* Folio Sustitución (Si el motivo es 01: "Comprobante emitido con errores con relación")
+
+[¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+
+**Ejemplo de consumo de la librería para cancelar retención con PFX con motivo de cancelación 02 "Comprobante emitido con errores sin relación", mediante token**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.CancelationRetention;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+       static void Main(string[] args)
+        {
+            try
+            {
+                //Datos de Cancelación
+                string uuid = "01724196-ac5a-4735-b621-e3b42bcbb459";
+                string rfc = "LAN8507268IA";
+                string passwordKey = "12345678a";
+                string motivo = "02";
+                //Obtenemos el XML de cancelacion
+                byte[] pfx = File.ReadAllBytes(Path.Combine(@"Resources\CertificadosDePrueba", "CSD_Prueba_CFDI_LAN8507268IA.pfx"));
+                //Convertimos el PFX a base 64
+                string pfxB64 = Convert.ToBase64String(pfx);
+                //Creamos una instancia de tipo CancelationRetention 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a Cancelar el XML o CFDI
+                CancelationRetention cancelationRetention = new CancelationRetention("http://services.test.sw.com.mx", "TQL2....");
+                //Realizamos la petición de cancelación al servicio.
+                CancelationResponse response = cancelationRetention.CancelarUnoPFX(pfxB64, rfc, passwordKey, uuid, motivo);
+                if (response.status == "success" && response.Data != null)
+
+                {
+                    //Acuse de cancelación
+                    Console.WriteLine(response.data.acuse);
+                    //Estatus por UUID
+                    foreach (var folio in response.data.uuid)
+                    {
+                        Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
+                    }
+                }
+                else
+                {
+                    //Obtenemos el detalle del Error
+                    Console.WriteLine("Error al Cancelar\n\n");
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+**Ejemplo de consumo de la librería para cancelar retención con PFX con motivo de cancelación 01 "Comprobante emitido con errores con relación", mediante token**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.CancelationRetention;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+       static void Main(string[] args)
+        {
+            try
+            {
+                //Datos de Cancelación
+                string uuid = "01724196-ac5a-4735-b621-e3b42bcbb459";
+                string rfc = "LAN8507268IA";
+                string passwordKey = "12345678a";
+                string motivo = "01";
+                string folioSustitucion = "01724196-ac5a-4735-b621-e3b42bcbb459";
+                //Obtenemos el XML de cancelacion
+                byte[] pfx = File.ReadAllBytes(Path.Combine(@"Resources\CertificadosDePrueba", "CSD_Prueba_CFDI_LAN8507268IA.pfx"));
+                //Convertimos el PFX a base 64
+                string pfxB64 = Convert.ToBase64String(pfx);
+                //Creamos una instancia de tipo CancelationRetention 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a Cancelar el XML o CFDI
+                CancelationRetention cancelationRetention = new CancelationRetention("http://services.test.sw.com.mx", "TQL2....");
+                //Realizamos la petición de cancelación al servicio.
+                CancelationResponse response = cancelationRetention.CancelarUnoPFX(pfxB64, rfc, passwordKey, uuid, motivo, folioSustitucion);
+                if (response.status == "success" && response.Data != null)
+
+                {
+                    //Acuse de cancelación
+                    Console.WriteLine(response.data.acuse);
+                    //Estatus por UUID
+                    foreach (var folio in response.data.uuid)
+                    {
+                        Console.WriteLine("UUID: {0} Estatus: {1}", folio.Key, folio.Value);
+                    }
+                }
+                else
+                {
+                    //Obtenemos el detalle del Error
+                    Console.WriteLine("Error al Cancelar\n\n");
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
 
 Para mayor referencia de un listado completo de los servicios favor de visitar el siguiente [link](http://developers.sw.com.mx/).
 

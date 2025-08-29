@@ -7,7 +7,7 @@ namespace SW.Services.Cancelation
     public class Cancelation : CancelationService
     {
 
-        CanelationResponseHandler _handler;
+        CancelationResponseHandler _handler;
         /// <summary>
         /// This Service is Not Implemented
         /// </summary>
@@ -16,7 +16,7 @@ namespace SW.Services.Cancelation
         /// <param name="password"></param>
         public Cancelation(string url, string user, string password, int proxyPort = 0, string proxy = null) : base(url, user, password, proxy, proxyPort)
         {
-            _handler = new CanelationResponseHandler();
+            _handler = new CancelationResponseHandler();
         }
         /// <summary>
         /// This Service is Not Implemented
@@ -25,12 +25,12 @@ namespace SW.Services.Cancelation
         /// <param name="token"></param>
         public Cancelation(string url, string token, int proxyPort = 0, string proxy = null) : base(url, token, proxy, proxyPort)
         {
-            _handler = new CanelationResponseHandler();
+            _handler = new CancelationResponseHandler();
         }
 
         internal override CancelationResponse Cancelar(string cer, string key, string rfc, string password, string uuid, string motivo, string folioSustitucion)
         {
-            CanelationResponseHandler handler = new CanelationResponseHandler();
+            CancelationResponseHandler handler = new CancelationResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
@@ -47,7 +47,7 @@ namespace SW.Services.Cancelation
         }
         internal override CancelationResponse Cancelar(string rfc, string uuid, string motivo, string folioSustitucion)
         {
-            CanelationResponseHandler handler = new CanelationResponseHandler();
+            CancelationResponseHandler handler = new CancelationResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
@@ -66,7 +66,7 @@ namespace SW.Services.Cancelation
         }
         internal override CancelationResponse Cancelar(byte[] xmlCancelation)
         {
-            CanelationResponseHandler handler = new CanelationResponseHandler();
+            CancelationResponseHandler handler = new CancelationResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();
@@ -83,7 +83,7 @@ namespace SW.Services.Cancelation
         }
         internal override CancelationResponse Cancelar(string pfx, string rfc, string password, string uuid, string motivo, string folioSustitucion)
         {
-            CanelationResponseHandler handler = new CanelationResponseHandler();
+            CancelationResponseHandler handler = new CancelationResponseHandler();
             try
             {
                 new Validation(Url, User, Password, Token).ValidateHeaderParameters();

@@ -113,6 +113,8 @@
     <Compile Include="Services\Authentication\AuthenticationValidation.cs" />
     <Compile Include="Services\Authentication\AuthResponse.cs" />
     <Compile Include="Helpers\ServicesException.cs" />
+    <Compile Include="Services\CancelationRetention\CancelationRetention.cs" />
+    <Compile Include="Services\CancelationRetention\CancelationRetentionService.cs" />
     <Compile Include="Services\Cancelation\Cancelation.cs" />
     <Compile Include="Services\Cancelation\CancelationRequestCSD.cs" />
     <Compile Include="Services\Cancelation\CancelationRequestPFX.cs" />
@@ -120,7 +122,7 @@
     <Compile Include="Services\Cancelation\CancelationService.cs" />
     <Compile Include="Services\Cancelation\CancelationValidation.cs" />
     <Compile Include="Entities\Response.cs" />
-    <Compile Include="Services\Cancelation\CanelationResponseHandler.cs" />
+    <Compile Include="Services\Cancelation\CancelationResponseHandler.cs" />
     <Compile Include="Services\Csd\UploadCsdRequest.cs" />
     <Compile Include="Services\Csd\CsdResponse.cs" />
     <Compile Include="Services\Csd\CsdUtils.cs" />
