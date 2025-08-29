@@ -12,7 +12,6 @@ namespace Test_SW.Services.Cancelation_Test
     {
         private const string uuid = "575f7182-58e2-417d-a20d-fe037f7fa049";
         [TestMethod]
-        [Ignore]
         public void CancelationByCSD()
         {
             var build = new BuildSettings();
@@ -21,7 +20,6 @@ namespace Test_SW.Services.Cancelation_Test
             Assert.IsTrue(response.data.acuse != null && response.status == "success");
         }
         [TestMethod]
-        [Ignore]
         public void CancelationByPFX()
         {
             var build = new BuildSettings();
@@ -40,7 +38,6 @@ namespace Test_SW.Services.Cancelation_Test
 
         }
         [TestMethod]
-        [Ignore]
         public void CancelationByUuid()
         {
             var build = new BuildSettings();

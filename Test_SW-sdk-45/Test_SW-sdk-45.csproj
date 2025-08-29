@@ -86,6 +86,7 @@
     <Compile Include="Services\Account\AccountUser\AccountUser_Test.cs" />
     <Compile Include="Services\Account\AccountBalance\Account_Test.cs" />
     <Compile Include="Services\Authentication\Authentication_Test.cs" />
+    <Compile Include="Services\CancelationRetention\CancelationRetention_Test.cs" />
     <Compile Include="Services\Cancelation\Cancelation_Test.cs" />
     <Compile Include="Services\Csd\Csd_Test.cs" />
     <Compile Include="Services\Issue\IssueJson_Test.cs" />
@@ -126,6 +127,9 @@
     <Content Include="bin\Debug\Resources\RelationsXML.xml" />
     <Content Include="bin\Debug\Resources\SpecialCharacters40.xml" />
     <Content Include="Resources\acuse.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CancelacionRetXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\CancelacionXML.xml">
