@@ -184,7 +184,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
-            var response = regeneratePdf.RegenerarPdf(new Guid("21348cb0-a94a-466c-a8e0-abef7f35a71b"));
+            var response = regeneratePdf.RegenerarPdf(new Guid("10db53c4r-f816-4c9f-a3eb-2c5b336f828db"));
             Assert.IsTrue(response.status == "error");
         }
         [TestMethod]
