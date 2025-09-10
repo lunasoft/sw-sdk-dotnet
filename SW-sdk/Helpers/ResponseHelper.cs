@@ -4,12 +4,14 @@ using SW.Services.Account.AccountBalance;
 using SW.Services.Account.AccountUser;
 using SW.Services.Authentication;
 using SW.Services.Cancelation;
+using SW.Services.CancelationRetention;
 using SW.Services.Csd;
 using SW.Services.Pdf;
 using SW.Services.Pendings;
 using SW.Services.Relations;
 using SW.Services.Resend;
 using SW.Services.Stamp;
+using SW.Services.StampRetention;
 using SW.Services.Storage;
 using SW.Services.Taxpayer;
 using SW.Services.Validate;
@@ -221,6 +223,15 @@ namespace SW.Helpers
         internal static AccountGetUserResponse ToAccountGetUserResponse(this Exception ex)
         {
             return new AccountGetUserResponse()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
+        internal static StampRetentionResponseV3 ToStampRetentionResponseV3(this Exception ex)
+        {
+            return new StampRetentionResponseV3()
             {
                 message = ex.Message,
                 status = "error",

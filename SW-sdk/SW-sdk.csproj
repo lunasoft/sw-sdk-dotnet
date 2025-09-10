@@ -68,6 +68,8 @@
     <Compile Include="Services\Account\AccountUser\AccountUserService.cs" />
     <Compile Include="Services\Account\AccountUser\AccountUserUpdateRequest.cs" />
     <Compile Include="Services\Authentication\AuthenticationRequest.cs" />
+    <Compile Include="Services\CancelationRetention\CancelationRetention.cs" />
+    <Compile Include="Services\CancelationRetention\CancelationRetentionService.cs" />
     <Compile Include="Services\Csd\UploadCsdRequest.cs" />
     <Compile Include="Services\Csd\CsdResponse.cs" />
     <Compile Include="Services\Csd\CsdResponseHandler.cs" />
@@ -123,7 +125,7 @@
     <Compile Include="Services\Cancelation\CancelationService.cs" />
     <Compile Include="Services\Cancelation\CancelationValidation.cs" />
     <Compile Include="Entities\Response.cs" />
-    <Compile Include="Services\Cancelation\CanelationResponseHandler.cs" />
+    <Compile Include="Services\Cancelation\CancelationResponseHandler.cs" />
     <Compile Include="Services\Issue\Issue.cs" />
     <Compile Include="Services\Pendings\Pendings.cs" />
     <Compile Include="Services\Pendings\PendingsResponse.cs" />
@@ -141,6 +143,11 @@
     <Compile Include="Services\Stamp\StampResponse.cs" />
     <Compile Include="Services\Stamp\StampResponseHandler.cs" />
     <Compile Include="Services\Stamp\StampService.cs" />
+    <Compile Include="Services\StampRetention\BaseStampRetention.cs" />
+    <Compile Include="Services\StampRetention\StampRetention.cs" />
+    <Compile Include="Services\StampRetention\StampRetentionResponse.cs" />
+    <Compile Include="Services\StampRetention\StampRetentionResponseHandler.cs" />
+    <Compile Include="Services\StampRetention\StampRetentionService.cs" />
     <Compile Include="Helpers\StampTypes.cs" />
     <Compile Include="Services\Stamp\StampValidation.cs" />
     <Compile Include="Services\Storage\Storage.cs" />
@@ -173,6 +180,7 @@
       <Name>SAT.Services</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

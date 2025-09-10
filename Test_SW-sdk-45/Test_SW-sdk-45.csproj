@@ -57,8 +57,8 @@
       <HintPath>..\packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SW.Tools, Version=1.0.3.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SW.Tools.1.0.3.1-rc\lib\net45\SW.Tools.dll</HintPath>
@@ -86,6 +86,7 @@
     <Compile Include="Services\Account\AccountUser\AccountUser_Test.cs" />
     <Compile Include="Services\Account\AccountBalance\Account_Test.cs" />
     <Compile Include="Services\Authentication\Authentication_Test.cs" />
+    <Compile Include="Services\CancelationRetention\CancelationRetention_Test.cs" />
     <Compile Include="Services\Cancelation\Cancelation_Test.cs" />
     <Compile Include="Services\Csd\Csd_Test.cs" />
     <Compile Include="Services\Issue\IssueJson_Test.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Services\Pendings\Pendings_Test.cs" />
     <Compile Include="Services\Relations\Relations_Test.cs" />
     <Compile Include="Services\Resend\Resend_Test.cs" />
+    <Compile Include="Services\StampRetention\StampRetention_Test.cs" />
     <Compile Include="Services\Stamp\StampV2_Test.cs" />
     <Compile Include="Services\Stamp\StampV4XML_test.cs" />
     <Compile Include="Services\Stamp\Stamp_Test.cs" />
@@ -125,6 +127,9 @@
     <Content Include="bin\Debug\Resources\RelationsXML.xml" />
     <Content Include="bin\Debug\Resources\SpecialCharacters40.xml" />
     <Content Include="Resources\acuse.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CancelacionRetXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\CancelacionXML.xml">
@@ -164,6 +169,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\EmptyXML.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\retention20.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\SpecialCharacters40.xml">
