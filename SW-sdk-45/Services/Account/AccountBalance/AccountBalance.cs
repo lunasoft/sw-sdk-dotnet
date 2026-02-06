@@ -46,6 +46,14 @@ namespace SW.Services.Account.AccountBalance
             return (BalanceResponse)GetBalance();
         }
         /// <summary>
+        /// Metodo que obtiene el balance de timbres del usuario por ID.
+        /// </summary>
+        /// <param name="idUser">ID del usuario a consultar.</param>
+        public BalanceResponse ConsultarSaldoId(Guid idUser)
+        {
+            return (BalanceResponse)GetBalanceById(idUser);
+        }
+        /// <summary>
         /// Metodo para añadir timbres a una cuenta hijo desde la cuenta dealer.
         /// </summary>
         /// <param name="idUser">ID del usuario al que se le asignaran los timbres.</param>
@@ -79,6 +87,25 @@ namespace SW.Services.Account.AccountBalance
                 var baseUrl = this.UrlApi ?? this.Url;
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
                 return _handlerBalance.GetResponse(baseUrl, headers, "management/v2/api/users/balance", proxy);
+            }
+            catch (Exception e)
+            {
+                return _handlerBalance.HandleException(e);
+            }
+        }
+        internal virtual Response GetBalanceById(Guid idUser)
+        {
+            try
+            {
+                new Validation(Url, UrlApi, User, Password, Token).ValidateHeaderParameters();
+                this.SetupRequest();
+                Dictionary<string, string> headers = new Dictionary<string, string>() {
+                    { "Authorization", "bearer " + this.Token }
+                };
+                var baseUrl = this.UrlApi ?? this.Url;
+                var endpoint = string.Format("management/v2/api/dealers/balance/users/{0}", idUser);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
+                return _handlerBalance.GetResponse(baseUrl, headers, endpoint, proxy);
             }
             catch (Exception e)
             {
