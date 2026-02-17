@@ -34,7 +34,7 @@ namespace SW.Services.Account.AccountBalance
         [DataMember]
         public int stampsAssigned { get; set; }
         [DataMember]
-        public bool unlimited { get; set; }
+        public bool isUnlimited { get; set; }
         [DataMember]
         public string expirationDate { get; set; }
         [DataMember]
@@ -45,7 +45,7 @@ namespace SW.Services.Account.AccountBalance
         [DataMember]
         public int folio { get; set; }
         [DataMember]
-        public string idUSer { get; set; }
+        public string idUser { get; set; }
         [DataMember]
         public string idUserReceiver { get; set; }
         [DataMember]

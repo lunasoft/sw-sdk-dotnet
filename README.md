@@ -1758,7 +1758,74 @@ namespace ExampleSDK
                 response.data.expirationDate;
                 
                 //Para Obtener si es Ilimitado
-                response.data.unlimited
+                response.data.isUnlimited
+                
+                //Para Obtener los timbres Asignados
+                response.data.stampsAssigned
+                
+                //En caso de error, se pueden visualizar los campos message y/o messageDetail
+                response.message;
+                response.messageDetail;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Consulta de timbres por ID</summary>
+
+<br>Este método recibe los siguientes parametros:
+* Usuario y contraseña o Token
+* Url Servicios SW
+* Url Api
+* IdUser
+
+> [!IMPORTANT]  
+> Los nombres de las variables en la respuesta han cambiado.
+
+**Ejemplo de consumo de la libreria para consultar el saldo por ID**
+```cs
+using System;
+using SW.Services.Account.AccountBalance;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo AccountBalance 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a consultar el saldo
+                AccountBalance account = new AccountBalance("https://services.test.sw.com.mx", "https://api.test.sw.com.mx", "user", "password");
+                Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+                var response = account.ConsultarSaldoId(idUser);
+              
+                //Para Obtener el idSaldoCliente
+                response.data.idUserBalance
+                
+                //Para Obtener el idClienteUsuario
+                response.data.idUser
+                
+                //Para Obtener el saldo Timbres
+                response.data.stampsBalance
+                
+                //Para Obtener los timbres Utilizados
+                response.data.stampsUsed
+
+                //Para Obtener la fechaExpiracion
+                response.data.expirationDate;
+                
+                //Para Obtener si es Ilimitado
+                response.data.isUnlimited
                 
                 //Para Obtener los timbres Asignados
                 response.data.stampsAssigned

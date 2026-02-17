@@ -40,7 +40,7 @@ namespace SW.Services
                     using (StreamReader reader = new StreamReader(responseStream))
                     {
                         string responseFromServer = reader.ReadToEnd();
-                        return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseFromServer);
+                        return DeserializeResponse(responseFromServer);
                     }
                 }
                 else
@@ -60,6 +60,15 @@ namespace SW.Services
                     messageDetail = response.StatusDescription
                 };
             }
+        }
+        private T DeserializeResponse(string responseFromServer)
+        {
+            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            settings.Error = (sender, args) =>
+            {
+                args.ErrorContext.Handled = true;
+            };
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseFromServer, settings);
         }
 
     }

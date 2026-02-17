@@ -28,6 +28,26 @@ namespace Test_SW.Services.Account_Test
             var response = account.ConsultarSaldo();
             Assert.IsTrue(response.status == "success", response.messageDetail);
         }
+        [TestMethod]
+        public void Account_Test_45_ConsultaDeSaldoByIdUserV2()
+        {
+            var build = new BuildSettings();
+            Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+            AccountBalance account = new AccountBalance(build.Url, build.UrlApi, build.User, build.Password);
+            var response = account.ConsultarSaldoId(idUser);
+            Assert.IsNotNull(response.data);
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+        }
+        [TestMethod]
+        public void Account_Test_45_ConsultaDeSaldoByIdTokenV2()
+        {
+            var build = new BuildSettings();
+            Guid idUser = Guid.Parse("32501CF2-DC62-4370-B47D-25024C44E131");
+            AccountBalance account = new AccountBalance(build.UrlApi, build.Token);
+            var response = account.ConsultarSaldoId(idUser);
+            Assert.IsNotNull(response.data);
+            Assert.IsTrue(response.status == "success", response.messageDetail);
+        }
         [Ignore]
         public void AsignarTimbresByUserV2()
         {

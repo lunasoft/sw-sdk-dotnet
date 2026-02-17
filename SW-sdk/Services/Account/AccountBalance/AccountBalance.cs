@@ -43,6 +43,14 @@ namespace SW.Services.Account.AccountBalance
             return (AccountResponse)GetBalance();
         }
         /// <summary>
+        /// Metodo que obtiene el balance de timbres del usuario por ID.
+        /// </summary>
+        /// <param name="idUser">ID del usuario a consultar.</param>
+        public AccountResponse ConsultarSaldoId(Guid idUser)
+        {
+            return (AccountResponse)GetBalanceById(idUser);
+        }
+        /// <summary>
         /// Metodo para añadir timbres a una cuenta hijo desde la cuenta dealer.
         /// </summary>
         /// <param name="idUser">ID del usuario al que se le asignaran los timbres.</param>
@@ -72,6 +80,27 @@ namespace SW.Services.Account.AccountBalance
                 this.SetupRequest();
                 var baseUrl = this.UrlApi ?? this.Url;
                 var request = (HttpWebRequest)WebRequest.Create(baseUrl + "management/v2/api/users/balance");
+                request.ContentType = "application/json";
+                request.Method = WebRequestMethods.Http.Get;
+                request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+                Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
+                request.ContentLength = 0;
+                return _handlerBalance.GetResponse(request);
+            }
+            catch (Exception e)
+            {
+                return _handlerBalance.HandleException(e);
+            }
+        }
+        internal virtual Response GetBalanceById(Guid idUser)
+        {
+            try
+            {
+                new Validation(Url, UrlApi, User, Password, Token).ValidateHeaderParameters();
+                this.SetupRequest();
+                var baseUrl = this.UrlApi ?? this.Url;
+                var endpoint = string.Format("management/v2/api/dealers/balance/users/{0}", idUser);
+                var request = (HttpWebRequest)WebRequest.Create(baseUrl + endpoint);
                 request.ContentType = "application/json";
                 request.Method = WebRequestMethods.Http.Get;
                 request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
