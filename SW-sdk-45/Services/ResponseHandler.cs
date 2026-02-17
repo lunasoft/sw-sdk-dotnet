@@ -205,7 +205,7 @@ namespace SW.Services
                     using (StreamReader reader = new StreamReader(responseStream))
                     {
                         string responseFromServer = reader.ReadToEnd();
-                        return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseFromServer);
+                        return DeserializeResponse(responseFromServer);
                     }
                 }
                 else
@@ -260,7 +260,7 @@ namespace SW.Services
                 if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest || response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     var stringResult = response.Content.ReadAsStringAsync().Result;
-                    return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(stringResult);
+                    return DeserializeResponse(stringResult);
                 }
                 else
                     return new T()
@@ -279,6 +279,15 @@ namespace SW.Services
                     messageDetail = response.ReasonPhrase
                 };
             }
+        }
+        private T DeserializeResponse(string responseFromServer)
+        {
+            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            settings.Error = (sender, args) =>
+            {
+                args.ErrorContext.Handled = true;
+            };
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseFromServer, settings);
         }
         internal virtual string GetCfdiData(Response response, string cfdi, bool isb64)
         {
