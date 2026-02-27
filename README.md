@@ -384,6 +384,166 @@ namespace ExampleSDK
 Para mayor referencia de estas versiones de respuesta, favor de visitar el siguiente [link](https://developers.sw.com.mx/knowledge-base/versiones-de-respuesta-timbrado/).
 </details>
 
+## Timbrado ZIP ##
+
+<details>
+<summary>
+Timbrado ZIP
+</summary>
+
+<br>El método **TimbrarZipV1** recibe los bytes de un archivo **.zip** que contiene un único **XML** ya emitido (sellado). Si el archivo y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
+
+Este método recibe los siguientes parámetros:
+* Archivo **.zip** con un único XML sellado en formato **byte[]**
+* Usuario y contraseña o Token
+* Url Servicios SW
+
+**Timbrar ZIP utilizando usuario y contraseña**
+```cs
+using SW.Services.Stamp;
+using System;
+using System.IO;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo StampZip
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a timbrar el zip
+                StampZip stamp = new StampZip("http://services.test.sw.com.mx", "user", "password");
+                var zipBytes = File.ReadAllBytes("file.zip");
+                StampResponseV1 response = stamp.TimbrarZipV1(zipBytes);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**Timbrar ZIP utilizando token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+```cs
+using SW.Services.Stamp;
+using System;
+using System.IO;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo StampZip
+                //A esta le pasamos la Url y su Token infinito
+                //Este lo puede obtener ingresando al administrador de timbres con su usuario y contraseña
+                StampZip stamp = new StampZip("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                var zipBytes = File.ReadAllBytes("file.zip");
+                StampResponseV1 response = stamp.TimbrarZipV1(zipBytes);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+## Emisión Timbrado ZIP ##
+
+<details>
+<summary>
+Emisión Timbrado ZIP
+</summary>
+
+<br>El método **TimbrarZipV1** recibe los bytes de un archivo **.zip** que contiene un único **XML** sin sellar. El servicio realiza el sellado y timbrado del comprobante. Si el archivo y el token son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
+
+Este método recibe los siguientes parámetros:
+* Archivo **.zip** con un único XML sin sellar en formato **byte[]**
+* Usuario y contraseña o Token
+* Url Servicios SW
+
+**Ejemplo de consumo de la librería para la emisión Timbrado ZIP utilizando usuario y contraseña**
+```cs
+using SW.Services.Issue;
+using SW.Services.Stamp;
+using System;
+using System.IO;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Instancia del servicio IssueZip, pasando como parametros URL de servicios, usuario y contraseña como metodo de autenticación.
+                IssueZip issue = new IssueZip("http://services.test.sw.com.mx", "user", "password");
+                //El XML armado a sellar y timbrar comprimido en un .zip
+                var zipBytes = File.ReadAllBytes("file.zip");
+                //Recibimos la respuesta enviando los bytes del ZIP al metodo TimbrarZipV1
+                StampResponseV1 response = issue.TimbrarZipV1(zipBytes);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**Emisión timbrado ZIP utilizando token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+```cs
+using SW.Services.Issue;
+using SW.Services.Stamp;
+using System;
+using System.IO;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo IssueZip con parametros Url y su Token infinito
+                IssueZip issue = new IssueZip("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                //El XML armado a sellar y timbrar comprimido en un .zip
+                var zipBytes = File.ReadAllBytes("file.zip");
+                //Recibimos la respuesta enviando los bytes del ZIP al metodo TimbrarZipV1
+                StampResponseV1 response = issue.TimbrarZipV1(zipBytes);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
 ## Cancelación ##
 
 Este servicio se utiliza para cancelar documentos xml y se puede hacer mediante varios métodos **Cancelación CSD**, **Cancelación PFX**, **Cancelacion por XML** y **Cancelación UUID**.

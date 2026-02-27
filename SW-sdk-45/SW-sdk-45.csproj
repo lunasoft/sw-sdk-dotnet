@@ -136,6 +136,7 @@
     <Compile Include="Services\Issue\IssueService.cs" />
     <Compile Include="Services\Issue\IssueV2.cs" />
     <Compile Include="Services\Issue\Issue.cs" />
+    <Compile Include="Services\Issue\IssueZip.cs" />
     <Compile Include="Services\Pdf\BasePdf.cs" />
     <Compile Include="Services\Pdf\Pdf.cs" />
     <Compile Include="Services\Pdf\PdfRequest.cs" />
@@ -168,6 +169,9 @@
     <Compile Include="Services\StampRetention\StampRetentionService.cs" />
     <Compile Include="Services\Stamp\BaseStampV2.cs" />
     <Compile Include="Services\Stamp\BaseStamp.cs" />
+    <Compile Include="Services\Stamp\BaseStampZip.cs" />
+    <Compile Include="Services\Stamp\StampZip.cs" />
+    <Compile Include="Services\Stamp\StampZipService.cs" />
     <Compile Include="Services\Stamp\BaseStampV4.cs" />
     <Compile Include="Services\Stamp\BaseStampV4XML.cs" />
     <Compile Include="Services\Stamp\StampServiceV4.cs" />

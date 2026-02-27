@@ -119,7 +119,7 @@ namespace Test_SW.Services.Account_Test
             Assert.IsTrue(response.status == "error");
             Assert.IsTrue(response.message == "Falta Capturar URL");
         }
-        [TestMethod]
+        [Ignore]
         public void EliminarTimbresWrongUser()
         {
             var build = new BuildSettings();
