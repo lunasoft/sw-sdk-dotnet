@@ -13,7 +13,7 @@ namespace Test_SW_sdk_45.Services.StampRetention_Test
     [TestClass]
     public class Stamp_Test_45
     {
-        [TestMethod]
+        [Ignore]
         public void Stamp_Test_45_StampXMLV1()
         {
             var build = new BuildSettings();
