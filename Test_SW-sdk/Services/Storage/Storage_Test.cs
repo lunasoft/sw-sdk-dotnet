@@ -18,7 +18,7 @@ namespace Test_SW.Services.Storage_Test
         {
             var build = new BuildSettings();
             Storage storage = new Storage(build.UrlApi, build.Url, build.User, build.Password);
-            var response = storage.GetByUUID(new Guid("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"));
+            var response = storage.GetByUUID(new Guid("d3773788-c68a-4549-ac67-f223d26c925b"));
             Assert.IsTrue(response.data != null && response.status == "success");
             Assert.IsTrue(response.data.records[0].urlXml != null);
         }
@@ -27,7 +27,7 @@ namespace Test_SW.Services.Storage_Test
         {
             var build = new BuildSettings();
             Storage storage = new Storage(build.UrlApi, build.Token);
-            var response = storage.GetByUUID(new Guid("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"));
+            var response = storage.GetByUUID(new Guid("d3773788-c68a-4549-ac67-f223d26c925b"));
             Assert.IsTrue(response.data != null && response.status == "success");
             Assert.IsTrue(response.data.records[0].urlXml != null);
         }
@@ -36,7 +36,7 @@ namespace Test_SW.Services.Storage_Test
         {
             var build = new BuildSettings();
             Storage storage = new Storage(build.UrlApi, build.Url, "", build.Password);
-            var response = storage.GetByUUID(new Guid("23a3788a-3ac1-4b53-bb7b-b64839e6c09b"));
+            var response = storage.GetByUUID(new Guid("d3773788-c68a-4549-ac67-f223d26c925b"));
             Assert.IsTrue(response.data == null && response.status == "error");
             Assert.IsTrue(response.message == "Falta Capturar Usuario");
         }

@@ -19,7 +19,7 @@ namespace SW.Services.Storage
         internal virtual HttpWebRequest RequestStorage(Guid uuid)
         {
             this.SetupRequest();
-            string path = $"/datawarehouse/v1/live/{uuid}";
+            string path = $"datawarehouse/v1/live/{uuid}";
             var baseUrl = this.UrlApi ?? this.Url;
             var request = (HttpWebRequest)WebRequest.Create(baseUrl + path);
             request.ContentType = "application/json";
