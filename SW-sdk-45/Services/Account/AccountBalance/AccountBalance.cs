@@ -119,13 +119,13 @@ namespace SW.Services.Account.AccountBalance
                 new Validation(Url, UrlApi, User, Password, Token).ValidateHeaderParameters();
                 this.SetupRequest();
                 Dictionary<string, string> headers = new Dictionary<string, string>() {
-                    { "Authorization", "bearer " + this.Token }
+                    { "Authorization", "Bearer " + this.Token }
                 };
                 var baseUrl = this.UrlApi ?? this.Url;
                 var endpoint = String.Format("{0}/{1}/{2}", "/management/v2/api/dealers/users", idUser, "stamps");
                 var request = (HttpWebRequest)WebRequest.Create(baseUrl + endpoint);
                 var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
+                request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "Bearer " + this.Token);
                 GetMethod(request, action);
                 request.ContentType = "application/json";
                 GetStringContent(request, comment, stamps);
