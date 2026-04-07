@@ -307,6 +307,17 @@ namespace Test_SW.Services.Stamp_Test
             Assert.IsTrue(response != null, "El resultado viene vacio.");
             Assert.IsTrue(response.status == "error");
         }
+        [TestMethod]
+        public void ValidateResponseWhenServerUnreachable()
+        {
+            Stamp stamp = new Stamp("http://unreachable.invalid", "dummyToken");
+            var xml = File.ReadAllText("Resources/cfdi40.xml");
+            var response = stamp.TimbrarV1(xml);
+            Assert.IsNotNull(response, "Response should not be null.");
+            Assert.AreEqual("error", response.status, "Status should be 'error'.");
+            Assert.IsFalse(string.IsNullOrEmpty(response.message), "Message should not be empty.");
+            Assert.IsFalse(string.IsNullOrEmpty(response.messageDetail), "MessageDetail should not be empty.");
+        }
         private string GetXml(BuildSettings build, string fileName = null, bool setDate = true)
         {
             var xml = Encoding.UTF8.GetString(File.ReadAllBytes(fileName ?? "Resources/cfdi40.xml"));

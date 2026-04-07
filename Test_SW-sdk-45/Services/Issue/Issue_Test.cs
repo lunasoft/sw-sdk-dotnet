@@ -67,6 +67,17 @@ namespace Test_SW.Services.Issue
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.qrCode), "El resultado data.qrCode viene vacio.");
         }
 
+        [TestMethod]
+        public void Issue_Test_45_ValidateResponseWhenServerUnreachable()
+        {
+            SW.Services.Issue.Issue issue = new SW.Services.Issue.Issue("http://unreachable.invalid", "dummyToken");
+            var xml = GetXml(new BuildSettings());
+            var response = (StampResponseV1)issue.TimbrarV1(xml);
+            Assert.IsNotNull(response, "Response should not be null.");
+            Assert.AreEqual("error", response.status, "Status should be 'error'.");
+            Assert.IsFalse(string.IsNullOrEmpty(response.message), "Message should not be empty.");
+            Assert.IsFalse(string.IsNullOrEmpty(response.messageDetail), "MessageDetail should not be empty.");
+        }
         static Random randomNumber = new Random(1);
         private string GetXml(BuildSettings build)
         {

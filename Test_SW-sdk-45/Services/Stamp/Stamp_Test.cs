@@ -301,6 +301,17 @@ namespace Test_SW.Services.Stamp_Test
 
             Assert.IsTrue((bool)resultExpect);
         }
+        [TestMethod]
+        public void Stamp_Test_45_ValidateResponseWhenServerUnreachable()
+        {
+            Stamp stamp = new Stamp("http://unreachable.invalid", "dummyToken");
+            var xml = File.ReadAllText("Resources/cfdi40.xml");
+            var response = stamp.TimbrarV1(xml);
+            Assert.IsNotNull(response, "Response should not be null.");
+            Assert.AreEqual("error", response.status, "Status should be 'error'.");
+            Assert.IsFalse(string.IsNullOrEmpty(response.message), "Message should not be empty.");
+            Assert.IsFalse(string.IsNullOrEmpty(response.messageDetail), "MessageDetail should not be empty.");
+        }
         private string GetXml(BuildSettings build)
         {
             var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/cfdi40.xml"));
