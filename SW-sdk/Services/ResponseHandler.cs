@@ -29,7 +29,7 @@ namespace SW.Services
                 {
                     return new T()
                     {
-                        message = wex.Status.ToString(),
+                        message = "error",
                         status = "error",
                         messageDetail = wex.Message
                     };
