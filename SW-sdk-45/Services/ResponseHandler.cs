@@ -195,7 +195,7 @@ namespace SW.Services
                 {
                     return new T()
                     {
-                        message = "error",
+                        message = wex.Status.ToString(),
                         status = "error",
                         messageDetail = wex.Message
                     };
