@@ -80,7 +80,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Helpers\BuildSettings.cs" />
-    <Compile Include="Helpers\ResponseHelper.cs" />
     <Compile Include="Helpers\SignTools.cs" />
     <Compile Include="Services\AcceptReject\AcceptReject_Test.cs" />
     <Compile Include="Services\Account\AccountUser\AccountUser_Test.cs" />
