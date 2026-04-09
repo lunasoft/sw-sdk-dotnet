@@ -131,7 +131,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
-            var response = regeneratePdf.RegenerarPdf(new Guid("10db53c4-f816-4c9f-a3eb-2c5b336f828d"), null, null, null);
+            var response = regeneratePdf.RegenerarPdf(new Guid("a3cb2940-5064-44d2-a688-6dd9c4427ccd"), null, null, null);
             Assert.IsTrue(response.status == "success");
             Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
         }
@@ -148,7 +148,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Token);
-            var response = regeneratePdf.RegenerarPdf(new Guid("10db53c4-f816-4c9f-a3eb-2c5b336f828d"));
+            var response = regeneratePdf.RegenerarPdf(new Guid("a662529a-e945-44a8-bdd7-3e8ae170aa03"));
             Assert.IsTrue(response.status == "success");
             Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
         }
@@ -157,7 +157,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
-            var response = regeneratePdf.RegenerarPdf(new Guid("10db53c4-f816-4c9f-a3eb-2c5b336f828d"), null, null, build.extras_basico);
+            var response = regeneratePdf.RegenerarPdf(new Guid("a3cb2940-5064-44d2-a688-6dd9c4427ccd"), null, null, build.extras_basico);
             Assert.IsTrue(response.status == "success");
             Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
         }
