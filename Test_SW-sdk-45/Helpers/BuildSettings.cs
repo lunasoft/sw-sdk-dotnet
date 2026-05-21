@@ -8,8 +8,8 @@ namespace Test_SW.Helpers
 {
     class BuildSettings
     {
-        public string Url = "http://services.test.sw.com.mx";
-        public string UrlApi = "http://api.test.sw.com.mx";
+        public string Url = "https://services.test.sw.com.mx";
+        public string UrlApi = "https://api.test.sw.com.mx";
         public string User = Environment.GetEnvironmentVariable("SDKTEST_USER");
         public string Password = Environment.GetEnvironmentVariable("SDKTEST_PASSWORD");
         public string CerPassword = "12345678a";

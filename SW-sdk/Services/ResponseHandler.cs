@@ -25,6 +25,15 @@ namespace SW.Services
             }
             catch (WebException wex)
             {
+                if (wex.Response == null)
+                {
+                    return new T()
+                    {
+                        message = wex.Status.ToString(),
+                        status = "error",
+                        messageDetail = wex.Message
+                    };
+                }
                 var response = (HttpWebResponse)wex.Response;
                 return TryGetResponse(response);
             }

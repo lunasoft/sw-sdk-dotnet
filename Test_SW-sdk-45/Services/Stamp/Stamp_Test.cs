@@ -6,6 +6,7 @@ using System.Text;
 using SW.Helpers;
 using SW.Services.Stamp;
 using Test_SW.Helpers;
+using System.Net;
 using System.Xml;
 
 namespace Test_SW.Services.Stamp_Test
@@ -300,6 +301,28 @@ namespace Test_SW.Services.Stamp_Test
                 resultExpect = listXmlResult.FindAll(w => w.status == ResponseType.success.ToString() || w.message.Contains("72 horas")).Count == iterations;
 
             Assert.IsTrue((bool)resultExpect);
+        }
+        [TestMethod]
+        public void Stamp_Test_45_ValidateResponseWhenServerUnreachable()
+        {
+            Stamp stamp = new Stamp("http://unreachable.invalid", "T2lYQ0t4L0RH.....");
+            var xml = File.ReadAllText("Resources/cfdi40.xml");
+            var response = stamp.TimbrarV1(xml);
+            Assert.IsNotNull(response, "Response should not be null.");
+            Assert.AreEqual("error", response.status, "Status should be 'error'.");
+            Assert.IsFalse(string.IsNullOrEmpty(response.message), "Message should not be empty.");
+        }
+        [TestMethod]
+        public void Stamp_Test_45_ValidateResponseHandlerWhenNullWebResponse()
+        {
+            var handler = new StampResponseHandlerV1();
+            var request = (HttpWebRequest)WebRequest.Create("http://192.0.2.1/api/test");
+            request.Timeout = 3000;
+            var response = handler.GetResponseRequest(request);
+            Assert.IsNotNull(response, "Response should not be null.");
+            Assert.AreEqual("error", response.status, "Status should be 'error'.");
+            Assert.IsFalse(string.IsNullOrEmpty(response.message), "Message should not be empty.");
+            Assert.IsFalse(string.IsNullOrEmpty(response.messageDetail), "MessageDetail should not be empty.");
         }
         private string GetXml(BuildSettings build)
         {

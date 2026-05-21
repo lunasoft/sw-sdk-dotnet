@@ -80,7 +80,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Helpers\BuildSettings.cs" />
-    <Compile Include="Helpers\ResponseHelper.cs" />
     <Compile Include="Helpers\SignTools.cs" />
     <Compile Include="Services\AcceptReject\AcceptReject_Test.cs" />
     <Compile Include="Services\Account\AccountUser\AccountUser_Test.cs" />
@@ -90,6 +89,7 @@
     <Compile Include="Services\CancelationRetention\CancelationRetention_Test.cs" />
     <Compile Include="Services\Cancelation\Cancelation_Test.cs" />
     <Compile Include="Services\Csd\Csd_Test.cs" />
+    <Compile Include="Services\Issue\IssueZip_Test.cs" />
     <Compile Include="Services\Issue\IssueJson_Test.cs" />
     <Compile Include="Services\Issue\IssueV2_Test.cs" />
     <Compile Include="Services\Issue\Issue_Test.cs" />
@@ -97,6 +97,7 @@
     <Compile Include="Services\Pendings\Pendings_Test.cs" />
     <Compile Include="Services\Relations\Relations_Test.cs" />
     <Compile Include="Services\Resend\Resend_Test.cs" />
+    <Compile Include="Services\Stamp\StampZip_Test.cs" />
     <Compile Include="Services\Stamp\StampV2_Test.cs" />
     <Compile Include="Services\Stamp\StampV4XML_Test.cs" />
     <Compile Include="Services\Stamp\Stamp_Test.cs" />
@@ -173,7 +174,16 @@
     <Content Include="Resources\error.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\cfdi40_stamp.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\empty.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\fileIssue40.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\fileIssue40.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\RelationsXML.xml">

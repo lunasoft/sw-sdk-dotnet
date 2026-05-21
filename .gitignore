@@ -239,3 +239,9 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# Project-specific
+docs/features
+.claude/
+CLAUDE.md
+AGENTS.md
