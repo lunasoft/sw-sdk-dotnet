@@ -13,6 +13,9 @@ namespace Test_SW.Services.Status_Test
     [TestClass]
     public class Status_Test_45
     {
+        //TEST
+        private string urlSAT_test = "https://api.test.sw.com.mx/ConsultaCFDIService.svc";
+        //Prod
         private string urlSAT = "https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc";
         public Status_Test_45()
         {
@@ -49,6 +52,32 @@ namespace Test_SW.Services.Status_Test
             var build = new BuildSettings();
             Status status = new Status(urlSAT);
             var response = status.GetStatusCFDI("LSO1306189R5", "LSO1306189R5", "1.16", "e0aae6b3-43cc-4b9c-b229-7e221000e2bb", "oxOSjA==");
+            Assert.IsTrue(response.Estado == "Cancelado");
+        }
+
+        //TEST
+        [TestMethod]
+        public void StatusCFDI_Vigente_Test()
+        {
+            var build = new BuildSettings();
+            Status status = new Status(urlSAT_test);
+            var response = status.GetStatusCFDI("EKU9003173C9", "URE180429TM6", "10000.00", "cf6f2e04-85dd-49d7-87d0-b962b37e6004", "oxOSjA==");
+            Assert.IsTrue(response.Estado == "Vigente");
+        }
+        [TestMethod]
+        public void StatusCFDI_ExpresionNoValida_Text()
+        {
+            var build = new BuildSettings();
+            Status status = new Status(urlSAT_test);
+            var response = status.GetStatusCFDI("EKU9003173C9", "URE180429TM6", "199.16", "cf6f2e04-85dd-49d7-87d0-b962b37e6004", "oxOSjA==");
+            Assert.IsTrue(response.CodigoEstatus.Contains("601"));
+        }
+        [TestMethod]
+        public void StatusCFDI_Cancelado_Text()
+        {
+            var build = new BuildSettings();
+            Status status = new Status(urlSAT_test);
+            var response = status.GetStatusCFDI("EKU9003173C9", "URE180429TM6", "199.16", "c95e482b-5599-4de7-aaad-a0b1b3617cbc", "oxOSjA==");
             Assert.IsTrue(response.Estado == "Cancelado");
         }
     }

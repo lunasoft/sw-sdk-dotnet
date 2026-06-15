@@ -140,7 +140,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
-            var response = regeneratePdf.RegenerarPdf(new Guid("10db53c4-f816-4c9f-a3eb-2c5b336f828d"), build.Logo, "payment20", build.extras_basico);
+            var response = regeneratePdf.RegenerarPdf(new Guid("a3cb2940-5064-44d2-a688-6dd9c4427ccd"), build.Logo, "payment20", build.extras_basico);
             Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
         }
         [TestMethod]
