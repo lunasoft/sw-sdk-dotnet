@@ -2455,6 +2455,12 @@ Este método recibe los siguientes parámetros:
 * UUID del comprobante
 * Últimos 8 caracteres del sello digital
 
+Para realizar pruebas de integración, utilice el siguiente endpoint:
+
+| Ambiente | URL |
+|-----------|-----|
+| Pruebas (QA) | `https://api.test.sw.com.mx/ConsultaCFDIService.svc` |
+
 **Ejemplo de consumo de la librería para la consulta del estatus SAT**
 ```cs
 using System;
@@ -2473,7 +2479,7 @@ namespace ExampleSDK
                 //Creamos una instancia de tipo Status
                 //A esta le pasamos la Url, del servicio del SAT
                 //Automaticamente despues de obtenerlo se procedera a consultar la factura
-                Status status = new Status("https://pruebacfdiconsultaqr.cloudapp.net/ConsultaCFDIService.svc");
+                Status status = new Status("https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc");
                 var response = status.GetStatusCFDI("IVD920810GU2", "AAA010101AAA", "603.20", "249c0fb3-475a-4b72-89f9-06cd3c1f302b","oxOSjA==");
                 //Para obtener el codigo status
 				Console.Write(response.CodigoEstatus);

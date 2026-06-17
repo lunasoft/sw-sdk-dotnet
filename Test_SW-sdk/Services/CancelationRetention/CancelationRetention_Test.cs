@@ -55,12 +55,12 @@ namespace Test_SW.Services.CancelationRetention_Test
             var build = new BuildSettings();
             var uuid = "1fae5735-ca51-4be4-9180-827c44fdb227";
             CancelationRetention cancelation = new CancelationRetention(build.Url, build.Token);
-            var response = cancelation.CancelarUnoCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, uuid, "0");
-            var resultExpect = "CR1310. Clave de motivo de cancelación no válida";
-            var resultExpectMessage = "CACFDI33 - Problemas con el xml.";
+            var response = cancelation.CancelarUnoCSD(build.Cer, build.Key, build.Rfc, build.CerPassword, uuid, "");
+            var resultExpect = "CACFDI33 - Problemas con los campos.";
+            var resultExpectMessage = "El motivo de cancelación es requerido.";
             Assert.IsTrue(response.status == "error");
-            Assert.IsTrue(response.messageDetail == resultExpect);
-            Assert.IsTrue(response.message == resultExpectMessage);
+            Assert.IsTrue(response.message == resultExpect);
+            Assert.IsTrue(response.messageDetail == resultExpectMessage);
         }
 
         [TestMethod]
