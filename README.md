@@ -3515,6 +3515,138 @@ namespace ExampleSDK
 ```
 
 </details>
+
+<details>
+  <summary>Emisión Timbrado CFDI (IssueV4)</summary>
+
+**<br>Ejemplo del consumo de la librería para el servicio IssueV4(Email) XML en formato string enviando 1 correo mediante usuario y contraseña**
+```cs
+using SW.Services.Stamp;
+using SW.Services.Issue;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //obtenemos el XML
+                var xml = Encoding.UTF8.GetString(File.ReadAllBytes(file));
+                //creamos la variable con el correo
+                string email = "ejemplo@gmail.com";
+                //Creamos una instancia de tipo IssueV4 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a timbrar el XML
+                IssueV4 issue = new IssueV4("http://services.test.sw.com.mx", "user", "password");
+                var response = (StampResponseV1)issue.TimbrarV1(xml, email);
+                if(response.status == "success")
+                {
+                    Console.WriteLine(response.data.tfd);
+                }
+                else if(response.status == "error")
+                {
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**<br>Ejemplo del consumo de la librería para el servicio IssueV4(Email) XML en formato string enviando 1 correo mediante token**[¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+```cs
+using SW.Services.Stamp;
+using SW.Services.Issue;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //obtenemos el XML
+                var xml = Encoding.UTF8.GetString(File.ReadAllBytes(file));
+                //creamos la variable con el correo
+                string email = "ejemplo@gmail.com";
+                //Creamos una instancia de tipo IssueV4 
+                //A esta le pasamos la Url y el token.
+                IssueV4 issue = new IssueV4("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                //Realizamos la peticion
+                var response = (StampResponseV1)issue.TimbrarV1(xml, email);
+                if(response.status == "success")
+                {
+                    Console.WriteLine(response.data.tfd);
+                }
+                else if(response.status == "error")
+                {
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**<br>Ejemplo del consumo de la librería para el servicio IssueV4(Email) XML en formato string enviando varios correos mediante token**[¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+```cs
+using SW.Services.Stamp;
+using SW.Services.Issue;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //obtenemos el XML
+                var xml = Encoding.UTF8.GetString(File.ReadAllBytes(file));
+                //creamos la variable con los correos (Max. 5)
+                string emails = "ejemplo1@gmail.com,ejemplo2@gmail.com,ejemplo3@gmail.com,ejemplo4@gmail.com,ejemplo5@gmail.com";
+                //Creamos una instancia de tipo IssueV4 
+                //A esta le pasamos la Url y el token.
+                IssueV4 issue = new IssueV4("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                //Realizamos la peticion
+                var response = (StampResponseV1)issue.TimbrarV1(xml, emails, null);
+                if(response.status == "success")
+                {
+                    Console.WriteLine(response.data.tfd);
+                }
+                else if(response.status == "error")
+                {
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+</details>
+
 <details>
   <summary>Timbrado Json (IssueJsonV4)</summary>
 
@@ -3709,6 +3841,138 @@ namespace ExampleSDK
                 StampV4 stamp = new StampV4("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
                 //Realizamos la peticion
                 var response = (StampResponseV1)stamp.TimbrarV1(xml, null, CustomId,true);
+                if(response.status == "success")
+                {
+                    Console.WriteLine(response.data.tfd);
+                }
+                else if(response.status == "error")
+                {
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+</details>
+
+<details>
+  <summary>Emisión Timbrado CFDI (IssueV4)</summary>
+
+**<br>Ejemplo del consumo de la librería para el servicio IssueV4(CustomId) XML en formato string mediante usuario y contraseña**
+```cs
+using SW.Services.Stamp;
+using SW.Services.Issue;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //obtenemos el XML
+                var xml = Encoding.UTF8.GetString(File.ReadAllBytes(file));
+                //creamos la variable de nuestro customId
+                string CustomId = "RandomCustomId_Max100Char";
+                //Creamos una instancia de tipo IssueV4 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a timbrar el XML
+                IssueV4 issue = new IssueV4("http://services.test.sw.com.mx", "user", "password");
+                var response = (StampResponseV1)issue.TimbrarV1(xml, null, CustomId);
+                if(response.status == "success")
+                {
+                    Console.WriteLine(response.data.tfd);
+                }
+                else if(response.status == "error")
+                {
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**<br>Ejemplo del consumo de la librería para el servicio IssueV4(CustomId) XML en formato string mediante token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+```cs
+```cs
+using SW.Services.Stamp;
+using SW.Services.Issue;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //obtenemos el XML
+                var xml = Encoding.UTF8.GetString(File.ReadAllBytes(file));
+                //creamos la variable de nuestro customId
+                string CustomId = "RandomCustomId_Max100Char";
+                //Creamos una instancia de tipo IssueV4 
+                //A esta le pasamos la Url y el token.
+                IssueV4 issue = new IssueV4("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                //Realizamos la peticion
+                var response = (StampResponseV1)issue.TimbrarV1(xml, null, CustomId);
+                if(response.status == "success")
+                {
+                    Console.WriteLine(response.data.tfd);
+                }
+                else if(response.status == "error")
+                {
+                    Console.WriteLine(response.message);
+                    Console.WriteLine(response.messageDetail);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**<br>Ejemplo del consumo de la librería para el servicio IssueV4(CustomId) XML en Base64 mediante token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+```cs
+```cs
+using SW.Services.Stamp;
+using SW.Services.Issue;
+using System;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //obtenemos el XML
+                var xml = Convert.ToBase64String(Encoding.UTF8.GetBytes("file.xml"));
+                //creamos la variable de nuestro customId
+                string CustomId = "RandomCustomId_Max100Char";
+                //Creamos una instancia de tipo IssueV4 
+                //A esta le pasamos la Url y el token.
+                IssueV4 issue = new IssueV4("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                //Realizamos la peticion
+                var response = (StampResponseV1)issue.TimbrarV1(xml, null, CustomId,true);
                 if(response.status == "success")
                 {
                     Console.WriteLine(response.data.tfd);
