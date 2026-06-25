@@ -3778,7 +3778,6 @@ namespace ExampleSDK
 
 **<br>Ejemplo del consumo de la librería para el servicio StampV4(CustomId) XML en formato string mediante token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
 ```cs
-```cs
 using SW.Services.Stamp;
 using System;
 
@@ -3819,7 +3818,6 @@ namespace ExampleSDK
 ```
 
 **<br>Ejemplo del consumo de la librería para el servicio StampV4(CustomId) XML en Base64 mediante token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
-```cs
 ```cs
 using SW.Services.Stamp;
 using System;
@@ -3908,7 +3906,6 @@ namespace ExampleSDK
 
 **<br>Ejemplo del consumo de la librería para el servicio IssueV4(CustomId) XML en formato string mediante token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
 ```cs
-```cs
 using SW.Services.Stamp;
 using SW.Services.Issue;
 using System;
@@ -3950,7 +3947,6 @@ namespace ExampleSDK
 ```
 
 **<br>Ejemplo del consumo de la librería para el servicio IssueV4(CustomId) XML en Base64 mediante token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
-```cs
 ```cs
 using SW.Services.Stamp;
 using SW.Services.Issue;
