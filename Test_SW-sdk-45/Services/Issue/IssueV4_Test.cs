@@ -19,7 +19,7 @@ namespace Test_SW_sdk_45.Services.Issue
             var build = new BuildSettings();
             IssueV4 issue = new IssueV4(build.Url, build.Token);
             var xml = GetXml(build);
-            var response = (StampResponseV4)issue.TimbrarV4(xml, "fernando.carrillo@sw.com.mx,prueba@test.com");
+            var response = (StampResponseV4)issue.TimbrarV4(xml, "prueba@test.com");
             Assert.IsTrue(response.data != null, "El resultado data viene vacio.");
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
@@ -66,7 +66,7 @@ namespace Test_SW_sdk_45.Services.Issue
             var build = new BuildSettings();
             IssueV4 issue = new IssueV4(build.Url, build.Token);
             var xml = GetXml(build);
-            var response = (StampResponseV4)issue.TimbrarV4(xml, "fernando.carrillo@sw.com.mx,prueba@test.com", "");
+            var response = (StampResponseV4)issue.TimbrarV4(xml, "prueba@test.com", "");
             Assert.IsTrue(response.status == "error");
             Assert.IsTrue(!string.IsNullOrEmpty(response.message), "El CustomId viene vacío.");
         }
@@ -79,7 +79,7 @@ namespace Test_SW_sdk_45.Services.Issue
             var xml = GetXml(build);
             Random rnd = new Random();
             var CustomId = rnd.Next().ToString();
-            var response = (StampResponseV4)issue.TimbrarV4(xml, "fernando.carrillo@sw.com.mx,prueba@test.com", CustomId);
+            var response = (StampResponseV4)issue.TimbrarV4(xml, "prueba@test.com", CustomId);
             Assert.IsTrue(response.data != null, "El resultado data viene vacio.");
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.cfdi), "El resultado data.cfdi viene vacio.");
             Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
