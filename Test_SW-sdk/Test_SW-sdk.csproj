@@ -89,6 +89,7 @@
     <Compile Include="Services\CancelationRetention\CancelationRetention_Test.cs" />
     <Compile Include="Services\Cancelation\Cancelation_Test.cs" />
     <Compile Include="Services\Csd\Csd_Test.cs" />
+    <Compile Include="Services\Issue\IssueV4_Test.cs" />
     <Compile Include="Services\Issue\IssueZip_Test.cs" />
     <Compile Include="Services\Issue\IssueJson_Test.cs" />
     <Compile Include="Services\Issue\IssueV2_Test.cs" />

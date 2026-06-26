@@ -81,6 +81,7 @@
     <Compile Include="Services\Issue\IssueJsonV4.cs" />
     <Compile Include="Services\Issue\IssueV2.cs" />
     <Compile Include="Services\Issue\IssueService.cs" />
+    <Compile Include="Services\Issue\IssueV4.cs" />
     <Compile Include="Services\Pdf\BasePdf.cs" />
     <Compile Include="Services\Pdf\Pdf.cs" />
     <Compile Include="Services\Pdf\PdfRequest.cs" />
