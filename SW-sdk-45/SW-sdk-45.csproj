@@ -136,6 +136,7 @@
     <Compile Include="Services\Issue\IssueService.cs" />
     <Compile Include="Services\Issue\IssueV2.cs" />
     <Compile Include="Services\Issue\Issue.cs" />
+    <Compile Include="Services\Issue\IssueV4.cs" />
     <Compile Include="Services\Issue\IssueZip.cs" />
     <Compile Include="Services\Pdf\BasePdf.cs" />
     <Compile Include="Services\Pdf\Pdf.cs" />
