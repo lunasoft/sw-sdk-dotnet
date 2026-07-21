@@ -6,10 +6,6 @@ using System.IO;
 
 namespace SW.Helpers.Convertion
 {
-    /// <summary>
-    /// Porte de SW.Tools.Helpers.QrCode. Requiere el paquete NuGet Gma.QrCodeNet
-    /// referenciado directamente en este proyecto (antes llegaba transitivamente vía SW.Tools).
-    /// </summary>
     internal static class QrCode
     {
         internal static string GetQrCode(string total, string sello, string rfcEmisor, string rfcReceptor, string uuid)

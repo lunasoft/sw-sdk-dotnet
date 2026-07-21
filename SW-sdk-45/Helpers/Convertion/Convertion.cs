@@ -2,12 +2,6 @@
 
 namespace SW.Helpers.Convertion
 {
-    /// <summary>
-    /// Conversión de respuestas de timbrado V2 a V4.
-    /// Porte interno equivalente a SW.Tools.Services.Convertion.Convertion,
-    /// para eliminar la dependencia a SW.Tools (y su referencia heredada a
-    /// BouncyCastle, que este código nunca necesitó).
-    /// </summary>
     internal static class Convertion
     {
         /// <summary>

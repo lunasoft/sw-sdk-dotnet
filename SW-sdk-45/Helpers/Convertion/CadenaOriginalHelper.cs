@@ -5,17 +5,6 @@ using System.Xml.Xsl;
 
 namespace SW.Helpers.Convertion
 {
-    /// <summary>
-    /// Porte de SW.Tools.Helpers.SignUtils.GetCadenaOriginalTfd/TransformXml
-    /// (únicamente estos dos métodos; el resto de SignUtils.cs en SW.Tools sí depende
-    /// de BouncyCastle y no se porta aquí).
-    /// Requiere el paquete NuGet cadenaoriginalTFD11.dll referenciado directamente en
-    /// este proyecto (antes llegaba transitivamente vía SW.Tools).
-    /// NOTA: confirmar el namespace exacto de "cadenaoriginal_TFD_1_1" contra el using
-    /// real que use SignUtils.cs en tu copia de SW.Tools - en el código fuente revisado
-    /// no aparece un "using" adicional, por lo que el tipo probablemente vive sin
-    /// namespace (namespace global) en ese paquete.
-    /// </summary>
     internal static class CadenaOriginalHelper
     {
         internal static string GetCadenaOriginalTfd(string xml)

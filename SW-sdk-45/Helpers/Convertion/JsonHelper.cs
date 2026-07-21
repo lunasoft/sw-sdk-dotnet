@@ -4,11 +4,6 @@ using System.Text;
 
 namespace SW.Helpers.Convertion
 {
-    /// <summary>
-    /// Serialización/deserialización JSON genérica.
-    /// Porte mínimo de SW.Tools.Helpers.Serializer: solo SerializeJson/DeserializeJson,
-    /// que es todo lo que necesita la conversión V2->V4.
-    /// </summary>
     internal static class JsonHelper
     {
         internal static string SerializeJson<T>(T obj)
