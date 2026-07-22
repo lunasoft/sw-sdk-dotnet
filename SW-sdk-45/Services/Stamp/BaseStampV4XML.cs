@@ -2,8 +2,6 @@ using System.Linq;
 using SW.Helpers;
 using SW.Services.Storage;
 using System.Text;
-using SW.Tools.Services.Convertion;
-using SW.Tools.Helpers;
 
 namespace SW.Services.Stamp
 {

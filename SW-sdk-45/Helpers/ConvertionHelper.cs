@@ -1,6 +1,5 @@
 ﻿using SW.Services.Stamp;
-using SW.Tools.Helpers;
-using SW.Tools.Services.Convertion;
+using SW.Helpers.Convertion;
 
 namespace SW.Helpers
 {
@@ -11,9 +10,9 @@ namespace SW.Helpers
             StampResponseV4 responseV4 = new StampResponseV4();
             if(response.data != null && !string.IsNullOrEmpty(response.data.cfdi) && !string.IsNullOrEmpty(response.data.tfd))
             {
-                string json = Serializer.SerializeJson(response);
-                json = Convertion.ConvertResponseToV4(json);
-                responseV4 = Serializer.DeserializeJson<StampResponseV4>(json);
+                string json = JsonHelper.SerializeJson(response);
+                json = Helpers.Convertion.Convertion.ConvertResponseToV4(json);
+                responseV4 = JsonHelper.DeserializeJson<StampResponseV4>(json);
             }
             responseV4.messageDetail = response.messageDetail;
             responseV4.message = response.message;
