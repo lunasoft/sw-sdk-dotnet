@@ -41,6 +41,27 @@ namespace SW.Services.Stamp
                 return handler.HandleException(ex);
             }
         }
+        public virtual StampResponseV1CadenaOriginalSAT TimbrarV1CadenaOriginalSAT(string xml, bool isb64 = false)
+        {
+            StampResponseHandlerV1CadenaOriginalSAT handler = new StampResponseHandlerV1CadenaOriginalSAT();
+            try
+            {
+                string format = isb64 ? "b64" : "";
+                var xmlBytes = Encoding.UTF8.GetBytes(xml);
+                var headers = GetHeaders();
+                var content = GetMultipartContent(xmlBytes);
+                var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
+                return handler.GetPostResponse(this.Url,
+                                string.Format("cfdi33/{0}/{1}/{2}",
+                                _operation,
+                                StampTypes.v1.ToString(),
+                                format), headers, content, proxy);
+            }
+            catch (Exception ex)
+            {
+                return handler.HandleException(ex);
+            }
+        }
         public virtual ConcurrentDictionary<string, StampResponseV1> TimbrarV1(string[] xmls, bool isb64 = false)
         {
             StampResponseHandlerV1 handler = new StampResponseHandlerV1();

@@ -9,6 +9,11 @@ namespace SW.Services.Stamp
         [DataMember]
         public Data_TFD data { get; set; }
     }
+    public class StampResponseV1CadenaOriginalSAT : Response
+    {
+        [DataMember]
+        public Data_TFD_CadenaOriginalSAT data { get; set; }
+    }
     public class StampResponseV2 : Response
     {
         [DataMember]
@@ -29,6 +34,12 @@ namespace SW.Services.Stamp
     {
         [DataMember]
         public string tfd { get; set; }
+    }
+
+    public class Data_TFD_CadenaOriginalSAT : Data_TFD
+    {
+        [DataMember]
+        public string cadenaOriginalSAT { get; set; }
     }
 
     public class Data_CFDI
