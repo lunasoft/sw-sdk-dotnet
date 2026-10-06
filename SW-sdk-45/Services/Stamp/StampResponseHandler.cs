@@ -17,6 +17,37 @@ namespace SW.Services.Stamp
         }
     }
 
+    internal class StampResponseHandlerV1CadenaOriginalSAT : ResponseHandler<StampResponseV1CadenaOriginalSAT>
+    {
+        public override StampResponseV1CadenaOriginalSAT GetPostResponse(string url, string path, Dictionary<string, string> headers, HttpContent content, HttpClientHandler proxy)
+        {
+            var response = base.GetPostResponse(url, path, headers, content, proxy);
+            if (response != null && response.status == "success" && response.data != null && !string.IsNullOrEmpty(response.data.tfd))
+            {
+                try
+                {
+                    // Con b64 el TFD se recibe codificado, se decodifica solo para generar la cadena.
+                    string tfd = path.ToLower().EndsWith("b64")
+                        ? Encoding.UTF8.GetString(Convert.FromBase64String(response.data.tfd))
+                        : response.data.tfd;
+                    response.data.cadenaOriginalSAT = Helpers.Convertion.CadenaOriginalHelper.GetCadenaOriginalTfd(tfd);
+                }
+                catch (Exception ex)
+                {
+                    // El timbrado ya se realizo: se conserva el TFD y se informa que no fue posible generar la cadena.
+                    response.message = "Timbrado exitoso, pero no fue posible generar la cadena original: " + ex.Message;
+                    response.messageDetail = ex.GetErrorDetail();
+                }
+            }
+            return response;
+        }
+
+        public override StampResponseV1CadenaOriginalSAT HandleException(Exception ex)
+        {
+            return ex.ToStampResponseV1CadenaOriginalSAT();
+        }
+    }
+
     internal class StampResponseHandlerV2 : ResponseHandler<StampResponseV2>
     {
         public StampResponseHandlerV2()
