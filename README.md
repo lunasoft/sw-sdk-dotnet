@@ -187,7 +187,7 @@ namespace ExampleSDK
 Timbrado CFDI V1 con Cadena Original SAT
 </summary>
 
-<br>El método **TimbrarV1CadenaOriginalSAT** recibe el contenido de un **XML** ya emitido (sellado) en formato **String**  o tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**) junto con la cadena original del complemento de certificación digital del SAT (**cadenaOriginalSAT**), la cual se genera en la librería a partir del **TFD** recibido, en caso contrario lanza una excepción.
+<br>El método **TimbrarV1CadenaOriginalSAT** recibe el contenido de un **XML** ya emitido (sellado) en formato **String**  o tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**) junto con la cadena original del complemento de certificación digital del SAT (**cadenaOriginalSAT**), la cual se genera en la librería a partir del **TFD** recibido, en caso contrario devuelve **status** "error" con el motivo en **message** y **messageDetail**.
 
 Este método está pensado para XML de gran tamaño, donde se requiere la cadena original y la respuesta V4 no es una opción.
 
@@ -301,7 +301,7 @@ namespace ExampleSDK
 }
 ```
 
-:pushpin: ***NOTA:*** Si el timbrado es exitoso pero no es posible generar la cadena original, la respuesta conserva el **TFD**, el campo **cadenaOriginalSAT** viene vacío y el motivo se indica en **message** y **messageDetail**.
+:pushpin: ***NOTA:*** Si el timbrado es exitoso pero no es posible generar la cadena original, la respuesta conserva el **TFD** y **status** se mantiene en "success", pero el campo **cadenaOriginalSAT** viene en **null** y el motivo se indica en **message** y **messageDetail**. Por ello, además de validar **status**, se debe validar que **cadenaOriginalSAT** no sea nulo ni vacío.
 </details>
 
 <details>
