@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Xml;
 using System.Xml.Xsl;
 
@@ -7,13 +8,19 @@ namespace SW.Helpers.Convertion
 {
     internal static class CadenaOriginalHelper
     {
+        private static readonly Lazy<XslCompiledTransform> _xsltCadenaOriginalTfd =
+            new Lazy<XslCompiledTransform>(() =>
+            {
+                var xslt = new XslCompiledTransform();
+                xslt.Load(typeof(cadenaoriginal_TFD_1_1));
+                return xslt;
+            }, LazyThreadSafetyMode.PublicationOnly);
+
         internal static string GetCadenaOriginalTfd(string xml)
         {
             try
             {
-                var xsltCadenaOriginal = new XslCompiledTransform();
-                xsltCadenaOriginal.Load(typeof(cadenaoriginal_TFD_1_1));
-                return TransformXml(xsltCadenaOriginal, xml);
+                return TransformXml(_xsltCadenaOriginalTfd.Value, xml);
             }
             catch (Exception e)
             {

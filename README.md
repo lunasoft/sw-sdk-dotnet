@@ -184,6 +184,128 @@ namespace ExampleSDK
 
 <details>
 <summary>
+Timbrado CFDI V1 con Cadena Original SAT
+</summary>
+
+<br>El método **TimbrarV1CadenaOriginalSAT** recibe el contenido de un **XML** ya emitido (sellado) en formato **String**  o tambien puede ser en **Base64**, posteriormente si la factura y el token son correctos devuelve el complemento timbre en un string (**TFD**) junto con la cadena original del complemento de certificación digital del SAT (**cadenaOriginalSAT**), la cual se genera en la librería a partir del **TFD** recibido, en caso contrario devuelve **status** "error" con el motivo en **message** y **messageDetail**.
+
+Este método está pensado para XML de gran tamaño, donde se requiere la cadena original y la respuesta V4 no es una opción.
+
+Este método recibe los siguientes parámetros:
+* Archivo en formato **String** o **Base64**
+* Usuario y contraseña o Token
+* Url Servicios SW
+
+**Timbrar XML en formato string utilizando usuario y contraseña**
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.Stamp;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo Stamp 
+                //A esta le pasamos la Url, Usuario y Contraseña para obtener el token
+                //Automaticamente despues de obtenerlo se procedera a timbrar el xml
+                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "user", "password");
+                string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
+                StampResponseV1CadenaOriginalSAT response = stamp.TimbrarV1CadenaOriginalSAT(xml);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
+                Console.WriteLine(response.data.cadenaOriginalSAT);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+**Timbrar XML en formato string utilizando token** [¿Como obtener token?](http://developers.sw.com.mx/knowledge-base/generar-un-token-infinito/)
+```cs
+using System;
+using System.IO;
+using System.Text;
+using SW.Helpers;
+using SW.Services.Stamp;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo Stamp 
+                //A esta le pasamos la Url y su Token infinito 
+                //Este lo puede obtener ingresando al administrador de timbres con su usuario y contraseña
+                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "T2lYQ0t4L0R....ReplaceForRealToken");
+                string xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
+                StampResponseV1CadenaOriginalSAT response = stamp.TimbrarV1CadenaOriginalSAT(xml);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
+                Console.WriteLine(response.data.cadenaOriginalSAT);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+**Ejemplo de consumo de la librería para Timbrado XML en formato b64 utilizando usuario y contraseña**
+```cs
+using SW.Services.Stamp;
+using System;
+using System.IO;
+using System.Text;
+
+namespace ExampleSDK
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                //Creamos una instancia de tipo Stamp con parametros Url y credenciales de acceso
+                Stamp stamp = new Stamp("http://services.test.sw.com.mx", "user", "password");
+                //Colocamos el XML a timbrar en una variable
+                var xml = Encoding.UTF8.GetString(File.ReadAllBytes("file.xml"));
+                //Convertimos el XML a formato B64
+                xml = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
+                //Recibimos la respuesta enviando el XML en B64 al metodo TimbrarV1CadenaOriginalSAT, acompañado del valor "true" indicando que enviamos un b64
+                var response = stamp.TimbrarV1CadenaOriginalSAT(xml, true);
+                Console.WriteLine(response.status);
+                Console.WriteLine(response.data.tfd);
+                Console.WriteLine(response.data.cadenaOriginalSAT);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
+```
+
+:pushpin: ***NOTA:*** Si el timbrado es exitoso pero no es posible generar la cadena original, la respuesta conserva el **TFD** y **status** se mantiene en "success", pero el campo **cadenaOriginalSAT** viene en **null** y el motivo se indica en **message** y **messageDetail**. Por ello, además de validar **status**, se debe validar que **cadenaOriginalSAT** no sea nulo ni vacío.
+</details>
+
+<details>
+<summary>
 Emisión Timbrado V1
 </summary>
 
