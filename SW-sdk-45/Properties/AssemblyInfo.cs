@@ -33,5 +33,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: InternalsVisibleTo("Test_SW-sdk-45")]
-[assembly: AssemblyVersion("0.0.42.1")]
-[assembly: AssemblyFileVersion("0.0.42.1")]
+[assembly: AssemblyVersion("0.0.43.1")]
+[assembly: AssemblyFileVersion("0.0.43.1")]
