@@ -30,6 +30,21 @@ namespace SW.Services.Stamp
                 return handler.HandleException(ex);
             }
         }
+        public virtual StampResponseV1CadenaOriginalSAT TimbrarV1CadenaOriginalSAT(string xml, bool isb64 = false)
+        {
+            StampResponseHandlerV1CadenaOriginalSAT handler = new StampResponseHandlerV1CadenaOriginalSAT();
+            try
+            {
+                string format = isb64 ? "b64" : "";
+                var xmlBytes = Encoding.UTF8.GetBytes(xml);
+                var request = this.RequestStamping(xmlBytes, StampTypes.v1.ToString(), format, _operation);
+                return handler.GetResponse(request);
+            }
+            catch (Exception ex)
+            {
+                return handler.HandleException(ex);
+            }
+        }
         public virtual StampResponseV2 TimbrarV2(string xml, bool isb64 = false)
         {
             StampResponseHandlerV2 handler = new StampResponseHandlerV2();

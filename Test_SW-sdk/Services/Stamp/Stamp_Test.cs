@@ -330,6 +330,68 @@ namespace Test_SW.Services.Stamp_Test
             Assert.IsFalse(string.IsNullOrEmpty(response.message), "Message should not be empty.");
             Assert.IsFalse(string.IsNullOrEmpty(response.messageDetail), "MessageDetail should not be empty.");
         }
+        [Ignore]//Problema cadena SW Tools
+        [TestMethod]
+        public void StampXMLV1CadenaOriginalSAT()
+        {
+            var build = new BuildSettings();
+            Stamp stamp = new Stamp(build.Url, build.User, build.Password);
+            var xml = GetXml(build);
+            var response = stamp.TimbrarV1CadenaOriginalSAT(xml);
+            Assert.IsTrue(response.status == "success"
+                && !string.IsNullOrEmpty(response.data.tfd), "El resultado data.tfd viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT)
+                && response.data.cadenaOriginalSAT.StartsWith("||1.1|"), "El resultado data.cadenaOriginalSAT no es valido.");
+        }
+        [Ignore]//Problema cadena SW Tools
+        [TestMethod]
+        public void StampXMLV1CadenaOriginalSATbyToken()
+        {
+            var build = new BuildSettings();
+            Stamp stamp = new Stamp(build.Url, build.Token);
+            var xml = GetXml(build);
+            var response = stamp.TimbrarV1CadenaOriginalSAT(xml);
+            Assert.IsTrue(response.status == "success"
+                && !string.IsNullOrEmpty(response.data.tfd), "El resultado data.tfd viene vacio.");
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT)
+                && response.data.cadenaOriginalSAT.StartsWith("||1.1|"), "El resultado data.cadenaOriginalSAT no es valido.");
+        }
+        [Ignore]//Problema cadena SW Tools
+        [TestMethod]
+        public void StampXMLV1CadenaOriginalSATBase64byToken()
+        {
+            var build = new BuildSettings();
+            Stamp stamp = new Stamp(build.Url, build.Token);
+            var xml = GetXml(build);
+            xml = Convert.ToBase64String(Encoding.UTF8.GetBytes(xml));
+            var response = stamp.TimbrarV1CadenaOriginalSAT(xml, true);
+            Assert.IsTrue(response.status == "success"
+                && !string.IsNullOrEmpty(response.data.tfd), response.message);
+            Assert.IsTrue(!string.IsNullOrEmpty(response.data.cadenaOriginalSAT), "El resultado data.cadenaOriginalSAT viene vacio.");
+        }
+        [TestMethod]
+        public void StampXMLV1CadenaOriginalSAT_ValidateExistToken()
+        {
+            var build = new BuildSettings();
+            Stamp stamp = new Stamp(build.Url, "");
+            var xml = File.ReadAllText("Resources/cfdi40.xml");
+            var response = stamp.TimbrarV1CadenaOriginalSAT(xml);
+            Assert.AreEqual("error", response.status);
+            Assert.IsTrue(response.message.Contains("El token debe contener 3 partes"));
+        }
+        [TestMethod]
+        public void CadenaOriginalSAT_FromTfd()
+        {
+            string tfd = "<tfd:TimbreFiscalDigital xmlns:tfd=\"http://www.sat.gob.mx/TimbreFiscalDigital\" " +
+                "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" " +
+                "xsi:schemaLocation=\"http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd\" " +
+                "Version=\"1.1\" UUID=\"5c9a7d3e-1b2f-4c8a-9e6d-0a1b2c3d4e5f\" FechaTimbrado=\"2024-05-10T12:30:45\" " +
+                "RfcProvCertif=\"SPR190613I52\" SelloCFD=\"c2VsbG9DRkQ=\" NoCertificadoSAT=\"30001000000500003456\" SelloSAT=\"c2VsbG9TQVQ=\" />";
+            string expected = "||1.1|5c9a7d3e-1b2f-4c8a-9e6d-0a1b2c3d4e5f|2024-05-10T12:30:45|SPR190613I52|c2VsbG9DRkQ=|30001000000500003456||";
+            Assert.AreEqual(expected, SW.Helpers.Convertion.CadenaOriginalHelper.GetCadenaOriginalTfd(tfd));
+            //Segunda llamada: valida que el XSLT reutilizado produce el mismo resultado
+            Assert.AreEqual(expected, SW.Helpers.Convertion.CadenaOriginalHelper.GetCadenaOriginalTfd(tfd));
+        }
         private string GetXml(BuildSettings build, string fileName = null, bool setDate = true)
         {
             var xml = Encoding.UTF8.GetString(File.ReadAllBytes(fileName ?? "Resources/cfdi40.xml"));

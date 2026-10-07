@@ -69,6 +69,15 @@ namespace SW.Helpers
                 messageDetail = ex.GetErrorDetail()
             };
         }
+        internal static StampResponseV1CadenaOriginalSAT ToStampResponseV1CadenaOriginalSAT(this Exception ex)
+        {
+            return new StampResponseV1CadenaOriginalSAT()
+            {
+                message = ex.Message,
+                status = "error",
+                messageDetail = ex.GetErrorDetail()
+            };
+        }
         internal static StampResponseV2 ToStampResponseV2(this Exception ex)
         {
             return new StampResponseV2()
