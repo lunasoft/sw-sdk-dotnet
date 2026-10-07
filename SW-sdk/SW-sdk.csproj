@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="cadenaoriginalTFD11, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\cadenaoriginalTFD11.dll.1.0.5\lib\net35\cadenaoriginalTFD11.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -47,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\IResponseHandler.cs" />
+    <Compile Include="Helpers\Convertion\CadenaOriginalHelper.cs" />
     <Compile Include="Helpers\DowloadFile.cs" />
     <Compile Include="Helpers\EnumAcceptReject.cs" />
     <Compile Include="Helpers\EnumAccountService.cs" />
