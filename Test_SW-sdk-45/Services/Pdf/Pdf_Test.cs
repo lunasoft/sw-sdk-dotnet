@@ -137,7 +137,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
-            var response = regeneratePdf.RegenerarPdf(new Guid("a662529a-e945-44a8-bdd7-3e8ae170aa03"));
+            var response = regeneratePdf.RegenerarPdf(new Guid("f88d24c6-3712-4366-a612-0d1caf6ba02d"));
             Assert.IsTrue(response.status == "success");
             Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
         }
@@ -147,7 +147,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Token);
-            var response = regeneratePdf.RegenerarPdf(new Guid("a662529a-e945-44a8-bdd7-3e8ae170aa03"));
+            var response = regeneratePdf.RegenerarPdf(new Guid("907c026d-71f1-4bea-b84c-cc7db20e0dee"));
             Assert.IsTrue(response.status == "success");
             Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
         }
@@ -191,7 +191,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
-            var response = regeneratePdf.RegenerarPdf(new Guid("a662529a-e945-44a8-bdd7-3e8ae170aa03"), build.Logo, "payment20", build.extras_basico);
+            var response = regeneratePdf.RegenerarPdf(new Guid("db895d43-6bec-48b7-8be7-d3215e380337"), build.Logo, "payment20", build.extras_basico);
             Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
         }
         [TestMethod]
@@ -199,7 +199,7 @@ namespace Pdf_Test.Services.Pdf_Tests
         {
             var build = new BuildSettings();
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
-            var response = regeneratePdf.RegenerarPdf(new Guid("a662529a-e945-44a8-bdd7-3e8ae170aa03"), null, null, build.extras_basico);
+            var response = regeneratePdf.RegenerarPdf(new Guid("031ee212-44a4-42a9-bf01-c7dc72759a26"), null, null, build.extras_basico);
             Assert.IsTrue(response.status == "success");
             Assert.IsTrue(response.message == "Solicitud se proceso correctamente.");
         }
