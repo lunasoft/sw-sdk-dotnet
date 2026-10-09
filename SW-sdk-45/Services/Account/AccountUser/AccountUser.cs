@@ -119,7 +119,6 @@ namespace SW.Services.Account.AccountUser
             {
                 var request = ConfigureHttpRequestWithBody(_path, WebRequestMethods.Http.Post, bodyRequest);
                 var response = handlerCreate.GetResponseRequest(request);
-                if (response.status == "400") { response.status = "error"; }
                 return response;
             }
             catch (Exception e)
@@ -138,8 +137,7 @@ namespace SW.Services.Account.AccountUser
                     case AccountUserAction.Update:
                         request = RequestUpdateUser(idUser, bodyRequest);
                         var responseUpdate = handler.GetResponseRequest(request);
-                        if (responseUpdate.status == "400") { responseUpdate.status = "error"; }
-                        else if (responseUpdate.message == "500")
+                        if (responseUpdate.HttpStatusCode == 500 && responseUpdate.HadEmptyBody)
                         {
                             responseUpdate.message = "Error al Actualizar";
                             responseUpdate.messageDetail = "Error al generar la petición.";
@@ -149,12 +147,13 @@ namespace SW.Services.Account.AccountUser
                     case AccountUserAction.Delete:
                         request = RequestDeleteUser(idUser);
                         var responseDelete = handler.GetResponseRequest(request);
-                        if (responseDelete.message == "204")
+                        if (responseDelete.HttpStatusCode == 204)
                         {
                             responseDelete.status = "success";
+                            responseDelete.messageDetail = null;
                             responseDelete.message = "Usuario eliminado con exito";
                         }
-                        else if (responseDelete.message == "404" || responseDelete.message == "500")
+                        else if ((responseDelete.HttpStatusCode == 404 || responseDelete.HttpStatusCode == 500) && responseDelete.HadEmptyBody)
                         {
                             responseDelete.message = "error al cancelar";
                             responseDelete.messageDetail = "El usuario no se encuentra o aun tiene timbres";
@@ -215,7 +214,7 @@ namespace SW.Services.Account.AccountUser
         internal virtual HttpWebRequest RequestDeleteUser(Guid idUser)
         {
             this.SetupRequest();
-            var request = (HttpWebRequest)WebRequest.Create(this.UrlApi ?? this.Url + String.Format("{0}/{1}", _path, idUser));
+            var request = (HttpWebRequest)WebRequest.Create((this.UrlApi ?? this.Url) + String.Format("{0}/{1}", _path, idUser));
             request.ContentType = "application/json";
             request.Method = "DELETE";
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
