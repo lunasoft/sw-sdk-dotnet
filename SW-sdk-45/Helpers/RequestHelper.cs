@@ -10,12 +10,23 @@ namespace SW.Helpers
 {
     internal class RequestHelper
     {
+        static RequestHelper()
+        {
+            // Evita que HttpWebRequest recorte cuerpos de error.
+            HttpWebRequest.DefaultMaximumErrorResponseLength = -1;
+        }
+        internal static void ApplyTransportPolicy(HttpWebRequest request)
+        {
+            // La respuesta 3xx se devuelve al consumidor.
+            request.AllowAutoRedirect = false;
+        }
         internal static string NormalizeBaseUrl(string url)
         {
             return !url.EndsWith("/") ? url + "/" : url;
         }
         internal static void SetupProxy(string proxy, int port, ref HttpWebRequest request)
         {
+            ApplyTransportPolicy(request);
             if (!string.IsNullOrEmpty(proxy))
             {
                 WebProxy myproxy = new WebProxy(proxy, port);
@@ -28,6 +39,7 @@ namespace SW.Helpers
             {
                 var httpClientHandler = new HttpClientHandler
                 {
+                    AllowAutoRedirect = false,
                     Proxy = new WebProxy(string.Format("{0}:{1}", proxy,proxyPort), false),
                     UseProxy = true
                 };
@@ -35,7 +47,7 @@ namespace SW.Helpers
             }
             else
             {
-                return new HttpClientHandler();
+                return new HttpClientHandler { AllowAutoRedirect = false };
             }
         }
         internal static void AddFileToRequest(byte[] file, ref HttpWebRequest request)
