@@ -8,6 +8,10 @@ using SW.Services.Stamp;
 using Test_SW.Helpers;
 using System.Net;
 using System.Xml;
+using System.Collections.Concurrent;
+using System.Threading;
+using Newtonsoft.Json;
+using SW.Entities;
 
 namespace Test_SW.Services.Stamp_Test
 {
@@ -226,12 +230,14 @@ namespace Test_SW.Services.Stamp_Test
         [TestMethod]
         public void Stamp_Test_45_ValidateServerError()
         {
-            var resultExpect = "404";
             var build = new BuildSettings();
             Stamp stamp = new Stamp(build.Url + "/ot", build.Token);
             var xml = File.ReadAllText("Resources/Cfdi40.xml");
             var response = stamp.TimbrarV1(xml);
-            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
+            Assert.AreEqual(404, response.HttpStatusCode, "Debe recibirse el HTTP 404 del servidor, no un fallo de red.");
+            Assert.AreEqual("error", response.status);
+            Assert.IsFalse(string.IsNullOrEmpty(response.message), "El SDK debe devolver lo que respondio el servidor.");
+            Assert.AreNotEqual("OK", response.messageDetail);
         }
         [TestMethod]
         public void Stamp_Test_45_ValidateFormatToken()
@@ -388,6 +394,163 @@ namespace Test_SW.Services.Stamp_Test
             var xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/cfdi40.xml"));
             xml = SignTools.SigXml(xml, Convert.FromBase64String(build.Pfx), build.PfxPassword);
             return xml;
+        }
+
+        // Pruebas locales (sin red): lotes de timbrado.
+        private const string Token = "aaa.bbb.ccc";
+        private const string Xml = "<cfdi:Comprobante xmlns:cfdi=\"http://www.sat.gob.mx/cfd/4\" Version=\"4.0\"/>";
+        private const string SwMessage = "Mensaje original SW";
+        private const string SwDetail = "Detalle original SW";
+
+        [TestMethod]
+        public void Lote_XmlRepetidosONulos_EnviaCadaXmlUnaSolaVez()
+        {
+            AssertBatch((prefix, xmls) => new Stamp(prefix, Token).TimbrarV1(xmls), "/cfdi33/stamp/v1/");
+            AssertBatch((prefix, xmls) => new Stamp(prefix, Token).TimbrarV2(xmls), "/cfdi33/stamp/v2/");
+            AssertBatch((prefix, xmls) => new Stamp(prefix, Token).TimbrarV3(xmls), "/cfdi33/stamp/v3/");
+            AssertBatch((prefix, xmls) => new Stamp(prefix, Token).TimbrarV4(xmls), "/cfdi33/stamp/v4/");
+            AssertBatch((prefix, xmls) => new StampV4(prefix, Token).TimbrarV1(xmls), "/v4/cfdi33/stamp/v1/");
+            AssertBatch((prefix, xmls) => new StampV4(prefix, Token).TimbrarV2(xmls), "/v4/cfdi33/stamp/v2/");
+            AssertBatch((prefix, xmls) => new StampV4(prefix, Token).TimbrarV3(xmls), "/v4/cfdi33/stamp/v3/");
+            AssertBatch((prefix, xmls) => new StampV4(prefix, Token).TimbrarV4(xmls), "/v4/cfdi33/stamp/v4/");
+        }
+
+        private static void AssertBatch<T>(Func<string, string[], ConcurrentDictionary<string, T>> call, string path) where T : Response
+        {
+            const string otherXml = "<otro/>";
+            int hits;
+            // XML repetidos: se envia una sola peticion por XML distinto y cada uno conserva su respuesta de SW.
+            var response = ServeMany(4, ctx =>
+            {
+                Assert.AreEqual("POST", ctx.Request.HttpMethod);
+                Assert.AreEqual(path, ctx.Request.Url.AbsolutePath);
+                string body = new StreamReader(ctx.Request.InputStream).ReadToEnd();
+                bool first = body.Contains(Xml);
+                Assert.IsTrue(first || body.Contains(otherXml));
+                Reply(ctx, 400, SwJson("error", first ? "Respuesta XML 1" : "Respuesta XML 2"));
+            }, prefix => call(prefix, new[] { Xml, otherXml, Xml, otherXml }), out hits);
+            Assert.AreEqual(2, hits, path + ": cada XML distinto debe enviarse una sola vez.");
+            Assert.AreEqual(2, response.Count);
+            AssertResponse(response[Xml], "error", "Respuesta XML 1", SwDetail);
+            AssertResponse(response[otherXml], "error", "Respuesta XML 2", SwDetail);
+
+            // Nulos y vacios: no se envian y se informan sin afectar al XML valido.
+            response = ServeMany(5, ctx => Reply(ctx, 200, SwJson("success", SwMessage)),
+                prefix => call(prefix, new[] { Xml, null, "", null, Xml }), out hits);
+            Assert.AreEqual(1, hits, path + ": las entradas nulas y vacias no se deben enviar.");
+            Assert.AreEqual(4, response.Count);
+            AssertResponse(response[Xml], "success", SwMessage, SwDetail);
+            AssertResponse(response[""], "error", "El XML no puede estar vacio.", null);
+            AssertResponse(response["[XML nulo en indice 1]"], "error", "El XML de la entrada 1 es nulo.", null);
+            AssertResponse(response["[XML nulo en indice 3]"], "error", "El XML de la entrada 3 es nulo.", null);
+        }
+
+        private static void AssertResponse(Response response, string status, string message, string detail)
+        {
+            Assert.IsNotNull(response);
+            Assert.AreEqual(status, response.status);
+            Assert.AreEqual(message, response.message);
+            Assert.AreEqual(detail, response.messageDetail);
+        }
+
+        private static string SwJson(string status, string message)
+        {
+            return JsonConvert.SerializeObject(new { status, message, messageDetail = SwDetail });
+        }
+
+        private delegate void ServerBehavior(HttpListenerContext context);
+
+        // Mantener el listener abierto hasta terminar la llamada permite contar tambien peticiones sobrantes.
+        private static T ServeMany<T>(int maxRequests, ServerBehavior behavior, Func<string, T> call, out int hits)
+        {
+            HttpListener listener = null;
+            string prefix = null;
+            for (int attempt = 0; attempt < 5 && listener == null; attempt++)
+            {
+                prefix = "http://localhost:" + GetFreePort() + "/";
+                HttpListener candidate = new HttpListener();
+                candidate.Prefixes.Add(prefix);
+                try
+                {
+                    candidate.Start();
+                    listener = candidate;
+                }
+                catch (HttpListenerException)
+                {
+                    candidate.Close();
+                }
+            }
+            Assert.IsNotNull(listener, "No fue posible reservar un puerto local.");
+            int served = 0;
+            Exception serverError = null;
+            Thread server = new Thread(() =>
+            {
+                while (served < maxRequests)
+                {
+                    HttpListenerContext context;
+                    try
+                    {
+                        context = listener.GetContext();
+                    }
+                    catch (HttpListenerException)
+                    {
+                        return;
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        return;
+                    }
+                    try
+                    {
+                        served++;
+                        behavior(context);
+                    }
+                    catch (Exception ex)
+                    {
+                        serverError = ex;
+                        context.Response.Abort();
+                        return;
+                    }
+                }
+            });
+            server.IsBackground = true;
+            server.Start();
+            T result;
+            bool stopped;
+            try
+            {
+                result = call(prefix);
+            }
+            finally
+            {
+                listener.Close();
+                stopped = server.Join(5000);
+            }
+            hits = served;
+            Assert.IsTrue(stopped, "El servidor local no termino.");
+            Assert.IsTrue(served >= 1, "La peticion nunca llego al servidor local.");
+            Assert.IsNull(serverError, "El servidor local fallo: " + serverError);
+            return result;
+        }
+
+        private static int GetFreePort()
+        {
+            var listener = new System.Net.Sockets.TcpListener(IPAddress.Loopback, 0);
+            listener.Start();
+            int port = ((IPEndPoint)listener.LocalEndpoint).Port;
+            listener.Stop();
+            return port;
+        }
+
+        private static void Reply(HttpListenerContext context, int code, string body)
+        {
+            context.Request.InputStream.Close();
+            byte[] bytes = Encoding.UTF8.GetBytes(body);
+            context.Response.StatusCode = code;
+            context.Response.ContentType = "application/json; charset=utf-8";
+            context.Response.ContentLength64 = bytes.Length;
+            context.Response.OutputStream.Write(bytes, 0, bytes.Length);
+            context.Response.Close();
         }
     }
 }
