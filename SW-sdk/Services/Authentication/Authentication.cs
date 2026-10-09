@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Text;
 
 namespace SW.Services.Authentication
 {
@@ -20,19 +21,18 @@ namespace SW.Services.Authentication
                 request.ContentType = "application/json";
                 request.ContentLength = 0;
                 request.Method = WebRequestMethods.Http.Post;
+                Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
                 var body = Newtonsoft.Json.JsonConvert.SerializeObject(new AuthenticationRequest()
                 {
                     user = this.User,
                     password = this.Password,
                 });
-                request.ContentLength = body.Length;
-                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                byte[] bodyBytes = Encoding.UTF8.GetBytes(body);
+                request.ContentLength = bodyBytes.Length;
+                using (var requestStream = request.GetRequestStream())
                 {
-                    streamWriter.Write(body);
-                    streamWriter.Flush();
-                    streamWriter.Close();
+                    requestStream.Write(bodyBytes, 0, bodyBytes.Length);
                 }
-                Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
                 return _handler.GetResponse(request);
             }
             catch (Exception e)

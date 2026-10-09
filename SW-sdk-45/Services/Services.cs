@@ -76,6 +76,26 @@ namespace SW.Services
             _proxy = proxy;
             _proxyPort = proxyPort;
         }
+        /// <summary>
+        /// Autenticacion 'success' sin token se marca como error, conservando la respuesta de SW en messageDetail.
+        /// </summary>
+        private static Authentication.AuthResponse WithoutTokenAsError(Authentication.AuthResponse response)
+        {
+            if (response == null)
+                return response;
+            if (!string.IsNullOrEmpty(response.status) && response.status != ResponseType.success.ToString())
+                return response;
+            string original = string.IsNullOrEmpty(response.message) ? response.messageDetail
+                : string.IsNullOrEmpty(response.messageDetail) ? response.message : response.message + " | " + response.messageDetail;
+            return new Authentication.AuthResponse()
+            {
+                status = ResponseType.error.ToString(),
+                message = "La autenticacion respondio sin un token utilizable.",
+                messageDetail = original,
+                HttpStatusCode = response.HttpStatusCode,
+                HadEmptyBody = response.HadEmptyBody
+            };
+        }
         public Services SetupRequest()
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -83,11 +103,18 @@ namespace SW.Services
             {
                 Authentication.Authentication auth = new Authentication.Authentication(Url,User,Password, ProxyPort, Proxy);
                 var response = auth.GetToken();
-                if (response.status == ResponseType.success.ToString())
+                if (response == null || response.status != ResponseType.success.ToString()
+                    || response.data == null || string.IsNullOrEmpty(response.data.token)
+                    || response.data.token.Trim().Length == 0)
                 {
-                    _token = response.data.token;
-                    _expirationDate = DateTime.Now.AddHours(_timeSession);
+                    // Se propaga el fallo solo si hay usuario y contrasena.
+                    // Con solo token se conserva el comportamiento previo.
+                    if (string.IsNullOrEmpty(User) || string.IsNullOrEmpty(Password))
+                        return this;
+                    throw new AuthenticationResponseException(WithoutTokenAsError(response));
                 }
+                _token = response.data.token;
+                _expirationDate = DateTime.Now.AddHours(_timeSession);
             }
             return this;
         }

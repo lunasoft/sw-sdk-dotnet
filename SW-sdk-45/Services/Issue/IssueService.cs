@@ -24,7 +24,7 @@ namespace SW.Services.Issue
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
             Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
-            request.ContentLength = json.Length;
+            request.ContentLength = Encoding.UTF8.GetByteCount(json);
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
                 streamWriter.Write(json);
