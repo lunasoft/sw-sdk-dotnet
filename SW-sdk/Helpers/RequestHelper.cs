@@ -13,12 +13,23 @@ namespace SW.Helpers
 {
     internal class RequestHelper
     {
+        static RequestHelper()
+        {
+            // Evita que HttpWebRequest recorte cuerpos de error.
+            HttpWebRequest.DefaultMaximumErrorResponseLength = -1;
+        }
+        internal static void ApplyTransportPolicy(HttpWebRequest request)
+        {
+            // La respuesta 3xx se devuelve al consumidor.
+            request.AllowAutoRedirect = false;
+        }
         internal static string NormalizeBaseUrl(string url)
         {
             return !url.EndsWith("/") ? url + "/" : url;
         }
         internal static void SetupProxy(string proxy, int port, ref HttpWebRequest request)
         {
+            ApplyTransportPolicy(request);
             if (!string.IsNullOrEmpty(proxy))
             {
                 WebProxy myproxy = new WebProxy(proxy, port);

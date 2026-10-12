@@ -74,6 +74,7 @@
     <Compile Include="Helpers\Convertion\JsonHelper.cs" />
     <Compile Include="Helpers\Convertion\QrCode.cs" />
     <Compile Include="Helpers\DowloadFile.cs" />
+    <Compile Include="Helpers\HttpBodyReader.cs" />
     <Compile Include="Helpers\EnumAcceptReject.cs" />
     <Compile Include="Helpers\EnumAccountServices.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Services\Resend\ResendResponseHandler.cs" />
     <Compile Include="Services\Resend\ResendService.cs" />
     <Compile Include="Services\ResponseHandler.cs" />
+    <Compile Include="Services\ResponseInterpreter.cs" />
     <Compile Include="Services\Services.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\StampRetention\BaseStampRetention.cs" />

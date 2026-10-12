@@ -65,8 +65,8 @@ namespace SW.Services.Stamp
         public virtual ConcurrentDictionary<string, StampResponseV1> TimbrarV1(string[] xmls, bool isb64 = false)
         {
             StampResponseHandlerV1 handler = new StampResponseHandlerV1();
-            ConcurrentBag<string> request = new ConcurrentBag<string>(xmls);
             ConcurrentDictionary<string, StampResponseV1> response = new ConcurrentDictionary<string, StampResponseV1>();
+            HashSet<string> request = StampBatchRequests.GetDistinct(xmls, response);
 
             string format = isb64 ? "b64" : "";
             Parallel.ForEach(request, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, i =>
@@ -77,17 +77,17 @@ namespace SW.Services.Stamp
                     var headers = GetHeaders();
                     var content = GetMultipartContent(xmlBytes);
                     var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                    response.TryAdd(i, handler.GetPostResponse(this.Url,
+                    response[i] = handler.GetPostResponse(this.Url,
                                     string.Format("cfdi33/{0}/{1}/{2}",
                                     _operation,
                                     StampTypes.v1.ToString(),
-                                    format), headers, content, proxy));
+                                    format), headers, content, proxy);
 
 
                 }
                 catch (Exception ex)
                 {
-                    response.TryAdd(i, handler.HandleException(ex));
+                    response[i] = handler.HandleException(ex);
                 }
             });
             return response;
@@ -116,8 +116,8 @@ namespace SW.Services.Stamp
         public virtual ConcurrentDictionary<string, StampResponseV2> TimbrarV2(string[] xmls, bool isb64 = false)
         {
             StampResponseHandlerV2 handler = new StampResponseHandlerV2();
-            ConcurrentBag<string> request = new ConcurrentBag<string>(xmls);
             ConcurrentDictionary<string, StampResponseV2> response = new ConcurrentDictionary<string, StampResponseV2>();
+            HashSet<string> request = StampBatchRequests.GetDistinct(xmls, response);
 
             string format = isb64 ? "b64" : "";
             Parallel.ForEach(request, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, i =>
@@ -128,17 +128,17 @@ namespace SW.Services.Stamp
                     var headers = GetHeaders();
                     var content = GetMultipartContent(xmlBytes);
                     var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                    response.TryAdd(i, handler.GetPostResponse(this.Url,
+                    response[i] = handler.GetPostResponse(this.Url,
                                     string.Format("cfdi33/{0}/{1}/{2}",
                                     _operation,
                                     StampTypes.v2.ToString(),
-                                    format), headers, content, proxy));
+                                    format), headers, content, proxy);
 
 
                 }
                 catch (Exception ex)
                 {
-                    response.TryAdd(i, handler.HandleException(ex));
+                    response[i] = handler.HandleException(ex);
                 }
             });
             return response;
@@ -180,8 +180,8 @@ namespace SW.Services.Stamp
                                     _operation,
                                     StampTypes.v3.ToString(),
                                     format), headers, content, proxy);
-                if (response.message != null && (response.message.Equals("Se han producido uno o varios errores.")
-                    || response.message.Equals("One or more errors occurred.")) || response.status.Equals("500"))
+                if (response.HttpStatusCode == 0 && (response.message != null && (response.message.Equals("Se han producido uno o varios errores.")
+                    || response.message.Equals("One or more errors occurred.")) || "500".Equals(response.status)))
                 {
                     return RetryHelper.Retry<StampResponseV3>(() =>
                     {
@@ -211,8 +211,8 @@ namespace SW.Services.Stamp
         public virtual ConcurrentDictionary<string, StampResponseV3> TimbrarV3(string[] xmls, bool isb64 = false)
         {
             StampResponseHandlerV3 handler = new StampResponseHandlerV3();
-            ConcurrentBag<string> request = new ConcurrentBag<string>(xmls);
             ConcurrentDictionary<string, StampResponseV3> response = new ConcurrentDictionary<string, StampResponseV3>();
+            HashSet<string> request = StampBatchRequests.GetDistinct(xmls, response);
 
             string format = isb64 ? "b64" : "";
             Parallel.ForEach(request, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, i =>
@@ -223,17 +223,17 @@ namespace SW.Services.Stamp
                     var headers = GetHeaders();
                     var content = GetMultipartContent(xmlBytes);
                     var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                    response.TryAdd(i, handler.GetPostResponse(this.Url,
+                    response[i] = handler.GetPostResponse(this.Url,
                                     string.Format("cfdi33/{0}/{1}/{2}",
                                     _operation,
                                     StampTypes.v3.ToString(),
-                                    format), headers, content, proxy));
+                                    format), headers, content, proxy);
 
 
                 }
                 catch (Exception ex)
                 {
-                    response.TryAdd(i, handler.HandleException(ex));
+                    response[i] = handler.HandleException(ex);
                 }
             });
             return response;
@@ -262,8 +262,8 @@ namespace SW.Services.Stamp
         public virtual ConcurrentDictionary<string, StampResponseV4> TimbrarV4(string[] xmls, bool isb64 = false)
         {
             StampResponseHandlerV4 handler = new StampResponseHandlerV4();
-            ConcurrentBag<string> request = new ConcurrentBag<string>(xmls);
             ConcurrentDictionary<string, StampResponseV4> response = new ConcurrentDictionary<string, StampResponseV4>();
+            HashSet<string> request = StampBatchRequests.GetDistinct(xmls, response);
 
             string format = isb64 ? "b64" : "";
             Parallel.ForEach(request, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, i =>
@@ -274,20 +274,53 @@ namespace SW.Services.Stamp
                     var headers = GetHeaders();
                     var content = GetMultipartContent(xmlBytes);
                     var proxy = Helpers.RequestHelper.ProxySettings(this.Proxy, this.ProxyPort);
-                    response.TryAdd(i, handler.GetPostResponse(this.Url,
+                    response[i] = handler.GetPostResponse(this.Url,
                                     string.Format("cfdi33/{0}/{1}/{2}",
                                     _operation,
                                     StampTypes.v4.ToString(),
-                                    format), headers, content, proxy));
+                                    format), headers, content, proxy);
 
 
                 }
                 catch (Exception ex)
                 {
-                    response.TryAdd(i, handler.HandleException(ex));
+                    response[i] = handler.HandleException(ex);
                 }
             });
             return response;
+        }
+    }
+
+    internal static class StampBatchRequests
+    {
+        internal static HashSet<string> GetDistinct<T>(string[] xmls, ConcurrentDictionary<string, T> response)
+            where T : SW.Entities.Response, new()
+        {
+            // Deduplica: una respuesta por XML distinto.
+            HashSet<string> request = new HashSet<string>(xmls, StringComparer.Ordinal);
+            request.Remove(null);
+            for (int index = 0; index < xmls.Length; index++)
+            {
+                if (xmls[index] == null)
+                {
+                    // ConcurrentDictionary no admite null: la clave evita colisiones con los XML y otros errores del lote.
+                    string key = string.Format("[XML nulo en indice {0}]", index);
+                    while (request.Contains(key) || response.ContainsKey(key))
+                    {
+                        key += "#";
+                    }
+                    response[key] = new T
+                    {
+                        status = "error",
+                        message = string.Format("El XML de la entrada {0} es nulo.", index)
+                    };
+                }
+            }
+            if (request.Remove(string.Empty))
+            {
+                response[string.Empty] = new T { status = "error", message = "El XML no puede estar vacio." };
+            }
+            return request;
         }
     }
 }

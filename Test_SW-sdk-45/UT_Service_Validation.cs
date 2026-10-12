@@ -67,7 +67,10 @@ namespace Test_SW
             Stamp stamp = new Stamp(Build.Url + "/fakeurl", Build.User, Build.Password);
             string xml = Encoding.UTF8.GetString(File.ReadAllBytes("Resources/cfdi40.xml"));
             var response = (StampResponseV1)stamp.TimbrarV1(xml);
-            Assert.IsTrue(response.message.Contains("404"));
+            Assert.AreEqual(404, response.HttpStatusCode, "Debe recibirse el HTTP 404 del servidor, no un fallo de red.");
+            Assert.AreEqual("error", response.status);
+            Assert.IsFalse(string.IsNullOrEmpty(response.message), "El SDK debe devolver lo que respondio el servidor.");
+            Assert.AreNotEqual("OK", response.messageDetail);
         }      
         [TestMethod]
         public void UT_Service_Validation_45_STAMPV4_BIG_XML()

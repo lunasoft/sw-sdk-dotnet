@@ -11,62 +11,90 @@ namespace SW.Helpers
 {
 static internal class DowloadFile
     {
+        private const int MaxRawBodyLength = 20000;
+
         public static StampResponseV2 DowloadFileAsync(string url, HttpClientHandler proxy)
         {
             try
             {
+                // Esta descarga no envia Authorization aunque haya redireccion.
+                proxy.AllowAutoRedirect = true;
                 using (HttpClient client = new HttpClient(proxy))
                 {
-                    var result = client.GetAsync(url).Result;
-                    return  TryGetFile(result);
+                    using (var result = client.SendAsync(new HttpRequestMessage(HttpMethod.Get, url), HttpCompletionOption.ResponseHeadersRead).Result)
+                    {
+                        return TryGetFile(result);
+                    }
                 }
             }
-            catch (HttpRequestException wex)
+            catch (Exception wex)
             {
+                // Incluye URL invalida o relativa.
+                var root = HttpBodyReader.Unwrap(wex);
                 return new StampResponseV2()
                 {
-                    message = wex.Message,
+                    message = root.Message,
                     status = "error",
-                    messageDetail = wex.StackTrace
+                    messageDetail = Describe(root)
                 };
             }
-        } 
+        }
 
         internal static StampResponseV2 TryGetFile(HttpResponseMessage response)
         {
-            try
+            int code = (int)response.StatusCode;
+            Exception readError;
+            byte[] data = HttpBodyReader.ReadAll(response, out readError);
+            string charset = response.Content != null && response.Content.Headers.ContentType != null ? response.Content.Headers.ContentType.CharSet : null;
+            string body = HttpBodyReader.Decode(data, charset);
+            if (readError != null)
             {
-                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest)
-                {
-                    return new StampResponseV2
-                    {
-                        data = new Data_CFDI_TFD
-                        {   
-                            cfdi = response.Content.ReadAsStringAsync().Result,
-                            tfd = null
-                        },
-                        status = "error"
-                    };
-                }
-                else
-                {
-                    return new StampResponseV2()
-                    {
-                        message = ((int)response.StatusCode).ToString(),
-                        status = "error",
-                        messageDetail = response.ReasonPhrase
-                    };
-                }
-            }
-            catch (Exception)
-            {
+                // Lectura fallida o incompleta: se informa la causa y lo recibido.
                 return new StampResponseV2()
                 {
-                    message = ((int)response.StatusCode).ToString(),
+                    message = string.Format("No fue posible leer la descarga del XML (HTTP {0})", code),
                     status = "error",
-                    messageDetail = response.ReasonPhrase
+                    messageDetail = Describe(readError) + (string.IsNullOrEmpty(body) ? "" : " | Respuesta parcial recibida: " + Truncate(body))
                 };
             }
+            if (code == 200 || code == 400)
+            {
+                var result = new StampResponseV2
+                {
+                    data = new Data_CFDI_TFD
+                    {
+                        cfdi = body,
+                        tfd = null
+                    },
+                    status = "error"
+                };
+                if (code == 400)
+                {
+                    result.message = "No fue posible descargar el XML (HTTP 400)";
+                    result.messageDetail = Truncate(body);
+                }
+                return result;
+            }
+            // Se devuelve lo que respondio el servidor.
+            return new StampResponseV2()
+            {
+                message = string.Format("No fue posible descargar el XML (HTTP {0})", code),
+                status = "error",
+                messageDetail = string.IsNullOrEmpty(body) ? "El servidor respondio con un cuerpo vacio." : Truncate(body)
+            };
+        }
+        private static string Truncate(string value)
+        {
+            if (value == null || value.Length <= MaxRawBodyLength)
+                return value;
+            return value.Substring(0, MaxRawBodyLength) + "... [respuesta truncada]";
+        }
+        private static string Describe(Exception ex)
+        {
+            var parts = new System.Collections.Generic.List<string>();
+            for (var e = ex; e != null; e = e.InnerException)
+                parts.Add(e.Message);
+            return string.Join(" -> ", parts.ToArray());
         }
     }
 }

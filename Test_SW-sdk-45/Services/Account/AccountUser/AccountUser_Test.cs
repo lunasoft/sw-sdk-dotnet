@@ -6,6 +6,11 @@ using SW.Helpers;
 using Test_SW.Helpers;
 using System.Linq;
 using System.Collections.Generic;
+using System.Net;
+using System.Text;
+using System.Threading;
+using Newtonsoft.Json;
+using SW.Entities;
 
 namespace Test_SW.Services.AccountUser_Test
 {
@@ -315,6 +320,164 @@ namespace Test_SW.Services.AccountUser_Test
             AccountUser user = new AccountUser(build.UrlApi, build.Token);
             var response = user.DeleteUser(idUserFake);
             Assert.IsTrue(response.status == "error", response.messageDetail);
+        }
+
+        // Pruebas locales (sin red): respuesta de UpdateUser y DeleteUser.
+        private const string Token = "aaa.bbb.ccc";
+        private const string SwMessage = "Mensaje original SW";
+        private const string SwDetail = "Detalle original SW";
+        private static readonly Guid UserId = new Guid("11111111-1111-1111-1111-111111111111");
+
+        [TestMethod]
+        public void DeleteYUpdateUser_RespetaHttpYMensajesDeSW()
+        {
+            string swJson = JsonConvert.SerializeObject(new { status = "error", message = SwMessage, messageDetail = SwDetail });
+
+            // 204 sin cuerpo es exito al eliminar.
+            var response = Serve(ctx =>
+            {
+                ctx.Request.InputStream.Close();
+                ctx.Response.StatusCode = 204;
+                ctx.Response.Close();
+            }, prefix => new AccountUser(prefix, Token).DeleteUser(UserId));
+            AssertResponse(response, "success", "Usuario eliminado con exito", null);
+            Assert.AreEqual(204, response.HttpStatusCode);
+            Assert.IsTrue(response.HadEmptyBody);
+
+            // 404 sin cuerpo: se conserva el mensaje historico.
+            response = Serve(ctx => Reply(ctx, 404, ""), prefix => new AccountUser(prefix, Token).DeleteUser(UserId));
+            AssertResponse(response, "error", "error al cancelar", "El usuario no se encuentra o aun tiene timbres");
+            Assert.AreEqual(404, response.HttpStatusCode);
+
+            // 404 con JSON de SW: se devuelve lo que dijo SW.
+            response = Serve(ctx => Reply(ctx, 404, swJson), prefix => new AccountUser(prefix, Token).DeleteUser(UserId));
+            AssertResponse(response, "error", SwMessage, SwDetail);
+            Assert.AreEqual(404, response.HttpStatusCode);
+            Assert.IsFalse(response.HadEmptyBody);
+
+            // UpdateUser: 500 con JSON de SW, 500 sin cuerpo y status propio de SW en un 200.
+            response = Serve(ctx => Reply(ctx, 500, swJson), prefix => new AccountUser(prefix, Token).UpdateUser(UserId, "Nombre"));
+            AssertResponse(response, "error", SwMessage, SwDetail);
+            Assert.AreEqual(500, response.HttpStatusCode);
+
+            response = Serve(ctx => Reply(ctx, 500, ""), prefix => new AccountUser(prefix, Token).UpdateUser(UserId, "Nombre"));
+            AssertResponse(response, "error", "Error al Actualizar", "Error al generar la petición.");
+            Assert.AreEqual(500, response.HttpStatusCode);
+
+            response = Serve(ctx => Reply(ctx, 200, swJson.Replace("\"error\"", "\"400\"")),
+                prefix => new AccountUser(prefix, Token).UpdateUser(UserId, "Nombre"));
+            AssertResponse(response, "400", SwMessage, SwDetail);
+        }
+
+        private static void AssertResponse(Response response, string status, string message, string detail)
+        {
+            Assert.IsNotNull(response);
+            Assert.AreEqual(status, response.status);
+            Assert.AreEqual(message, response.message);
+            Assert.AreEqual(detail, response.messageDetail);
+        }
+
+        private delegate void ServerBehavior(HttpListenerContext context);
+
+        private static T Serve<T>(ServerBehavior behavior, Func<string, T> call)
+        {
+            int hits;
+            T response = ServeMany(2, behavior, call, out hits);
+            Assert.AreEqual(1, hits);
+            return response;
+        }
+
+        // Mantener el listener abierto hasta terminar la llamada permite contar tambien peticiones sobrantes.
+        private static T ServeMany<T>(int maxRequests, ServerBehavior behavior, Func<string, T> call, out int hits)
+        {
+            HttpListener listener = null;
+            string prefix = null;
+            for (int attempt = 0; attempt < 5 && listener == null; attempt++)
+            {
+                prefix = "http://localhost:" + GetFreePort() + "/";
+                HttpListener candidate = new HttpListener();
+                candidate.Prefixes.Add(prefix);
+                try
+                {
+                    candidate.Start();
+                    listener = candidate;
+                }
+                catch (HttpListenerException)
+                {
+                    candidate.Close();
+                }
+            }
+            Assert.IsNotNull(listener, "No fue posible reservar un puerto local.");
+            int served = 0;
+            Exception serverError = null;
+            Thread server = new Thread(() =>
+            {
+                while (served < maxRequests)
+                {
+                    HttpListenerContext context;
+                    try
+                    {
+                        context = listener.GetContext();
+                    }
+                    catch (HttpListenerException)
+                    {
+                        return;
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        return;
+                    }
+                    try
+                    {
+                        served++;
+                        behavior(context);
+                    }
+                    catch (Exception ex)
+                    {
+                        serverError = ex;
+                        context.Response.Abort();
+                        return;
+                    }
+                }
+            });
+            server.IsBackground = true;
+            server.Start();
+            T result;
+            bool stopped;
+            try
+            {
+                result = call(prefix);
+            }
+            finally
+            {
+                listener.Close();
+                stopped = server.Join(5000);
+            }
+            hits = served;
+            Assert.IsTrue(stopped, "El servidor local no termino.");
+            Assert.IsTrue(served >= 1, "La peticion nunca llego al servidor local.");
+            Assert.IsNull(serverError, "El servidor local fallo: " + serverError);
+            return result;
+        }
+
+        private static int GetFreePort()
+        {
+            var listener = new System.Net.Sockets.TcpListener(IPAddress.Loopback, 0);
+            listener.Start();
+            int port = ((IPEndPoint)listener.LocalEndpoint).Port;
+            listener.Stop();
+            return port;
+        }
+
+        private static void Reply(HttpListenerContext context, int code, string body)
+        {
+            context.Request.InputStream.Close();
+            byte[] bytes = Encoding.UTF8.GetBytes(body);
+            context.Response.StatusCode = code;
+            context.Response.ContentType = "application/json; charset=utf-8";
+            context.Response.ContentLength64 = bytes.Length;
+            context.Response.OutputStream.Write(bytes, 0, bytes.Length);
+            context.Response.Close();
         }
     }
 }

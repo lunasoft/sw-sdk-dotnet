@@ -35,12 +35,11 @@ namespace SW.Services.Relations
                 rfc = rfc,
                 uuid = uuid
             });
-            request.ContentLength = body.Length;
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            byte[] bodyBytes = Encoding.UTF8.GetBytes(body);
+            request.ContentLength = bodyBytes.Length;
+            using (var requestStream = request.GetRequestStream())
             {
-                streamWriter.Write(body);
-                streamWriter.Flush();
-                streamWriter.Close();
+                requestStream.Write(bodyBytes, 0, bodyBytes.Length);
             }
             return request;
         }
@@ -52,8 +51,8 @@ namespace SW.Services.Relations
             request.Method = WebRequestMethods.Http.Post;
             request.Headers.Add(HttpRequestHeader.Authorization.ToString(), "bearer " + this.Token);
             request.ContentLength = 0;
-            Helpers.RequestHelper.AddFileToRequest(xmlCancelation, ref request);
             Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
+            Helpers.RequestHelper.AddFileToRequest(xmlCancelation, ref request);
             return request;
         }
         internal virtual HttpWebRequest RequestRelations(string pfx, string rfc, string password, string uuid)
@@ -71,12 +70,11 @@ namespace SW.Services.Relations
                 rfc = rfc,
                 uuid = uuid
             });
-            request.ContentLength = body.Length;
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            byte[] bodyBytes = Encoding.UTF8.GetBytes(body);
+            request.ContentLength = bodyBytes.Length;
+            using (var requestStream = request.GetRequestStream())
             {
-                streamWriter.Write(body);
-                streamWriter.Flush();
-                streamWriter.Close();
+                requestStream.Write(bodyBytes, 0, bodyBytes.Length);
             }
             return request;
         }

@@ -34,18 +34,19 @@ namespace SW.Services
                 {
                     client.BaseAddress = new Uri(url);
 
-                    var result = client.PostAsync(path, content).Result;
-
-                    return TryGetResponse(result);
+                    using (var result = Send(client, HttpMethod.Post, path, content))
+                    {
+                        return TryGetResponse(result);
+                    }
                 }
             }
-            catch (HttpRequestException wex)
+            catch (Exception wex) when (IsTransportError(wex))
             {
                 return new T()
                 {
-                    message = wex.Message,
+                    message = Unwrap(wex).Message,
                     status = "error",
-                    messageDetail = wex.StackTrace
+                    messageDetail = Describe(Unwrap(wex))
                 };
             }
         }
@@ -69,8 +70,10 @@ namespace SW.Services
                         if (header.Value != null)
                             client.DefaultRequestHeaders.Add(header.Key, header.Value);
                     }
-                    var result = client.PostAsync(path, content).Result;
-                    return TryGetResponse(result);
+                    using (var result = Send(client, HttpMethod.Post, path, content))
+                    {
+                        return TryGetResponse(result);
+                    }
                 }
             }
             catch (AggregateException aggEx)
@@ -88,7 +91,12 @@ namespace SW.Services
                         };
                     }
                 }
-                throw;
+                return new T()
+                {
+                    message = Unwrap(aggEx).Message,
+                    status = "error",
+                    messageDetail = Describe(Unwrap(aggEx))
+                };
             }
             //Captura directa de timeout (cuando no está dentro de AggregateException)
             catch (TaskCanceledException tex)
@@ -100,13 +108,13 @@ namespace SW.Services
                     messageDetail = tex.StackTrace
                 };
             }
-            catch (HttpRequestException wex)
+            catch (Exception wex) when (IsTransportError(wex))
             {
                 return new T()
                 {
-                    message = wex.Message,
+                    message = Unwrap(wex).Message,
                     status = "error",
-                    messageDetail = wex.StackTrace
+                    messageDetail = Describe(Unwrap(wex))
                 };
             }
         }
@@ -127,17 +135,19 @@ namespace SW.Services
                         client.DefaultRequestHeaders.Add(header.Key, header.Value);
                     }
                     client.BaseAddress = new Uri(url);
-                    var result = client.PostAsync(path, null).Result;
-                    return TryGetResponse(result);
+                    using (var result = Send(client, HttpMethod.Post, path, null))
+                    {
+                        return TryGetResponse(result);
+                    }
                 }
             }
-            catch (HttpRequestException wex)
+            catch (Exception wex) when (IsTransportError(wex))
             {
                 return new T()
                 {
-                    message = wex.Message,
+                    message = Unwrap(wex).Message,
                     status = "error",
-                    messageDetail = wex.StackTrace
+                    messageDetail = Describe(Unwrap(wex))
                 };
             }
         }
@@ -159,17 +169,19 @@ namespace SW.Services
                         client.DefaultRequestHeaders.Add(header.Key, header.Value);
                     }
                     client.BaseAddress = new Uri(url);
-                    var result = client.DeleteAsync(path).Result;
-                    return TryGetResponse(result);
+                    using (var result = Send(client, HttpMethod.Delete, path, null))
+                    {
+                        return TryGetResponse(result);
+                    }
                 }
             }
-            catch (HttpRequestException wex)
+            catch (Exception wex) when (IsTransportError(wex))
             {
                 return new T()
                 {
-                    message = wex.Message,
+                    message = Unwrap(wex).Message,
                     status = "error",
-                    messageDetail = wex.StackTrace
+                    messageDetail = Describe(Unwrap(wex))
                 };
             }
         }
@@ -200,40 +212,17 @@ namespace SW.Services
                         messageDetail = wex.Message
                     };
                 }
-                var response = (HttpWebResponse)wex.Response;
-                return TryGetResponseRequest(response);
+                using (var response = (HttpWebResponse)wex.Response)
+                {
+                    return TryGetResponseRequest(response);
+                }
             }
         }
         private T TryGetResponseRequest(HttpWebResponse response)
         {
-            try
-            {
-                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest)
-                {
-                    using (var responseStream = response.GetResponseStream())
-                    using (StreamReader reader = new StreamReader(responseStream))
-                    {
-                        string responseFromServer = reader.ReadToEnd();
-                        return DeserializeResponse(responseFromServer);
-                    }
-                }
-                else
-                    return new T()
-                    {
-                        message = ((int)response.StatusCode).ToString(),
-                        status = "error",
-                        messageDetail = response.StatusDescription
-                    };
-            }
-            catch (Exception)
-            {
-                return new T()
-                {
-                    message = ((int)response.StatusCode).ToString(),
-                    status = "error",
-                    messageDetail = response.StatusDescription
-                };
-            }
+            Exception readError;
+            byte[] data = HttpBodyReader.ReadAll(response, out readError);
+            return ResponseInterpreter.Interpret<T>((int)response.StatusCode, response.StatusDescription, HttpBodyReader.Decode(data, HttpBodyReader.ExplicitCharset(response.ContentType)), readError);
         }
 
         public virtual T GetResponse(string url, Dictionary<string, string> headers, string path, HttpClientHandler proxy)
@@ -247,56 +236,58 @@ namespace SW.Services
                         client.DefaultRequestHeaders.Add(header.Key, header.Value);
                     }
                     client.BaseAddress = new Uri(url);
-                    var result = client.GetAsync(path).Result;
-                    return TryGetResponse(result);
+                    using (var result = Send(client, HttpMethod.Get, path, null))
+                    {
+                        return TryGetResponse(result);
+                    }
                 }
             }
-            catch (HttpRequestException wex)
+            catch (Exception wex) when (IsTransportError(wex))
             {
                 return new T()
                 {
-                    message = wex.Message,
+                    message = Unwrap(wex).Message,
                     status = "error",
-                    messageDetail = wex.StackTrace
+                    messageDetail = Describe(Unwrap(wex))
                 };
             }
         }
         public abstract T HandleException(Exception ex);
+        /// <summary>
+        /// Envia la peticion leyendo solo los encabezados; el cuerpo se lee despues conservando el codigo HTTP.
+        /// </summary>
+        private static HttpResponseMessage Send(HttpClient client, HttpMethod method, string path, HttpContent content)
+        {
+            var request = new HttpRequestMessage(method, path);
+            if (content != null)
+                request.Content = content;
+            return client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).Result;
+        }
         internal virtual T TryGetResponse(HttpResponseMessage response)
         {
-            try
-            {
-                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest || response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    var stringResult = response.Content.ReadAsStringAsync().Result;
-                    return DeserializeResponse(stringResult);
-                }
-                else
-                    return new T()
-                    {
-                        message = ((int)response.StatusCode).ToString(),
-                        status = "error",
-                        messageDetail = response.ReasonPhrase
-                    };
-            }
-            catch (Exception)
-            {
-                return new T()
-                {
-                    message = ((int)response.StatusCode).ToString(),
-                    status = "error",
-                    messageDetail = response.ReasonPhrase
-                };
-            }
+            Exception readError;
+            byte[] data = HttpBodyReader.ReadAll(response, out readError);
+            string charset = response.Content.Headers.ContentType != null ? response.Content.Headers.ContentType.CharSet : null;
+            return ResponseInterpreter.Interpret<T>((int)response.StatusCode, response.ReasonPhrase, HttpBodyReader.Decode(data, charset), readError);
         }
-        private T DeserializeResponse(string responseFromServer)
+        private static bool IsTransportError(Exception ex)
         {
-            var settings = new Newtonsoft.Json.JsonSerializerSettings();
-            settings.Error = (sender, args) =>
-            {
-                args.ErrorContext.Handled = true;
-            };
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseFromServer, settings);
+            return ex is HttpRequestException || ex is AggregateException;
+        }
+        private static string Describe(Exception ex)
+        {
+            var parts = new System.Collections.Generic.List<string>();
+            for (var e = ex; e != null; e = e.InnerException)
+                parts.Add(e.Message);
+            return string.Join(" -> ", parts.ToArray());
+        }
+        private static Exception Unwrap(Exception ex)
+        {
+            var agg = ex as AggregateException;
+            if (agg == null)
+                return ex;
+            var flat = agg.Flatten();
+            return flat.InnerExceptions.Count > 0 ? flat.InnerExceptions[0] : ex;
         }
         internal virtual string GetCfdiData(Response response, string cfdi, bool isb64)
         {
