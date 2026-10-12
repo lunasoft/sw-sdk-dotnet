@@ -7,6 +7,10 @@ using SW.Services.Issue;
 using SW.Services.Pdf;
 using SW.Services.Stamp;
 using Test_SW.Helpers;
+using System.Net;
+using System.Threading;
+using Newtonsoft.Json;
+using SW.Entities;
 
 namespace Pdf_Test.Services.Pdf_Tests
 {
@@ -194,6 +198,152 @@ namespace Pdf_Test.Services.Pdf_Tests
             Pdf regeneratePdf = new Pdf(build.UrlApi, build.Url, build.User, build.Password);
             var response = regeneratePdf.RegenerarPdf(new Guid("21348cb0-a94a-466c-a8e0-abef7f35a71b"), build.Logo);
             Assert.IsTrue(response.status == "error");
+        }
+
+        // Pruebas locales (sin red): respuesta de RegenerarPdf.
+        private const string Token = "aaa.bbb.ccc";
+        private const string SwDetail = "Detalle original SW";
+        private const string PdfMessage = "Solicitud se proceso correctamente.";
+        private static readonly Guid UserId = new Guid("11111111-1111-1111-1111-111111111111");
+
+        [TestMethod]
+        public void RegenerarPdf_RespetaElStatusDeSW()
+        {
+            // SW dice error aunque el mensaje parezca de exito: gana el status de SW.
+            foreach (int code in new[] { 200, 400 })
+            {
+                var response = Serve(ctx => Reply(ctx, code, JsonConvert.SerializeObject(new
+                {
+                    status = "error", message = PdfMessage, messageDetail = SwDetail
+                })), prefix => new Pdf(prefix, Token).RegenerarPdf(UserId));
+                AssertResponse(response, "error", PdfMessage, SwDetail);
+            }
+            // 2xx sin status: se normaliza a exito.
+            foreach (string status in new string[] { null, "" })
+            {
+                var response = Serve(ctx => Reply(ctx, 200, JsonConvert.SerializeObject(new
+                {
+                    status, message = PdfMessage, messageDetail = SwDetail
+                })), prefix => new Pdf(prefix, Token).RegenerarPdf(UserId));
+                AssertResponse(response, "success", PdfMessage, SwDetail);
+            }
+            // Sin status en un error HTTP: no se normaliza a exito.
+            var failed = Serve(ctx => Reply(ctx, 500, JsonConvert.SerializeObject(new
+            {
+                message = PdfMessage, messageDetail = SwDetail
+            })), prefix => new Pdf(prefix, Token).RegenerarPdf(UserId));
+            AssertResponse(failed, "error", PdfMessage, SwDetail);
+        }
+
+        private static void AssertResponse(Response response, string status, string message, string detail)
+        {
+            Assert.IsNotNull(response);
+            Assert.AreEqual(status, response.status);
+            Assert.AreEqual(message, response.message);
+            Assert.AreEqual(detail, response.messageDetail);
+        }
+
+        private delegate void ServerBehavior(HttpListenerContext context);
+
+        private static T Serve<T>(ServerBehavior behavior, Func<string, T> call)
+        {
+            int hits;
+            T response = ServeMany(2, behavior, call, out hits);
+            Assert.AreEqual(1, hits);
+            return response;
+        }
+
+        // Mantener el listener abierto hasta terminar la llamada permite contar tambien peticiones sobrantes.
+        private static T ServeMany<T>(int maxRequests, ServerBehavior behavior, Func<string, T> call, out int hits)
+        {
+            HttpListener listener = null;
+            string prefix = null;
+            for (int attempt = 0; attempt < 5 && listener == null; attempt++)
+            {
+                prefix = "http://localhost:" + GetFreePort() + "/";
+                HttpListener candidate = new HttpListener();
+                candidate.Prefixes.Add(prefix);
+                try
+                {
+                    candidate.Start();
+                    listener = candidate;
+                }
+                catch (HttpListenerException)
+                {
+                    candidate.Close();
+                }
+            }
+            Assert.IsNotNull(listener, "No fue posible reservar un puerto local.");
+            int served = 0;
+            Exception serverError = null;
+            Thread server = new Thread(() =>
+            {
+                while (served < maxRequests)
+                {
+                    HttpListenerContext context;
+                    try
+                    {
+                        context = listener.GetContext();
+                    }
+                    catch (HttpListenerException)
+                    {
+                        return;
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        return;
+                    }
+                    try
+                    {
+                        served++;
+                        behavior(context);
+                    }
+                    catch (Exception ex)
+                    {
+                        serverError = ex;
+                        context.Response.Abort();
+                        return;
+                    }
+                }
+            });
+            server.IsBackground = true;
+            server.Start();
+            T result;
+            bool stopped;
+            try
+            {
+                result = call(prefix);
+            }
+            finally
+            {
+                listener.Close();
+                stopped = server.Join(5000);
+            }
+            hits = served;
+            Assert.IsTrue(stopped, "El servidor local no termino.");
+            Assert.IsTrue(served >= 1, "La peticion nunca llego al servidor local.");
+            Assert.IsNull(serverError, "El servidor local fallo: " + serverError);
+            return result;
+        }
+
+        private static int GetFreePort()
+        {
+            var listener = new System.Net.Sockets.TcpListener(IPAddress.Loopback, 0);
+            listener.Start();
+            int port = ((IPEndPoint)listener.LocalEndpoint).Port;
+            listener.Stop();
+            return port;
+        }
+
+        private static void Reply(HttpListenerContext context, int code, string body)
+        {
+            context.Request.InputStream.Close();
+            byte[] bytes = Encoding.UTF8.GetBytes(body);
+            context.Response.StatusCode = code;
+            context.Response.ContentType = "application/json; charset=utf-8";
+            context.Response.ContentLength64 = bytes.Length;
+            context.Response.OutputStream.Write(bytes, 0, bytes.Length);
+            context.Response.Close();
         }
     }
 }

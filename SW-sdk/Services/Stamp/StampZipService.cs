@@ -25,7 +25,6 @@ namespace SW.Services.Stamp
         internal virtual HttpWebRequest RequestStampingZip(byte[] zipBytes, string operation)
         {
             this.SetupRequest();
-            HttpWebRequest.DefaultMaximumErrorResponseLength = (zipBytes.Length > 1000000 ? 1000000 : zipBytes.Length + 1) * 2;
             var request = (HttpWebRequest)WebRequest.Create(this.Url + string.Format("cfdi/{0}/v1/zip", operation));
             Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
             request.ProtocolVersion = HttpVersion.Version10;

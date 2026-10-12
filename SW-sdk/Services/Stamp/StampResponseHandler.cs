@@ -33,8 +33,9 @@ namespace SW.Services.Stamp
                 catch (Exception ex)
                 {
                     // El timbrado ya se realizo: se conserva el TFD y se informa que no fue posible generar la cadena.
-                    response.message = "Timbrado exitoso, pero no fue posible generar la cadena original: " + ex.Message;
-                    response.messageDetail = ex.GetErrorDetail();
+                    string warning = "No fue posible generar la cadena original: " + ex.Message;
+                    response.messageDetail = string.IsNullOrEmpty(response.messageDetail)
+                        ? warning : response.messageDetail + " | " + warning;
                 }
             }
             return response;

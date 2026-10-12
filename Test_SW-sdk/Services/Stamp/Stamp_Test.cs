@@ -170,12 +170,14 @@ namespace Test_SW.Services.Stamp_Test
         [TestMethod]
         public void ValidateServerError()
         {
-            var resultExpect = "404";
             var build = new BuildSettings();
             Stamp stamp = new Stamp(build.Url + "/ot", build.Token);
             var xml = File.ReadAllText("Resources/Cfdi40.xml");
             var response = stamp.TimbrarV1(xml);
-            Assert.AreEqual(response.message, (string)resultExpect, (string)resultExpect);
+            Assert.AreEqual(404, response.HttpStatusCode, "Debe recibirse el HTTP 404 del servidor, no un fallo de red.");
+            Assert.AreEqual("error", response.status);
+            Assert.IsFalse(string.IsNullOrEmpty(response.message), "El SDK debe devolver lo que respondio el servidor.");
+            Assert.AreNotEqual("OK", response.messageDetail);
         }
         [TestMethod]
         public void ValidateFormatToken()

@@ -103,7 +103,10 @@ namespace SW.Services.Pdf
                 var request = this.RequestRegeneratePdf(uuid, logo, templateId, extras);
                 var response = handler.GetResponse(request);
 
-                if (response.message == "Solicitud se proceso correctamente.")
+                // Sin status: inferir exito solo con HTTP 2xx.
+                // Un status enviado por SW se conserva siempre.
+                if (string.IsNullOrEmpty(response.status) && response.HttpStatusCode >= 200 && response.HttpStatusCode < 300
+                    && response.message == "Solicitud se proceso correctamente.")
                 {
                     response.status = "success";
                 }

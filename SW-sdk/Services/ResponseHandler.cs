@@ -34,51 +34,27 @@ namespace SW.Services
                         messageDetail = wex.Message
                     };
                 }
-                var response = (HttpWebResponse)wex.Response;
-                return TryGetResponse(response);
+                using (var response = (HttpWebResponse)wex.Response)
+                {
+                    return TryGetResponse(response);
+                }
             }
         }
         public abstract T HandleException(Exception ex);
+        /// <summary>
+        /// Devuelve lo que respondio el servicio; si no se puede leer o interpretar, informa la causa y el cuerpo recibido.
+        /// </summary>
         private T TryGetResponse(HttpWebResponse response)
         {
-            try
-            {
-                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest || response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    using (var responseStream = response.GetResponseStream())
-                    using (StreamReader reader = new StreamReader(responseStream))
-                    {
-                        string responseFromServer = reader.ReadToEnd();
-                        return DeserializeResponse(responseFromServer);
-                    }
-                }
-                else
-                    return new T()
-                    {
-                        message = ((int)response.StatusCode).ToString(),
-                        status = "error",
-                        messageDetail = response.StatusDescription
-                    };
-            }
-            catch (Exception)
-            {
-                return new T()
-                {
-                    message = ((int)response.StatusCode).ToString(),
-                    status = "error",
-                    messageDetail = response.StatusDescription
-                };
-            }
+            int code = (int)response.StatusCode;
+            Exception readError;
+            string body = ReadBody(response, out readError);
+            return ResponseInterpreter.Interpret<T>(code, response.StatusDescription, body, readError);
         }
-        private T DeserializeResponse(string responseFromServer)
+        private static string ReadBody(HttpWebResponse response, out Exception error)
         {
-            var settings = new Newtonsoft.Json.JsonSerializerSettings();
-            settings.Error = (sender, args) =>
-            {
-                args.ErrorContext.Handled = true;
-            };
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseFromServer, settings);
+            byte[] data = SW.Helpers.HttpBodyReader.ReadAll(response, out error);
+            return SW.Helpers.HttpBodyReader.Decode(data, SW.Helpers.HttpBodyReader.ExplicitCharset(response.ContentType));
         }
-
     }
 }

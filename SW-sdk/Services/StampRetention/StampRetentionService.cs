@@ -20,7 +20,6 @@ namespace SW.Services.StampRetention
         internal virtual HttpWebRequest RequestStamping(byte[] xml, string version, string format, string operation, string email = null, string customId = null)
         {
             this.SetupRequest();
-            HttpWebRequest.DefaultMaximumErrorResponseLength = (xml.Length > 1000000 ? 1000000 : xml.Length + 1) * 2;
             var request = (HttpWebRequest)WebRequest.Create(this.Url + string.Format("retencion/{0}/{1}/{2}", operation, version, format));
             Helpers.RequestHelper.SetupProxy(this.Proxy, this.ProxyPort, ref request);
             request.ProtocolVersion = HttpVersion.Version10;

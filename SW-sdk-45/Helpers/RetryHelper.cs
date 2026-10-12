@@ -17,7 +17,9 @@ namespace SW.Helpers
                     lastResponse = action();
                     var responseStatus = lastResponse.GetType().GetProperty("status")?.GetValue(lastResponse, null)?.ToString();
 
-                    if (responseStatus == "500")
+                    // Solo el timeout interno reintenta; un "500" de SW se devuelve tal cual.
+                    var httpStatus = (lastResponse as SW.Entities.Response)?.HttpStatusCode ?? 0;
+                    if (responseStatus == "500" && httpStatus == 0)
                     {
                         //Si es un error 500 timeout, hacer el reintento
                         numRetries = numRetries + 1 / maxRetries;
